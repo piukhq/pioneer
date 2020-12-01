@@ -333,7 +333,10 @@ module.exports = function (webpackEnv) {
         ...(modules.webpackAliases || {}),
 
         // project aliases
+        'api': path.join(__dirname, '../src/api'),
         'components': path.join(__dirname, '../src/components'),
+        'ducks': path.join(__dirname, '../src/ducks'),
+        'routes': path.join(__dirname, '../src/routes'),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
