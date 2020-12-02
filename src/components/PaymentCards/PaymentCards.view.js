@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const PaymentCards = ({ paymentCards, getPaymentCards }) => {
+const PaymentCardsView = ({ paymentCards, getPaymentCards }) => {
   useEffect(() => {
     getPaymentCards()
   }, [getPaymentCards])
@@ -14,4 +14,4 @@ const PaymentCards = ({ paymentCards, getPaymentCards }) => {
   )
 }
 
-export default PaymentCards
+export default PaymentCardsView

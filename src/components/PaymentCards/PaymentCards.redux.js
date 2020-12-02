@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
-import PaymentCards from './PaymentCards'
+import PaymentCardsView from './PaymentCards.view'
 
 const mapStateToProps = state => ({
   paymentCards: state.paymentCards.cards,
@@ -14,4 +14,4 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 )
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentCards)
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentCardsView)

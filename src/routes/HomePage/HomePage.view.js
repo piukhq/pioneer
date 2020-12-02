@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const HomePage = ({ api_key, login }) => {
+const HomePageView = ({ api_key, login }) => {
   return (
     <div>
       <h1>Bink web home page</h1>
@@ -14,4 +14,4 @@ const HomePage = ({ api_key, login }) => {
   )
 }
 
-export default HomePage
+export default HomePageView

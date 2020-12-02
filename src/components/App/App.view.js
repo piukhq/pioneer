@@ -7,7 +7,7 @@ import {
 import HomePage from 'routes/HomePage'
 import PaymentCardsPage from 'routes/PaymentCardsPage'
 
-function App () {
+function AppView () {
   return (
     <div className="bink-app">
       <Router>
@@ -24,4 +24,4 @@ function App () {
   )
 }
 
-export default App
+export default AppView

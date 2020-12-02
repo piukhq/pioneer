@@ -1,8 +1,8 @@
 import React from 'react'
 import PaymentCards from 'components/PaymentCards'
 
-const PaymentCardsPage = () => (
+const PaymentCardsPageView = () => (
   <PaymentCards />
 )
 
-export default PaymentCardsPage
+export default PaymentCardsPageView
