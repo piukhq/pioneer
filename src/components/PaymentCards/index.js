@@ -1,1 +1,1 @@
-export { default } from './PaymentCards.redux';
+export { default } from './PaymentCards.redux'

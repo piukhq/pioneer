@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const HomePage = ({ api_key, login }) => {
   return (
@@ -9,9 +9,9 @@ const HomePage = ({ api_key, login }) => {
         <Link to='/payment-cards'>View my payment cards</Link>
       ) : (
         <button onClick={ () => login('bink_web_user_1@bink.com', 'BinkWeb01') }>Login</button>
-      ) }
+      )}
     </div>
-  );
+  )
 }
 
-export default HomePage;
+export default HomePage

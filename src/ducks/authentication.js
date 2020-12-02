@@ -1,4 +1,4 @@
-import { login } from 'api/authentication';
+import { login } from 'api/authentication'
 
 const types = {
   LOGIN_REQUEST: 'authentication/LOGIN_REQUEST',
@@ -39,16 +39,16 @@ const reducer = (state = initialState, action) => {
       return state
   }
 }
-export default reducer;
+export default reducer
 
 export const actions = {
   login: (username, password) => async dispatch => {
     dispatch({ type: types.LOGIN_REQUEST })
     try {
-      const {data: {api_key}} = await login(username, password)
+      const { data: { api_key } } = await login(username, password)
       dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key } })
-    } catch(e) {
+    } catch (e) {
       dispatch({ type: types.LOGIN_FAILURE })
     }
-  }
+  },
 }

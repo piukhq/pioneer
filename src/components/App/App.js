@@ -1,27 +1,27 @@
-import React from 'react';
+import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from 'react-router-dom';
-import HomePage from 'routes/HomePage';
-import PaymentCardsPage from 'routes/PaymentCardsPage';
+} from 'react-router-dom'
+import HomePage from 'routes/HomePage'
+import PaymentCardsPage from 'routes/PaymentCardsPage'
 
-function App() {
+function App () {
   return (
-    <div className='bink-app'>
+    <div className="bink-app">
       <Router>
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path='/payment-cards'>
+          <Route path="/payment-cards">
             <PaymentCardsPage />
           </Route>
         </Switch>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

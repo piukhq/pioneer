@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 
 const PaymentCards = ({ paymentCards, getPaymentCards }) => {
   useEffect(() => {
-    getPaymentCards();
-  }, [getPaymentCards]);
+    getPaymentCards()
+  }, [getPaymentCards])
 
   return (
     <div>
@@ -14,4 +14,4 @@ const PaymentCards = ({ paymentCards, getPaymentCards }) => {
   )
 }
 
-export default PaymentCards;
+export default PaymentCards
