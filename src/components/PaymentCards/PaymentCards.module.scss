@@ -1,0 +1,23 @@
+.payment-cards {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 5px solid white;
+  border-left: 5px solid white;
+
+  &__card {
+    $items-per-row: 1;
+    width: ( 100% / $items-per-row );
+    font-size: (8vw / $items-per-row);
+
+    border-bottom: 5px solid white;
+    border-right: 5px solid white;
+  }
+
+  @media ( min-width: 600px ) {
+    &__card {
+      $items-per-row: 4;
+      width: ( 100% / $items-per-row );
+      font-size: (8vw / $items-per-row);
+    }
+  }
+}

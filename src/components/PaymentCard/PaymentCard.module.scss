@@ -1,0 +1,53 @@
+.payment-card {
+  box-sizing: border-box;
+
+  &__ratio-wrapper-1 {
+    position: relative;
+    padding-bottom: 53.9 / 85.5 * 100%;
+  }
+
+  &__ratio-wrapper-2 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &__name {
+    position: absolute;
+    bottom: 15%;
+    left: 10px;
+    font-size: 0.85em;
+  }
+
+  &__number {
+    position: absolute;
+    bottom: 40%;
+    left: 10px;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  &__provider {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  &--provider {
+    &-visa {
+      background-color: #132581;
+      color: white;
+    }
+    &-mastercard {
+      background-color: #f25a1b;
+      color: white;
+    }
+
+    &-amex {
+      background-color: #44b1f4;
+      color: white;
+    }
+  }
+}
