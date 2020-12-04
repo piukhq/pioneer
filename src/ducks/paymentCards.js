@@ -1,6 +1,6 @@
 import { getPaymentCards } from 'api/paymentCards'
 
-const types = {
+export const types = {
   PAYMENT_CARDS_REQUEST: 'paymentCards/PAYMENT_CARDS_REQUEST',
   PAYMENT_CARDS_SUCCESS: 'paymentCards/PAYMENT_CARDS_SUCCESS',
   PAYMENT_CARDS_FAILURE: 'paymentCards/PAYMENT_CARDS_FAILURE',
@@ -49,10 +49,8 @@ export const actions = {
     try {
       const response = await getPaymentCards(getState().authentication.api_key)
       dispatch(actions.getPaymentCardsSuccess(response.data))
-      console.log(response.data)
     } catch (e) {
       dispatch(actions.getPaymentCardsFailure())
-      console.error(e)
     }
   },
 }
