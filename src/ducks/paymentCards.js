@@ -41,14 +41,17 @@ const reducer = (state = initialState, action) => {
 export default reducer
 
 export const actions = {
+  getPaymentCardsRequest: () => ({ type: types.PAYMENT_CARDS_REQUEST }),
+  getPaymentCardsFailure: () => ({ type: types.PAYMENT_CARDS_FAILURE }),
+  getPaymentCardsSuccess: (payload) => ({ type: types.PAYMENT_CARDS_SUCCESS, payload }),
   getPaymentCards: () => async (dispatch, getState) => {
-    dispatch({ type: types.PAYMENT_CARDS_REQUEST })
+    dispatch(actions.getPaymentCardsRequest())
     try {
       const response = await getPaymentCards(getState().authentication.api_key)
-      dispatch({ type: types.PAYMENT_CARDS_SUCCESS, payload: response.data })
+      dispatch(actions.getPaymentCardsSuccess(response.data))
       console.log(response.data)
     } catch (e) {
-      dispatch({ type: types.PAYMENT_CARDS_FAILURE })
+      dispatch(actions.getPaymentCardsFailure())
       console.error(e)
     }
   },
