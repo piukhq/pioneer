@@ -1,1 +1,1 @@
-export { default } from './PaymentCardsPage'
+export { default } from './PaymentCardsPage.view'
