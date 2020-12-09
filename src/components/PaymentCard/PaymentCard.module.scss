@@ -38,6 +38,10 @@
     vertical-align: middle;
   }
 
+  background: $generic-gradient-fallback;
+  background: linear-gradient(to right, $generic-gradient-left, $generic-gradient-right);
+  color: white;
+
   &--provider {
     &-visa {
       background: $visa-background-fallback;
