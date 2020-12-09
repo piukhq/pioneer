@@ -1,23 +1,17 @@
 .payment-cards {
-  display: flex;
-  flex-wrap: wrap;
-  border-top: 5px solid white;
-  border-left: 5px solid white;
-
-  &__card {
-    $items-per-row: 1;
-    width: ( 100% / $items-per-row );
-    font-size: (8vw / $items-per-row);
-
-    border-bottom: 5px solid white;
-    border-right: 5px solid white;
-  }
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 10px;
 
   @media ( min-width: 600px ) {
-    &__card {
-      $items-per-row: 4;
-      width: ( 100% / $items-per-row );
-      font-size: (8vw / $items-per-row);
-    }
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media ( min-width: 980px ) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media ( min-width: 1280px ) {
+    grid-template-columns: repeat(5, 1fr);
   }
 }

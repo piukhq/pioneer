@@ -7,6 +7,8 @@ import {
 import HomePage from 'routes/HomePage'
 import PaymentCardsPage from 'routes/PaymentCardsPage'
 
+import './App.scss'
+
 function AppView () {
   return (
     <div className="bink-app">
