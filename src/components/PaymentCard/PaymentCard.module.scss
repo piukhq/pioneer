@@ -8,7 +8,7 @@
 
   &__name {
     position: absolute;
-    top: 50%;
+    top: 44%;
     left:  11px;
     right: 11px;
 
@@ -46,7 +46,7 @@
     &-visa {
       background: $visa-background-fallback;
       background:
-          url("../../../src/images/logo-visa.svg") top 11px right 10px / auto auto no-repeat,
+          url("/images/logo-visa.svg") top 11px right 10px / 78px 25px no-repeat,
           linear-gradient(to right, $visa-gradient-left, $visa-gradient-right)
       ;
       color: white;
@@ -54,7 +54,7 @@
     &-mastercard {
       background: $mastercard-background-fallback;
       background:
-          url("../../../src/images/logo-mastercard.svg") top 8px right 10px / auto auto no-repeat,
+          url("/images/logo-mastercard.svg") top 8px right 10px / 57px 42px no-repeat,
           linear-gradient(to right, $mastercard-gradient-left, $mastercard-gradient-right)
       ;
       color: white;
@@ -63,7 +63,7 @@
     &-american-express {
       background: $amex-background-fallback;
       background:
-          url("../../../src/images/logo-amex.svg") top 8px right 10px / auto auto no-repeat,
+          url("/images/logo-amex.svg") top 8px right 10px / 43px 42px no-repeat,
           linear-gradient(to right, $amex-gradient-left, $amex-gradient-right)
     ;
       color: white;
