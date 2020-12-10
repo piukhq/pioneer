@@ -13,7 +13,6 @@ const PaymentCardsView = ({ paymentCards, getPaymentCards }) => {
       {(paymentCards || []).map((card, index) => (
         <PaymentCard
           key={ card.id }
-          className={styles['payment-cards__card']}
           last4Digits={ card.card.last_four_digits }
           nameOnCard={ card.card.name_on_card }
           provider={ card.card.provider }

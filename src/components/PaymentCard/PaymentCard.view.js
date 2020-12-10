@@ -7,16 +7,14 @@ const PaymentCardView = ({ last4Digits, nameOnCard, provider, className }) => (
     className={ cx(
       className,
       styles['payment-card'],
-      styles[`payment-card--provider-${provider.toLowerCase()}`],
+      styles[`payment-card--provider-${provider.replace(/\s+/g, '-').toLowerCase()}`],
     ) }
     data-testid='payment-card'
   >
-    <div className={ styles['payment-card__ratio-wrapper-1'] }>
-      <div className={ styles['payment-card__ratio-wrapper-2'] }>
-        <div className={ styles['payment-card__provider'] }>{provider}</div>
-        <div className={ styles['payment-card__name'] }>{nameOnCard}</div>
-        <div className={ styles['payment-card__number'] }>**** **** **** {last4Digits}</div>
-      </div>
+    <div className={ styles['payment-card__name'] }>{nameOnCard}</div>
+    <div className={ styles['payment-card__number'] }>
+      <span className={ styles['payment-card__number-redacted'] }>••••</span>{' '}
+      <span className={ styles['payment-card__number-digits'] }>{last4Digits}</span>
     </div>
   </div>
 )
