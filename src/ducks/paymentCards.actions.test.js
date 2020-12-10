@@ -40,7 +40,7 @@ describe('async actions', () => {
         { type: types.PAYMENT_CARDS_REQUEST },
         { type: types.PAYMENT_CARDS_SUCCESS, payload: { cards } },
       ]
-      const store = mockStore({ authentication: { api_key: 'dummy key value' } })
+      const store = mockStore({ user: { api_key: 'dummy key value' } })
 
       await store.dispatch(actions.getPaymentCards())
 
@@ -56,7 +56,7 @@ describe('async actions', () => {
         { type: types.PAYMENT_CARDS_REQUEST },
         { type: types.PAYMENT_CARDS_FAILURE },
       ]
-      const store = mockStore({ authentication: { api_key: 'dummy key value' } })
+      const store = mockStore({ user: { api_key: 'dummy key value' } })
 
       await store.dispatch(actions.getPaymentCards())
 

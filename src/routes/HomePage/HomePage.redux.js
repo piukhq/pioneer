@@ -1,16 +1,16 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { actions as authenticationActions } from 'ducks/authentication'
+import { actions as userActions } from 'ducks/user'
 import HomePageView from './HomePage.view'
 
 const mapStateToProps = state => ({
-  api_key: state.authentication.api_key,
+  api_key: state.user.api_key,
 })
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    login: authenticationActions.login,
+    login: userActions.login,
   }, dispatch)
 )
 
