@@ -1,17 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
-const HomePageView = ({ api_key, login }) => {
-  return (
-    <div>
-      <h1>Bink web home page</h1>
-      { api_key ? (
-        <Link to='/payment-cards'>View my payment cards</Link>
-      ) : (
-        <button onClick={ () => login('bink_web_user_1@bink.com', 'BinkWeb01') }>Login</button>
-      )}
-    </div>
-  )
+const HomePageView = ({ api_key }) => {
+  const history = useHistory()
+  useEffect(() => {
+    if (api_key) {
+      history.replace('/payment-cards')
+    } else {
+      history.replace('/login')
+    }
+  }, [api_key, history])
+  return null
 }
 
 export default HomePageView
