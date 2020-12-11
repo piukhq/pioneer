@@ -5,7 +5,7 @@ import { actions as userActions } from 'ducks/user'
 import HomePageView from './HomePage.view'
 
 const mapStateToProps = state => ({
-  api_key: state.user.api_key,
+  api_key: state.user.authentication.api_key,
 })
 
 const mapDispatchToProps = dispatch => (
