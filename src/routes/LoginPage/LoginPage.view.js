@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import LoginForm from 'components/LoginForm'
 
-const HomePageView = ({ api_key, login }) => {
+const HomePageView = ({ api_key }) => {
   const history = useHistory()
   useEffect(() => {
     if (api_key) {
@@ -12,7 +13,7 @@ const HomePageView = ({ api_key, login }) => {
   return (
     <div>
       <h1>Login</h1>
-      <button onClick={ () => login('bink_web_user_1@bink.com', 'BinkWeb01') }>Login</button>
+      <LoginForm />
     </div>
   )
 }
