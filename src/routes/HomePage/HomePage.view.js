@@ -5,7 +5,7 @@ const HomePageView = ({ api_key }) => {
   const history = useHistory()
   useEffect(() => {
     if (api_key) {
-      history.replace('/payment-cards')
+      history.replace('/membership-cards')
     } else {
       history.replace('/login')
     }
