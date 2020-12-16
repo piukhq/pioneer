@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import HomePage from 'routes/HomePage'
 import PaymentCardsPage from 'routes/PaymentCardsPage'
+import LoginPage from 'routes/LoginPage'
 
 import './App.scss'
 
@@ -16,6 +17,9 @@ function AppView () {
         <Switch>
           <Route exact path="/">
             <HomePage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
           </Route>
           <Route path="/payment-cards">
             <PaymentCardsPage />

@@ -6,6 +6,7 @@ import PaymentCardsView from './PaymentCards.view'
 
 const mapStateToProps = state => ({
   paymentCards: state.paymentCards.cards,
+  error: state.paymentCards.error,
 })
 
 const mapDispatchToProps = dispatch => (

@@ -47,7 +47,7 @@ export const actions = {
   getPaymentCards: () => async (dispatch, getState) => {
     dispatch(actions.getPaymentCardsRequest())
     try {
-      const response = await getPaymentCards(getState().authentication.api_key)
+      const response = await getPaymentCards(getState().user.authentication.api_key)
       dispatch(actions.getPaymentCardsSuccess(response.data))
     } catch (e) {
       dispatch(actions.getPaymentCardsFailure())

@@ -1,15 +1,18 @@
-import { login } from 'api/authentication'
+import { login } from 'api/user'
 
 const types = {
-  LOGIN_REQUEST: 'authentication/LOGIN_REQUEST',
-  LOGIN_SUCCESS: 'authentication/LOGIN_SUCCESS',
-  LOGIN_FAILURE: 'authentication/LOGIN_FAILURE',
+  LOGIN_REQUEST: 'user/LOGIN_REQUEST',
+  LOGIN_SUCCESS: 'user/LOGIN_SUCCESS',
+  LOGIN_FAILURE: 'user/LOGIN_FAILURE',
 }
 
 const initialState = {
-  loading: false,
-  error: false,
-  api_key: null,
+  authentication: {
+    loading: false,
+    error: false,
+    api_key: null,
+  },
+  profile: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,23 +20,32 @@ const reducer = (state = initialState, action) => {
     case types.LOGIN_REQUEST:
       return {
         ...state,
-        loading: true,
-        error: false,
-        api_key: null,
+        authentication: {
+          ...state.authentication,
+          loading: true,
+          error: false,
+          api_key: null,
+        },
       }
     case types.LOGIN_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: false,
-        api_key: action.payload.api_key,
+        authentication: {
+          ...state.authentication,
+          loading: false,
+          error: false,
+          api_key: action.payload.api_key,
+        },
       }
     case types.LOGIN_FAILURE:
       return {
         ...state,
-        loading: false,
-        error: true,
-        api_key: null,
+        authentication: {
+          ...state.authentication,
+          loading: false,
+          error: true,
+          api_key: null,
+        },
       }
     default:
       return state

@@ -1,0 +1,19 @@
+.login-form {
+  width: 250px;
+
+  &__label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  &__field {
+    display: block;
+    width: 100%;
+  }
+
+  &__submit {
+    display: block;
+    margin-top: 10px;
+  }
+}
