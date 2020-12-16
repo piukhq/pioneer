@@ -5,6 +5,7 @@ import {
   Route,
 } from 'react-router-dom'
 import HomePage from 'routes/HomePage'
+import MembershipCardsPage from 'routes/MembershipCardsPage'
 import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
 
@@ -23,6 +24,9 @@ function AppView () {
           </Route>
           <Route path="/payment-cards">
             <PaymentCardsPage />
+          </Route>
+          <Route path="/membership-cards">
+            <MembershipCardsPage />
           </Route>
         </Switch>
       </Router>
