@@ -1,4 +1,5 @@
 import { getPaymentCards } from 'api/paymentCards'
+import { createSelector } from 'reselect'
 
 export const types = {
   PAYMENT_CARDS_REQUEST: 'paymentCards/PAYMENT_CARDS_REQUEST',
@@ -25,7 +26,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: false,
-        cards: action.payload,
+        cards: action.payload.reduce((acc, card) => { acc[card.id] = card; return acc }, {}),
       }
     case types.PAYMENT_CARDS_FAILURE:
       return {
@@ -39,6 +40,14 @@ const reducer = (state = initialState, action) => {
   }
 }
 export default reducer
+
+const paymentCardsSelector = state => state.paymentCards.cards
+export const selectors = {
+  cardsList: createSelector(
+    paymentCardsSelector,
+    cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
+  ),
+}
 
 export const actions = {
   getPaymentCardsRequest: () => ({ type: types.PAYMENT_CARDS_REQUEST }),

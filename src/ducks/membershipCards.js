@@ -1,4 +1,5 @@
 import { getMembershipCards } from 'api/membershipCards'
+import { createSelector } from 'reselect'
 
 export const types = {
   MEMBERSHIP_CARDS_REQUEST: 'membershipCards/MEMBERSHIP_CARDS_REQUEST',
@@ -25,7 +26,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: false,
-        cards: action.payload,
+        cards: action.payload.reduce((acc, card) => { acc[card.id] = card; return acc }, {}),
       }
     case types.MEMBERSHIP_CARDS_FAILURE:
       return {
@@ -39,6 +40,14 @@ const reducer = (state = initialState, action) => {
   }
 }
 export default reducer
+
+const membershipCardsSelector = state => state.membershipCards.cards
+export const selectors = {
+  cardsList: createSelector(
+    membershipCardsSelector,
+    cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
+  ),
+}
 
 export const actions = {
   getMembershipCardsRequest: () => ({ type: types.MEMBERSHIP_CARDS_REQUEST }),

@@ -1,11 +1,14 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { actions as paymentCardsActions } from 'ducks/paymentCards'
+import {
+  actions as paymentCardsActions,
+  selectors as paymentCardsSelectors,
+} from 'ducks/paymentCards'
 import PaymentCardsView from './PaymentCards.view'
 
 const mapStateToProps = state => ({
-  paymentCards: state.paymentCards.cards,
+  paymentCards: paymentCardsSelectors.cardsList(state),
   error: state.paymentCards.error,
 })
 
