@@ -12,7 +12,7 @@ import LoginPage from 'routes/LoginPage'
 
 import './App.scss'
 
-function AppView () {
+function App () {
   return (
     <div className="bink-app">
       <Router>
@@ -38,4 +38,4 @@ function AppView () {
   )
 }
 
-export default AppView
+export default App

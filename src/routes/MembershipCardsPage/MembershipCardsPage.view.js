@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import MembershipCards from 'components/MembershipCards'
 
 const MembershipCardsPageView = () => {
@@ -16,6 +16,9 @@ const MembershipCardsPageView = () => {
         iusto nam odit repellat repellendus tempora vitae voluptatum.
       </p>
       <MembershipCards onError={handleError}/>
+
+      <br /><br /><br />
+      <Link to={'/payment-cards'}>Payment Cards</Link>
     </div>
   )
 }

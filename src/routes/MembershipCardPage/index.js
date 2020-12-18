@@ -1,1 +1,1 @@
-export { default } from './MembershipCardPage.view'
+export { default } from './MembershipCardPage'

@@ -10,7 +10,7 @@ export const types = {
 const initialState = {
   loading: false,
   error: false,
-  cards: null,
+  cards: {},
 }
 
 const reducer = (state = initialState, action) => {
@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: true,
-        cards: null,
+        cards: {},
       }
     default:
       return state
