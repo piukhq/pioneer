@@ -4,7 +4,7 @@ import { actions as userActions } from 'ducks/user'
 
 import styles from './LoginForm.module.scss'
 
-const LoginFormView = () => {
+const LoginForm = () => {
   // todo: to remove default values for username and password
   const [email, setEmail] = useState('bink_web_user_1@bink.com')
   const [password, setPassword] = useState('BinkWeb01')
@@ -26,4 +26,4 @@ const LoginFormView = () => {
   )
 }
 
-export default LoginFormView
+export default LoginForm
