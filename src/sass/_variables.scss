@@ -1,15 +1,3 @@
-$generic-gradient-left: #222;
-$generic-gradient-right: #444;
-$generic-gradient-fallback: #333;
+@import "payment-card-colors.scss";
 
-$amex-gradient-left: #57c4ff;
-$amex-gradient-right: #006bcd;
-$amex-background-fallback: #2b97e6;
-
-$mastercard-gradient-left: #eb001b;
-$mastercard-gradient-right: #f79e1b;
-$mastercard-background-fallback: #f4791b;
-
-$visa-gradient-left: #181c51;
-$visa-gradient-right: #13288d;
-$visa-background-fallback: #16226e;
+$page-background-color: #fff;

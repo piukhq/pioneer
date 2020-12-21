@@ -10,7 +10,8 @@ import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
-import styles from './membership-cards-page.module.scss'
+import PaymentCardAdd from 'components/PaymentCardAdd'
+import styles from './MembershipCardsPage.module.scss'
 
 const MembershipCardPage = () => {
   const { id } = useParams()
@@ -34,6 +35,7 @@ const MembershipCardPage = () => {
       { membershipCard && (
         <>
           <h2>Payment cards</h2>
+          {/* todo: create selector for linked payment cards */}
           {membershipCard.payment_cards.filter(paymentCard => paymentCard.active_link).length > 0 ? (
             <p>
               The payment cards below are linked to this loyalty card.
@@ -53,6 +55,7 @@ const MembershipCardPage = () => {
                  <PaymentCard id={paymentCard.id} key={paymentCard.id} />
                ))
              }
+            <PaymentCardAdd />
           </PaymentCards>
           { unlinkedPaymentCards.length > 0 && (
             <>
@@ -67,6 +70,7 @@ const MembershipCardPage = () => {
                 { unlinkedPaymentCards.map(paymentCard => (
                   <PaymentCard id={paymentCard.id} key={paymentCard.id} />
                 )) }
+                <PaymentCardAdd />
               </PaymentCards>
             </>
           ) }

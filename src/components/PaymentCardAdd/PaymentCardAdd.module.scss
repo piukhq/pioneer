@@ -1,0 +1,23 @@
+@import "src/sass/variables.scss";
+
+.payment-card-add {
+  cursor: pointer;
+  background: $add-card-background-fallback;
+  background: linear-gradient(to right, $add-card-gradient-left, $add-card-gradient-right);
+
+  &__border {
+    // todo: border box should be applied globally on all elements
+    box-sizing: border-box;
+    height: 120px;
+    border: 4px solid $add-card-background-fallback;
+    border-image: url("/images/card-dash.svg") 12 round;
+    border-image-width: 16px;
+  }
+
+  &__inner {
+    box-sizing: border-box;
+    height: 100%;
+    border-radius: 8px;
+    background: url("/images/payment-add.svg") 50% 50% no-repeat $page-background-color;
+  }
+}
