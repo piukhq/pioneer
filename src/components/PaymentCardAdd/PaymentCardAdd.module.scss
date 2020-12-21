@@ -1,6 +1,7 @@
 @import "src/sass/variables.scss";
 
 .payment-card-add {
+  cursor: pointer;
   background: $add-card-background-fallback;
   background: linear-gradient(to right, $add-card-gradient-left, $add-card-gradient-right);
 
