@@ -6,14 +6,21 @@ import {
   actions as allActions,
   selectors as allSelectors,
 } from 'ducks/all'
+import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
+import styles from './membership-cards-page.module.scss'
 
 const MembershipCardPage = () => {
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
+
+  const unlinkedPaymentCards = useSelector(
+    state => membershipCardsSelectors.unlinkedPaymentCards(state, id),
+  )
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -25,7 +32,7 @@ const MembershipCardPage = () => {
       <h1>Membership card</h1>
       <p>Membership card id is {id}</p>
       { membershipCard && (
-        <div>
+        <>
           <h2>Payment cards</h2>
           {membershipCard.payment_cards.filter(paymentCard => paymentCard.active_link).length > 0 ? (
             <p>
@@ -47,7 +54,23 @@ const MembershipCardPage = () => {
                ))
              }
           </PaymentCards>
-        </div>
+          { unlinkedPaymentCards.length > 0 && (
+            <>
+              <h2>Unlinked payment cards</h2>
+              <p>
+                These are payment cards you have added to your account but
+                are not currently linked to this loyalty card. Making purchases
+                with these cards <span className={styles['membership-cards-page__warning']}>will not collect you rewards</span>. Select the card
+                to see how this can be resolved.
+              </p>
+              <PaymentCards>
+                { unlinkedPaymentCards.map(paymentCard => (
+                  <PaymentCard id={paymentCard.id} key={paymentCard.id} />
+                )) }
+              </PaymentCards>
+            </>
+          ) }
+        </>
       ) }
       {/* todo: TBD how we show visually loading state */}
       { loading && (

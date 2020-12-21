@@ -7,7 +7,7 @@ const PaymentCard = ({ id, className }) => {
   const card = useSelector(state => state.paymentCards.cards[id])
   const provider = card?.card?.provider || ''
   const nameOnCard = card?.card?.name_on_card
-  const last4Digits = card?.card?.last_4_digits
+  const last4Digits = card?.card?.last_four_digits
 
   return (
     <div

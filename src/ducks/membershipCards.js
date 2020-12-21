@@ -1,5 +1,6 @@
 import { getMembershipCards } from 'api/membershipCards'
 import { createSelector } from 'reselect'
+import { selectors as paymentCardsSelectors } from 'ducks/paymentCards'
 
 export const types = {
   MEMBERSHIP_CARDS_REQUEST: 'membershipCards/MEMBERSHIP_CARDS_REQUEST',
@@ -42,10 +43,30 @@ const reducer = (state = initialState, action) => {
 export default reducer
 
 const membershipCardsSelector = state => state.membershipCards.cards
+const paymentCardsListSelector = state => paymentCardsSelectors.cardsList(state)
+const membershipCardSelector = (state, id) => state.membershipCards.cards[id]
+
 export const selectors = {
   cardsList: createSelector(
     membershipCardsSelector,
     cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
+  ),
+  unlinkedPaymentCards: createSelector(
+    membershipCardSelector,
+    paymentCardsListSelector,
+    (membershipCard, allPaymentCardsList) => {
+      if (!membershipCard) {
+        return []
+      }
+      const linkedPaymentCardsIds = (
+        membershipCard.payment_cards
+          .filter(paymentCard => paymentCard.active_link)
+          .map(paymentCard => paymentCard.id)
+      )
+      return allPaymentCardsList.filter(
+        paymentCard => linkedPaymentCardsIds.indexOf(paymentCard.id) === -1,
+      )
+    },
   ),
 }
 
