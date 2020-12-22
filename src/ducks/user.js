@@ -10,7 +10,7 @@ const initialState = {
   authentication: {
     loading: false,
     error: false,
-    api_key: null,
+    api_key: localStorage.getItem('token'),
   },
   profile: null,
 }
@@ -58,6 +58,7 @@ export const actions = {
     dispatch({ type: types.LOGIN_REQUEST })
     try {
       const { data: { api_key } } = await login(username, password)
+      localStorage.setItem('token', api_key)
       dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key } })
     } catch (e) {
       dispatch({ type: types.LOGIN_FAILURE })
