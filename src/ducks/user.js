@@ -64,4 +64,9 @@ export const actions = {
       dispatch({ type: types.LOGIN_FAILURE })
     }
   },
+  logout: () => dispatch => {
+    localStorage.removeItem('token')
+    // todo: logging out should reset the entire redux store
+    dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key: null } })
+  },
 }
