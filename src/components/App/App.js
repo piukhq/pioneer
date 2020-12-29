@@ -10,12 +10,15 @@ import MembershipCardPage from 'routes/MembershipCardPage'
 import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
 
+import LoginStatus from 'components/LoginStatus'
+
 import './App.scss'
 
 function App () {
   return (
     <div className="bink-app">
       <Router>
+        <LoginStatus />
         <Switch>
           <Route exact path="/">
             <HomePage />

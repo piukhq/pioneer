@@ -74,10 +74,10 @@ export const actions = {
   getMembershipCardsRequest: () => ({ type: types.MEMBERSHIP_CARDS_REQUEST }),
   getMembershipCardsFailure: () => ({ type: types.MEMBERSHIP_CARDS_FAILURE }),
   getMembershipCardsSuccess: (payload) => ({ type: types.MEMBERSHIP_CARDS_SUCCESS, payload }),
-  getMembershipCards: () => async (dispatch, getState) => {
+  getMembershipCards: () => async dispatch => {
     dispatch(actions.getMembershipCardsRequest())
     try {
-      const response = await getMembershipCards(getState().user.authentication.api_key)
+      const response = await getMembershipCards()
       dispatch(actions.getMembershipCardsSuccess(response.data))
     } catch (e) {
       dispatch(actions.getMembershipCardsFailure())

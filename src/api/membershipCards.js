@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export const getMembershipCards = (authToken) => (
+export const getMembershipCards = () => (
   axios.get(
     'https://api.dev.gb.bink.com/ubiquity/membership_cards',
     {
       headers: {
-        Authorization: `Token ${authToken}`,
+        Authorization: `Token ${localStorage.getItem('token')}`,
       },
     },
   )

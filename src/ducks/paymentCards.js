@@ -53,10 +53,10 @@ export const actions = {
   getPaymentCardsRequest: () => ({ type: types.PAYMENT_CARDS_REQUEST }),
   getPaymentCardsFailure: () => ({ type: types.PAYMENT_CARDS_FAILURE }),
   getPaymentCardsSuccess: (payload) => ({ type: types.PAYMENT_CARDS_SUCCESS, payload }),
-  getPaymentCards: () => async (dispatch, getState) => {
+  getPaymentCards: () => async dispatch => {
     dispatch(actions.getPaymentCardsRequest())
     try {
-      const response = await getPaymentCards(getState().user.authentication.api_key)
+      const response = await getPaymentCards()
       dispatch(actions.getPaymentCardsSuccess(response.data))
     } catch (e) {
       dispatch(actions.getPaymentCardsFailure())
