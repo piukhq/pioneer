@@ -57,9 +57,9 @@ export const actions = {
   login: (username, password) => async dispatch => {
     dispatch({ type: types.LOGIN_REQUEST })
     try {
-      const { data: { api_key } } = await login(username, password)
-      localStorage.setItem('token', api_key)
-      dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key } })
+      const { data: { api_key: apiKey } } = await login(username, password)
+      localStorage.setItem('token', apiKey)
+      dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key: apiKey } })
     } catch (e) {
       dispatch({ type: types.LOGIN_FAILURE })
     }

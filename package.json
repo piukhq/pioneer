@@ -99,8 +99,7 @@
       "multiline-ternary": [
         "error",
         "never"
-      ],
-      "camelcase": "off"
+      ]
     }
   },
   "browserslist": {
