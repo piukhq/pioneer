@@ -1,1 +1,1 @@
-export { default } from './LoginPage.redux'
+export { default } from './LoginPage'

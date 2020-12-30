@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import LoginForm from 'components/LoginForm'
 
-const HomePageView = ({ api_key }) => {
+const HomePage = () => {
   const history = useHistory()
+  const apiKey = useSelector(state => state.user.authentication.api_key)
   useEffect(() => {
-    if (api_key) {
+    if (apiKey) {
       history.replace('/')
     }
-  }, [api_key, history])
+  }, [apiKey, history])
 
   return (
     <div>
@@ -18,4 +20,4 @@ const HomePageView = ({ api_key }) => {
   )
 }
 
-export default HomePageView
+export default HomePage

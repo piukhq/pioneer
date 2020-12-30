@@ -1,16 +1,18 @@
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-const HomePageView = ({ api_key }) => {
+const HomePage = () => {
+  const apiKey = useSelector(state => state.user.authentication.api_key)
   const history = useHistory()
   useEffect(() => {
-    if (api_key) {
+    if (apiKey) {
       history.replace('/membership-cards')
     } else {
       history.replace('/login')
     }
-  }, [api_key, history])
+  }, [apiKey, history])
   return null
 }
 
-export default HomePageView
+export default HomePage
