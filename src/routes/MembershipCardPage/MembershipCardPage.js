@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -11,6 +11,7 @@ import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
 import PaymentCardAdd from 'components/PaymentCardAdd'
+import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import styles from './MembershipCardsPage.module.scss'
 
 const MembershipCardPage = () => {
@@ -27,6 +28,12 @@ const MembershipCardPage = () => {
   useEffect(() => {
     dispatch(allActions.fullRefresh())
   }, [dispatch])
+
+  const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
+
+  const handleCloseAddPaymentCardForm = useCallback(() => {
+    setPaymentCardAddFormVisible(false)
+  }, [setPaymentCardAddFormVisible])
 
   return (
     <div>
@@ -55,8 +62,11 @@ const MembershipCardPage = () => {
                  <PaymentCard id={paymentCard.id} key={paymentCard.id} />
                ))
              }
-            <PaymentCardAdd />
+            <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
           </PaymentCards>
+          { paymentCardAddFormVisible && (
+            <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
+          )}
           { unlinkedPaymentCards.length > 0 && (
             <>
               <h2>Unlinked payment cards</h2>

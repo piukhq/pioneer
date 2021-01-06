@@ -1,0 +1,33 @@
+.payment-card-add-form {
+  border: 1px solid #ccc;
+  width: 550px;
+  padding: 10px;
+  margin: 10px 0;
+
+  &__label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  &__label--hidden {
+    display: none;
+  }
+
+  &__input {
+    display: block;
+    height: 25px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  &__input--hidden {
+    display: none;
+  }
+
+  &__info {
+    margin: 15px 0 5px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+  }
+}
