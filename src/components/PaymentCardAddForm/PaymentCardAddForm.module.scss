@@ -1,0 +1,80 @@
+.root {
+
+  &__label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  &__label--hidden {
+    display: none;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    height: 25px;
+    border: 1px solid #ccc;
+    border-width: 0 0 1px 0;
+    font-size: 16px;
+  }
+
+  &__input--hidden {
+    display: none;
+  }
+
+  &__form-phase--hidden {
+    display: none;
+  }
+
+  &__groups {
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "card-number card-expiry"
+    "name-on-card name-on-card";
+  }
+
+  &__number-group {
+    grid-area: card-number;
+  }
+
+  &__expiry-group {
+    grid-area: card-expiry;
+  }
+
+  &__name-group {
+    grid-area: name-on-card;
+  }
+
+  &__privacy-and-security {
+    margin: 30px 0;
+  }
+
+  &__button {
+    cursor: pointer;
+    background-color: #123d30;
+    color: white;
+    padding: 25px;
+    min-width: 200px;
+    border-radius: 35px;
+    font-weight: bold;
+    font-size: 16px;
+
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+
+    &--secondary {
+      color: black;
+      background-color: transparent;
+      border: 0;
+    }
+
+    &:hover, &:active, &:focus {
+      outline: none;
+    }
+  }
+}
