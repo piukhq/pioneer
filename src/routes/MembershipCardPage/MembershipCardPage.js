@@ -80,7 +80,6 @@ const MembershipCardPage = () => {
                 { unlinkedPaymentCards.map(paymentCard => (
                   <PaymentCard id={paymentCard.id} key={paymentCard.id} />
                 )) }
-                <PaymentCardAdd />
               </PaymentCards>
             </>
           ) }
