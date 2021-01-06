@@ -12,6 +12,8 @@ const PaymentCardAddForm = ({ onClose }) => {
   const [fingerprint, setFingerprint] = useState('')
   const [iframeLoaded, setIframeLoaded] = useState(false)
 
+  const [formPhase, setFormPhase] = useState(1)
+
   const addPaymentCardSuccess = useSelector(state => state.paymentCards.add.success)
 
   const dispatch = useDispatch()
@@ -90,48 +92,69 @@ const PaymentCardAddForm = ({ onClose }) => {
   }
 
   return (
-    <Modal onClose={onClose}>
-      <Modal.Header>Add payment card</Modal.Header>
-      Enter details below to add your payment card.
+    <Modal onClose={formPhase === 1 && onClose}>
+      <div className={cx(formPhase !== 1 && styles['payment-card-add-form__form-phase--hidden'])}>
+        <Modal.Header>Add payment card</Modal.Header>
+        Enter details below to add your payment card.
 
-      <form className={styles['payment-card-add-form']}>
-        <label className={styles['payment-card-add-form__label']}>Card Number</label>
-        <div id='bink-spreedly-number' className={styles['payment-card-add-form__input']} />
+        <form className={styles['payment-card-add-form']}>
+          <label className={styles['payment-card-add-form__label']}>Card Number</label>
+          <div id='bink-spreedly-number' className={styles['payment-card-add-form__input']} />
 
-        <label className={cx(styles['payment-card-add-form__label'], styles['payment-card-add-form__label--hidden'])}>CVV</label>
-        <div id='bink-spreedly-cvv' className={cx(styles['payment-card-add-form__input'], styles['payment-card-add-form__input--hidden'])} />
+          <label className={cx(styles['payment-card-add-form__label'], styles['payment-card-add-form__label--hidden'])}>CVV</label>
+          <div id='bink-spreedly-cvv' className={cx(styles['payment-card-add-form__input'], styles['payment-card-add-form__input--hidden'])} />
 
-        <label className={styles['payment-card-add-form__label']}>Expiry</label>
-        <input
-          value={expiry}
-          onChange={event => setExpiry(event.target.value)}
-          className={styles['payment-card-add-form__input']}
-          placeholder='MM/YY'
-        />
+          <label className={styles['payment-card-add-form__label']}>Expiry</label>
+          <input
+            value={expiry}
+            onChange={event => setExpiry(event.target.value)}
+            className={styles['payment-card-add-form__input']}
+            placeholder='MM/YY'
+          />
 
-        <label className={styles['payment-card-add-form__label']}>Name on card</label>
-        <input
-          value={fullName}
-          onChange={event => setFullName(event.target.value)}
-          className={styles['payment-card-add-form__input']}
-          placeholder='Name on card'
-        />
+          <label className={styles['payment-card-add-form__label']}>Name on card</label>
+          <input
+            value={fullName}
+            onChange={event => setFullName(event.target.value)}
+            className={styles['payment-card-add-form__input']}
+            placeholder='Name on card'
+          />
 
-        <div>
-          {/* todo: find out what the link should be and set it */}
-          <a href='https://www.bink.com' target='_blank' rel='noreferrer'>Privacy and security</a>
-        </div>
+          <div>
+            {/* todo: find out what the link should be and set it */}
+            <a href='https://www.bink.com' target='_blank' rel='noreferrer'>Privacy and security</a>
+          </div>
 
-        <button onClick={submitForm} disabled={!iframeLoaded}>Next</button>
+          <button onClick={(e) => {
+            e.preventDefault()
+            setFormPhase(2)
+          }}>Next</button>
 
-        <div className={styles['payment-card-add-form__info']}>
-          token:
-          <span>{token}</span>
-          <br/>
-          fingerprint:
-          <span>{fingerprint}</span>
-        </div>
-      </form>
+          <div className={styles['payment-card-add-form__info']}>
+            token:
+            <span>{token}</span>
+            <br/>
+            fingerprint:
+            <span>{fingerprint}</span>
+          </div>
+        </form>
+      </div>
+      <div className={cx(formPhase !== 2 && styles['payment-card-add-form__form-phase--hidden'])}>
+        <Modal.Header>Terms & Conditions</Modal.Header>
+        <p>
+          I authorise Mastercard, Visa and American Express to monitor activity on my payment card to
+          determine when I have made a qualifying transaction, and for Mastercard, Visa and American Express
+          to share such transaction details with Bink to enable my card-linked offer(s) and target offers
+          that may be of interest to me.
+        </p>
+        <p>
+          For information about Bink’s privacy practices please see Bin’s Privacy Policy. You may opt-out
+          of transaction monitoring on the payment card(s) you entered at any time by deleting your payment card
+          from your Bink Wallet.
+        </p>
+        <button onClick={submitForm} disabled={!iframeLoaded}>I accept</button>
+        <button onClick={() => setFormPhase(1)}>I decline</button>
+      </div>
     </Modal>
   )
 }
