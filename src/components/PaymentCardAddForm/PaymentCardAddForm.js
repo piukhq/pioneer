@@ -34,6 +34,7 @@ const PaymentCardAddForm = ({ onClose }) => {
     Spreedly.on('ready', function () {
       Spreedly.setStyle('number', 'width: 100%; font-size: 16px; line-height: 23px; box-sizing: border-box')
       Spreedly.setPlaceholder('number', 'Card number')
+      Spreedly.setNumberFormat('prettyFormat')
       setIframeLoaded(true)
     })
 
@@ -93,53 +94,56 @@ const PaymentCardAddForm = ({ onClose }) => {
 
   return (
     <Modal onClose={formPhase === 1 && onClose}>
-      <div className={cx(formPhase !== 1 && styles['payment-card-add-form__form-phase--hidden'])}>
+      <div className={cx(formPhase !== 1 && styles['root__form-phase--hidden'])}>
         <Modal.Header>Add payment card</Modal.Header>
         Enter details below to add your payment card.
 
-        <form className={styles['payment-card-add-form']}>
-          <label className={styles['payment-card-add-form__label']}>Card Number</label>
-          <div id='bink-spreedly-number' className={styles['payment-card-add-form__input']} />
+        <form className={styles.root}>
+          <div className={styles.root__groups}>
+            <div className={cx(styles.root__group, styles['root__number-group'])}>
+              <label className={styles.root__label}>Card Number</label>
+              <div id='bink-spreedly-number' className={styles.root__input} />
+            </div>
 
-          <label className={cx(styles['payment-card-add-form__label'], styles['payment-card-add-form__label--hidden'])}>CVV</label>
-          <div id='bink-spreedly-cvv' className={cx(styles['payment-card-add-form__input'], styles['payment-card-add-form__input--hidden'])} />
+            <label className={cx(styles.root__label, styles['root__label--hidden'])}>CVV</label>
+            <div id='bink-spreedly-cvv' className={cx(styles.root__input, styles['root__input--hidden'])} />
 
-          <label className={styles['payment-card-add-form__label']}>Expiry</label>
-          <input
-            value={expiry}
-            onChange={event => setExpiry(event.target.value)}
-            className={styles['payment-card-add-form__input']}
-            placeholder='MM/YY'
-          />
+            <div className={cx(styles.root__group, styles['root__expiry-group'])}>
+              <label className={styles.root__label}>Expiry</label>
+              <input
+                value={expiry}
+                onChange={event => setExpiry(event.target.value)}
+                className={styles.root__input}
+                placeholder='MM/YY'
+              />
+            </div>
 
-          <label className={styles['payment-card-add-form__label']}>Name on card</label>
-          <input
-            value={fullName}
-            onChange={event => setFullName(event.target.value)}
-            className={styles['payment-card-add-form__input']}
-            placeholder='Name on card'
-          />
+            <div className={cx(styles.root__group, styles['root__name-group'])}>
+              <label className={styles.root__label}>Name on card</label>
+              <input
+                value={fullName}
+                onChange={event => setFullName(event.target.value)}
+                className={styles.root__input}
+                placeholder='Name on card'
+              />
+            </div>
+          </div>
 
-          <div>
+          <div className={styles['root__privacy-and-security']}>
             {/* todo: find out what the link should be and set it */}
             <a href='https://www.bink.com' target='_blank' rel='noreferrer'>Privacy and security</a>
           </div>
 
-          <button onClick={(e) => {
-            e.preventDefault()
-            setFormPhase(2)
-          }}>Next</button>
-
-          <div className={styles['payment-card-add-form__info']}>
-            token:
-            <span>{token}</span>
-            <br/>
-            fingerprint:
-            <span>{fingerprint}</span>
-          </div>
+          <button
+            className={styles.root__button}
+            onClick={(e) => {
+              e.preventDefault()
+              setFormPhase(2)
+            }}
+          >Next</button>
         </form>
       </div>
-      <div className={cx(formPhase !== 2 && styles['payment-card-add-form__form-phase--hidden'])}>
+      <div className={cx(formPhase !== 2 && styles['root__form-phase--hidden'])}>
         <Modal.Header>Terms & Conditions</Modal.Header>
         <p>
           I authorise Mastercard, Visa and American Express to monitor activity on my payment card to
@@ -152,8 +156,8 @@ const PaymentCardAddForm = ({ onClose }) => {
           of transaction monitoring on the payment card(s) you entered at any time by deleting your payment card
           from your Bink Wallet.
         </p>
-        <button onClick={submitForm} disabled={!iframeLoaded}>I accept</button>
-        <button onClick={() => setFormPhase(1)}>I decline</button>
+        <button className={styles.root__button} onClick={submitForm} disabled={!iframeLoaded}>I accept</button>
+        <button className={cx(styles.root__button, styles['root__button--secondary'])} onClick={() => setFormPhase(1)}>I decline</button>
       </div>
     </Modal>
   )

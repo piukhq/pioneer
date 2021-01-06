@@ -1,4 +1,9 @@
 .modal {
+  &__header {
+    font-size: 32px;
+    margin: 0 0 15px;
+  }
+
   &__overlay {
     position: fixed;
     left: 0;
