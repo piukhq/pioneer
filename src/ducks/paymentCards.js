@@ -1,4 +1,5 @@
 import { getPaymentCards, addPaymentCard } from 'api/paymentCards'
+import { actions as membershipCardsActions } from 'ducks/membershipCards'
 import { createSelector } from 'reselect'
 
 export const types = {
@@ -142,6 +143,7 @@ export const actions = {
       )
       dispatch(actions.addPaymentCardSuccess())
       dispatch(actions.getPaymentCards())
+      dispatch(membershipCardsActions.getMembershipCards())
     } catch (e) {
       dispatch(actions.addPaymentCardFailure(e))
     }
