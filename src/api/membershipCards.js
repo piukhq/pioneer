@@ -21,12 +21,12 @@ export const addTestMembershipCard = () => (
         add_fields: [
           {
             column: 'Membership card number',
-            value: '1048172852',
+            value: '1048175136',
           }],
         authorise_fields: [
           {
             column: 'Email',
-            value: 'binktestuser14@wasabi.com',
+            value: 'binktestuser18@wasabi.com',
           }],
       },
       membership_plan: '315',
