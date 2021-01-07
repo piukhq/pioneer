@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'components/Modal'
 import cx from 'classnames'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
+import Button from 'components/Button'
 import styles from './PaymentCardAddForm.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 
+// todo: to rename this component to PaymentCardAddModal
 const PaymentCardAddForm = ({ onClose }) => {
   const [token, setToken] = useState('')
   const [fullName, setFullName] = useState('')
@@ -134,13 +136,14 @@ const PaymentCardAddForm = ({ onClose }) => {
             <a href='https://www.bink.com' target='_blank' rel='noreferrer'>Privacy and security</a>
           </div>
 
-          <button
+          <Button
+            primary
             className={styles.root__button}
             onClick={(e) => {
               e.preventDefault()
               setFormPhase(2)
             }}
-          >Next</button>
+          >Next</Button>
         </form>
       </div>
       <div className={cx(formPhase !== 2 && styles['root__form-phase--hidden'])}>
@@ -156,8 +159,8 @@ const PaymentCardAddForm = ({ onClose }) => {
           of transaction monitoring on the payment card(s) you entered at any time by deleting your payment card
           from your Bink Wallet.
         </p>
-        <button className={styles.root__button} onClick={submitForm} disabled={!iframeLoaded}>I accept</button>
-        <button className={cx(styles.root__button, styles['root__button--secondary'])} onClick={() => setFormPhase(1)}>I decline</button>
+        <Button primary className={styles.root__button} onClick={submitForm} disabled={!iframeLoaded}>I accept</Button>
+        <Button secondary className={styles.root__button} onClick={() => setFormPhase(1)}>I decline</Button>
       </div>
     </Modal>
   )
