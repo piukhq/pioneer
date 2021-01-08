@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import cx from 'classnames'
 import styles from './PaymentCard.module.scss'
 
-const PaymentCard = ({ id, className }) => {
+const PaymentCard = ({ id, className, onClick }) => {
   const card = useSelector(state => state.paymentCards.cards[id])
   const provider = card?.card?.provider || ''
   const nameOnCard = card?.card?.name_on_card
@@ -11,6 +11,7 @@ const PaymentCard = ({ id, className }) => {
 
   return (
     <div
+      onClick={() => onClick(card)}
       className={ cx(
         className,
         styles['payment-card'],

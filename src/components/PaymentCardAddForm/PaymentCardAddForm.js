@@ -95,7 +95,7 @@ const PaymentCardAddForm = ({ onClose }) => {
   }
 
   return (
-    <Modal onClose={formPhase === 1 && onClose}>
+    <Modal onClose={formPhase === 1 ? onClose : undefined}>
       <div className={cx(formPhase !== 1 && styles['root__form-phase--hidden'])}>
         <Modal.Header>Add payment card</Modal.Header>
         Enter details below to add your payment card.

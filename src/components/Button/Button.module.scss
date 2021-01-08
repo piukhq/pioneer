@@ -23,6 +23,12 @@
     color: white;
   }
 
+  &--disabled {
+    background-color: #ccc; // todo
+    color: #000;
+    cursor: default;
+  }
+
   &:hover, &:active, &:focus {
     outline: none;
   }

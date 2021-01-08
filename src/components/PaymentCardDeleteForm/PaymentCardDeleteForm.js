@@ -1,0 +1,88 @@
+import React, { useCallback, useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { actions as paymentCardsActions } from 'ducks/paymentCards'
+import Modal from 'components/Modal'
+import Button from 'components/Button'
+
+import styles from './PaymentCardDeleteForm.module.scss'
+
+const PaymentCardDeleteForm = ({ id, onClose }) => {
+  const card = useSelector(state => state.paymentCards.cards[id])
+  const last4Digits = card?.card?.last_four_digits
+
+  const expiryMonth = card?.card?.month
+  const expiryYear = card?.card?.year
+
+  const now = new Date()
+  const currentMonthDate = new Date(now.getFullYear(), now.getMonth(), 1)
+  const expiryDate = new Date(expiryYear, expiryMonth - 1, 1)
+
+  const isCardExpired = expiryDate.getTime() < currentMonthDate.getTime()
+
+  const [userEnteredLast4Digits, setUserEnteredLast4Digits] = useState('')
+
+  const dispatch = useDispatch()
+  const loading = useSelector(state => state.paymentCards.delete.loading)
+  const error = useSelector(state => state.paymentCards.delete.error)
+  const success = useSelector(state => state.paymentCards.delete.success)
+
+  const handleDelete = useCallback(() => {
+    dispatch(paymentCardsActions.deletePaymentCard(id))
+  }, [id, dispatch])
+
+  useEffect(() => {
+    if (success) {
+      dispatch(paymentCardsActions.deletePaymentCardReset())
+      onClose()
+    }
+  }, [success, dispatch])
+
+  return (
+    <Modal onClose={onClose}>
+      { isCardExpired ? (
+        <>
+          <Modal.Header>Card Expired</Modal.Header>
+          <p className={styles.root__message}>
+            This payment card has expired and can no longer be used to auto-collect points and rewards.
+          </p>
+          { error && (
+            <div className={styles.root__error}>
+              There was an error
+            </div>
+          ) }
+          <Button disabled={loading} primary className={styles.root__button} onClick={handleDelete}>Remove card</Button>
+        </>
+      ) : (
+        <>
+          <Modal.Header>Delete this card</Modal.Header>
+          <p>
+            Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
+          </p>
+          <p>Enter the last four digits of the card to confirm.</p>
+          <div className={styles.root__group}>
+            <label className={styles.root__label}>Last four digits</label>
+            <input
+              placeholder='Last four digits'
+              className={styles.root__input}
+              value={userEnteredLast4Digits}
+              onChange={(event) => { setUserEnteredLast4Digits(event.target.value) }}
+            />
+          </div>
+          { error && (
+            <div className={styles.root__error}>
+              There was an error
+            </div>
+          ) }
+          <Button
+            disabled={loading || last4Digits !== userEnteredLast4Digits}
+            tertiary
+            className={styles.root__button}
+            onClick={handleDelete}
+          >Remove card</Button>
+        </>
+      ) }
+    </Modal>
+  )
+}
+
+export default PaymentCardDeleteForm

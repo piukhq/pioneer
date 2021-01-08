@@ -12,6 +12,8 @@ import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
 import PaymentCardAdd from 'components/PaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
+import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
+
 import styles from './MembershipCardsPage.module.scss'
 
 const MembershipCardPage = () => {
@@ -34,6 +36,19 @@ const MembershipCardPage = () => {
   const handleCloseAddPaymentCardForm = useCallback(() => {
     setPaymentCardAddFormVisible(false)
   }, [setPaymentCardAddFormVisible])
+
+  const [deleteFormVisible, setDeleteFormVisible] = useState(false)
+  const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
+
+  const handleClickOnPaymentCard = useCallback((card) => {
+    setCardIdToBeDeleted(card.id)
+    setDeleteFormVisible(true)
+  }, [])
+
+  const handleCloseDeletePaymentCardForm = useCallback(() => {
+    setDeleteFormVisible(false)
+    setCardIdToBeDeleted(null)
+  }, [])
 
   return (
     <div>
@@ -59,7 +74,7 @@ const MembershipCardPage = () => {
              {membershipCard.payment_cards
                .filter(paymentCard => paymentCard.active_link)
                .map(paymentCard => (
-                 <PaymentCard id={paymentCard.id} key={paymentCard.id} />
+                 <PaymentCard id={paymentCard.id} onClick={handleClickOnPaymentCard} key={paymentCard.id} />
                ))
              }
             <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
@@ -67,6 +82,9 @@ const MembershipCardPage = () => {
           { paymentCardAddFormVisible && (
             <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
           )}
+          { deleteFormVisible && (
+            <PaymentCardDeleteForm id={cardIdToBeDeleted} onClose={ handleCloseDeletePaymentCardForm } />
+          ) }
           { unlinkedPaymentCards.length > 0 && (
             <>
               <h2>Unlinked payment cards</h2>
@@ -78,7 +96,7 @@ const MembershipCardPage = () => {
               </p>
               <PaymentCards>
                 { unlinkedPaymentCards.map(paymentCard => (
-                  <PaymentCard id={paymentCard.id} key={paymentCard.id} />
+                  <PaymentCard id={paymentCard.id} onClick={handleClickOnPaymentCard} key={paymentCard.id} />
                 )) }
               </PaymentCards>
             </>

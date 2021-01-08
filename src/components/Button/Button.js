@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import styles from './Button.module.scss'
 
-const Button = ({ primary, secondary, tertiary, className, children, ...props }) => {
+const Button = ({ primary, secondary, tertiary, className, disabled, children, ...props }) => {
   return (
     <button
       className={cx(
@@ -11,7 +11,9 @@ const Button = ({ primary, secondary, tertiary, className, children, ...props })
         (primary || (!secondary && !tertiary)) && styles['root--primary'],
         secondary && styles['root--secondary'],
         tertiary && styles['root--tertiary'],
+        disabled && styles['root--disabled'],
       )}
+      disabled={disabled}
       {...props}
     >
       {children}
