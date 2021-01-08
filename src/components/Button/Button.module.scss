@@ -1,0 +1,35 @@
+.root {
+  cursor: pointer;
+
+  border: none;
+  padding: 25px;
+  min-width: 200px;
+  border-radius: 35px;
+  font-weight: bold;
+  font-size: 16px;
+
+  &--primary {
+    background-color: #123d30;
+    color: white;
+  }
+
+  &--secondary {
+    color: black;
+    background-color: transparent;
+  }
+
+  &--tertiary {
+    background-color: red; // todo
+    color: white;
+  }
+
+  &--disabled {
+    background-color: #ccc; // todo
+    color: #000;
+    cursor: default;
+  }
+
+  &:hover, &:active, &:focus {
+    outline: none;
+  }
+}

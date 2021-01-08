@@ -11,6 +11,17 @@ export const getPaymentCards = () => (
   )
 )
 
+export const deletePaymentCard = (id) => (
+  axios.delete(
+    `https://api.dev.gb.bink.com/ubiquity/payment_card/${id}`,
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    },
+  )
+)
+
 export const addPaymentCard = (
   token,
   last_four_digits,

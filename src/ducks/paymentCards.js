@@ -1,4 +1,5 @@
-import { getPaymentCards, addPaymentCard } from 'api/paymentCards'
+import { serializeError } from 'serialize-error'
+import { getPaymentCards, addPaymentCard, deletePaymentCard } from 'api/paymentCards'
 import { actions as membershipCardsActions } from 'ducks/membershipCards'
 import { createSelector } from 'reselect'
 
@@ -11,6 +12,11 @@ export const types = {
   ADD_PAYMENT_CARDS_SUCCESS: 'paymentCards/ADD_PAYMENT_CARDS_SUCCESS',
   ADD_PAYMENT_CARDS_FAILURE: 'paymentCards/ADD_PAYMENT_CARDS_FAILURE',
   ADD_PAYMENT_CARDS_RESET: 'paymentCards/ADD_PAYMENT_CARDS_RESET',
+
+  DELETE_PAYMENT_CARDS_REQUEST: 'paymentCards/DELETE_PAYMENT_CARDS_REQUEST',
+  DELETE_PAYMENT_CARDS_SUCCESS: 'paymentCards/DELETE_PAYMENT_CARDS_SUCCESS',
+  DELETE_PAYMENT_CARDS_FAILURE: 'paymentCards/DELETE_PAYMENT_CARDS_FAILURE',
+  DELETE_PAYMENT_CARDS_RESET: 'paymentCards/DELETE_PAYMENT_CARDS_RESET',
 }
 
 const initialState = {
@@ -18,6 +24,11 @@ const initialState = {
   error: false,
   cards: {},
   add: {
+    loading: false,
+    error: false,
+    success: false,
+  },
+  delete: {
     loading: false,
     error: false,
     success: false,
@@ -82,6 +93,42 @@ const reducer = (state = initialState, action) => {
           success: false,
         },
       }
+    case types.DELETE_PAYMENT_CARDS_REQUEST:
+      return {
+        ...state,
+        delete: {
+          loading: true,
+          error: false,
+          success: false,
+        },
+      }
+    case types.DELETE_PAYMENT_CARDS_SUCCESS:
+      return {
+        ...state,
+        delete: {
+          loading: false,
+          error: false,
+          success: true,
+        },
+      }
+    case types.DELETE_PAYMENT_CARDS_FAILURE:
+      return {
+        ...state,
+        delete: {
+          loading: false,
+          error: action.payload,
+          success: false,
+        },
+      }
+    case types.DELETE_PAYMENT_CARDS_RESET:
+      return {
+        ...state,
+        delete: {
+          loading: false,
+          error: false,
+          success: false,
+        },
+      }
     default:
       return state
   }
@@ -110,7 +157,7 @@ export const actions = {
     }
   },
   addPaymentCardRequest: () => ({ type: types.ADD_PAYMENT_CARDS_REQUEST }),
-  addPaymentCardFailure: (error) => ({ type: types.ADD_PAYMENT_CARDS_FAILURE, payload: error.toString() }),
+  addPaymentCardFailure: (error) => ({ type: types.ADD_PAYMENT_CARDS_FAILURE, payload: serializeError(error) }),
   addPaymentCardSuccess: () => ({ type: types.ADD_PAYMENT_CARDS_SUCCESS }),
   addPaymentCardReset: () => ({ type: types.ADD_PAYMENT_CARDS_RESET }),
   addPaymentCard: (
@@ -142,10 +189,27 @@ export const actions = {
         fingerprint,
       )
       dispatch(actions.addPaymentCardSuccess())
+      // refresh payment and membership cards
       dispatch(actions.getPaymentCards())
       dispatch(membershipCardsActions.getMembershipCards())
     } catch (e) {
       dispatch(actions.addPaymentCardFailure(e))
+    }
+  },
+  deletePaymentCardRequest: () => ({ type: types.DELETE_PAYMENT_CARDS_REQUEST }),
+  deletePaymentCardFailure: (error) => ({ type: types.DELETE_PAYMENT_CARDS_FAILURE, payload: serializeError(error) }),
+  deletePaymentCardSuccess: () => ({ type: types.DELETE_PAYMENT_CARDS_SUCCESS }),
+  deletePaymentCardReset: () => ({ type: types.DELETE_PAYMENT_CARDS_RESET }),
+  deletePaymentCard: (id) => async (dispatch) => {
+    dispatch(actions.deletePaymentCardRequest())
+    try {
+      await deletePaymentCard(id)
+      dispatch(actions.deletePaymentCardSuccess())
+      // refresh payment and membership cards
+      dispatch(actions.getPaymentCards())
+      dispatch(membershipCardsActions.getMembershipCards())
+    } catch (e) {
+      dispatch(actions.deletePaymentCardFailure(e))
     }
   },
 }
