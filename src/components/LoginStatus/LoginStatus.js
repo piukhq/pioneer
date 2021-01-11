@@ -14,9 +14,9 @@ const LoginStatus = () => {
     history.push('/login')
   }
   return (
-    <div className={styles['login-status']}>
+    <div className={styles.root}>
       { loggedIn ? (
-        <>Hello user. <span onClick={logout} className={styles['login-status__logout']}>Log out</span></>
+        <>Hello user. <span onClick={logout} className={styles.root__logout}>Log out</span></>
       ) : (
         <>Not authenticated</>
       ) }

@@ -91,7 +91,7 @@ const MembershipCardPage = () => {
               <p>
                 These are payment cards you have added to your account but
                 are not currently linked to this loyalty card. Making purchases
-                with these cards <span className={styles['membership-cards-page__warning']}>will not collect you rewards</span>. Select the card
+                with these cards <span className={styles.root__warning}>will not collect you rewards</span>. Select the card
                 to see how this can be resolved.
               </p>
               <PaymentCards>

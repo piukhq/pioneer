@@ -12,16 +12,16 @@ const LoginForm = () => {
   const handleLogin = () => dispatch(usersActions.login(email, password))
 
   return (
-    <div className={styles['login-form']}>
-      <label className={styles['login-form__label']}>
+    <div className={styles.root}>
+      <label className={styles.root__label}>
         Email
-        <input className={styles['login-form__field']} type='text' value={email} onChange={event => setEmail(event.target.value)} />
+        <input className={styles.root__field} type='text' value={email} onChange={event => setEmail(event.target.value)} />
       </label>
-      <label className={styles['login-form__label']}>
+      <label className={styles.root__label}>
         Password
-        <input className={styles['login-form__field']} type='text' value={password} onChange={event => setPassword(event.target.value)} />
+        <input className={styles.root__field} type='text' value={password} onChange={event => setPassword(event.target.value)} />
       </label>
-      <button className={styles['login-form__submit']} onClick={handleLogin}>Login</button>
+      <button className={styles.root__submit} onClick={handleLogin}>Login</button>
     </div>
   )
 }

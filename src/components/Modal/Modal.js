@@ -11,10 +11,10 @@ const Modal = ({ children, onClose }) => {
   }, [])
   return (
     <>
-      <div className={styles.modal__overlay}></div>
-      <div className={styles.modal__box}>
+      <div className={styles.root__overlay}></div>
+      <div className={styles.root__box}>
         {onClose && <Modal.CloseButton onClick={onClose} />}
-        <div className={styles.modal__body}>
+        <div className={styles.root__body}>
           {children}
         </div>
       </div>
@@ -22,7 +22,7 @@ const Modal = ({ children, onClose }) => {
   )
 }
 
-Modal.Header = ({ children }) => <h2 className={styles.modal__header}>{children}</h2>
-Modal.CloseButton = ({ onClick }) => <div onClick={onClick} className={styles['modal__close-button']}>×</div>
+Modal.Header = ({ children }) => <h2 className={styles.root__header}>{children}</h2>
+Modal.CloseButton = ({ onClick }) => <div onClick={onClick} className={styles['root__close-button']}>×</div>
 
 export default Modal
