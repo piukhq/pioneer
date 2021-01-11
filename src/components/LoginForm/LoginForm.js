@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { actions as userActions } from 'ducks/user'
+import { actions as usersActions } from 'ducks/users'
 
 import styles from './LoginForm.module.scss'
 
@@ -9,7 +9,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState('bink_web_user_1@bink.com')
   const [password, setPassword] = useState('BinkWeb01')
   const dispatch = useDispatch()
-  const handleLogin = () => dispatch(userActions.login(email, password))
+  const handleLogin = () => dispatch(usersActions.login(email, password))
 
   return (
     <div className={styles['login-form']}>
