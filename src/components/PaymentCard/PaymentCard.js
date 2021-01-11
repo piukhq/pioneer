@@ -1,10 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import cx from 'classnames'
+import { usePaymentCardById } from 'hooks/paymentCards'
 import styles from './PaymentCard.module.scss'
 
 const PaymentCard = ({ id, className, onClick }) => {
-  const card = useSelector(state => state.paymentCards.cards[id])
+  const { card } = usePaymentCardById(id)
   const provider = card?.card?.provider || ''
   const nameOnCard = card?.card?.name_on_card
   const last4Digits = card?.card?.last_four_digits

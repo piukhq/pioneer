@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react'
-
+import React from 'react'
+import useModalSetup from './hooks/useModalSetup'
 import styles from './Modal.module.scss'
 
 const Modal = ({ children, onClose }) => {
-  useEffect(() => {
-    document.getElementsByTagName('html')[0].classList.add('modal--no-scroll')
-    return () => {
-      document.getElementsByTagName('html')[0].classList.remove('modal--no-scroll')
-    }
-  }, [])
+  useModalSetup()
+
   return (
     <>
       <div className={styles.root__overlay}></div>
