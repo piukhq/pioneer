@@ -11,9 +11,10 @@ const PaymentCardsPage = () => {
     history.replace('/login')
   }, [history])
   return (
-    <div className={styles['payment-cards-page']}>
+    <div className={styles.root}>
       <h1>Payment cards</h1>
       <p>
+        {/* todo: replace lorem ipsum with actual content */}
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci culpa doloremque
         iusto nam odit repellat repellendus tempora vitae voluptatum.
       </p>

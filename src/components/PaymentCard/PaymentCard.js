@@ -1,10 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import cx from 'classnames'
+import { usePaymentCardById } from 'hooks/paymentCards'
 import styles from './PaymentCard.module.scss'
 
 const PaymentCard = ({ id, className, onClick }) => {
-  const card = useSelector(state => state.paymentCards.cards[id])
+  const { card } = usePaymentCardById(id)
   const provider = card?.card?.provider || ''
   const nameOnCard = card?.card?.name_on_card
   const last4Digits = card?.card?.last_four_digits
@@ -14,15 +14,15 @@ const PaymentCard = ({ id, className, onClick }) => {
       onClick={() => onClick(card)}
       className={ cx(
         className,
-        styles['payment-card'],
-        styles[`payment-card--provider-${provider.replace(/\s+/g, '-').toLowerCase()}`],
+        styles.root,
+        styles[`root--provider-${provider.replace(/\s+/g, '-').toLowerCase()}`],
       ) }
       data-testid='payment-card'
     >
-      <div className={ styles['payment-card__name'] }>{nameOnCard}</div>
-      <div className={ styles['payment-card__number'] }>
-        <span className={ styles['payment-card__number-redacted'] }>••••</span>{' '}
-        <span className={ styles['payment-card__number-digits'] }>{last4Digits}</span>
+      <div className={ styles.root__name }>{nameOnCard}</div>
+      <div className={ styles.root__number }>
+        <span className={ styles['root__number-redacted'] }>••••</span>{' '}
+        <span className={ styles['root__number-digits'] }>{last4Digits}</span>
       </div>
     </div>
   )

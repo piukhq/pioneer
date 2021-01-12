@@ -5,7 +5,7 @@ import LoginForm from 'components/LoginForm'
 
 const HomePage = () => {
   const history = useHistory()
-  const apiKey = useSelector(state => state.user.authentication.api_key)
+  const apiKey = useSelector(state => state.users.authentication.api_key)
   useEffect(() => {
     if (apiKey) {
       history.replace('/')

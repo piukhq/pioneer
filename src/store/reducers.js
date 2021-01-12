@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import user from 'ducks/user'
+import users from 'ducks/users'
 import paymentCards from 'ducks/paymentCards'
 import membershipCards from 'ducks/membershipCards'
 
 export default combineReducers({
-  user,
+  users,
   paymentCards,
   membershipCards,
 })

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 const HomePage = () => {
-  const apiKey = useSelector(state => state.user.authentication.api_key)
+  const apiKey = useSelector(state => state.users.authentication.api_key)
   const history = useHistory()
   useEffect(() => {
     if (apiKey) {
