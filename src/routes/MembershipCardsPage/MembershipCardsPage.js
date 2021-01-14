@@ -11,10 +11,6 @@ const MembershipCardsPage = () => {
   return (
     <div>
       <h1>Membership cards</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci culpa doloremque
-        iusto nam odit repellat repellendus tempora vitae voluptatum.
-      </p>
       <MembershipCards onError={handleError}/>
 
       <br /><br /><br />
