@@ -13,6 +13,7 @@ import PaymentCards from 'components/PaymentCards'
 import PaymentCardAdd from 'components/PaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
+import Loading from 'components/Loading'
 
 import styles from './MembershipCardsPage.module.scss'
 
@@ -105,9 +106,7 @@ const MembershipCardPage = () => {
       ) }
       {/* todo: TBD how we show visually loading state */}
       { loading && (
-        <>
-          <br /><br /> Loading
-        </>
+        <Loading />
       )}
       { error && (
         <>

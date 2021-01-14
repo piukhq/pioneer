@@ -74,6 +74,10 @@ const hasJsxRuntime = (() => {
   }
 })();
 
+process.env.THEME = process.env.THEME || 'bink'
+process.env.NODE_CONFIG_DIR = path.join(__dirname, '../binkConfig/');
+const binkConfig = require('config');
+
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function (webpackEnv) {
@@ -156,6 +160,9 @@ module.exports = function (webpackEnv) {
   };
 
   return {
+    externals: {
+      Config: JSON.stringify(binkConfig),
+    },
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
@@ -338,6 +345,7 @@ module.exports = function (webpackEnv) {
         ducks: path.join(__dirname, '../src/ducks'),
         routes: path.join(__dirname, '../src/routes'),
         hooks: path.join(__dirname, '../src/hooks'),
+        sassThemeFolder: path.resolve(__dirname, '../src/sass/themes/', process.env.THEME),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
