@@ -22,6 +22,7 @@
     "camelcase": "^6.1.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
     "classnames": "^2.2.6",
+    "config": "^3.3.3",
     "css-loader": "4.3.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
@@ -84,6 +85,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "uat": "NODE_CONFIG_ENV=uat node scripts/build.js",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {
