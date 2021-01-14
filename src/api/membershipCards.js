@@ -11,6 +11,17 @@ export const getMembershipCards = () => (
   )
 )
 
+export const deleteMembershipCard = (id) => (
+  axios.delete(
+    `https://api.dev.gb.bink.com/ubiquity/membership_card/${id}`,
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    },
+  )
+)
+
 // todo: to remove. This functionality was added because every now and then someone or something would remove the
 // membership card for the test user account
 export const addTestMembershipCard = () => (

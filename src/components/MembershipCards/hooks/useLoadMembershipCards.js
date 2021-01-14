@@ -30,9 +30,9 @@ const useLoadMembershipCards = (onError) => {
             break
           case 1:
             history.replace(`/membership-card/${cards[0].id}`)
+            break
           default:
-            // todo: per specs for now but probably should be handled differently
-            history.replace(`/membership-card/${cards[0].id}`)
+            // do nothing
         }
       } else {
         // current theme is not for a merchant channel

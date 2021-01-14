@@ -1,5 +1,8 @@
-import { useSelector } from 'react-redux'
-import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectors as membershipCardsSelectors,
+  actions as membershipCardsActions,
+} from 'ducks/membershipCards'
 
 export const useMembershipCardsState = () => {
   const membershipCards = useSelector(state => membershipCardsSelectors.cardsList(state))
@@ -10,5 +13,12 @@ export const useMembershipCardsState = () => {
     error,
     loading,
     membershipCards,
+  }
+}
+
+export const useMembershipCardsDispatch = () => {
+  const dispatch = useDispatch()
+  return {
+    deleteMembershipCard: (id) => dispatch(membershipCardsActions.deleteMembershipCard(id)),
   }
 }
