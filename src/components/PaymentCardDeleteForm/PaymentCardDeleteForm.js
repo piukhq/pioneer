@@ -24,6 +24,7 @@ const PaymentCardDeleteForm = ({ id, onClose }) => {
           <p className={styles.root__message}>
             This payment card has expired and can no longer be used to auto-collect points and rewards.
           </p>
+          {/* todo: refine handling of error */}
           { error && (
             <div className={styles.root__error}>
               There was an error

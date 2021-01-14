@@ -4,7 +4,7 @@ module.exports = {
     // note: if overwritten then all cases must be kept
     switch (process.env.THEME) {
       case 'bink': return null
-      case 'wasabi': return '315'
+      case 'wasabi': return 315
     }
   })(),
   isMerchantChannel: (() => {

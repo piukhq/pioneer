@@ -56,6 +56,7 @@ const usePaymentCardAddForm = (onClose) => {
       }
     })
 
+    // todo: to move into config
     Spreedly.init('Yc7xn3gDP73PPOQLEB2BYpv31EV', {
       numberEl: 'bink-spreedly-number',
       cvvEl: 'bink-spreedly-cvv',
