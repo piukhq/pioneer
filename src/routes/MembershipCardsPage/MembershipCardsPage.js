@@ -15,6 +15,8 @@ const MembershipCardsPage = () => {
 
       <br /><br /><br />
       <Link to={'/payment-cards'}>Payment Cards</Link>
+      <br />
+      <Link to={'/membership-plans'}>Membership Plans</Link>
     </div>
   )
 }

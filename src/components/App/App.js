@@ -5,6 +5,7 @@ import {
   Route,
 } from 'react-router-dom'
 import HomePage from 'routes/HomePage'
+import MembershipPlansPage from 'routes/MembershipPlansPage'
 import MembershipCardsPage from 'routes/MembershipCardsPage'
 import MembershipCardPage from 'routes/MembershipCardPage'
 import PaymentCardsPage from 'routes/PaymentCardsPage'
@@ -34,6 +35,9 @@ function App () {
           </Route>
           <Route path="/membership-card/:id">
             <MembershipCardPage />
+          </Route>
+          <Route path="/membership-plans">
+            <MembershipPlansPage />
           </Route>
         </Switch>
       </Router>
