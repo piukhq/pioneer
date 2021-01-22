@@ -6,6 +6,8 @@ import {
   useMembershipCardsDispatch,
 } from 'hooks/membershipCards'
 import useLoadMembershipCards from './hooks/useLoadMembershipCards'
+import useAddMembershipCard from './hooks/useAddMembershipCard'
+import MembershipCardAddModal from 'components/MembershipCardAddModal'
 
 import RecreateRemovedMembershipCard from './RecreateRemovedMembershipCard'
 import Loading from 'components/Loading'
@@ -17,6 +19,11 @@ const MembershipCards = ({ onError }) => {
   const { membershipCards, loading } = useMembershipCardsState()
   const { deleteMembershipCard } = useMembershipCardsDispatch()
   useLoadMembershipCards(onError)
+
+  const {
+    isAddMembershipCardModalOpen,
+    setAddMembershipCardModalOpen,
+  } = useAddMembershipCard()
   return (
     <>
       {/* todo: probably should filter by membership plan id if merchant channel */}
@@ -31,10 +38,14 @@ const MembershipCards = ({ onError }) => {
       ) }
       { membershipCards.length === 0 && !loading && (
         <>
-          <Button>I already have a card</Button>
+          <Button onClick={() => setAddMembershipCardModalOpen(true)}>I already have a card</Button>
           <Button>Get a new card</Button>
         </>
       ) }
+      { Config.isMerchantChannel && isAddMembershipCardModalOpen && (
+        <MembershipCardAddModal planId={Config.membershipPlanId} onClose={() => setAddMembershipCardModalOpen(false)} />
+      )}
+
       { Config.isMerchantChannel && membershipCards.length > 1 && (
         <>
           {/* todo: copy TBD */}
@@ -47,6 +58,9 @@ const MembershipCards = ({ onError }) => {
               <button onClick={() => deleteMembershipCard(card.id)}>Remove</button>
             </div>
           ))}
+
+          {/* todo: temporary. to remove button */}
+          <Button onClick={() => setAddMembershipCardModalOpen(true)}>I already have a card</Button>
         </>
       ) }
       {/* <RecreateRemovedMembershipCard /> */}

@@ -23,7 +23,7 @@ const useLoadMembershipCards = (onError) => {
     if (finishedRefreshing) {
       if (Config.isMerchantChannel) {
         const cards = membershipCards.filter(
-          card => card.membership_plan === 315, // todo: no hardcoded id
+          card => card.membership_plan === Config.membershipPlanId,
         )
         switch (cards.length) {
           case 0:
