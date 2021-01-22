@@ -11,11 +11,10 @@ export const types = {
   MEMBERSHIP_CARDS_SUCCESS: 'membershipCards/MEMBERSHIP_CARDS_SUCCESS',
   MEMBERSHIP_CARDS_FAILURE: 'membershipCards/MEMBERSHIP_CARDS_FAILURE',
 
-  // todo: to change CARDS to CARD for delete
-  DELETE_MEMBERSHIP_CARDS_REQUEST: 'paymentCards/DELETE_MEMBERSHIP_CARDS_REQUEST',
-  DELETE_MEMBERSHIP_CARDS_SUCCESS: 'paymentCards/DELETE_MEMBERSHIP_CARDS_SUCCESS',
-  DELETE_MEMBERSHIP_CARDS_FAILURE: 'paymentCards/DELETE_MEMBERSHIP_CARDS_FAILURE',
-  DELETE_MEMBERSHIP_CARDS_RESET: 'paymentCards/DELETE_MEMBERSHIP_CARDS_RESET',
+  DELETE_MEMBERSHIP_CARD_REQUEST: 'paymentCards/DELETE_MEMBERSHIP_CARD_REQUEST',
+  DELETE_MEMBERSHIP_CARD_SUCCESS: 'paymentCards/DELETE_MEMBERSHIP_CARD_SUCCESS',
+  DELETE_MEMBERSHIP_CARD_FAILURE: 'paymentCards/DELETE_MEMBERSHIP_CARD_FAILURE',
+  DELETE_MEMBERSHIP_CARD_RESET: 'paymentCards/DELETE_MEMBERSHIP_CARD_RESET',
 
   ADD_MEMBERSHIP_CARD_REQUEST: 'paymentCards/ADD_MEMBERSHIP_CARD_REQUEST',
   ADD_MEMBERSHIP_CARD_SUCCESS: 'paymentCards/ADD_MEMBERSHIP_CARD_SUCCESS',
@@ -61,7 +60,7 @@ const reducer = (state = initialState, action) => {
         error: true,
         cards: {},
       }
-    case types.DELETE_MEMBERSHIP_CARDS_REQUEST:
+    case types.DELETE_MEMBERSHIP_CARD_REQUEST:
       return {
         ...state,
         delete: {
@@ -70,7 +69,7 @@ const reducer = (state = initialState, action) => {
           success: false,
         },
       }
-    case types.DELETE_MEMBERSHIP_CARDS_SUCCESS:
+    case types.DELETE_MEMBERSHIP_CARD_SUCCESS:
       return {
         ...state,
         delete: {
@@ -79,7 +78,7 @@ const reducer = (state = initialState, action) => {
           success: true,
         },
       }
-    case types.DELETE_MEMBERSHIP_CARDS_FAILURE:
+    case types.DELETE_MEMBERSHIP_CARD_FAILURE:
       return {
         ...state,
         delete: {
@@ -88,7 +87,7 @@ const reducer = (state = initialState, action) => {
           success: false,
         },
       }
-    case types.DELETE_MEMBERSHIP_CARDS_RESET:
+    case types.DELETE_MEMBERSHIP_CARD_RESET:
       return {
         ...state,
         delete: {
@@ -180,10 +179,10 @@ export const actions = {
       dispatch(actions.getMembershipCardsFailure())
     }
   },
-  deleteMembershipCardRequest: () => ({ type: types.DELETE_MEMBERSHIP_CARDS_REQUEST }),
-  deleteMembershipCardFailure: (error) => ({ type: types.DELETE_MEMBERSHIP_CARDS_FAILURE, payload: serializeError(error) }),
-  deleteMembershipCardSuccess: () => ({ type: types.DELETE_MEMBERSHIP_CARDS_SUCCESS }),
-  deleteMembershipCardReset: () => ({ type: types.DELETE_MEMBERSHIP_CARDS_RESET }),
+  deleteMembershipCardRequest: () => ({ type: types.DELETE_MEMBERSHIP_CARD_REQUEST }),
+  deleteMembershipCardFailure: (error) => ({ type: types.DELETE_MEMBERSHIP_CARD_FAILURE, payload: serializeError(error) }),
+  deleteMembershipCardSuccess: () => ({ type: types.DELETE_MEMBERSHIP_CARD_SUCCESS }),
+  deleteMembershipCardReset: () => ({ type: types.DELETE_MEMBERSHIP_CARD_RESET }),
   deleteMembershipCard: (id) => async (dispatch) => {
     dispatch(actions.deleteMembershipCardRequest())
     try {
