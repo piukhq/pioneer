@@ -22,6 +22,21 @@ export const deleteMembershipCard = (id) => (
   )
 )
 
+export const addMembershipCard = (accountData, planId) => (
+  axios.post(
+    'https://api.dev.gb.bink.com/ubiquity/membership_cards',
+    {
+      account: accountData,
+      membership_plan: planId,
+    },
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+      },
+    },
+  )
+)
+
 // todo: to remove. This functionality was added because every now and then someone or something would remove the
 // membership card for the test user account
 export const addTestMembershipCard = () => (

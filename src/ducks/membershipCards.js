@@ -1,4 +1,4 @@
-import { getMembershipCards, deleteMembershipCard } from 'api/membershipCards'
+import { addMembershipCard, getMembershipCards, deleteMembershipCard } from 'api/membershipCards'
 import { createSelector } from 'reselect'
 import {
   selectors as paymentCardsSelectors,
@@ -11,10 +11,16 @@ export const types = {
   MEMBERSHIP_CARDS_SUCCESS: 'membershipCards/MEMBERSHIP_CARDS_SUCCESS',
   MEMBERSHIP_CARDS_FAILURE: 'membershipCards/MEMBERSHIP_CARDS_FAILURE',
 
+  // todo: to change CARDS to CARD for delete
   DELETE_MEMBERSHIP_CARDS_REQUEST: 'paymentCards/DELETE_MEMBERSHIP_CARDS_REQUEST',
   DELETE_MEMBERSHIP_CARDS_SUCCESS: 'paymentCards/DELETE_MEMBERSHIP_CARDS_SUCCESS',
   DELETE_MEMBERSHIP_CARDS_FAILURE: 'paymentCards/DELETE_MEMBERSHIP_CARDS_FAILURE',
   DELETE_MEMBERSHIP_CARDS_RESET: 'paymentCards/DELETE_MEMBERSHIP_CARDS_RESET',
+
+  ADD_MEMBERSHIP_CARD_REQUEST: 'paymentCards/ADD_MEMBERSHIP_CARD_REQUEST',
+  ADD_MEMBERSHIP_CARD_SUCCESS: 'paymentCards/ADD_MEMBERSHIP_CARD_SUCCESS',
+  ADD_MEMBERSHIP_CARD_FAILURE: 'paymentCards/ADD_MEMBERSHIP_CARD_FAILURE',
+  ADD_MEMBERSHIP_CARD_RESET: 'paymentCards/ADD_MEMBERSHIP_CARD_RESET',
 }
 
 const initialState = {
@@ -22,6 +28,11 @@ const initialState = {
   error: false,
   cards: {},
   delete: {
+    loading: false,
+    error: false,
+    success: false,
+  },
+  add: {
     loading: false,
     error: false,
     success: false,
@@ -81,6 +92,42 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         delete: {
+          loading: false,
+          error: false,
+          success: false,
+        },
+      }
+    case types.ADD_MEMBERSHIP_CARD_REQUEST:
+      return {
+        ...state,
+        add: {
+          loading: true,
+          error: false,
+          success: false,
+        },
+      }
+    case types.ADD_MEMBERSHIP_CARD_SUCCESS:
+      return {
+        ...state,
+        add: {
+          loading: false,
+          error: false,
+          success: true,
+        },
+      }
+    case types.ADD_MEMBERSHIP_CARD_FAILURE:
+      return {
+        ...state,
+        add: {
+          loading: false,
+          error: action.payload,
+          success: false,
+        },
+      }
+    case types.ADD_MEMBERSHIP_CARD_RESET:
+      return {
+        ...state,
+        add: {
           loading: false,
           error: false,
           success: false,
@@ -147,6 +194,23 @@ export const actions = {
       dispatch(actions.getMembershipCards())
     } catch (e) {
       dispatch(actions.deleteMembershipCardFailure(e))
+    }
+  },
+
+  addMembershipCardRequest: () => ({ type: types.ADD_MEMBERSHIP_CARD_REQUEST }),
+  addMembershipCardFailure: (error) => ({ type: types.ADD_MEMBERSHIP_CARD_FAILURE, payload: serializeError(error) }),
+  addMembershipCardSuccess: () => ({ type: types.ADD_MEMBERSHIP_CARD_SUCCESS }),
+  addMembershipCardReset: () => ({ type: types.ADD_MEMBERSHIP_CARD_RESET }),
+  addMembershipCard: (accountData, planId) => async (dispatch) => {
+    dispatch(actions.addMembershipCardRequest())
+    try {
+      await addMembershipCard(accountData, planId)
+      dispatch(actions.addMembershipCardSuccess())
+      // refresh payment and membership cards
+      dispatch(paymentCardsActions.getPaymentCards())
+      dispatch(actions.getMembershipCards())
+    } catch (e) {
+      dispatch(actions.addMembershipCardFailure(e))
     }
   },
 }
