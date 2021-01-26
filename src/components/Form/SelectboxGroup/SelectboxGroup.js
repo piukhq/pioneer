@@ -11,7 +11,6 @@ const SelectboxGroup = ({
   onBlur,
   name,
   label,
-  placeholder,
   error,
 }) => {
   return (
@@ -28,7 +27,6 @@ const SelectboxGroup = ({
         name={name}
         id={`bink-form-field-${name}`}
       >
-        <option disabled value=''>[{placeholder}]</option>
         {values.map(option => (
           <option key={option} value={option}>{option}</option>
         ))}

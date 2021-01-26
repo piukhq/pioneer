@@ -17,14 +17,14 @@ const useForm = (plan, planId) => {
         add_fields: addFields.reduce(
           (acc, field) => ({
             ...acc,
-            [field.column]: '',
+            [field.column]: field.choice?.length > 0 ? field.choice[0] : '',
           }),
           {},
         ),
         authorise_fields: authoriseFields.reduce(
           (acc, field) => ({
             ...acc,
-            [field.column]: '',
+            [field.column]: field.choice?.length > 0 ? field.choice[0] : '',
           }),
           {},
         ),

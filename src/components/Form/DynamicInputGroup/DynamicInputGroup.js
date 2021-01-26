@@ -68,7 +68,6 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           error={error}
           name={common_name}
           label={column}
-          placeholder={description}
         />
       )
     case types.CHECKBOX:
