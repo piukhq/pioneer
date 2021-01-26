@@ -37,7 +37,7 @@ const useForm = (plan, planId) => {
       ...values,
       [fieldType]: {
         ...values[fieldType],
-        [data.column]: event.target.value,
+        [data.column]: event.target.type === 'checkbox' ? event.target.checked : event.target.value,
       },
     })
   }, [values])

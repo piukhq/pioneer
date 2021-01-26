@@ -1,12 +1,11 @@
 .root {
-
   &__label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
 
-  &__input {
+  &__select {
     display: block;
     width: 100%;
     height: 25px;
@@ -22,15 +21,6 @@
 
     &:focus {
       border-bottom-color: #666;
-    }
-
-    &--invalid {
-      border-bottom-color: red;
-      color: red;
-
-      &:focus {
-        border-bottom-color: red;
-      }
     }
   }
 }

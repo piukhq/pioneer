@@ -10,6 +10,7 @@ const TextInputGroup = ({
   label,
   placeholder,
   validation,
+  type = 'text',
 }) => {
   const [valid, setValid] = useState(true)
 
@@ -38,7 +39,7 @@ const TextInputGroup = ({
           styles.root__input,
           !valid && styles['root__input--invalid'],
         )}
-        type='text'
+        type={type}
         name={name}
         id={`bink-form-field-${name}`}
         placeholder={placeholder}
