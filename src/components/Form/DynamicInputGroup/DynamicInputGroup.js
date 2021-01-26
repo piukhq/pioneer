@@ -10,21 +10,23 @@ const types = {
   CHECKBOX: 3,
 }
 
-const DynamicInputGroup = ({ className, data, fieldType, value, onChange }) => {
+const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur, error }) => {
   const {
     choice,
     column,
     common_name,
     description,
     type,
-    validation,
   } = data
-
-  // console.log('data', type, data)
 
   const handleChange = React.useCallback(
     (...params) => { onChange(...params, data, fieldType) },
     [onChange, data, fieldType],
+  )
+
+  const handleBlur = React.useCallback(
+    (...params) => { onBlur(...params, data, fieldType) },
+    [onBlur, data, fieldType],
   )
 
   switch (type) {
@@ -34,10 +36,11 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange }) => {
           className={className}
           value={value}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={error}
           name={common_name}
           label={column}
           placeholder={description}
-          validation={validation}
         />
       )
     case types.PASSWORD_INPUT:
@@ -46,10 +49,11 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange }) => {
           className={className}
           value={value}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={error}
           name={common_name}
           label={column}
           placeholder={description}
-          validation={validation}
           type='password'
         />
       )
@@ -60,10 +64,11 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange }) => {
           value={value}
           values={choice}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={error}
           name={common_name}
           label={column}
           placeholder={description}
-          validation={validation}
         />
       )
     case types.CHECKBOX:
@@ -72,10 +77,10 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange }) => {
           className={className}
           value={value}
           onChange={handleChange}
+          onBlur={handleBlur}
+          error={error}
           name={common_name}
           label={description}
-          // placeholder={description}
-          validation={validation}
         />
       )
     default:

@@ -6,6 +6,13 @@
     font-weight: bold;
   }
 
+  &__error {
+    font-size: 14px;
+    color: red;
+    margin-top: 2px;
+    min-height: 1.4em;
+  }
+
   &__input {
     display: block;
     width: 100%;
@@ -22,15 +29,6 @@
 
     &:focus {
       border-bottom-color: #666;
-    }
-
-    &--invalid {
-      border-bottom-color: red;
-      color: red;
-
-      &:focus {
-        border-bottom-color: red;
-      }
     }
   }
 }

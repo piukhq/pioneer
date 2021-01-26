@@ -3,6 +3,7 @@ import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 
 const useForm = (plan, planId) => {
   const [values, setValues] = useState(null)
+  const [errors, setErrors] = useState(null)
 
   useEffect(() => {
     const getDefaultFieldValuesFromPlan = () => {
@@ -32,6 +33,34 @@ const useForm = (plan, planId) => {
     setValues(getDefaultFieldValuesFromPlan)
   }, [plan])
 
+  useEffect(() => {
+    const getDefaultFieldErrorsFromPlan = () => {
+      if (!plan) {
+        return null
+      }
+      const addFields = plan?.account?.add_fields || []
+      const authoriseFields = plan?.account?.authorise_fields || []
+
+      return {
+        add_fields: addFields.reduce(
+          (acc, field) => ({
+            ...acc,
+            [field.column]: null,
+          }),
+          {},
+        ),
+        authorise_fields: authoriseFields.reduce(
+          (acc, field) => ({
+            ...acc,
+            [field.column]: null,
+          }),
+          {},
+        ),
+      }
+    }
+    setErrors(getDefaultFieldErrorsFromPlan)
+  }, [plan])
+
   const handleChange = useCallback((event, data, fieldType) => {
     setValues({
       ...values,
@@ -40,7 +69,35 @@ const useForm = (plan, planId) => {
         [data.column]: event.target.type === 'checkbox' ? event.target.checked : event.target.value,
       },
     })
-  }, [values])
+
+    setErrors({
+      ...errors,
+      [fieldType]: {
+        ...errors[fieldType],
+        [data.column]: null,
+      },
+    })
+  }, [values, errors])
+
+  const handleBlur = useCallback((event, data, fieldType) => {
+    const value = values[fieldType][data.column]
+
+    let valid
+    if (data.validation) {
+      const re = new RegExp(data.validation)
+      valid = value.toString().match(re)
+    } else {
+      valid = true
+    }
+
+    setErrors({
+      ...errors,
+      [fieldType]: {
+        ...errors[fieldType],
+        [data.column]: valid ? null : 'Incorrect format',
+      },
+    })
+  }, [values, errors])
 
   const { addMembershipCard } = useMembershipCardsDispatch()
 
@@ -61,8 +118,10 @@ const useForm = (plan, planId) => {
 
   return {
     values,
+    errors,
     handleChange,
     handleSubmit,
+    handleBlur,
   }
 }
 

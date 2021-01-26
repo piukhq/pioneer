@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import styles from './TextInputGroup.module.scss'
 
@@ -9,44 +9,31 @@ const TextInputGroup = ({
   name,
   label,
   placeholder,
-  validation,
+  onBlur,
+  error,
   type = 'text',
 }) => {
-  const [valid, setValid] = useState(true)
-
-  const validate = useCallback(() => {
-    // todo: temporarily disable validation as it will be implemented by another task
-    return
-    const re = new RegExp(validation)
-    setValid(value.match(re))
-  }, [value, validation])
-
-  const handleChange = useCallback((...params) => {
-    setValid(true)
-    onChange && onChange(...params)
-  }, [onChange])
   return (
-    <div className={cx(styles.root, className, !valid && styles['root--invalid'])}>
+    <div className={cx(styles.root, className)}>
       <label
-        className={cx(
-          styles.root__label,
-          !valid && styles['root__label--invalid'],
-        )}
+        className={styles.root__label}
         htmlFor={`bink-form-field-${name}`}
       >{label}</label>
       <input
         className={cx(
           styles.root__input,
-          !valid && styles['root__input--invalid'],
         )}
         type={type}
         name={name}
         id={`bink-form-field-${name}`}
         placeholder={placeholder}
         value={value}
-        onChange={handleChange}
-        onBlur={validate}
+        onChange={onChange}
+        onBlur={onBlur}
       />
+      <div className={styles.root__error}>
+        { error }
+      </div>
     </div>
   )
 }

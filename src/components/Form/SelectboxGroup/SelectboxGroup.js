@@ -1,16 +1,18 @@
 import React from 'react'
+import cx from 'classnames'
 
-import styles from './SeelectGroup.module.scss'
+import styles from './SelectGroup.module.scss'
 
 const SelectboxGroup = ({
   className,
   value,
   values,
   onChange,
+  onBlur,
   name,
   label,
   placeholder,
-  validation,
+  error,
 }) => {
   return (
     <div className={className}>
@@ -22,6 +24,7 @@ const SelectboxGroup = ({
         className={styles.root__select}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         name={name}
         id={`bink-form-field-${name}`}
       >
@@ -30,6 +33,9 @@ const SelectboxGroup = ({
           <option key={option} value={option}>{option}</option>
         ))}
       </select>
+      <div className={styles.root__error}>
+        { error }
+      </div>
     </div>
   )
 }

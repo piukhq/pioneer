@@ -5,13 +5,10 @@ import styles from './CheckboxGroup.module.scss'
 const CheckboxGroup = ({
   className,
   value,
-  values,
   onChange,
   name,
+  onBlur,
   label,
-  placeholder,
-  validation,
-  type = 'text',
 }) => {
   return (
     <div className={cx(className, styles.root)}>
@@ -19,6 +16,7 @@ const CheckboxGroup = ({
         className={styles.root__box}
         checked={value}
         onChange={onChange}
+        onBlur={onBlur}
         type='checkbox'
         name={name}
         id={`bink-form-field-${name}`}
