@@ -11,7 +11,7 @@ import styles from './MembershipCardAddModal.module.scss'
 
 const MembershipCardAddModal = ({ onClose, planId }) => {
   const { plan, loading } = useLoadMembershipPlans(planId)
-  const { values, errors, handleChange, handleSubmit, handleBlur } = useForm(plan, planId)
+  const { values, errors, handleChange, handleSubmit, handleBlur, entireFormValid } = useForm(plan, planId)
   useCloseModalOnSuccess(onClose)
 
   return (
@@ -44,7 +44,7 @@ const MembershipCardAddModal = ({ onClose, planId }) => {
               fieldType='authorise_fields'
             />
           )) }
-          <Button className={styles.root__submit}>Add my card</Button>
+          <Button disabled={!entireFormValid} className={styles.root__submit}>Add my card</Button>
         </form>
       )}
     </Modal>
