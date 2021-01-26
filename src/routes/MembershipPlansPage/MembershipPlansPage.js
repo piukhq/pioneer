@@ -18,7 +18,7 @@ const MembershipPlansPage = () => {
     <div>
       {plans.map((plan, index) => (
         <div key={plan.id} style={{ minHeight: 15 }}>
-          {index + 1}. {plan.account.plan_name}
+          {index + 1}. {plan.account.plan_name} ({plan.id})
         </div>
       ))}
     </div>

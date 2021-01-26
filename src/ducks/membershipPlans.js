@@ -54,7 +54,13 @@ export const actions = {
   getMembershipPlansRequest: () => ({ type: types.MEMBERSHIP_PLANS_REQUEST }),
   getMembershipPlansFailure: () => ({ type: types.MEMBERSHIP_PLANS_FAILURE }),
   getMembershipPlansSuccess: (payload) => ({ type: types.MEMBERSHIP_PLANS_SUCCESS, payload }),
-  getMembershipPlans: () => async dispatch => {
+  getMembershipPlans: () => async (dispatch, getState) => {
+    const alreadyLoaded = Object.keys(getState().membershipPlans.plans).length > 0
+    // changing membership plans is highly unlikely. use the already loaded version
+    // todo: consider implementing a timeout since the app could be running for months
+    if (alreadyLoaded) {
+      return
+    }
     dispatch(actions.getMembershipPlansRequest())
     try {
       const response = await getMembershipPlans()
