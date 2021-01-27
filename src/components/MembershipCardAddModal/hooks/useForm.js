@@ -11,25 +11,21 @@ const useForm = (plan, planId) => {
       if (!plan) {
         return null
       }
-      const addFields = plan?.account?.add_fields || []
-      const authoriseFields = plan?.account?.authorise_fields || []
 
-      return {
-        add_fields: addFields.reduce(
+      const fieldTypes = ['add_fields', 'authorise_fields']
+
+      const defaultFieldValues = {}
+      fieldTypes.forEach(fieldType => {
+        defaultFieldValues[fieldType] = plan?.account?.[fieldType].reduce(
           (acc, field) => ({
             ...acc,
             [field.column]: field.choice?.length > 0 ? field.choice[0] : '',
           }),
           {},
-        ),
-        authorise_fields: authoriseFields.reduce(
-          (acc, field) => ({
-            ...acc,
-            [field.column]: field.choice?.length > 0 ? field.choice[0] : '',
-          }),
-          {},
-        ),
-      }
+        )
+      })
+
+      return defaultFieldValues
     }
     setValues(getDefaultFieldValuesFromPlan)
   }, [plan])
@@ -71,25 +67,21 @@ const useForm = (plan, planId) => {
       if (!plan) {
         return null
       }
-      const addFields = plan?.account?.add_fields || []
-      const authoriseFields = plan?.account?.authorise_fields || []
 
-      return {
-        add_fields: addFields.reduce(
+      const fieldTypes = ['add_fields', 'authorise_fields']
+
+      const defaultFieldErrors = {}
+      fieldTypes.forEach(fieldType => {
+        defaultFieldErrors[fieldType] = plan?.account?.[fieldType].reduce(
           (acc, field) => ({
             ...acc,
             [field.column]: null,
           }),
           {},
-        ),
-        authorise_fields: authoriseFields.reduce(
-          (acc, field) => ({
-            ...acc,
-            [field.column]: null,
-          }),
-          {},
-        ),
-      }
+        )
+      })
+
+      return defaultFieldErrors
     }
     setErrors(getDefaultFieldErrorsFromPlan)
   }, [plan])
@@ -137,14 +129,14 @@ const useForm = (plan, planId) => {
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
 
-    const accountData = {
-      add_fields: plan.account.add_fields.map(
-        ({ column }) => ({ column, value: values.add_fields[column] }),
-      ),
-      authorise_fields: plan.account.authorise_fields.map(
-        ({ column }) => ({ column, value: values.authorise_fields[column] }),
-      ),
-    }
+    const fieldTypes = ['add_fields', 'authorise_fields']
+
+    const accountData = {}
+    fieldTypes.forEach(fieldType => {
+      accountData[fieldType] = plan?.account?.[fieldType].map(
+        ({ column }) => ({ column, value: values[fieldType][column] }),
+      )
+    })
 
     addMembershipCard(accountData, planId)
   }, [plan, values, addMembershipCard, planId])
