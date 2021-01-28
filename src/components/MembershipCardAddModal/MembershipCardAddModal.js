@@ -1,44 +1,23 @@
 import React from 'react'
 import Modal from 'components/Modal'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
-import useForm from './hooks/useForm'
 import useCloseModalOnSuccess from './hooks/useCloseModalOnSuccess'
 import Loading from 'components/Loading'
-import DynamicInputGroup from 'components/Form/DynamicInputGroup'
-import Button from 'components/Button'
-
-import styles from './MembershipCardAddModal.module.scss'
+import MembershipCardForm from 'components/MembershipCardForm'
 
 const MembershipCardAddModal = ({ onClose, planId }) => {
   const { plan, loading } = useLoadMembershipPlans(planId)
-  const { values, errors, handleChange, handleSubmit, handleBlur, entireFormValid } = useForm(plan, planId)
   useCloseModalOnSuccess(onClose)
-
-  const fieldTypes = ['add_fields', 'authorise_fields']
 
   return (
     <Modal onClose={onClose}>
       { loading && <Loading /> }
       <Modal.Header>Add your card</Modal.Header>
-      { values && (
-        <form onSubmit={handleSubmit}>
-          { fieldTypes.map(fieldType => (
-            plan.account[fieldType].map(fieldDescription => (
-              <DynamicInputGroup
-                className={styles.root__group}
-                key={fieldDescription.column}
-                value={values[fieldType][fieldDescription.column]}
-                error={errors[fieldType][fieldDescription.column]}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                data={fieldDescription}
-                fieldType={fieldType}
-              />
-            ))
-          )) }
-          <Button disabled={!entireFormValid} className={styles.root__submit}>Add my card</Button>
-        </form>
-      )}
+      <MembershipCardForm
+        plan={plan}
+        planId={planId}
+        fieldTypes={['add_fields', 'authorise_fields']}
+      />
     </Modal>
   )
 }
