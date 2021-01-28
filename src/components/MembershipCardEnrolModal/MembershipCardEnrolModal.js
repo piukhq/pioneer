@@ -7,19 +7,20 @@ import Loading from 'components/Loading'
 import DynamicInputGroup from 'components/Form/DynamicInputGroup'
 import Button from 'components/Button'
 
-import styles from './MembershipCardAddModal.module.scss'
+import styles from './MembershipCardEnrolModal.module.scss'
 
-const MembershipCardAddModal = ({ onClose, planId }) => {
+const MembershipCardEnrolModal = ({ onClose, planId }) => {
   const { plan, loading } = useLoadMembershipPlans(planId)
   const { values, errors, handleChange, handleSubmit, handleBlur, entireFormValid } = useForm(plan, planId)
   useCloseModalOnSuccess(onClose)
 
-  const fieldTypes = ['add_fields', 'authorise_fields']
+  // const fieldTypes = ['add_fields', 'authorise_fields']
+  const fieldTypes = ['enrol_fields']
 
   return (
     <Modal onClose={onClose}>
       { loading && <Loading /> }
-      <Modal.Header>Add your card</Modal.Header>
+      <Modal.Header>Enrol</Modal.Header>
       { values && (
         <form onSubmit={handleSubmit}>
           { fieldTypes.map(fieldType => (
@@ -43,4 +44,4 @@ const MembershipCardAddModal = ({ onClose, planId }) => {
   )
 }
 
-export default MembershipCardAddModal
+export default MembershipCardEnrolModal
