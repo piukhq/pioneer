@@ -16,6 +16,7 @@ import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
 import Loading from 'components/Loading'
 
 import styles from './MembershipCardPage.module.scss'
+import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 
 const MembershipCardPage = () => {
   const { id } = useParams()
@@ -102,6 +103,7 @@ const MembershipCardPage = () => {
               </PaymentCards>
             </>
           ) }
+          <DevDeleteMembershipCard cardId={membershipCard.id} />
         </>
       ) }
       {/* todo: TBD how we show visually loading state */}

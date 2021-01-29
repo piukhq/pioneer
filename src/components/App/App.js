@@ -10,6 +10,7 @@ import MembershipCardsPage from 'routes/MembershipCardsPage'
 import MembershipCardPage from 'routes/MembershipCardPage'
 import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
+import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 
 import LoginStatus from 'components/LoginStatus'
 
@@ -32,6 +33,9 @@ function App () {
           </Route>
           <Route path="/membership-cards">
             <MembershipCardsPage />
+          </Route>
+          <Route path="/membership-card/add/:planId">
+            <MembershipCardAddPage />
           </Route>
           <Route path="/membership-card/:id">
             <MembershipCardPage />

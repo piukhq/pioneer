@@ -1,0 +1,13 @@
+.root {
+  text-align: center;
+  &__image {
+    display: block;
+    border-radius: 16px;
+    margin: 0 auto;
+    max-width: 300px;
+  }
+  &__text {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+}

@@ -27,6 +27,7 @@ const useLoadMembershipCards = (onError) => {
         )
         switch (cards.length) {
           case 0:
+            history.replace(`/membership-card/add/${Config.membershipPlanId}`)
             break
           case 1:
             history.replace(`/membership-card/${cards[0].id}`)

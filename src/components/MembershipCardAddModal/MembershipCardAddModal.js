@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Modal from 'components/Modal'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import useCloseModalOnSuccess from './hooks/useCloseModalOnSuccess'
@@ -8,6 +8,7 @@ import MembershipCardForm from 'components/MembershipCardForm'
 const MembershipCardAddModal = ({ onClose, planId }) => {
   const { plan, loading } = useLoadMembershipPlans(planId)
   useCloseModalOnSuccess(onClose)
+  const fieldTypes = useRef(['add_fields', 'authorise_fields']).current
 
   return (
     <Modal onClose={onClose}>
@@ -16,7 +17,7 @@ const MembershipCardAddModal = ({ onClose, planId }) => {
       <MembershipCardForm
         plan={plan}
         planId={planId}
-        fieldTypes={['add_fields', 'authorise_fields']}
+        fieldTypes={fieldTypes}
       />
     </Modal>
   )

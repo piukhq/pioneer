@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 
+// todo: this file should be removed as fuctionality should have been moved to the Form from the Modals
+
 const useForm = (plan, planId) => {
   const [values, setValues] = useState(null)
   const [errors, setErrors] = useState(null)
