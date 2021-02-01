@@ -100,6 +100,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         add: {
+          card: null,
           loading: true,
           error: false,
           success: false,
@@ -109,6 +110,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         add: {
+          card: action.payload,
           loading: false,
           error: false,
           success: true,
@@ -118,6 +120,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         add: {
+          card: null,
           loading: false,
           error: action.payload,
           success: false,
@@ -127,6 +130,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         add: {
+          ...state.add,
           loading: false,
           error: false,
           success: false,
@@ -198,13 +202,13 @@ export const actions = {
 
   addMembershipCardRequest: () => ({ type: types.ADD_MEMBERSHIP_CARD_REQUEST }),
   addMembershipCardFailure: (error) => ({ type: types.ADD_MEMBERSHIP_CARD_FAILURE, payload: serializeError(error) }),
-  addMembershipCardSuccess: () => ({ type: types.ADD_MEMBERSHIP_CARD_SUCCESS }),
+  addMembershipCardSuccess: (payload) => ({ type: types.ADD_MEMBERSHIP_CARD_SUCCESS, payload }),
   addMembershipCardReset: () => ({ type: types.ADD_MEMBERSHIP_CARD_RESET }),
   addMembershipCard: (accountData, planId) => async (dispatch) => {
     dispatch(actions.addMembershipCardRequest())
     try {
-      await addMembershipCard(accountData, planId)
-      dispatch(actions.addMembershipCardSuccess())
+      const response = await addMembershipCard(accountData, planId)
+      dispatch(actions.addMembershipCardSuccess(response.data))
       // refresh payment and membership cards
       dispatch(paymentCardsActions.getPaymentCards())
       dispatch(actions.getMembershipCards())
