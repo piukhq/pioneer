@@ -14,6 +14,7 @@ export const useMembershipCardsState = () => {
     loading,
     membershipCards,
     add: {
+      card: useSelector(state => state.membershipCards.add.card),
       loading: useSelector(state => state.membershipCards.add.loading),
       error: useSelector(state => state.membershipCards.add.error),
       success: useSelector(state => state.membershipCards.add.success),
