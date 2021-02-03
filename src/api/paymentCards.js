@@ -6,6 +6,7 @@ export const getPaymentCards = () => (
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json;v=1.3',
       },
     },
   )
@@ -17,6 +18,7 @@ export const deletePaymentCard = (id) => (
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json;v=1.3',
       },
     },
   )
@@ -67,7 +69,7 @@ export const addPaymentCard = (
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json;v=1.1',
+        'Content-Type': 'application/json;v=1.3',
       },
     },
   )
