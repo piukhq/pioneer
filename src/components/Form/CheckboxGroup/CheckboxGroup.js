@@ -10,6 +10,7 @@ const CheckboxGroup = ({
   onBlur,
   label,
 }) => {
+  const safeIdName = name?.toLowerCase().replaceAll(/[^a-z]+/g, '-')
   return (
     <div className={cx(className, styles.root)}>
       <input
@@ -19,11 +20,11 @@ const CheckboxGroup = ({
         onBlur={onBlur}
         type='checkbox'
         name={name}
-        id={`bink-form-field-${name}`}
+        id={`bink-form-field-${safeIdName}`}
       />
       <label
         className={styles.root__label}
-        htmlFor={`bink-form-field-${name}`}
+        htmlFor={`bink-form-field-${safeIdName}`}
       >
         {label}
       </label>

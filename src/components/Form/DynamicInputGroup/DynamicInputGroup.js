@@ -78,7 +78,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           onChange={handleChange}
           onBlur={handleBlur}
           error={error}
-          name={common_name}
+          name={column}
           label={description}
         />
       )
