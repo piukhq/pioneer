@@ -47,7 +47,7 @@ const MembershipCardAddPage = () => {
       { plan && (
         <>
           <div className={styles.root}>
-            { imgUrl ? <img className={styles.root__image} src={ imgUrl } /> : null }
+            { imgUrl ? <img className={styles.root__image} src={ `${imgUrl}?width=300&height=183` } /> : null }
             <h1 className={styles.root__header}>Are you a member of the {plan.account.plan_name}?</h1>
             <div className={styles.root__text}>
               Already have a card? Great we can get it associated to you in a few clicks. If not, we can get you a new one!
