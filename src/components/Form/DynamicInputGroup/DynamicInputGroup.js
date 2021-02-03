@@ -20,7 +20,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
   } = data
 
   const handleChange = React.useCallback(
-    (...params) => { onChange(...params, data, fieldType) },
+    (event) => { onChange(event, data, fieldType) },
     [onChange, data, fieldType],
   )
 
