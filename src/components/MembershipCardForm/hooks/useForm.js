@@ -17,7 +17,7 @@ const useForm = (plan, planId, fieldTypes) => {
         defaultFieldValues[fieldType] = plan?.account?.[fieldType].reduce(
           (acc, field) => ({
             ...acc,
-            [field.column]: field.choice?.length > 0 ? field.choice[0] : '',
+            [field.column]: field.choice?.length > 0 ? field.choice[0] : field.type === 3 ? false : '',
           }),
           {},
         )
