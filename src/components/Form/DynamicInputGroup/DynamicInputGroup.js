@@ -20,7 +20,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
   } = data
 
   const handleChange = React.useCallback(
-    (...params) => { onChange(...params, data, fieldType) },
+    (event) => { onChange(event, data, fieldType) },
     [onChange, data, fieldType],
   )
 
@@ -78,7 +78,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           onChange={handleChange}
           onBlur={handleBlur}
           error={error}
-          name={common_name}
+          name={column}
           label={description}
         />
       )

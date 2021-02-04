@@ -41,19 +41,23 @@ const MembershipCardAddPage = () => {
   const { loading, membershipPlanById: plan } = useMembershipPlansState(planId)
   const imgUrl = plan?.images?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.HERO)?.[0]?.url
 
+  const canAdd = plan?.feature_set?.linking_support?.includes('ADD')
+  const canEnrol = plan?.feature_set?.linking_support?.includes('ENROL')
+
   return (
     <>
       { loading ? <Loading /> : null }
       { plan && (
         <>
           <div className={styles.root}>
-            { imgUrl ? <img className={styles.root__image} src={ imgUrl } /> : null }
+            { imgUrl ? <img className={styles.root__image} src={ `${imgUrl}?width=300&height=183` } /> : null }
             <h1 className={styles.root__header}>Are you a member of the {plan.account.plan_name}?</h1>
             <div className={styles.root__text}>
+              {/* todo: this copy should depend on the canAdd and canEnrol feature flags */}
               Already have a card? Great we can get it associated to you in a few clicks. If not, we can get you a new one!
             </div>
-            <Button onClick={() => setAddMembershipCardModalOpen(true)}>I already have a card</Button>
-            <Button onClick={() => setEnrolMembershipCardModalOpen(true)}>Get a new card</Button>
+            { canAdd && <Button onClick={() => setAddMembershipCardModalOpen(true)}>I already have a card</Button> }
+            { canEnrol && <Button onClick={() => setEnrolMembershipCardModalOpen(true)}>Get a new card</Button> }
           </div>
           { isAddMembershipCardModalOpen && (
             <MembershipCardAddModal planId={planId} onClose={() => setAddMembershipCardModalOpen(false)} />
