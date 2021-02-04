@@ -1,10 +1,17 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
+import usePlanDocumentsValues from './usePlanDocumentsValues'
 
-const useForm = (plan, planId, fieldTypes) => {
+const useForm = (plan, planId, fieldTypes, linkingFeature) => {
   const [values, setValues] = useState(null)
   const [errors, setErrors] = useState(null)
   const [entireFormValid, setEntireFormValid] = useState(null)
+
+  const {
+    allPlanDocumentsAccepted,
+    documentValues,
+    handleDocumentChange,
+  } = usePlanDocumentsValues(plan, linkingFeature)
 
   useEffect(() => {
     const getDefaultFieldValuesFromPlan = () => {
@@ -30,7 +37,7 @@ const useForm = (plan, planId, fieldTypes) => {
 
   useEffect(() => {
     const isEntireFormValid = () => {
-      let isFormValid = true
+      let formFieldsAreValid = true
       if (!plan || !values) {
         return false
       }
@@ -49,16 +56,16 @@ const useForm = (plan, planId, fieldTypes) => {
           }
 
           if (!valid) {
-            isFormValid = false
+            formFieldsAreValid = false
           }
         })
       })
 
-      return isFormValid
+      return formFieldsAreValid && allPlanDocumentsAccepted
     }
 
     setEntireFormValid(isEntireFormValid())
-  }, [values, plan, fieldTypes])
+  }, [values, plan, fieldTypes, allPlanDocumentsAccepted])
 
   useEffect(() => {
     const getDefaultFieldErrorsFromPlan = () => {
@@ -142,6 +149,8 @@ const useForm = (plan, planId, fieldTypes) => {
     handleSubmit,
     handleBlur,
     entireFormValid,
+    documentValues,
+    handleDocumentChange,
   }
 }
 

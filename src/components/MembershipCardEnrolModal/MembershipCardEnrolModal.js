@@ -11,6 +11,7 @@ const MembershipCardEnrolModal = ({ onClose, planId }) => {
   const { add: { loading: addLoading } } = useMembershipCardsState()
   useCloseModalOnSuccess(onClose)
   const fieldTypes = useRef(['enrol_fields']).current
+  const linkingFeature = 'ENROL'
 
   return (
     <Modal onClose={onClose}>
@@ -21,6 +22,7 @@ const MembershipCardEnrolModal = ({ onClose, planId }) => {
         plan={plan}
         planId={planId}
         fieldTypes={fieldTypes}
+        linkingFeature={linkingFeature}
       />
     </Modal>
   )
