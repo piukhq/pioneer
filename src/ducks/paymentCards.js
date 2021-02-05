@@ -11,12 +11,12 @@ export const types = {
   ADD_PAYMENT_CARDS_REQUEST: 'paymentCards/ADD_PAYMENT_CARDS_REQUEST',
   ADD_PAYMENT_CARDS_SUCCESS: 'paymentCards/ADD_PAYMENT_CARDS_SUCCESS',
   ADD_PAYMENT_CARDS_FAILURE: 'paymentCards/ADD_PAYMENT_CARDS_FAILURE',
-  ADD_PAYMENT_CARDS_RESET: 'paymentCards/ADD_PAYMENT_CARDS_RESET',
+  ADD_PAYMENT_CARDS_RESET_SUCCESS_STATUS: 'paymentCards/ADD_PAYMENT_CARDS_RESET_SUCCESS_STATUS',
 
   DELETE_PAYMENT_CARDS_REQUEST: 'paymentCards/DELETE_PAYMENT_CARDS_REQUEST',
   DELETE_PAYMENT_CARDS_SUCCESS: 'paymentCards/DELETE_PAYMENT_CARDS_SUCCESS',
   DELETE_PAYMENT_CARDS_FAILURE: 'paymentCards/DELETE_PAYMENT_CARDS_FAILURE',
-  DELETE_PAYMENT_CARDS_RESET: 'paymentCards/DELETE_PAYMENT_CARDS_RESET',
+  DELETE_PAYMENT_CARDS_RESET_SUCCESS_STATUS: 'paymentCards/DELETE_PAYMENT_CARDS_RESET_SUCCESS_STATUS',
 }
 
 const initialState = {
@@ -84,7 +84,7 @@ const reducer = (state = initialState, action) => {
           success: false,
         },
       }
-    case types.ADD_PAYMENT_CARDS_RESET:
+    case types.ADD_PAYMENT_CARDS_RESET_SUCCESS_STATUS:
       return {
         ...state,
         add: {
@@ -120,7 +120,7 @@ const reducer = (state = initialState, action) => {
           success: false,
         },
       }
-    case types.DELETE_PAYMENT_CARDS_RESET:
+    case types.DELETE_PAYMENT_CARDS_RESET_SUCCESS_STATUS:
       return {
         ...state,
         delete: {
@@ -160,7 +160,7 @@ export const actions = {
   addPaymentCardRequest: () => ({ type: types.ADD_PAYMENT_CARDS_REQUEST }),
   addPaymentCardFailure: (error) => ({ type: types.ADD_PAYMENT_CARDS_FAILURE, payload: serializeError(error) }),
   addPaymentCardSuccess: () => ({ type: types.ADD_PAYMENT_CARDS_SUCCESS }),
-  addPaymentCardReset: () => ({ type: types.ADD_PAYMENT_CARDS_RESET }),
+  addPaymentCardResetSuccessStatus: () => ({ type: types.ADD_PAYMENT_CARDS_RESET_SUCCESS_STATUS }),
   addPaymentCard: (
     token,
     last_four_digits,
@@ -200,7 +200,7 @@ export const actions = {
   deletePaymentCardRequest: () => ({ type: types.DELETE_PAYMENT_CARDS_REQUEST }),
   deletePaymentCardFailure: (error) => ({ type: types.DELETE_PAYMENT_CARDS_FAILURE, payload: serializeError(error) }),
   deletePaymentCardSuccess: () => ({ type: types.DELETE_PAYMENT_CARDS_SUCCESS }),
-  deletePaymentCardReset: () => ({ type: types.DELETE_PAYMENT_CARDS_RESET }),
+  deletePaymentCardResetSuccessStatus: () => ({ type: types.DELETE_PAYMENT_CARDS_RESET_SUCCESS_STATUS }),
   deletePaymentCard: (id) => async (dispatch) => {
     dispatch(actions.deletePaymentCardRequest())
     try {

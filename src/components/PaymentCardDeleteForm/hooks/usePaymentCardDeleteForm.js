@@ -28,7 +28,7 @@ const usePaymentCardDeleteForm = (id, onClose) => {
 
   useEffect(() => {
     if (success) {
-      dispatch(paymentCardsActions.deletePaymentCardReset())
+      dispatch(paymentCardsActions.deletePaymentCardResetSuccessStatus())
       onClose()
     }
   }, [success, dispatch, onClose])
