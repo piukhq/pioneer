@@ -21,6 +21,7 @@ import Loading from 'components/Loading'
 import styles from './MembershipCardPage.module.scss'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
+import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 
 const MembershipCardPage = () => {
   const { id } = useParams()
@@ -49,9 +50,11 @@ const MembershipCardPage = () => {
   const handleLinkingSuccess = useCallback(() => {
     console.log('link success')
   }, [])
+
+  const [linkErrorModalVisible, setLinkErrorModalVisible] = useState(false)
   const handleLinkingError = useCallback(() => {
-    console.log('link error')
-  }, [])
+    setLinkErrorModalVisible(true)
+  }, [setLinkErrorModalVisible])
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
 
   const { unLinkPaymentCard } = useMembershipCardsDispatch()
@@ -79,6 +82,9 @@ const MembershipCardPage = () => {
 
   return (
     <div>
+      { linkErrorModalVisible && (
+        <LinkCardsErrorModal onClose={() => setLinkErrorModalVisible(false)} />
+      )}
       <h1>Membership card</h1>
       <p>Membership card id is {id}</p>
       { membershipCard && (
