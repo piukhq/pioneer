@@ -22,6 +22,7 @@ import styles from './MembershipCardPage.module.scss'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
+import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
 
 const MembershipCardPage = () => {
   const { id } = useParams()
@@ -47,14 +48,16 @@ const MembershipCardPage = () => {
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
 
+  const [linkingSuccessModalVisible, setLinkingSuccessModalVisible] = useState(false)
   const handleLinkingSuccess = useCallback(() => {
-    console.log('link success')
-  }, [])
+    setLinkingSuccessModalVisible(true)
+  }, [setLinkingSuccessModalVisible])
 
-  const [linkErrorModalVisible, setLinkErrorModalVisible] = useState(false)
+  const [linkingErrorModalVisible, setLinkingErrorModalVisible] = useState(false)
   const handleLinkingError = useCallback(() => {
-    setLinkErrorModalVisible(true)
-  }, [setLinkErrorModalVisible])
+    setLinkingErrorModalVisible(true)
+  }, [setLinkingErrorModalVisible])
+
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
 
   const { unLinkPaymentCard } = useMembershipCardsDispatch()
@@ -62,14 +65,15 @@ const MembershipCardPage = () => {
   const handleClickOnPaymentCard = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
       if (isPaymentCardExpired(card)) {
+        // card is not liked but is expired
         setCardIdToBeDeleted(card.id)
         setDeleteFormVisible(true)
       } else {
-        console.log('card not expired')
+        // card is not linked as is not expired
         linkCard(card)
       }
     } else {
-      console.log('card is linked')
+      // card is linked. should do nothing if clicked
       // todo: temporarily unlink
       unLinkPaymentCard(card.id, membershipCard.id)
     }
@@ -82,8 +86,11 @@ const MembershipCardPage = () => {
 
   return (
     <div>
-      { linkErrorModalVisible && (
-        <LinkCardsErrorModal onClose={() => setLinkErrorModalVisible(false)} />
+      { linkingErrorModalVisible && (
+        <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
+      )}
+      { linkingSuccessModalVisible && (
+        <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
       )}
       <h1>Membership card</h1>
       <p>Membership card id is {id}</p>
