@@ -10,7 +10,6 @@ export const isPaymentCardExpired = card => {
 }
 
 export const areCardsLinked = (paymentCard, membershipCard) => {
-  console.log('check cards are linked', paymentCard, membershipCard)
   return (
     membershipCard?.payment_cards
       ?.filter(

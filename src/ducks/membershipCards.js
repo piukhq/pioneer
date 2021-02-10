@@ -283,4 +283,18 @@ export const actions = {
       dispatch(actions.linkPaymentCardFailure(e))
     }
   },
+
+  // todo: temporarily introduced
+  unLinkPaymentCard: (paymentCardId, membershipCardId) => async (dispatch) => {
+    // dispatch(actions.linkPaymentCardRequest())
+    try {
+      const response = await api.unLinkPaymentCard(paymentCardId, membershipCardId)
+      // dispatch(actions.linkPaymentCardSuccess(response.data))
+      // refresh payment and membership cards
+      dispatch(paymentCardsActions.getPaymentCards())
+      dispatch(actions.getMembershipCards())
+    } catch (e) {
+      // dispatch(actions.linkPaymentCardFailure(e))
+    }
+  },
 }
