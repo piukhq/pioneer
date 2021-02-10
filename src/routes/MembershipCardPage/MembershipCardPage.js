@@ -20,7 +20,6 @@ import Loading from 'components/Loading'
 
 import styles from './MembershipCardPage.module.scss'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
-import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
 
@@ -60,8 +59,6 @@ const MembershipCardPage = () => {
 
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
 
-  const { unLinkPaymentCard } = useMembershipCardsDispatch()
-
   const handleClickOnPaymentCard = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
       if (isPaymentCardExpired(card)) {
@@ -74,10 +71,8 @@ const MembershipCardPage = () => {
       }
     } else {
       // card is linked. should do nothing if clicked
-      // todo: temporarily unlink
-      unLinkPaymentCard(card.id, membershipCard.id)
     }
-  }, [membershipCard, linkCard, unLinkPaymentCard])
+  }, [membershipCard, linkCard])
 
   const handleCloseDeletePaymentCardForm = useCallback(() => {
     setDeleteFormVisible(false)
