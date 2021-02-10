@@ -7,8 +7,9 @@ import {
   selectors as allSelectors,
 } from 'ducks/all'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
-import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
+
+import useLinkPaymentCard from './hooks/useLinkPaymentCard'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
@@ -19,14 +20,13 @@ import Loading from 'components/Loading'
 
 import styles from './MembershipCardPage.module.scss'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
+import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 
 const MembershipCardPage = () => {
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
-
-  const { linkPaymentCard } = useMembershipCardsDispatch()
 
   const unlinkedPaymentCards = useSelector(
     state => membershipCardsSelectors.unlinkedPaymentCards(state, id),
@@ -46,10 +46,15 @@ const MembershipCardPage = () => {
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
 
-  const [justFinishedLinkingPaymentCard, setJustFinishedLinkingPaymentCard] = useState(false)
-  useEffect(() => {
-    console.log('justFinishedLinkingPaymentCard', justFinishedLinkingPaymentCard)
-  }, [justFinishedLinkingPaymentCard])
+  const handleLinkingSuccess = useCallback(() => {
+    console.log('link success')
+  }, [])
+  const handleLinkingError = useCallback(() => {
+    console.log('link error')
+  }, [])
+  const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
+
+  const { unLinkPaymentCard } = useMembershipCardsDispatch()
 
   const handleClickOnPaymentCard = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
@@ -58,15 +63,14 @@ const MembershipCardPage = () => {
         setDeleteFormVisible(true)
       } else {
         console.log('card not expired')
-        // link cards
-        setJustFinishedLinkingPaymentCard(false)
-        await linkPaymentCard(card.id, membershipCard.id)
-        setJustFinishedLinkingPaymentCard(true)
+        linkCard(card)
       }
     } else {
       console.log('card is linked')
+      // todo: temporarily unlink
+      unLinkPaymentCard(card.id, membershipCard.id)
     }
-  }, [membershipCard, linkPaymentCard])
+  }, [membershipCard, linkCard, unLinkPaymentCard])
 
   const handleCloseDeletePaymentCardForm = useCallback(() => {
     setDeleteFormVisible(false)

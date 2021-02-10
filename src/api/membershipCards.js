@@ -53,6 +53,19 @@ export const linkPaymentCard = (paymentCardId, membershipCardId) => (
   )
 )
 
+// todo: temporarily introduced
+export const unLinkPaymentCard = (paymentCardId, membershipCardId) => (
+  axios.delete(
+    `https://api.dev.gb.bink.com/ubiquity/membership_card/${membershipCardId}/payment_card/${paymentCardId}`,
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json;v=1.3',
+      },
+    },
+  )
+)
+
 // todo: to remove. This functionality was added because every now and then someone or something would remove the
 // membership card for the test user account
 export const addTestMembershipCard = () => (
