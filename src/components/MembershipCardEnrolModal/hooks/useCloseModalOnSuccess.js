@@ -4,16 +4,16 @@ import { useHistory } from 'react-router-dom'
 
 const useCloseModalOnSuccess = onClose => {
   const { add: { card, success } } = useMembershipCardsState()
-  const { addMembershipCardReset } = useMembershipCardsDispatch()
+  const { addMembershipCardResetSuccessStatus } = useMembershipCardsDispatch()
   const history = useHistory()
 
   useEffect(() => {
     if (success) {
       history.replace(`/membership-card/${card.id}`)
-      addMembershipCardReset()
+      addMembershipCardResetSuccessStatus()
       onClose()
     }
-  }, [success, onClose, addMembershipCardReset, history, card])
+  }, [success, onClose, addMembershipCardResetSuccessStatus, history, card])
 }
 
 export default useCloseModalOnSuccess

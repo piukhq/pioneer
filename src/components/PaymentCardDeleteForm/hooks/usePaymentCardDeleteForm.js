@@ -1,19 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
+import { isPaymentCardExpired } from 'utils/paymentCards'
 
 const usePaymentCardDeleteForm = (id, onClose) => {
   const card = useSelector(state => state.paymentCards.cards[id])
   const last4Digits = card?.card?.last_four_digits
 
-  const expiryMonth = card?.card?.month
-  const expiryYear = card?.card?.year
-
-  const now = new Date()
-  const currentMonthDate = new Date(now.getFullYear(), now.getMonth(), 1)
-  const expiryDate = new Date(expiryYear, expiryMonth - 1, 1)
-
-  const isCardExpired = expiryDate.getTime() < currentMonthDate.getTime()
+  const isCardExpired = isPaymentCardExpired(card)
 
   const [userEnteredLast4Digits, setUserEnteredLast4Digits] = useState('')
 
@@ -28,7 +22,7 @@ const usePaymentCardDeleteForm = (id, onClose) => {
 
   useEffect(() => {
     if (success) {
-      dispatch(paymentCardsActions.deletePaymentCardReset())
+      dispatch(paymentCardsActions.deletePaymentCardResetSuccessStatus())
       onClose()
     }
   }, [success, dispatch, onClose])

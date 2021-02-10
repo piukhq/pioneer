@@ -20,7 +20,7 @@ const usePaymentCardAddForm = (onClose) => {
   }, [addPaymentCardSuccess, onClose])
 
   useEffect(() => {
-    return () => dispatch(paymentCardsActions.addPaymentCardReset())
+    return () => dispatch(paymentCardsActions.addPaymentCardResetSuccessStatus())
   }, [dispatch])
 
   useEffect(() => {

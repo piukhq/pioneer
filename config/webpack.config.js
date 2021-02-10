@@ -345,6 +345,7 @@ module.exports = function (webpackEnv) {
         ducks: path.join(__dirname, '../src/ducks'),
         routes: path.join(__dirname, '../src/routes'),
         hooks: path.join(__dirname, '../src/hooks'),
+        utils: path.join(__dirname, '../src/utils'),
         sassThemeFolder: path.resolve(__dirname, '../src/sass/themes/', process.env.THEME),
       },
       plugins: [
