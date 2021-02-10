@@ -7,6 +7,8 @@ import {
   selectors as allSelectors,
 } from 'ducks/all'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+import { useMembershipCardsDispatch } from 'hooks/membershipCards'
+import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
@@ -23,6 +25,8 @@ const MembershipCardPage = () => {
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
+
+  const { linkPaymentCard } = useMembershipCardsDispatch()
 
   const unlinkedPaymentCards = useSelector(
     state => membershipCardsSelectors.unlinkedPaymentCards(state, id),
@@ -42,10 +46,27 @@ const MembershipCardPage = () => {
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
 
-  const handleClickOnPaymentCard = useCallback((card) => {
-    setCardIdToBeDeleted(card.id)
-    setDeleteFormVisible(true)
-  }, [])
+  const [justFinishedLinkingPaymentCard, setJustFinishedLinkingPaymentCard] = useState(false)
+  useEffect(() => {
+    console.log('justFinishedLinkingPaymentCard', justFinishedLinkingPaymentCard)
+  }, [justFinishedLinkingPaymentCard])
+
+  const handleClickOnPaymentCard = useCallback(async (card) => {
+    if (!areCardsLinked(card, membershipCard)) {
+      if (isPaymentCardExpired(card)) {
+        setCardIdToBeDeleted(card.id)
+        setDeleteFormVisible(true)
+      } else {
+        console.log('card not expired')
+        // link cards
+        setJustFinishedLinkingPaymentCard(false)
+        await linkPaymentCard(card.id, membershipCard.id)
+        setJustFinishedLinkingPaymentCard(true)
+      }
+    } else {
+      console.log('card is linked')
+    }
+  }, [membershipCard, linkPaymentCard])
 
   const handleCloseDeletePaymentCardForm = useCallback(() => {
     setDeleteFormVisible(false)

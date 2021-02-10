@@ -1,4 +1,4 @@
-import { addMembershipCard, getMembershipCards, deleteMembershipCard } from 'api/membershipCards'
+import * as api from 'api/membershipCards'
 import { createSelector } from 'reselect'
 import {
   selectors as paymentCardsSelectors,
@@ -20,6 +20,11 @@ export const types = {
   ADD_MEMBERSHIP_CARD_SUCCESS: 'paymentCards/ADD_MEMBERSHIP_CARD_SUCCESS',
   ADD_MEMBERSHIP_CARD_FAILURE: 'paymentCards/ADD_MEMBERSHIP_CARD_FAILURE',
   ADD_MEMBERSHIP_CARD_RESET_SUCCESS_STATUS: 'paymentCards/ADD_MEMBERSHIP_CARD_RESET_SUCCESS_STATUS',
+
+  LINK_PAYMENT_CARD_REQUEST: 'paymentCards/LINK_PAYMENT_CARD_REQUEST',
+  LINK_PAYMENT_CARD_SUCCESS: 'paymentCards/LINK_PAYMENT_CARD_SUCCESS',
+  LINK_PAYMENT_CARD_FAILURE: 'paymentCards/LINK_PAYMENT_CARD_FAILURE',
+  LINK_PAYMENT_CARD_RESET_SUCCESS_STATUS: 'paymentCards/LINK_PAYMENT_CARD_RESET_SUCCESS_STATUS',
 }
 
 const initialState = {
@@ -32,6 +37,11 @@ const initialState = {
     success: false,
   },
   add: {
+    loading: false,
+    error: false,
+    success: false,
+  },
+  linkPaymentCard: {
     loading: false,
     error: false,
     success: false,
@@ -136,6 +146,46 @@ const reducer = (state = initialState, action) => {
           success: false,
         },
       }
+    case types.LINK_PAYMENT_CARD_REQUEST:
+      return {
+        ...state,
+        linkPaymentCard: {
+          card: null,
+          loading: true,
+          error: false,
+          success: false,
+        },
+      }
+    case types.LINK_PAYMENT_CARD_SUCCESS:
+      return {
+        ...state,
+        linkPaymentCard: {
+          card: action.payload,
+          loading: false,
+          error: false,
+          success: true,
+        },
+      }
+    case types.LINK_PAYMENT_CARD_FAILURE:
+      return {
+        ...state,
+        linkPaymentCard: {
+          card: null,
+          loading: false,
+          error: action.payload,
+          success: false,
+        },
+      }
+    case types.LINK_PAYMENT_CARD_RESET_SUCCESS_STATUS:
+      return {
+        ...state,
+        linkPaymentCard: {
+          ...state.add,
+          loading: false,
+          error: false,
+          success: false,
+        },
+      }
     default:
       return state
   }
@@ -177,7 +227,7 @@ export const actions = {
   getMembershipCards: () => async dispatch => {
     dispatch(actions.getMembershipCardsRequest())
     try {
-      const response = await getMembershipCards()
+      const response = await api.getMembershipCards()
       dispatch(actions.getMembershipCardsSuccess(response.data))
     } catch (e) {
       dispatch(actions.getMembershipCardsFailure())
@@ -190,7 +240,7 @@ export const actions = {
   deleteMembershipCard: (id) => async (dispatch) => {
     dispatch(actions.deleteMembershipCardRequest())
     try {
-      await deleteMembershipCard(id)
+      await api.deleteMembershipCard(id)
       dispatch(actions.deleteMembershipCardSuccess())
       // refresh payment and membership cards
       dispatch(paymentCardsActions.getPaymentCards())
@@ -207,13 +257,30 @@ export const actions = {
   addMembershipCard: (accountData, planId) => async (dispatch) => {
     dispatch(actions.addMembershipCardRequest())
     try {
-      const response = await addMembershipCard(accountData, planId)
+      const response = await api.addMembershipCard(accountData, planId)
       dispatch(actions.addMembershipCardSuccess(response.data))
       // refresh payment and membership cards
       dispatch(paymentCardsActions.getPaymentCards())
       dispatch(actions.getMembershipCards())
     } catch (e) {
       dispatch(actions.addMembershipCardFailure(e))
+    }
+  },
+
+  linkPaymentCardRequest: () => ({ type: types.LINK_PAYMENT_CARD_REQUEST }),
+  linkPaymentCardFailure: (error) => ({ type: types.LINK_PAYMENT_CARD_FAILURE, payload: serializeError(error) }),
+  linkPaymentCardSuccess: (payload) => ({ type: types.LINK_PAYMENT_CARD_SUCCESS, payload }),
+  linkPaymentCardResetSuccessStatus: () => ({ type: types.LINK_PAYMENT_CARD_RESET_SUCCESS_STATUS }),
+  linkPaymentCard: (paymentCardId, membershipCardId) => async (dispatch) => {
+    dispatch(actions.linkPaymentCardRequest())
+    try {
+      const response = await api.linkPaymentCard(paymentCardId, membershipCardId)
+      dispatch(actions.linkPaymentCardSuccess(response.data))
+      // refresh payment and membership cards
+      dispatch(paymentCardsActions.getPaymentCards())
+      dispatch(actions.getMembershipCards())
+    } catch (e) {
+      dispatch(actions.linkPaymentCardFailure(e))
     }
   },
 }
