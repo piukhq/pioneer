@@ -74,6 +74,11 @@ const MembershipCardPage = () => {
     }
   }, [membershipCard, linkCard])
 
+  const handleDeletePaymentCard = useCallback(async (card) => {
+    setCardIdToBeDeleted(card.id)
+    setDeleteFormVisible(true)
+  }, [setCardIdToBeDeleted, setDeleteFormVisible])
+
   const handleCloseDeletePaymentCardForm = useCallback(() => {
     setDeleteFormVisible(false)
     setCardIdToBeDeleted(null)
@@ -109,7 +114,12 @@ const MembershipCardPage = () => {
              {membershipCard.payment_cards
                .filter(paymentCard => paymentCard.active_link)
                .map(paymentCard => (
-                 <PaymentCard id={paymentCard.id} onClick={handleClickOnPaymentCard} key={paymentCard.id} />
+                 <PaymentCard
+                   id={paymentCard.id}
+                   // onClick={handleClickOnPaymentCard}
+                   onDelete={handleDeletePaymentCard}
+                   key={paymentCard.id}
+                 />
                ))
              }
             <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
@@ -136,6 +146,7 @@ const MembershipCardPage = () => {
               </PaymentCards>
             </>
           ) }
+          {/* todo: temporary for dev purposes only. It will display only in dev mode though */}
           <DevDeleteMembershipCard cardId={membershipCard.id} />
         </>
       ) }

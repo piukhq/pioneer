@@ -38,6 +38,25 @@
     vertical-align: middle;
   }
 
+  &__delete {
+    cursor: pointer;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    background-color: white;
+    border-radius: 15px;
+
+    &:hover {
+      top: 6px;
+      left: 6px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
   background: $generic-gradient-fallback;
   background: linear-gradient(to right, $generic-gradient-left, $generic-gradient-right);
   color: white;
