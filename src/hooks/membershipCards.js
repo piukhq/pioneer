@@ -24,6 +24,18 @@ export const useMembershipCardsState = () => {
   }
 }
 
+export const useMembershipCardStateById = (id) => {
+  const membershipCards = useSelector(state => membershipCardsSelectors.cardsList(state))
+  const loading = useSelector(state => state.membershipCards.loading)
+  const error = useSelector(state => state.membershipCards.error)
+
+  return {
+    loading,
+    error,
+    membershipCard: useSelector(state => state.membershipCards.cards[id]),
+  }
+}
+
 export const useMembershipCardsDispatch = () => {
   const dispatch = useDispatch()
   return {
@@ -31,6 +43,7 @@ export const useMembershipCardsDispatch = () => {
     addMembershipCard: (accountData, planId) => dispatch(membershipCardsActions.addMembershipCard(accountData, planId)),
     addMembershipCardResetSuccessStatus: () => dispatch(membershipCardsActions.addMembershipCardResetSuccessStatus()),
     linkPaymentCard: (paymentCardId, membershipCardId) => dispatch(membershipCardsActions.linkPaymentCard(paymentCardId, membershipCardId)),
+    getMembershipPlans: () => dispatch(membershipCardsActions.getMembershipCards()),
     // todo: temporarily introduced
     unLinkPaymentCard: (paymentCardId, membershipCardId) => dispatch(membershipCardsActions.unLinkPaymentCard(paymentCardId, membershipCardId)),
   }

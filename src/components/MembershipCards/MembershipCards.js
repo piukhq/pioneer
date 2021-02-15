@@ -43,6 +43,11 @@ const MembershipCards = ({ onError }) => {
               <button onClick={() => deleteMembershipCard(card.id)}>Remove</button>
             </div>
           ))}
+
+          {/* todo: temporary to allow adding cards more easily in dev mode */}
+          { process.env.NODE_ENV == 'development' && (
+            <Link to={`/membership-card/add/${Config.membershipPlanId}`}>Add a card</Link>
+          ) }
         </>
       ) }
       {/* <RecreateRemovedMembershipCard /> */}

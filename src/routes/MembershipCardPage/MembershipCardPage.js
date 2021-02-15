@@ -22,6 +22,7 @@ import styles from './MembershipCardPage.module.scss'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
+import MembershipCardRefresher from 'components/MembershipCardRefresher'
 
 const MembershipCardPage = () => {
   const { id } = useParams()
@@ -94,6 +95,7 @@ const MembershipCardPage = () => {
       )}
       <h1>Membership card</h1>
       <p>Membership card id is {id}</p>
+      <MembershipCardRefresher membershipCardId={id} />
       { membershipCard && (
         <>
           <h2>Payment cards</h2>
@@ -151,9 +153,9 @@ const MembershipCardPage = () => {
         </>
       ) }
       {/* todo: TBD how we show visually loading state */}
-      { loading && (
+      {/* loading && (
         <Loading />
-      )}
+      ) */}
       { error && (
         <>
           <br /><br /> There was an error
