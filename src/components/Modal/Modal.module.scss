@@ -18,17 +18,13 @@
   &__box {
     background-color: white;
     z-index: 10000;
-
     position: fixed;
     width: 600px;
     max-width: 98%;
-
     border-radius: 14px;
     padding: 30px 0;
-
     top: 50%;
     left: 50%;
-
     transform: translateX(-50%) translateY(-50%);
   }
 
@@ -48,6 +44,7 @@
   }
 }
 
-:global(html.modal--no-scroll), :global(html.modal--no-scroll body)  {
+:global(html.modal--no-scroll),
+:global(html.modal--no-scroll body) {
   overflow: hidden;
 }
