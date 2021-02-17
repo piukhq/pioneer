@@ -50,7 +50,7 @@ const MembershipCardAddPage = () => {
       { plan && (
         <>
           <div className={styles.root}>
-            { imgUrl ? <img className={styles.root__image} src={ `${imgUrl}?width=300&height=183` } /> : null }
+            { imgUrl ? <img className={styles.root__image} src={ `${imgUrl}?width=300&height=183` } alt='' /> : null }
             <h1 className={styles.root__header}>Are you a member of the {plan.account.plan_name}?</h1>
             <div className={styles.root__text}>
               {/* todo: this copy should depend on the canAdd and canEnrol feature flags */}

@@ -16,7 +16,7 @@ import PaymentCards from 'components/PaymentCards'
 import PaymentCardAdd from 'components/PaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
-import Loading from 'components/Loading'
+// import Loading from 'components/Loading'
 
 import styles from './MembershipCardPage.module.scss'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
@@ -27,7 +27,7 @@ import MembershipCardRefresher from 'components/MembershipCardRefresher'
 const MembershipCardPage = () => {
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
-  const loading = useSelector(state => allSelectors.loadingSelector(state))
+  // const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
   const unlinkedPaymentCards = useSelector(
