@@ -1,6 +1,5 @@
 .root {
   cursor: pointer;
-
   border: none;
   padding: 25px;
   min-width: 200px;
@@ -29,7 +28,9 @@
     cursor: default;
   }
 
-  &:hover, &:active, &:focus {
+  &:hover,
+  &:active,
+  &:focus {
     outline: none;
   }
 }

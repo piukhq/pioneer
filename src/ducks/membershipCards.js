@@ -288,7 +288,8 @@ export const actions = {
   unLinkPaymentCard: (paymentCardId, membershipCardId) => async (dispatch) => {
     // dispatch(actions.linkPaymentCardRequest())
     try {
-      const response = await api.unLinkPaymentCard(paymentCardId, membershipCardId)
+      await api.unLinkPaymentCard(paymentCardId, membershipCardId)
+      // const response = await api.unLinkPaymentCard(paymentCardId, membershipCardId)
       // dispatch(actions.linkPaymentCardSuccess(response.data))
       // refresh payment and membership cards
       dispatch(paymentCardsActions.getPaymentCards())

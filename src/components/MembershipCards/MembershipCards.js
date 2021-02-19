@@ -6,7 +6,7 @@ import {
   useMembershipCardsDispatch,
 } from 'hooks/membershipCards'
 import useLoadMembershipCards from './hooks/useLoadMembershipCards'
-import useLoadMembershipPlans from './hooks/useLoadMembersipPlans'
+// import useLoadMembershipPlans from './hooks/useLoadMembersipPlans'
 
 import Loading from 'components/Loading'
 
@@ -45,7 +45,7 @@ const MembershipCards = ({ onError }) => {
           ))}
 
           {/* todo: temporary to allow adding cards more easily in dev mode */}
-          { process.env.NODE_ENV == 'development' && (
+          { process.env.NODE_ENV === 'development' && (
             <Link to={`/membership-card/add/${Config.membershipPlanId}`}>Add a card</Link>
           ) }
         </>
