@@ -11,4 +11,3 @@ tests:
     - npm run lint-css
   variables:
     VIARIBLE_TEST: test_value
-
