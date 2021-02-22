@@ -10,5 +10,10 @@ tests:
     - npm install
     - npm run lint-js
     - npm run lint-css
+    - THEME=wasabi npm run build
   variables:
-    VIARIBLE_TEST: test_value
+    VARIABLE_TEST: test_value
+  artifacts:
+    paths:
+      - build
+    expire_in: 1 week
