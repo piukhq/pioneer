@@ -1,19 +1,36 @@
 stages:
-  - tests
+  - build
+  - dev
 
-tests:
-  stage: tests
+build:
+  stage: build
   image: node:14
   script:
     - echo "Current user, $GITLAB_USER_LOGIN. From branch $CI_COMMIT_BRANCH"
-    - apt update && apt -y install git
     - npm install
     - npm run lint-js
     - npm run lint-css
     - THEME=wasabi npm run build
+    - tar -C build -zcvf build-wasabi.tar.gz .
   variables:
     VARIABLE_TEST: test_value
   artifacts:
     paths:
-      - build
+      - build*.tar.gz
     expire_in: 1 week
+
+deploy-dev:
+  stage: dev
+  image: olympus.azurecr.io/copy2blobstorage:latest
+  script:
+    - copy build /
+  only:
+    - develop
+
+# deploy-prod:
+#   stage: prod
+#   image: olympus.azurecr.io/copy2blobstorage:latest
+#   script:
+#     - copy --prod build /
+#   only:
+#     - master
