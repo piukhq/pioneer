@@ -7,7 +7,7 @@ build:
   image: node:14
   script:
     - echo "Current user, $GITLAB_USER_LOGIN. From branch $CI_COMMIT_BRANCH"
-    - npm install
+    - npm ci
     - npm run lint-js
     - npm run lint-css
     - THEME=wasabi npm run build
