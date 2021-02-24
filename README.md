@@ -1,10 +1,5 @@
-# pioneer
 
-Bink Web
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Bink Web
 
 ## Available Scripts
 
@@ -33,42 +28,37 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
 ### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+To analyze the bundle run
+```shell
+npm run build
+npm run analyze
+```
+[read more](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+##Use a specific theme
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+By default commands will run using the `bink` theme.
+A different theme can be specified by setting the `THEME` env variable (e.g.`THEME=wasabi npm start`)
 
-### Advanced Configuration
+This will have multiple effects
+ - the config files under `/binkConfig` will be used to define behaviour. These are managed by the NPM [config](https://github.com/lorenwest/node-config) library.
+ - SASS will have an alias `~sassThemeFolder` which will match the appropriate folder during imports (e.g. `src/sass/themes/wasabi`).
+   This should be used mainly to override theme specific variables.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+##Build for a specific environment 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+When running `npm start` the `development` env will be assumed.\
+When running `npm run build` the `production` env will be assumed.
 
-### `npm run build` fails to minify
+To run a build for `uat` env there is a script in `package.json`
+```json
+"scripts": {
+  ...,
+  "uat": "NODE_CONFIG_ENV=uat node scripts/build.js"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The React bundle build optimization will be `production` like. The app config values though will be read from the `/binkConfig/uat.js(on)?` file
