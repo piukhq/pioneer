@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Config from 'Config'
 
 export const login = (email, password) => (
   axios.post(
@@ -6,8 +7,8 @@ export const login = (email, password) => (
     {
       email,
       password,
-      client_id: 'MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd',
-      bundle_id: 'com.bink.wallet',
+      client_id: Config.clientId,
+      bundle_id: Config.bundleId,
     },
   )
 )
