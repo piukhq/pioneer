@@ -218,6 +218,14 @@ export const selectors = {
       )
     },
   ),
+  activeVouchers: createSelector(
+    membershipCardSelector,
+    membershipCard => membershipCard?.vouchers?.filter(voucher => ['inprogress', 'issued'].indexOf(voucher.state) !== -1),
+  ),
+  nonActiveVouchers: createSelector(
+    membershipCardSelector,
+    membershipCard => membershipCard?.vouchers?.filter(voucher => ['redeemed', 'expired', 'cancelled'].indexOf(voucher.state) !== -1),
+  ),
 }
 
 export const actions = {
