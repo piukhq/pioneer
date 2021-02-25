@@ -26,8 +26,12 @@ const MembershipCards = ({ onError }) => {
         membershipCards.map(card => (
           <div key={card.id}>
             <Link to={`/membership-card/${card.id}`}>
-              Id: {card.id} (plan: {card.membership_plan})
-            </Link>
+              Id: {card.card.membership_id}
+            </Link>{' '}
+            <span style={{ color: '#999', fontSize: '0.7rem', textDecoration: 'none' }}>
+              (plan: {card.membership_plan}){' '}
+              (id: {card.id})
+            </span>
           </div>
         ))
       ) }
