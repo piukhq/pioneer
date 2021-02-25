@@ -23,6 +23,7 @@ import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
+import Vouchers from 'components/Vouchers'
 
 const MembershipCardPage = () => {
   const { id } = useParams()
@@ -94,10 +95,11 @@ const MembershipCardPage = () => {
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
       )}
       <h1>Membership card</h1>
-      <p>Membership card id is {id}</p>
+      <p>Membership card id is {membershipCard?.card?.membership_id}</p>
       <MembershipCardRefresher membershipCardId={id} />
       { membershipCard && (
         <>
+          <Vouchers membershipCardId={id} />
           <h2>Payment cards</h2>
           {/* todo: create selector for linked payment cards */}
           {membershipCard.payment_cards.filter(paymentCard => paymentCard.active_link).length > 0 ? (

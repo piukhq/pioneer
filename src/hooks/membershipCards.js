@@ -33,6 +33,9 @@ export const useMembershipCardStateById = (id) => {
     loading,
     error,
     membershipCard: useSelector(state => state.membershipCards.cards[id]),
+    vouchers: useSelector(state => state.membershipCards.cards[id]?.vouchers),
+    activeVouchers: useSelector(state => membershipCardsSelectors.activeVouchers(state, id)),
+    nonActiveVouchers: useSelector(state => membershipCardsSelectors.nonActiveVouchers(state, id)),
   }
 }
 

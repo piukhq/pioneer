@@ -26,8 +26,12 @@ const MembershipCards = ({ onError }) => {
         membershipCards.map(card => (
           <div key={card.id}>
             <Link to={`/membership-card/${card.id}`}>
-              Id: {card.id} (plan: {card.membership_plan})
-            </Link>
+              Id: {card.card.membership_id}
+            </Link>{' '}
+            <span style={{ color: '#999', fontSize: '0.7rem', textDecoration: 'none' }}>
+              (plan: {card.membership_plan}){' '}
+              (id: {card.id})
+            </span>
           </div>
         ))
       ) }
@@ -41,12 +45,22 @@ const MembershipCards = ({ onError }) => {
             <div key={card.id}>
               Card number {card.card.membership_id}{' '}
               <button onClick={() => deleteMembershipCard(card.id)}>Remove</button>
+              { process.env.NODE_ENV === 'development' && (
+                <>
+                  {' '}
+                  <Link to={`/membership-card/${card.id}`} className='dev-only'>
+                    View card
+                  </Link>
+                </>
+              ) }
             </div>
           ))}
 
           {/* todo: temporary to allow adding cards more easily in dev mode */}
           { process.env.NODE_ENV === 'development' && (
-            <Link to={`/membership-card/add/${Config.membershipPlanId}`}>Add a card</Link>
+            <div className='dev-only'>
+              <Link to={`/membership-card/add/${Config.membershipPlanId}`}>Add a card</Link>
+            </div>
           ) }
         </>
       ) }

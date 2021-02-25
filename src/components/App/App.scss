@@ -111,3 +111,9 @@
   -moz-osx-font-smoothing: grayscale;
   background-color: $page-background-color;
 }
+
+// todo: dev only. temporary might want to remove
+.dev-only {
+  border: 1px dashed #006bcd;
+  background-color: #c3e9ff;
+}
