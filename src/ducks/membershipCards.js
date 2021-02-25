@@ -195,6 +195,7 @@ export default reducer
 const membershipCardsSelector = state => state.membershipCards.cards
 const paymentCardsListSelector = state => paymentCardsSelectors.cardsList(state)
 const membershipCardSelector = (state, id) => state.membershipCards.cards[id]
+const membershipPlansSelector = (state) => state.membershipPlans.plans
 
 export const selectors = {
   cardsList: createSelector(
@@ -225,6 +226,11 @@ export const selectors = {
   nonActiveVouchers: createSelector(
     membershipCardSelector,
     membershipCard => membershipCard?.vouchers?.filter(voucher => ['redeemed', 'expired', 'cancelled'].indexOf(voucher.state) !== -1),
+  ),
+  plan: createSelector(
+    membershipCardSelector,
+    membershipPlansSelector,
+    (membershipCard, membershipPlans) => membershipPlans[membershipCard?.membership_plan],
   ),
 }
 

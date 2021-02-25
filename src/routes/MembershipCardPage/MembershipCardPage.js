@@ -24,8 +24,16 @@ import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import Vouchers from 'components/Vouchers'
+import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
 const MembershipCardPage = () => {
+  // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
+  // to further attempt optimizing the process
+  const { getMembershipPlans } = useMembershipPlansDispatch()
+  useEffect(() => {
+    getMembershipPlans()
+  }, [getMembershipPlans])
+
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   // const loading = useSelector(state => allSelectors.loadingSelector(state))
