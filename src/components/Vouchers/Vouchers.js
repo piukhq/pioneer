@@ -1,9 +1,12 @@
 import React from 'react'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
+import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 
 const Vouchers = ({ membershipCardId }) => {
-  const { activeVouchers, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
-  if (!activeVouchers || activeVouchers.length === 0) {
+  const { activeVouchers, nonActiveVouchers, plan } = useMembershipCardStateById(membershipCardId)
+  useLoadMembershipPlans()
+
+  if (!plan?.has_vouchers || !activeVouchers || activeVouchers.length === 0) {
     return null
   }
   return (
