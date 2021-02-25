@@ -45,6 +45,14 @@ const MembershipCards = ({ onError }) => {
             <div key={card.id}>
               Card number {card.card.membership_id}{' '}
               <button onClick={() => deleteMembershipCard(card.id)}>Remove</button>
+              { process.env.NODE_ENV === 'development' && (
+                <>
+                  {' '}
+                  <Link to={`/membership-card/${card.id}`} className='dev-only'>
+                    View card
+                  </Link>
+                </>
+              ) }
             </div>
           ))}
 
