@@ -26,4 +26,11 @@ module.exports = {
       case 'wasabi': return 'com.wasabi.bink.web'
     }
   })(),
+  // dev only (and likely temporary)
+  devDefaultUser: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return 'bink_web_user_2@bink.com'
+      case 'wasabi': return 'bink_web_wasabi_1@bink.com'
+    }
+  })(),
 }
