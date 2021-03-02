@@ -1,0 +1,83 @@
+.root {
+  padding: 20px;
+  box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 15px;
+
+  &__title {
+    color: rgb(69, 126, 255);
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &__description {
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  &__headline {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  &__progress {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  &__progress-step {
+    border: 7px solid black;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    border-radius: 50%;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &--filled {
+      &-inprogress {
+        border-color: #f5a623;
+      }
+
+      &-earned {
+        border-color: #00c176;
+      }
+
+      &-redeemed {
+        border-color: #4371fe;
+      }
+
+      &-expired,
+      &-cancelled {
+        border-color: #b1c2cb;
+      }
+    }
+
+    &--empty {
+      border-color: rgba(0, 0, 0, 0.15);
+
+      &-expired,
+      &-cancelled {
+        border-color: #b1c2cb;
+      }
+    }
+  }
+
+  &__footer {
+    font-size: 14px;
+  }
+
+  &__progress-value {
+    display: block;
+    font-weight: bold;
+    line-height: 1em;
+  }
+}
