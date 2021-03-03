@@ -1,8 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { usePaymentCardById } from 'hooks/paymentCards'
-// todo: this image is temporary (added by dev) and might need to be updated when asset/design is provided
-import binIconImage from 'images/bin-icon.png'
+import { ReactComponent as BinIconSvg } from 'images/bin-icon.svg'
 import styles from './PaymentCard.module.scss'
 
 const PaymentCard = ({ id, className, onClick, onDelete }) => {
@@ -22,12 +21,9 @@ const PaymentCard = ({ id, className, onClick, onDelete }) => {
       data-testid='payment-card'
     >
       { onDelete && card && (
-        <img
-          alt='Delete payment card'
-          title='Delete payment card'
+        <BinIconSvg
           onClick={(event) => { event.stopPropagation(); onDelete(card) }}
           className={ styles.root__delete }
-          src={binIconImage}
         />
       ) }
       <div className={ styles.root__name }>{nameOnCard}</div>
