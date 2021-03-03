@@ -34,22 +34,42 @@
     vertical-align: middle;
   }
 
+  &__actions {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: flex;
+    align-items: center;
+  }
+
   &__delete {
     cursor: pointer;
-    position: absolute;
-    top: 7px;
-    left: 7px;
     width: 30px;
     height: 30px;
     display: block;
     border-radius: 15px;
 
     &:hover {
-      top: 6px;
-      left: 6px;
       width: 32px;
       height: 32px;
+      margin: -1px;
     }
+  }
+
+  &__status {
+    background-color: white;
+    color: black;
+    display: flex;
+    padding: 0 10px 0 0;
+    border-radius: 14px;
+    align-items: center;
+    font-size: 17px;
+    font-weight: bold;
+    box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  &__status-icon {
+    margin: 5px 5px 5px 5px;
   }
 
   background: $generic-gradient-fallback;

@@ -128,7 +128,6 @@ const MembershipCardPage = () => {
                .map(paymentCard => (
                  <PaymentCard
                    id={paymentCard.id}
-                   // onClick={handleClickOnPaymentCard}
                    onDelete={handleDeletePaymentCard}
                    key={paymentCard.id}
                  />
@@ -153,7 +152,13 @@ const MembershipCardPage = () => {
               </p>
               <PaymentCards>
                 { unlinkedPaymentCards.map(paymentCard => (
-                  <PaymentCard id={paymentCard.id} onClick={handleClickOnPaymentCard} key={paymentCard.id} />
+                  <PaymentCard
+                    id={paymentCard.id}
+                    onClick={handleClickOnPaymentCard}
+                    key={paymentCard.id}
+                    expired={isPaymentCardExpired(paymentCard)}
+                    activating={!isPaymentCardExpired(paymentCard)}
+                  />
                 )) }
               </PaymentCards>
             </>
