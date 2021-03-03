@@ -25,17 +25,23 @@ const Voucher = ({ voucher }) => {
       <div className={styles.root__progress}>
         { Array.from({ length: voucher?.earn?.target_value }).map((value, index) => (
           index < voucher?.earn?.value ? (
-            <span className={cx(
-              styles['root__progress-step'],
-              styles['root__progress-step--filled'],
-              styles[`root__progress-step--filled-${voucher?.state}`],
-            )} />
+            <span
+              className={cx(
+                styles['root__progress-step'],
+                styles['root__progress-step--filled'],
+                styles[`root__progress-step--filled-${voucher?.state}`],
+              )}
+              key={index}
+            />
           ) : (
-            <span className={cx(
-              styles['root__progress-step'],
-              styles['root__progress-step--empty'],
-              styles[`root__progress-step--empty-${voucher?.state}`],
-            )} />
+            <span
+              className={cx(
+                styles['root__progress-step'],
+                styles['root__progress-step--empty'],
+                styles[`root__progress-step--empty-${voucher?.state}`],
+              )}
+              key={index}
+            />
           )
         )) }
       </div>
