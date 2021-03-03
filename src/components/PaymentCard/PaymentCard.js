@@ -24,6 +24,10 @@ const PaymentCard = ({ id, className, onClick, onDelete, expired, activating }) 
       ) }
       data-testid='payment-card'
     >
+      <div className={ cx(
+        styles.root__logo,
+        styles[`root__logo--provider-${provider.replace(/\s+/g, '-').toLowerCase()}`],
+      ) } />
       <div className={ styles.root__actions }>
         { onDelete && card && !expired && !activating && (
           <BinIconSvg
