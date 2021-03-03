@@ -57,15 +57,16 @@
   }
 
   &__status {
-    background-color: white;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
     color: black;
     display: flex;
     padding: 0 10px 0 0;
     border-radius: 14px;
     align-items: center;
     font-size: 17px;
-    font-weight: bold;
-    box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.15);
+    font-weight: 800;
+    box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.5);
   }
 
   &__status-icon {
@@ -100,5 +101,11 @@
         linear-gradient(to right, $amex-gradient-left, $amex-gradient-right);
       color: white;
     }
+  }
+
+  &--expired,
+  &--activating {
+    background: #666;
+    color: white;
   }
 }

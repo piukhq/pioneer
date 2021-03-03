@@ -19,6 +19,8 @@ const PaymentCard = ({ id, className, onClick, onDelete, expired, activating }) 
         className,
         styles.root,
         styles[`root--provider-${provider.replace(/\s+/g, '-').toLowerCase()}`],
+        expired && styles['root--expired'],
+        activating && styles['root--activating'],
       ) }
       data-testid='payment-card'
     >
