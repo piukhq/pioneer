@@ -6,7 +6,6 @@ build:
   stage: build
   image: node:14
   script:
-    - echo "Current user, $GITLAB_USER_LOGIN. From branch $CI_COMMIT_BRANCH"
     - npm ci
     - npm run lint-js
     - npm run lint-css
@@ -18,6 +17,9 @@ build:
     paths:
       - build*.tar.gz
     expire_in: 1 week
+  only:  # "only" defaults to not include MRs 
+    - merge_requests
+    - branches
 
 deploy-dev:
   stage: dev
