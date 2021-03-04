@@ -21,13 +21,21 @@ build:
 
 deploy-dev:
   stage: dev
-  image: olympus.azurecr.io/copy2blobstorage:latest
+  image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi.tar.gz
     - copy wasabi /
   only:
     - develop
+
+deploy-mr:
+  stage: dev
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
+    - env | sort
+  only:
+    - merge_requests
 
 # deploy-prod:
 #   stage: prod
