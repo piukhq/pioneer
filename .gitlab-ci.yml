@@ -25,7 +25,7 @@ deploy-dev:
   script:
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi.tar.gz
-    - copy wasabi /develop/wasabi/
+    - copy --sync wasabi /develop/wasabi/
   only:
     - develop
 
