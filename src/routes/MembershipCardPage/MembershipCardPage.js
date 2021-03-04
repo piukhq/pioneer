@@ -39,6 +39,8 @@ const MembershipCardPage = () => {
   // const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
+  const newlyAddedCardId = useSelector(state => state.paymentCards?.add?.card?.id)
+
   const unlinkedPaymentCards = useSelector(
     state => membershipCardsSelectors.unlinkedPaymentCards(state, id),
   )
@@ -133,6 +135,18 @@ const MembershipCardPage = () => {
                  />
                ))
              }
+            { unlinkedPaymentCards
+              .filter(paymentCard => paymentCard.id === newlyAddedCardId)
+              .map(paymentCard => (
+                <PaymentCard
+                  id={paymentCard.id}
+                  onClick={handleClickOnPaymentCard}
+                  key={paymentCard.id}
+                  expired={isPaymentCardExpired(paymentCard)}
+                  activating={!isPaymentCardExpired(paymentCard)}
+                />
+              ))
+            }
             <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
           </PaymentCards>
           { paymentCardAddFormVisible && (
@@ -151,15 +165,18 @@ const MembershipCardPage = () => {
                 to see how this can be resolved.
               </p>
               <PaymentCards>
-                { unlinkedPaymentCards.map(paymentCard => (
-                  <PaymentCard
-                    id={paymentCard.id}
-                    onClick={handleClickOnPaymentCard}
-                    key={paymentCard.id}
-                    expired={isPaymentCardExpired(paymentCard)}
-                    activating={!isPaymentCardExpired(paymentCard)}
-                  />
-                )) }
+                { unlinkedPaymentCards
+                  .filter(paymentCard => paymentCard.id !== newlyAddedCardId)
+                  .map(paymentCard => (
+                    <PaymentCard
+                      id={paymentCard.id}
+                      onClick={handleClickOnPaymentCard}
+                      key={paymentCard.id}
+                      expired={isPaymentCardExpired(paymentCard)}
+                      activating={!isPaymentCardExpired(paymentCard)}
+                    />
+                  ))
+                }
               </PaymentCards>
             </>
           ) }

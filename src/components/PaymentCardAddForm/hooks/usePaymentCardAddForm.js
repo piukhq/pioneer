@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
 
 // todo: to further break down this hook
@@ -9,19 +9,7 @@ const usePaymentCardAddForm = (onClose) => {
   const [expiry, setExpiry] = useState('')
   const [iframeLoaded, setIframeLoaded] = useState(false)
 
-  const addPaymentCardSuccess = useSelector(state => state.paymentCards.add.success)
-
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (addPaymentCardSuccess) {
-      onClose()
-    }
-  }, [addPaymentCardSuccess, onClose])
-
-  useEffect(() => {
-    return () => dispatch(paymentCardsActions.addPaymentCardResetSuccessStatus())
-  }, [dispatch])
 
   useEffect(() => {
     const Spreedly = window.Spreedly
@@ -34,7 +22,7 @@ const usePaymentCardAddForm = (onClose) => {
     })
 
     Spreedly.on('paymentMethod', async function (token, pmData) {
-      await dispatch(paymentCardsActions.addPaymentCard(
+      const newCard = await dispatch(paymentCardsActions.addPaymentCard(
         token,
         pmData.last_four_digits,
         pmData.first_six_digits,
@@ -47,6 +35,10 @@ const usePaymentCardAddForm = (onClose) => {
         pmData.payment_method_type,
         pmData.fingerprint,
       ))
+
+      if (newCard) {
+        onClose && onClose()
+      }
     })
 
     Spreedly.on('errors', function (errors) {
@@ -65,7 +57,7 @@ const usePaymentCardAddForm = (onClose) => {
     return () => {
       Spreedly.removeHandlers()
     }
-  }, [dispatch])
+  }, [dispatch, onClose])
 
   const submitForm = (event) => {
     event.preventDefault()
