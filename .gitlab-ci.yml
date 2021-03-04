@@ -33,7 +33,11 @@ deploy-mr:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
-    - env | sort
+    - mkdir wasabi
+    - tar -C wasabi -xf build-wasabi.tar.gz
+    - copy --sync wasabi /mr-$CI_MERGE_REQUEST_IID/wasabi/
+
+    - python .ci-scripts/comment-deployment-url.py
   only:
     - merge_requests
 
