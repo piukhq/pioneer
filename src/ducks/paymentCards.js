@@ -27,6 +27,7 @@ const initialState = {
     loading: false,
     error: false,
     success: false,
+    card: null,
   },
   delete: {
     loading: false,
@@ -64,6 +65,7 @@ const reducer = (state = initialState, action) => {
           loading: true,
           error: false,
           success: false,
+          card: null,
         },
       }
     case types.ADD_PAYMENT_CARDS_SUCCESS:
@@ -73,6 +75,7 @@ const reducer = (state = initialState, action) => {
           loading: false,
           error: false,
           success: true,
+          card: action.payload,
         },
       }
     case types.ADD_PAYMENT_CARDS_FAILURE:
@@ -82,12 +85,14 @@ const reducer = (state = initialState, action) => {
           loading: false,
           error: action.payload,
           success: false,
+          card: null,
         },
       }
     case types.ADD_PAYMENT_CARDS_RESET_SUCCESS_STATUS:
       return {
         ...state,
         add: {
+          ...state.add,
           loading: false,
           error: false,
           success: false,
@@ -159,7 +164,7 @@ export const actions = {
   },
   addPaymentCardRequest: () => ({ type: types.ADD_PAYMENT_CARDS_REQUEST }),
   addPaymentCardFailure: (error) => ({ type: types.ADD_PAYMENT_CARDS_FAILURE, payload: serializeError(error) }),
-  addPaymentCardSuccess: () => ({ type: types.ADD_PAYMENT_CARDS_SUCCESS }),
+  addPaymentCardSuccess: (newCard) => ({ type: types.ADD_PAYMENT_CARDS_SUCCESS, payload: newCard }),
   addPaymentCardResetSuccessStatus: () => ({ type: types.ADD_PAYMENT_CARDS_RESET_SUCCESS_STATUS }),
   addPaymentCard: (
     token,
@@ -176,7 +181,7 @@ export const actions = {
   ) => async (dispatch) => {
     dispatch(actions.addPaymentCardRequest())
     try {
-      await addPaymentCard(
+      const response = await addPaymentCard(
         token,
         last_four_digits,
         first_six_digits,
@@ -189,12 +194,14 @@ export const actions = {
         type,
         fingerprint,
       )
-      dispatch(actions.addPaymentCardSuccess())
+      dispatch(actions.addPaymentCardSuccess(response.data))
       // refresh payment and membership cards
       dispatch(actions.getPaymentCards())
       dispatch(membershipCardsActions.getMembershipCards())
+      return response.data
     } catch (e) {
       dispatch(actions.addPaymentCardFailure(e))
+      return undefined
     }
   },
   deletePaymentCardRequest: () => ({ type: types.DELETE_PAYMENT_CARDS_REQUEST }),
