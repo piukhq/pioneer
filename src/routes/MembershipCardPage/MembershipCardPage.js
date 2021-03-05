@@ -26,6 +26,8 @@ import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import Vouchers from 'components/Vouchers'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
+import Hero from './components/Hero'
+
 const MembershipCardPage = () => {
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
   // to further attempt optimizing the process
@@ -105,6 +107,7 @@ const MembershipCardPage = () => {
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
       )}
       <h1>Membership card</h1>
+      <Hero membershipCard={membershipCard} />
       <p>Membership card id is {membershipCard?.card?.membership_id}</p>
       <MembershipCardRefresher membershipCardId={id} />
       { membershipCard && (
