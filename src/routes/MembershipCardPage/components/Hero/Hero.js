@@ -2,6 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 
 import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
+import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
+import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
 
 import styles from './Hero.module.scss'
 
@@ -49,13 +51,26 @@ const Hero = ({ membershipCard }) => {
         <>
           <div className={styles['root__transaction-history']}>
             <StateAuthorisedSvg />
-            <div className={styles.root__subtitle}>6 stamps</div>
+            <div className={styles.root__subtitle}>todo: 6 stamps</div>
             <div className={styles.root__explainer}>View history</div>
           </div>
           <div className={styles['root__voucher-history']}>
             <StateAuthorisedSvg />
             <div className={styles.root__subtitle}>Reward history</div>
             <div className={styles.root__explainer}>See your past rewards</div>
+          </div>
+        </>
+      ) }
+      { state === 'failed' && (
+        <>
+          <div className={styles['root__failed-state']}>
+            <StateFailedSvg />
+            <div className={styles.root__subtitle}>Something's not right</div>
+            <div className={styles.root__explainer}>
+              <p className={styles['root__explainer-paragraph']}>There was a problem setting up your account.</p>
+              <p className={styles['root__explainer-paragraph']}>We need some additional information to resolve this.</p>
+              <p className={styles['root__explainer-paragraph']}>Click here to resolve.</p>
+            </div>
           </div>
         </>
       ) }

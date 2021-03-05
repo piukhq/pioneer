@@ -1,7 +1,8 @@
 .root {
   display: grid;
 
-  &--authorised {
+  &--authorised,
+  &--failed {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     row-gap: 15px;
@@ -18,6 +19,18 @@
       grid-template-areas:
         "image transaction-history"
         "image voucher-history";
+    }
+  }
+
+  &--failed {
+    grid-template-areas:
+      "image image"
+      "failed-state failed-state";
+
+    @media (min-width: 800px) {
+      grid-template-areas:
+        "image failed-state"
+        "image failed-state";
     }
   }
 
@@ -71,14 +84,33 @@
     font-size: 18px;
     line-height: 1.2em;
     font-weight: 300;
+
+    &-paragraph {
+      margin: 0 0 1em;
+    }
   }
 
-  &__transaction-history {
+  @mixin state-box {
     padding: 20px 20px 15px;
-    grid-area: transaction-history;
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &__failed-state {
+    grid-area: failed-state;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin: 10px 0;
+    }
+  }
+
+  &__transaction-history {
+    grid-area: transaction-history;
+
+    @include state-box;
 
     @media (min-width: 800px) {
       margin-top: 10px;
@@ -86,11 +118,9 @@
   }
 
   &__voucher-history {
-    padding: 20px 20px 15px;
     grid-area: voucher-history;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
+
+    @include state-box;
 
     @media (min-width: 800px) {
       margin-bottom: 10px;
