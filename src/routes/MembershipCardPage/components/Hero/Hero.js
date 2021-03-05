@@ -74,6 +74,19 @@ const Hero = ({ membershipCard }) => {
           </div>
         </>
       ) }
+      { state === 'pending' && (
+        <>
+          <div className={styles['root__pending-state']}>
+            <StatePendingSvg />
+            <div className={styles.root__subtitle}>Pending</div>
+            <div className={styles.root__explainer}>
+              <p className={styles['root__explainer-paragraph']}>We are getting everything ready for you.</p>
+              <p className={styles['root__explainer-paragraph']}>You will need a payment card to start collecting rewards.</p>
+              <p className={styles['root__explainer-paragraph']}>This can be done alongside this process.</p>
+            </div>
+          </div>
+        </>
+      ) }
     </div>
   )
 }

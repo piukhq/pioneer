@@ -2,7 +2,8 @@
   display: grid;
 
   &--authorised,
-  &--failed {
+  &--failed,
+  &--pending {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     row-gap: 15px;
@@ -31,6 +32,18 @@
       grid-template-areas:
         "image failed-state"
         "image failed-state";
+    }
+  }
+
+  &--pending {
+    grid-template-areas:
+      "image image"
+      "pending-state pending-state";
+
+    @media (min-width: 800px) {
+      grid-template-areas:
+        "image pending-state"
+        "image pending-state";
     }
   }
 
@@ -99,6 +112,16 @@
 
   &__failed-state {
     grid-area: failed-state;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin: 10px 0;
+    }
+  }
+
+  &__pending-state {
+    grid-area: pending-state;
 
     @include state-box;
 
