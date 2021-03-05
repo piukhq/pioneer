@@ -1,4 +1,7 @@
 import React from 'react'
+import cx from 'classnames'
+
+import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
 
 import styles from './Hero.module.scss'
 
@@ -20,8 +23,15 @@ const Hero = ({ membershipCard }) => {
   const imgUrl = membershipCard?.images?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.HERO)?.[0]?.url
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
+
+  // possible states: authorised, failed, pending, suggested, unauthorised
+  const state = membershipCard?.status?.state
+
   return (
-    <div className={styles.root}>
+    <div className={cx(
+      styles.root,
+      styles[`root--${state}`],
+    )}>
       <div className={styles['root__image-section']} style={{ backgroundColor }}>
         { imgUrl && <img className={styles.root__image} src={imgUrl} alt='' /> }
         { membershipId && (
@@ -30,14 +40,25 @@ const Hero = ({ membershipCard }) => {
               Card number
             </div>
             <div className={styles['root__card-number-value']}>
-              1234567890
+              {membershipId}
             </div>
           </div>
         )}
       </div>
-
-      <div className={styles['root__transaction-history']}>Todo: Balance and transaction history</div>
-      <div className={styles['root__voucher-history']}>TODO: Rewards history</div>
+      { state === 'authorised' && (
+        <>
+          <div className={styles['root__transaction-history']}>
+            <StateAuthorisedSvg />
+            <div className={styles.root__subtitle}>6 stamps</div>
+            <div className={styles.root__explainer}>View history</div>
+          </div>
+          <div className={styles['root__voucher-history']}>
+            <StateAuthorisedSvg />
+            <div className={styles.root__subtitle}>Reward history</div>
+            <div className={styles.root__explainer}>See your past rewards</div>
+          </div>
+        </>
+      ) }
     </div>
   )
 }

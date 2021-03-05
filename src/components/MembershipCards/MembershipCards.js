@@ -31,6 +31,7 @@ const MembershipCards = ({ onError }) => {
             <span style={{ color: '#999', fontSize: '0.7rem', textDecoration: 'none' }}>
               (plan: {card.membership_plan}){' '}
               (id: {card.id})
+              ({card?.status?.state})
             </span>
           </div>
         ))
