@@ -27,7 +27,10 @@ const Hero = ({ membershipCard }) => {
   const membershipId = membershipCard?.card?.membership_id
 
   // possible states: authorised, failed, pending, suggested, unauthorised
-  const state = membershipCard?.status?.state
+  let state = membershipCard?.status?.state
+  if (state === 'suggested' || state === 'unauthorised') {
+    state = 'failed'
+  }
 
   return (
     <div className={cx(
