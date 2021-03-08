@@ -91,6 +91,18 @@
     font-size: 18px;
     line-height: 1.2em;
     font-weight: 800;
+
+    @media (max-width: 799px) {
+      &--desktop-only {
+        display: none;
+      }
+    }
+
+    @media (min-width: 800px) {
+      &--mobile-only {
+        display: none;
+      }
+    }
   }
 
   &__explainer {
@@ -100,6 +112,18 @@
 
     &-paragraph {
       margin: 0 0 1em;
+    }
+
+    @media (max-width: 799px) {
+      &--desktop-only {
+        display: none;
+      }
+    }
+
+    @media (min-width: 800px) {
+      &--mobile-only {
+        display: none;
+      }
     }
   }
 
@@ -142,12 +166,17 @@
   }
 
   &__voucher-history {
+    cursor: pointer;
     grid-area: voucher-history;
 
     @include state-box;
 
     @media (min-width: 800px) {
       margin-bottom: 10px;
+    }
+
+    &--disabled {
+      color: #999;
     }
   }
 }

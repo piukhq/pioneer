@@ -1,7 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
 
+import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
+import { ReactComponent as StateAuthorisedGreySvg } from 'images/state-authorised-grey.svg'
 import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
 import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
 
@@ -26,6 +28,8 @@ const Hero = ({ membershipCard }) => {
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
   const balance = membershipCard?.balances?.[0]
+
+  const { nonActiveVouchers } = useMembershipCardStateById(membershipCard?.id)
 
   // possible states: authorised, failed, pending, suggested, unauthorised
   let state = membershipCard?.status?.state
@@ -59,11 +63,23 @@ const Hero = ({ membershipCard }) => {
             <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
             <div className={styles.root__explainer}>View history</div>
           </div>
-          <div className={styles['root__voucher-history']}>
-            <StateAuthorisedSvg />
-            <div className={styles.root__subtitle}>Reward history</div>
-            <div className={styles.root__explainer}>See your past rewards</div>
-          </div>
+          { nonActiveVouchers?.length > 0 ? (
+            <div className={styles['root__voucher-history']}>
+              <StateAuthorisedSvg />
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Reward history</div>
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>See your past rewards</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Past rewards</div>
+            </div>
+          ) : (
+            <div className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])}>
+              <StateAuthorisedGreySvg />
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Reward history</div>
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>No vouchers to show</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Not available</div>
+            </div>
+          ) }
         </>
       ) }
       { state === 'failed' && (
