@@ -25,6 +25,7 @@ const Hero = ({ membershipCard }) => {
   const imgUrl = membershipCard?.images?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.HERO)?.[0]?.url
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
+  const balance = membershipCard?.balances?.[0]
 
   // possible states: authorised, failed, pending, suggested, unauthorised
   let state = membershipCard?.status?.state
@@ -52,9 +53,10 @@ const Hero = ({ membershipCard }) => {
       </div>
       { state === 'authorised' && (
         <>
+          {/* todo: would there ever be an unhappy path ever where balance is missing? */}
           <div className={styles['root__transaction-history']}>
             <StateAuthorisedSvg />
-            <div className={styles.root__subtitle}>todo: 6 stamps</div>
+            <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
             <div className={styles.root__explainer}>View history</div>
           </div>
           <div className={styles['root__voucher-history']}>

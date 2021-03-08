@@ -131,6 +131,7 @@
   }
 
   &__transaction-history {
+    cursor: pointer;
     grid-area: transaction-history;
 
     @include state-box;
