@@ -108,7 +108,6 @@ const MembershipCardPage = () => {
       )}
       <h1>Membership card</h1>
       <Hero membershipCard={membershipCard} />
-      <p>Membership card id is {membershipCard?.card?.membership_id}</p>
       <MembershipCardRefresher membershipCardId={id} />
       { membershipCard && (
         <>

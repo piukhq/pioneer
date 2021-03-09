@@ -1,17 +1,50 @@
 .root {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  grid-template-areas:
-    "image image"
-    "transaction-history voucher-history";
 
-  @media (min-width: 800px) {
-    grid-template-columns: auto 250px;
+  &--authorised,
+  &--failed,
+  &--pending {
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
+    row-gap: 15px;
+    column-gap: 12px;
     grid-template-areas:
-      "image transaction-history"
-      "image voucher-history";
+      "image image"
+      "transaction-history voucher-history";
+
+    @media (min-width: 800px) {
+      grid-template-columns: auto 250px;
+      grid-template-rows: 1fr 1fr;
+      row-gap: 25px;
+      column-gap: 20px;
+      grid-template-areas:
+        "image transaction-history"
+        "image voucher-history";
+    }
+  }
+
+  &--failed {
+    grid-template-areas:
+      "image image"
+      "failed-state failed-state";
+
+    @media (min-width: 800px) {
+      grid-template-areas:
+        "image failed-state"
+        "image failed-state";
+    }
+  }
+
+  &--pending {
+    grid-template-areas:
+      "image image"
+      "pending-state pending-state";
+
+    @media (min-width: 800px) {
+      grid-template-areas:
+        "image pending-state"
+        "image pending-state";
+    }
   }
 
   $ratio: 1312 / 800;
@@ -53,11 +86,97 @@
     }
   }
 
+  &__subtitle {
+    margin-top: 5px;
+    font-size: 18px;
+    line-height: 1.2em;
+    font-weight: 800;
+
+    @media (max-width: 799px) {
+      &--desktop-only {
+        display: none;
+      }
+    }
+
+    @media (min-width: 800px) {
+      &--mobile-only {
+        display: none;
+      }
+    }
+  }
+
+  &__explainer {
+    font-size: 18px;
+    line-height: 1.2em;
+    font-weight: 300;
+
+    &-paragraph {
+      margin: 0 0 1em;
+    }
+
+    @media (max-width: 799px) {
+      &--desktop-only {
+        display: none;
+      }
+    }
+
+    @media (min-width: 800px) {
+      &--mobile-only {
+        display: none;
+      }
+    }
+  }
+
+  @mixin state-box {
+    padding: 20px 20px 15px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &__failed-state {
+    grid-area: failed-state;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin: 10px 0;
+    }
+  }
+
+  &__pending-state {
+    grid-area: pending-state;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin: 10px 0;
+    }
+  }
+
   &__transaction-history {
+    cursor: pointer;
     grid-area: transaction-history;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin-top: 10px;
+    }
   }
 
   &__voucher-history {
+    cursor: pointer;
     grid-area: voucher-history;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin-bottom: 10px;
+    }
+
+    &--disabled {
+      color: #999;
+    }
   }
 }

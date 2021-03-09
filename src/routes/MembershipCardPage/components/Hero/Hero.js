@@ -1,4 +1,11 @@
 import React from 'react'
+import cx from 'classnames'
+
+import { useMembershipCardStateById } from 'hooks/membershipCards'
+import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
+import { ReactComponent as StateAuthorisedGreySvg } from 'images/state-authorised-grey.svg'
+import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
+import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
 
 import styles from './Hero.module.scss'
 
@@ -20,8 +27,21 @@ const Hero = ({ membershipCard }) => {
   const imgUrl = membershipCard?.images?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.HERO)?.[0]?.url
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
+  const balance = membershipCard?.balances?.[0]
+
+  const { nonActiveVouchers } = useMembershipCardStateById(membershipCard?.id)
+
+  // possible states: authorised, failed, pending, suggested, unauthorised
+  let state = membershipCard?.status?.state
+  if (state === 'suggested' || state === 'unauthorised') {
+    state = 'failed'
+  }
+
   return (
-    <div className={styles.root}>
+    <div className={cx(
+      styles.root,
+      styles[`root--${state}`],
+    )}>
       <div className={styles['root__image-section']} style={{ backgroundColor }}>
         { imgUrl && <img className={styles.root__image} src={imgUrl} alt='' /> }
         { membershipId && (
@@ -30,14 +50,64 @@ const Hero = ({ membershipCard }) => {
               Card number
             </div>
             <div className={styles['root__card-number-value']}>
-              1234567890
+              {membershipId}
             </div>
           </div>
         )}
       </div>
-
-      <div className={styles['root__transaction-history']}>Todo: Balance and transaction history</div>
-      <div className={styles['root__voucher-history']}>TODO: Rewards history</div>
+      { state === 'authorised' && (
+        <>
+          {/* todo: would there ever be an unhappy path ever where balance is missing? */}
+          <div className={styles['root__transaction-history']}>
+            <StateAuthorisedSvg />
+            <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
+            <div className={styles.root__explainer}>View history</div>
+          </div>
+          { nonActiveVouchers?.length > 0 ? (
+            <div className={styles['root__voucher-history']}>
+              <StateAuthorisedSvg />
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Reward history</div>
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>See your past rewards</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Past rewards</div>
+            </div>
+          ) : (
+            <div className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])}>
+              <StateAuthorisedGreySvg />
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Reward history</div>
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>No vouchers to show</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Not available</div>
+            </div>
+          ) }
+        </>
+      ) }
+      { state === 'failed' && (
+        <>
+          <div className={styles['root__failed-state']}>
+            <StateFailedSvg />
+            <div className={styles.root__subtitle}>Something's not right</div>
+            <div className={styles.root__explainer}>
+              <p className={styles['root__explainer-paragraph']}>There was a problem setting up your account.</p>
+              <p className={styles['root__explainer-paragraph']}>We need some additional information to resolve this.</p>
+              <p className={styles['root__explainer-paragraph']}>Click here to resolve.</p>
+            </div>
+          </div>
+        </>
+      ) }
+      { state === 'pending' && (
+        <>
+          <div className={styles['root__pending-state']}>
+            <StatePendingSvg />
+            <div className={styles.root__subtitle}>Pending</div>
+            <div className={styles.root__explainer}>
+              <p className={styles['root__explainer-paragraph']}>We are getting everything ready for you.</p>
+              <p className={styles['root__explainer-paragraph']}>You will need a payment card to start collecting rewards.</p>
+              <p className={styles['root__explainer-paragraph']}>This can be done alongside this process.</p>
+            </div>
+          </div>
+        </>
+      ) }
     </div>
   )
 }
