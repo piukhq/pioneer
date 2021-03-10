@@ -19,7 +19,7 @@ import './App.scss'
 function App () {
   return (
     <div className="bink-app">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <LoginStatus />
         <Switch>
           <Route exact path="/">

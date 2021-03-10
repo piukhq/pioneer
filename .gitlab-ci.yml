@@ -9,17 +9,15 @@ build:
     - npm ci
     - npm run lint-js
     - npm run lint-css
-    - THEME=wasabi npm run build
+    - PUBLIC_URL=/develop/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi.tar.gz .
-  variables:
-    VARIABLE_TEST: test_value
+    - rm -rf build
   artifacts:
     paths:
       - build*.tar.gz
     expire_in: 1 week
   only:  # "only" defaults to not include MRs 
-    - merge_requests
-    - branches
+    - develop
 
 deploy-dev:
   stage: dev
@@ -27,9 +25,28 @@ deploy-dev:
   script:
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi.tar.gz
-    - copy wasabi /
+    - copy --sync wasabi /develop/wasabi/
   only:
     - develop
+
+
+# Could get fancy here and just use the "build" stage but this is slightly cleaner
+build-mr:
+  stage: build
+  image: node:14
+  script:
+    - npm ci
+    - npm run lint-js
+    - npm run lint-css
+    - PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/wasabi THEME=wasabi npm run build
+    - tar -C build -zcvf build-wasabi.tar.gz .
+    - rm -rf build
+  artifacts:
+    paths:
+      - build*.tar.gz
+    expire_in: 1 hour
+  only:
+    - merge_requests
 
 deploy-mr:
   stage: dev
@@ -42,11 +59,3 @@ deploy-mr:
     - python .ci-scripts/comment-deployment-url.py
   only:
     - merge_requests
-
-# deploy-prod:
-#   stage: prod
-#   image: olympus.azurecr.io/copy2blobstorage:latest
-#   script:
-#     - copy --prod build /
-#   only:
-#     - master
