@@ -69,13 +69,17 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 25px 0;
     background-color: #999;
     background-color: rgba(0, 0, 0, 0.1);
     color: #fff;
     font-size: 18px;
     text-align: center;
     line-height: 1.2em;
+    padding: 12px 0;
+
+    @media (min-width: 800px) {
+      padding: 25px 0;
+    }
 
     &-label {
       font-weight: 800;
