@@ -1,8 +1,6 @@
 import React from 'react'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
-import Button from 'components/Button'
-import NonActiveVouchersModal from 'components/NonActiveVouchersModal'
 import Voucher from 'components/Voucher'
 
 const Vouchers = ({ membershipCardId }) => {

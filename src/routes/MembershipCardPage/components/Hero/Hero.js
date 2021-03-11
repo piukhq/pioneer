@@ -9,6 +9,7 @@ import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
 
 import styles from './Hero.module.scss'
 import NonActiveVouchersModal from 'components/NonActiveVouchersModal'
+import TransactionsModal from 'components/TransactionsModal'
 
 // todo: duplicated code, to move both to a common place
 const MEMBERSHIP_CARD_IMAGE_TYPES = {
@@ -40,6 +41,8 @@ const Hero = ({ membershipCard }) => {
 
   const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = useState(false)
 
+  const [isTransactionsModalOpen, setTransactionsModalOpen] = useState(false)
+
   return (
     <div className={cx(
       styles.root,
@@ -61,11 +64,17 @@ const Hero = ({ membershipCard }) => {
       { state === 'authorised' && (
         <>
           {/* todo: would there ever be an unhappy path ever where balance is missing? */}
-          <div className={styles['root__transaction-history']}>
+          <div className={styles['root__transaction-history']} onClick={() => setTransactionsModalOpen(true)}>
             <StateAuthorisedSvg />
             <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
             <div className={styles.root__explainer}>View history</div>
           </div>
+          { isTransactionsModalOpen && (
+            <TransactionsModal
+              membershipCardId={membershipCard?.id}
+              onClose={() => setTransactionsModalOpen(false)}
+            />
+          )}
           { nonActiveVouchers?.length > 0 ? (
             <>
               <div className={styles['root__voucher-history']} onClick={() => setNonActiveVouchersModalOpen(true)}>
