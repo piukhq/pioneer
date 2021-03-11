@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
@@ -8,6 +8,7 @@ import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
 import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
 
 import styles from './Hero.module.scss'
+import NonActiveVouchersModal from 'components/NonActiveVouchersModal'
 
 // todo: duplicated code, to move both to a common place
 const MEMBERSHIP_CARD_IMAGE_TYPES = {
@@ -37,6 +38,8 @@ const Hero = ({ membershipCard }) => {
     state = 'failed'
   }
 
+  const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = useState(false)
+
   return (
     <div className={cx(
       styles.root,
@@ -64,13 +67,22 @@ const Hero = ({ membershipCard }) => {
             <div className={styles.root__explainer}>View history</div>
           </div>
           { nonActiveVouchers?.length > 0 ? (
-            <div className={styles['root__voucher-history']}>
-              <StateAuthorisedSvg />
-              <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Reward history</div>
-              <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
-              <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>See your past rewards</div>
-              <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Past rewards</div>
-            </div>
+            <>
+              <div className={styles['root__voucher-history']} onClick={() => setNonActiveVouchersModalOpen(true)}>
+                <StateAuthorisedSvg />
+                <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Reward history</div>
+                <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
+                <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>See your past rewards</div>
+                <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Past rewards</div>
+              </div>
+              { isNonActiveVouchersModalOpen && (
+                <NonActiveVouchersModal
+                membershipCardId={membershipCard?.id}
+                onClose={() => setNonActiveVouchersModalOpen(false)}
+                />
+              )}
+            </>
+
           ) : (
             <div className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])}>
               <StateAuthorisedGreySvg />
