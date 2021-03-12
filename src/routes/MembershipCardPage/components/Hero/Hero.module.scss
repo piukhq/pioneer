@@ -167,6 +167,11 @@
     @media (min-width: 800px) {
       margin-top: 10px;
     }
+
+    &--disabled {
+      cursor: auto;
+      color: #999;
+    }
   }
 
   &__voucher-history {
@@ -180,6 +185,7 @@
     }
 
     &--disabled {
+      cursor: auto;
       color: #999;
     }
   }
