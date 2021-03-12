@@ -31,7 +31,7 @@ const Hero = ({ membershipCard }) => {
   const membershipId = membershipCard?.card?.membership_id
   const balance = membershipCard?.balances?.[0]
 
-  const { nonActiveVouchers } = useMembershipCardStateById(membershipCard?.id)
+  const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCard?.id)
 
   // possible states: authorised, failed, pending, suggested, unauthorised
   let state = membershipCard?.status?.state
@@ -63,31 +63,42 @@ const Hero = ({ membershipCard }) => {
       </div>
       { state === 'authorised' && (
         <>
-          {/* todo: would there ever be an unhappy path ever where balance is missing? */}
-          <div className={styles['root__transaction-history']} onClick={() => setTransactionsModalOpen(true)}>
-            <StateAuthorisedSvg />
-            <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
-            <div className={styles.root__explainer}>View history</div>
-          </div>
-          { isTransactionsModalOpen && (
-            <TransactionsModal
-              membershipCardId={membershipCard?.id}
-              onClose={() => setTransactionsModalOpen(false)}
-            />
-          )}
+          { transactions?.length > 0 ? (
+            <>
+              {/* todo: would there ever be an unhappy path ever where balance is missing? */}
+              <div className={styles['root__transaction-history']} onClick={() => setTransactionsModalOpen(true)}>
+                <StateAuthorisedSvg />
+                <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
+                <div className={styles.root__explainer}>View history</div>
+              </div>
+              { isTransactionsModalOpen && (
+                <TransactionsModal
+                  membershipCardId={membershipCard?.id}
+                  onClose={() => setTransactionsModalOpen(false)}
+                />
+              )}
+            </>
+          ) : (
+            <div className={cx(styles['root__transaction-history'], styles['root__transaction-history--disabled'])}>
+              <StateAuthorisedGreySvg />
+              <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>No transactions to show</div>
+              <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Not available</div>
+            </div>
+          ) }
           { nonActiveVouchers?.length > 0 ? (
             <>
               <div className={styles['root__voucher-history']} onClick={() => setNonActiveVouchersModalOpen(true)}>
                 <StateAuthorisedSvg />
-                <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Reward history</div>
+                <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Rewards history</div>
                 <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
                 <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>See your past rewards</div>
                 <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Past rewards</div>
               </div>
               { isNonActiveVouchersModalOpen && (
                 <NonActiveVouchersModal
-                membershipCardId={membershipCard?.id}
-                onClose={() => setNonActiveVouchersModalOpen(false)}
+                  membershipCardId={membershipCard?.id}
+                  onClose={() => setNonActiveVouchersModalOpen(false)}
                 />
               )}
             </>
@@ -95,7 +106,7 @@ const Hero = ({ membershipCard }) => {
           ) : (
             <div className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])}>
               <StateAuthorisedGreySvg />
-              <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Reward history</div>
+              <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Rewards history</div>
               <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
               <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>No vouchers to show</div>
               <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Not available</div>
