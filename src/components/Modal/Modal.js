@@ -1,14 +1,15 @@
 import React from 'react'
+import cx from 'classnames'
 import useModalSetup from './hooks/useModalSetup'
 import styles from './Modal.module.scss'
 
-const Modal = ({ children, onClose }) => {
+const Modal = ({ children, onClose, className }) => {
   useModalSetup()
 
   return (
     <>
       <div className={styles.root__overlay}></div>
-      <div className={styles.root__box}>
+      <div className={cx(styles.root__box, className)}>
         {onClose && <Modal.CloseButton onClick={onClose} />}
         <div className={styles.root__body}>
           {children}
