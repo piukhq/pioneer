@@ -10,7 +10,7 @@ const TransactionsModal = ({ membershipCardId, onClose }) => {
   const { transactions } = useMembershipCardStateById(membershipCardId)
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={onClose} className={styles.root}>
       <Modal.Header>Transaction history</Modal.Header>
       { transactions?.length > 0 ? (
         <>
