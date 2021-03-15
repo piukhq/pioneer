@@ -175,7 +175,7 @@ const MembershipCardPage = () => {
                       onClick={handleClickOnPaymentCard}
                       key={paymentCard.id}
                       expired={isPaymentCardExpired(paymentCard)}
-                      activating={(membershipCard.paymentCards?.includes(paymentCard.id) && !isPaymentCardExpired(paymentCard))}
+                      activating={(paymentCard.status === 'pending') && !isPaymentCardExpired(paymentCard)}
                     />
                   ))
                 }
