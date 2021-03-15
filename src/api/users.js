@@ -3,7 +3,7 @@ import Config from 'Config'
 
 export const login = (email, password) => (
   axios.post(
-    'https://api.dev.gb.bink.com/users/login',
+    `${Config.apiUrl}/users/login`,
     {
       email,
       password,

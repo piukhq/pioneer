@@ -1,4 +1,5 @@
 module.exports = {
+  apiUrl: null,
   theme: process.env.THEME,
   membershipPlanId: (() => {
     // note: if overwritten then all cases must be kept

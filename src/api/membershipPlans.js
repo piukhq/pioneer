@@ -1,8 +1,9 @@
 import axios from 'axios'
+import Config from 'Config'
 
 export const getMembershipPlans = () => (
   axios.get(
-    'https://api.dev.gb.bink.com/ubiquity/membership_plans',
+    `${Config.apiUrl}/ubiquity/membership_plans`,
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
