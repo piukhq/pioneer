@@ -55,6 +55,7 @@ export default reducer
 
 export const actions = {
   login: (username, password) => async dispatch => {
+    dispatch({ type: 'RESET_ALL' })
     dispatch({ type: types.LOGIN_REQUEST })
     try {
       const { data: { api_key: apiKey } } = await login(username, password)
@@ -66,7 +67,6 @@ export const actions = {
   },
   logout: () => dispatch => {
     localStorage.removeItem('token')
-    // todo: logging out should reset the entire redux store
-    dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key: null } })
+    dispatch({ type: 'RESET_ALL' })
   },
 }
