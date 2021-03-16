@@ -106,7 +106,6 @@ const MembershipCardPage = () => {
       { linkingSuccessModalVisible && (
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
       )}
-      <h1>Membership card</h1>
       <Hero membershipCard={membershipCard} />
       <MembershipCardRefresher membershipCardId={id} />
       { membershipCard && (
