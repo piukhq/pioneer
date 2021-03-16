@@ -145,7 +145,7 @@ const MembershipCardPage = () => {
                   onClick={handleClickOnPaymentCard}
                   key={paymentCard.id}
                   expired={isPaymentCardExpired(paymentCard)}
-                  activating={!isPaymentCardExpired(paymentCard)}
+                  activating={(paymentCard.status === 'pending')}
                 />
               ))
             }
@@ -175,7 +175,7 @@ const MembershipCardPage = () => {
                       onClick={handleClickOnPaymentCard}
                       key={paymentCard.id}
                       expired={isPaymentCardExpired(paymentCard)}
-                      activating={(paymentCard.status === 'pending') && !isPaymentCardExpired(paymentCard)}
+                      activating={(paymentCard.status === 'pending')}
                     />
                   ))
                 }
