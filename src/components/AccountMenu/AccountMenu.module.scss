@@ -1,0 +1,12 @@
+.root {
+  text-align: right;
+
+  &__menu {
+    position: relative;
+    top: 4px;
+    margin-left: 5px;
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+  }
+}
