@@ -26,6 +26,12 @@ module.exports = {
       case 'wasabi': return 'com.wasabi.bink.web'
     }
   })(),
+  accountTitle: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return 'My account'
+      case 'wasabi': return 'Wasabi Club support'
+    }
+  })(),
   // dev only (and likely temporary)
   devDefaultUser: (() => {
     switch (process.env.THEME) {
