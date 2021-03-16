@@ -1,4 +1,5 @@
 import React from 'react'
+// todo: replace logout functionality with modal display (which will contain logout)
 import useLogout from './hooks/useLogout'
 import { useUserState } from 'hooks/users'
 import Config from 'Config'
