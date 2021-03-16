@@ -157,7 +157,7 @@ const MembershipCardPage = () => {
           { deleteFormVisible && (
             <PaymentCardDeleteForm id={cardIdToBeDeleted} onClose={ handleCloseDeletePaymentCardForm } />
           ) }
-          { unlinkedPaymentCards.length > 0 && (
+          { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyAddedCardId).length > 0 && (
             <>
               <h2>Unlinked payment cards</h2>
               <p>
