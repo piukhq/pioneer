@@ -28,8 +28,8 @@ module.exports = {
   })(),
   accountTitle: (() => {
     switch (process.env.THEME) {
-      case 'bink': return 'My account'
-      case 'wasabi': return 'Wasabi Club support'
+      case 'bink': return 'Logout' // todo: change to 'My account' when content modal available
+      case 'wasabi': return 'Logout' // todo: change to 'Wasabi Club support' when content modal available
     }
   })(),
   // dev only (and likely temporary)

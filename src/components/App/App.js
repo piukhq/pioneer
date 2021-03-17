@@ -12,7 +12,6 @@ import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
 import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 
-import LoginStatus from 'components/LoginStatus'
 import AccountMenu from 'components/AccountMenu'
 
 import './App.scss'

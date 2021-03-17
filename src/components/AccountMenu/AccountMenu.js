@@ -5,7 +5,7 @@ import { useUserState } from 'hooks/users'
 import Config from 'Config'
 
 import styles from './AccountMenu.module.scss'
-import { ReactComponent as MenuCog } from 'images/menu-cog.svg'
+import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
 
 const AccountMenu = () => {
   const { apiKey } = useUserState()
@@ -13,9 +13,12 @@ const AccountMenu = () => {
   return (
     <div className={styles.root}>
       { apiKey ? (
-        <>{Config.accountTitle}<button onClick={logout} aria-label="menu" className={styles.root__menu}> <MenuCog className={ styles['root__menu-icon'] } /></button></>
+        <button onClick={logout} aria-label="menu" className={styles.root__menu}>
+          {Config.accountTitle}
+          <MenuCogSvg className={ styles['root__menu-icon'] } />
+        </button>
       ) : (
-        <>Not authenticated</>
+        'Not authenticated'
       ) }
     </div>
   )
