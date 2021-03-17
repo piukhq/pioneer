@@ -17,7 +17,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Login</h1>
       <RequestMagicLink />
       <LoginForm />
       { loading && (
