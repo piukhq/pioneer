@@ -1,4 +1,5 @@
 module.exports = {
+  apiUrl: null,
   theme: process.env.THEME,
   membershipPlanId: (() => {
     // note: if overwritten then all cases must be kept
@@ -12,6 +13,12 @@ module.exports = {
     switch (process.env.THEME) {
       case 'bink': return false
       case 'wasabi': return true
+    }
+  })(),
+  magicLinkSlug: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return 'wasabi-club'
     }
   })(),
   clientId: (() => {

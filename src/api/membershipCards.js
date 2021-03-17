@@ -1,8 +1,9 @@
 import axios from 'axios'
+import Config from 'Config'
 
 export const getMembershipCards = () => (
   axios.get(
-    'https://api.dev.gb.bink.com/ubiquity/membership_cards',
+    `${Config.apiUrl}/ubiquity/membership_cards`,
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
@@ -14,7 +15,7 @@ export const getMembershipCards = () => (
 
 export const deleteMembershipCard = (id) => (
   axios.delete(
-    `https://api.dev.gb.bink.com/ubiquity/membership_card/${id}`,
+    `${Config.apiUrl}/ubiquity/membership_card/${id}`,
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
@@ -26,7 +27,7 @@ export const deleteMembershipCard = (id) => (
 
 export const addMembershipCard = (accountData, planId) => (
   axios.post(
-    'https://api.dev.gb.bink.com/ubiquity/membership_cards',
+    `${Config.apiUrl}/ubiquity/membership_cards`,
     {
       account: accountData,
       membership_plan: planId,
@@ -42,7 +43,7 @@ export const addMembershipCard = (accountData, planId) => (
 
 export const linkPaymentCard = (paymentCardId, membershipCardId) => (
   axios.patch(
-    `https://api.dev.gb.bink.com/ubiquity/membership_card/${membershipCardId}/payment_card/${paymentCardId}`,
+    `${Config.apiUrl}/ubiquity/membership_card/${membershipCardId}/payment_card/${paymentCardId}`,
     null,
     {
       headers: {
@@ -56,7 +57,7 @@ export const linkPaymentCard = (paymentCardId, membershipCardId) => (
 // todo: temporarily introduced
 export const unLinkPaymentCard = (paymentCardId, membershipCardId) => (
   axios.delete(
-    `https://api.dev.gb.bink.com/ubiquity/membership_card/${membershipCardId}/payment_card/${paymentCardId}`,
+    `${Config.apiUrl}/ubiquity/membership_card/${membershipCardId}/payment_card/${paymentCardId}`,
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
@@ -70,7 +71,7 @@ export const unLinkPaymentCard = (paymentCardId, membershipCardId) => (
 // membership card for the test user account
 export const addTestMembershipCard = () => (
   axios.post(
-    'https://api.dev.gb.bink.com/ubiquity/membership_cards',
+    `${Config.apiUrl}/ubiquity/membership_cards`,
     {
       account: {
         add_fields: [

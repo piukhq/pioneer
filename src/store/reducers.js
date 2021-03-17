@@ -13,6 +13,7 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === 'RESET_ALL') {
+    localStorage.removeItem('token')
     state = undefined
   }
 

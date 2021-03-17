@@ -3,7 +3,7 @@ import Config from 'Config'
 
 export const login = (email, password) => (
   axios.post(
-    'https://api.dev.gb.bink.com/users/login',
+    `${Config.apiUrl}/users/login`,
     {
       email,
       password,
@@ -12,3 +12,20 @@ export const login = (email, password) => (
     },
   )
 )
+
+export const requestMagicLink = email => {
+  if (!Config.magicLinkSlug) {
+    console.error('Not implemented for current bundle. Slug not defined in config')
+    throw new Error('Not implemented for current bundle. Slug not defined in config')
+  }
+
+  return axios.post(
+    `${Config.apiUrl}/users/magic_links`,
+    {
+      email: email,
+      slug: Config.magicLinkSlug,
+      locale: 'en_GB',
+      bundle_id: Config.bundleId,
+    },
+  )
+}
