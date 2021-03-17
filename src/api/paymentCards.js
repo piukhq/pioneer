@@ -1,8 +1,9 @@
 import axios from 'axios'
+import Config from 'Config'
 
 export const getPaymentCards = () => (
   axios.get(
-    'https://api.dev.gb.bink.com/ubiquity/payment_cards',
+    `${Config.apiUrl}/ubiquity/payment_cards`,
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
@@ -14,7 +15,7 @@ export const getPaymentCards = () => (
 
 export const deletePaymentCard = (id) => (
   axios.delete(
-    `https://api.dev.gb.bink.com/ubiquity/payment_card/${id}`,
+    `${Config.apiUrl}/ubiquity/payment_card/${id}`,
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
@@ -38,7 +39,7 @@ export const addPaymentCard = (
   fingerprint,
 ) => {
   return axios.post(
-    'https://api.dev.gb.bink.com/ubiquity/payment_cards',
+    `${Config.apiUrl}/ubiquity/payment_cards`,
     {
       card: {
         token,

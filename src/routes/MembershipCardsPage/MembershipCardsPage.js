@@ -1,17 +1,20 @@
-import React, { useCallback } from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import React, { useCallback, useState } from 'react'
+import { Link } from 'react-router-dom'
 import MembershipCards from 'components/MembershipCards'
 
 const MembershipCardsPage = () => {
-  const history = useHistory()
+  const [error, setError] = useState(false)
   const handleError = useCallback(() => {
-    // todo: currently it redirects to the login page regardless of the error. Should do that only when the error is due to a 401 HTTP like response
-    history.replace('/login')
-  }, [history])
+    setError(true)
+  }, [setError])
   return (
     <div>
       <h1>Membership cards</h1>
-      <MembershipCards onError={handleError}/>
+      { error ? (
+        <p>There was an error</p>
+      ) : (
+        <MembershipCards onError={handleError}/>
+      ) }
 
       <br /><br /><br />
       <Link to={'/payment-cards'}>Payment Cards</Link>

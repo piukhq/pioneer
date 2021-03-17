@@ -1,11 +1,12 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 
 import rootReducer from './reducers'
+import syncApiKeyToLocalStorage from 'middleware/syncApiKeyToLocalStorage'
 
 export default function configureAppStore (preloadedState) {
   const store = configureStore({
     reducer: rootReducer,
-    middleware: [...getDefaultMiddleware()],
+    middleware: [syncApiKeyToLocalStorage, ...getDefaultMiddleware()],
     preloadedState,
   })
 
