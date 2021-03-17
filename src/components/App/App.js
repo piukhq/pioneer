@@ -12,7 +12,7 @@ import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
 import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 
-import LoginStatus from 'components/LoginStatus'
+import AccountMenu from 'components/AccountMenu'
 
 import './App.scss'
 
@@ -20,7 +20,7 @@ function App () {
   return (
     <div className="bink-app">
       <Router basename={process.env.PUBLIC_URL}>
-        <LoginStatus />
+        <AccountMenu />
         <Switch>
           <Route exact path="/">
             <HomePage />
