@@ -22,6 +22,12 @@
     padding: 0;
   }
 
+  &__text--desktop-only {
+    @media (max-width: 439px) {
+      display: none;
+    }
+  }
+
   &__icon {
     display: block;
     margin: 0 auto 20px;
