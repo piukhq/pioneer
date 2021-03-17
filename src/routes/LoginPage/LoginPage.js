@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import LoginForm from 'components/LoginForm'
 import Loading from 'components/Loading'
+import RequestMagicLink from 'components/RequestMagicLink'
 
 const HomePage = () => {
   const history = useHistory()
@@ -17,6 +18,7 @@ const HomePage = () => {
   return (
     <div>
       <h1>Login</h1>
+      <RequestMagicLink />
       <LoginForm />
       { loading && (
         <Loading />

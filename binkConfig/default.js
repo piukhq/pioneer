@@ -15,6 +15,12 @@ module.exports = {
       case 'wasabi': return true
     }
   })(),
+  magicLinkSlug: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return 'wasabi-club'
+    }
+  })(),
   clientId: (() => {
     switch (process.env.THEME) {
       case 'bink': return 'MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd'
