@@ -348,6 +348,7 @@ module.exports = function (webpackEnv) {
         routes: path.join(__dirname, '../src/routes'),
         images: path.join(__dirname, '../src/images'),
         utils: path.join(__dirname, '../src/utils'),
+        middleware: path.join(__dirname, '../src/middleware'),
         sassThemeFolder: path.resolve(__dirname, '../src/sass/themes/', process.env.THEME),
       },
       plugins: [

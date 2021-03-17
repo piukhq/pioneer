@@ -6,16 +6,16 @@ const types = {
   LOGIN_FAILURE: 'users/LOGIN_FAILURE',
 }
 
-const initialState = {
+const getInitialState = () => ({
   authentication: {
     loading: false,
     error: false,
     api_key: localStorage.getItem('token'),
   },
   profile: null,
-}
+})
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = getInitialState(), action) => {
   switch (action.type) {
     case types.LOGIN_REQUEST:
       return {
@@ -59,14 +59,12 @@ export const actions = {
     dispatch({ type: types.LOGIN_REQUEST })
     try {
       const { data: { api_key: apiKey } } = await login(username, password)
-      localStorage.setItem('token', apiKey)
       dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key: apiKey } })
     } catch (e) {
       dispatch({ type: types.LOGIN_FAILURE })
     }
   },
   logout: () => dispatch => {
-    localStorage.removeItem('token')
     dispatch({ type: 'RESET_ALL' })
   },
 }
