@@ -15,6 +15,7 @@ import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import AccountMenu from 'components/AccountMenu'
 
 import './App.scss'
+import MagicLinkPage from 'routes/MagicLinkPage'
 
 function App () {
   return (
@@ -30,6 +31,9 @@ function App () {
           </Route>
           <Route path="/payment-cards">
             <PaymentCardsPage />
+          </Route>
+          <Route path="/magic-link/:magicLinkToken">
+            <MagicLinkPage />
           </Route>
           <Route path="/membership-cards">
             <MembershipCardsPage />

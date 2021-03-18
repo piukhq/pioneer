@@ -1,4 +1,4 @@
-import { login, requestMagicLink } from 'api/users'
+import { authenticateViaMagicLinkToken, login, requestMagicLink } from 'api/users'
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
@@ -8,6 +8,10 @@ const types = {
   REQUEST_MAGIC_LINK_REQUEST: 'users/REQUEST_MAGIC_LINK_REQUEST',
   REQUEST_MAGIC_LINK_SUCCESS: 'users/REQUEST_MAGIC_LINK_SUCCESS',
   REQUEST_MAGIC_LINK_FAILURE: 'users/REQUEST_MAGIC_LINK_FAILURE',
+
+  MAGIC_LINK_AUTHENTICATION_REQUEST: 'users/MAGIC_LINK_AUTHENTICATION_REQUEST',
+  MAGIC_LINK_AUTHENTICATION_SUCCESS: 'users/MAGIC_LINK_AUTHENTICATION_SUCCESS',
+  MAGIC_LINK_AUTHENTICATION_FAILURE: 'users/MAGIC_LINK_AUTHENTICATION_FAILURE',
 }
 
 const getInitialState = () => ({
@@ -17,6 +21,11 @@ const getInitialState = () => ({
     api_key: localStorage.getItem('token'),
   },
   magicLinkRequest: {
+    loading: false,
+    error: false,
+    success: false,
+  },
+  magicLinkAuthentication: {
     loading: false,
     error: false,
     success: false,
@@ -88,6 +97,36 @@ const reducer = (state = getInitialState(), action) => {
         },
       }
 
+    case types.MAGIC_LINK_AUTHENTICATION_REQUEST:
+      return {
+        ...state,
+        magicLinkAuthentication: {
+          ...state.magicLinkAuthentication,
+          loading: true,
+          error: false,
+          success: false,
+        },
+      }
+    case types.MAGIC_LINK_AUTHENTICATION_SUCCESS:
+      return {
+        ...state,
+        magicLinkAuthentication: {
+          ...state.magicLinkAuthentication,
+          loading: false,
+          error: false,
+          success: true,
+        },
+      }
+    case types.MAGIC_LINK_AUTHENTICATION_FAILURE:
+      return {
+        ...state,
+        magicLinkAuthentication: {
+          ...state.magicLinkAuthentication,
+          loading: false,
+          error: true,
+          success: false,
+        },
+      }
     default:
       return state
   }
@@ -112,6 +151,17 @@ export const actions = {
       dispatch({ type: types.REQUEST_MAGIC_LINK_SUCCESS })
     } catch (e) {
       dispatch({ type: types.REQUEST_MAGIC_LINK_FAILURE })
+    }
+  },
+  magicLinkAuthentication: (magicLinkToken) => async dispatch => {
+    dispatch(actions.logout())
+    dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_REQUEST })
+    try {
+      const { data: { access_token: apiKey } } = await authenticateViaMagicLinkToken(magicLinkToken)
+      dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key: apiKey } })
+      dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_SUCCESS })
+    } catch (e) {
+      dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_FAILURE })
     }
   },
   logout: () => dispatch => {
