@@ -29,3 +29,12 @@ export const requestMagicLink = email => {
     },
   )
 }
+
+export const authenticateViaMagicLinkToken = token => (
+  axios.post(
+    `${Config.apiUrl}/users/magic_links/access_tokens`,
+    {
+      token,
+    },
+  )
+)
