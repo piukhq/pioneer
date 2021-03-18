@@ -9,14 +9,14 @@ build:
     - npm ci
     - npm run lint-js
     - npm run lint-css
-    - PUBLIC_URL=/develop/wasabi THEME=wasabi npm run build
+    - NODE_CONFIG_ENV=development PUBLIC_URL=/develop/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
   artifacts:
     paths:
       - build*.tar.gz
     expire_in: 1 week
-  only:  # "only" defaults to not include MRs 
+  only:  # "only" defaults to not include MRs
     - develop
 
 deploy-dev:
@@ -38,7 +38,7 @@ build-mr:
     - npm ci
     - npm run lint-js
     - npm run lint-css
-    - PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/wasabi THEME=wasabi npm run build
+    - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
   artifacts:
