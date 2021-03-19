@@ -93,7 +93,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "uat": "NODE_CONFIG_ENV=uat node scripts/build.js",
+    "staging": "NODE_CONFIG_ENV=staging node scripts/build.js",
     "test": "node scripts/test.js",
     "lint-js": "eslint src",
     "lint-css": "npx stylelint \"**/*.scss\""
