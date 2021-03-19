@@ -14,6 +14,7 @@ const Vouchers = ({ membershipCardId }) => {
     plan?.has_vouchers && (activeVouchers.length > 0 || nonActiveVouchers.length > 0) ? (
       <div>
         <h2>Vouchers</h2>
+        <p>{plan.account?.plan_summary}</p>
         { activeVouchers.map?.((voucher, index) => (
           <Voucher key={index} voucher={voucher} />
         )) }
