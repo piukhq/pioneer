@@ -1,4 +1,4 @@
 {
   "apiUrl": "https://api.staging.gb.bink.com",
-  "env": "uat"
+  "env": "staging"
 }
