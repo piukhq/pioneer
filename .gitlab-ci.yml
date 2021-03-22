@@ -1,6 +1,7 @@
 stages:
   - build
   - dev
+  - staging
 
 build:
   stage: build
@@ -59,3 +60,30 @@ deploy-mr:
     - python .ci-scripts/comment-deployment-url.py
   only:
     - merge_requests
+
+build-staging:
+  stage: build
+  image: node:14
+  script:
+    - npm ci
+    - npm run lint-js
+    - npm run lint-css
+    - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/wasabi THEME=wasabi npm run build
+    - tar -C build -zcvf build-wasabi.tar.gz .
+    - rm -rf build
+  artifacts:
+    paths:
+      - build*.tar.gz
+    expire_in: 3 weeks
+  only:  # "only" defaults to not include MRs
+    - master
+
+deploy-staging:
+  stage: staging
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
+    - mkdir wasabi
+    - tar -C wasabi -xf build-wasabi.tar.gz
+    - copy --staging --sync wasabi /staging/wasabi/
+  only:
+    - master
