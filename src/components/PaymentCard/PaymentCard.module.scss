@@ -1,0 +1,127 @@
+@import "src/sass/variables.scss";
+
+.root {
+  box-sizing: border-box;
+  position: relative;
+  height: 120px;
+  border-radius: 8px;
+
+  &__name {
+    position: absolute;
+    top: 44%;
+    left: 11px;
+    right: 11px;
+    font-weight: 800;
+    font-size: 18px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__number {
+    position: absolute;
+    bottom: 10px;
+    right: 11px;
+    font-weight: 700;
+    font-size: 18px;
+    vertical-align: middle;
+  }
+
+  &__number-redacted {
+    font-size: 10px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  &__actions {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__delete {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: block;
+    border-radius: 15px;
+
+    &:hover {
+      width: 32px;
+      height: 32px;
+      margin: -1px;
+    }
+  }
+
+  &__status {
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    display: flex;
+    padding: 0 10px 0 0;
+    border-radius: 14px;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 800;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &__status-icon {
+    margin: 5px 5px 5px 6px;
+  }
+
+  background: $generic-gradient-fallback;
+  background: linear-gradient(to right, $generic-gradient-left, $generic-gradient-right);
+  color: white;
+
+  &--provider {
+    &-visa {
+      background: $visa-background-fallback;
+      background: linear-gradient(to right, $visa-gradient-left, $visa-gradient-right);
+      color: white;
+    }
+
+    &-mastercard {
+      background: $mastercard-background-fallback;
+      background: linear-gradient(to right, $mastercard-gradient-left, $mastercard-gradient-right);
+      color: white;
+    }
+
+    &-american-express {
+      background: $amex-background-fallback;
+      background: linear-gradient(to right, $amex-gradient-left, $amex-gradient-right);
+      color: white;
+    }
+  }
+
+  &--expired,
+  &--activating {
+    background: #666;
+    color: white;
+  }
+
+  &__logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    &--provider {
+      &-visa {
+        background: url("/images/logo-visa.svg") top 11px right 10px / 78px 25px no-repeat;
+      }
+
+      &-mastercard {
+        background: url("/images/logo-mastercard.svg") top 8px right 10px / 57px 42px no-repeat;
+      }
+
+      &-american-express {
+        background: url("/images/logo-amex.svg") top 8px right 10px / 43px 42px no-repeat;
+      }
+    }
+  }
+}
