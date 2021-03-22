@@ -3,35 +3,55 @@ import TextInputGroup from 'components/Form/TextInputGroup'
 
 import { ReactComponent as MagicLinkDefaultSvg } from 'images/magic-link-default.svg'
 import { ReactComponent as MagicLinkErrorSvg } from 'images/magic-link-error.svg'
+import { ReactComponent as MagicLinkWarningSvg } from 'images/magic-link-warning.svg'
 import Button from 'components/Button'
 import Loading from 'components/Loading'
 import useRequestMagicLink from './hooks/useRequestMagicLink'
 
 import styles from './RequestMagicLink.module.scss'
+import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
 
 const RequestMagicLink = () => {
   const {
     email,
     setEmail,
-    success,
-    loading,
-    error,
+    success: requestSuccess,
+    loading: requestLoading,
+    error: requestError,
     handleSubmit,
   } = useRequestMagicLink()
 
+  const {
+    error: authenticationError,
+    isExpiredToken,
+  } = useMagicLinkAuthenticationStatus()
+
   return (
     <>
-      { loading && <Loading /> }
-      { !success && (
+      { requestLoading && <Loading /> }
+      { !requestSuccess && (
         <form onSubmit={handleSubmit} className={styles.root}>
-          { error ? (
+          { requestError || authenticationError ? (
             <>
-              <MagicLinkErrorSvg className={styles.root__icon} />
-              <h1 className={styles.root__headline}>Something went wrong</h1>
-              <div className={styles.root__description}>
-                There was a problem authenticating you.<br />
-                Please try again.
-              </div>
+              { isExpiredToken ? (
+                <>
+                  <MagicLinkWarningSvg className={styles.root__icon} />
+                  <h1 className={styles.root__headline}>Link expired</h1>
+                  <div className={styles.root__description}>
+                    To keep your account safe, links are only valid for a short period of time.
+                    Enter your email again and we will send you another!
+                  </div>
+                </>
+              ) : (
+                <>
+                  <MagicLinkErrorSvg className={styles.root__icon} />
+                  <h1 className={styles.root__headline}>Something went wrong</h1>
+                  <div className={styles.root__description}>
+                    There was a problem authenticating you.<br />
+                    Please try again.
+                  </div>
+                </>
+              ) }
             </>
           ) : (
             <>
@@ -54,7 +74,7 @@ const RequestMagicLink = () => {
           <Button className={styles.root__button}>Continue</Button>
         </form>
       ) }
-      { success && (
+      { requestSuccess && (
         <div className={styles.root}>
           <MagicLinkDefaultSvg className={styles.root__icon} />
 

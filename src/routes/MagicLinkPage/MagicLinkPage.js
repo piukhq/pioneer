@@ -28,12 +28,21 @@ const MagicLinkPage = () => {
     }
   }, [magicLinkToken, dispatch])
 
+  const history = useHistory()
+  useEffect(() => {
+    if (error) {
+      history.replace('/login')
+    }
+  }, [error, history])
+
+  useEffect(() => {
+    if (success) {
+      history.replace('/')
+    }
+  }, [success, history])
+
   return (
-    <div>
-      { loading && <Loading /> }
-      { error && 'There was an error' }
-      { success && 'Successfully received access token' }
-    </div>
+    loading ? <Loading /> : null
   )
 }
 
