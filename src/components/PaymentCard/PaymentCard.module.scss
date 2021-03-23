@@ -4,6 +4,7 @@
   box-sizing: border-box;
   position: relative;
   height: 120px;
+  min-width: 220px;
   border-radius: 8px;
 
   &__name {
