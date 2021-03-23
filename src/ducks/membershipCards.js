@@ -219,6 +219,21 @@ export const selectors = {
       )
     },
   ),
+  linkedPaymentCards: createSelector(
+    membershipCardSelector,
+    paymentCardsListSelector,
+    (membershipCard, allPaymentCardsList) => {
+      if (!membershipCard) {
+        return []
+      }
+      const linkedPaymentCards = (
+        membershipCard.payment_cards
+          .filter(paymentCard => paymentCard.active_link)
+          .map(paymentCard => paymentCard)
+      )
+      return linkedPaymentCards.filter(linkedCard => allPaymentCardsList.some(card => linkedCard.id === card.id))
+    },
+  ),
   activeVouchers: createSelector(
     membershipCardSelector,
     membershipCard => membershipCard?.vouchers?.filter(voucher => ['inprogress', 'issued'].indexOf(voucher.state) !== -1),

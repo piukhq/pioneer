@@ -46,6 +46,9 @@ const MembershipCardPage = () => {
   const unlinkedPaymentCards = useSelector(
     state => membershipCardsSelectors.unlinkedPaymentCards(state, id),
   )
+  const linkedPaymentCards = useSelector(
+    state => membershipCardsSelectors.linkedPaymentCards(state, id),
+  )
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -112,8 +115,7 @@ const MembershipCardPage = () => {
         <>
           <Vouchers membershipCardId={id} />
           <h2>Payment cards</h2>
-          {/* todo: create selector for linked payment cards */}
-          {membershipCard.payment_cards.filter(paymentCard => paymentCard.active_link).length > 0 ? (
+          {linkedPaymentCards.length > 0 ? (
             <p>
               The payment cards below are linked to this loyalty card.
               Simply pay with them to collect points.
@@ -126,16 +128,14 @@ const MembershipCardPage = () => {
             </p>
           ) }
           <PaymentCards>
-             {membershipCard.payment_cards
-               .filter(paymentCard => paymentCard.active_link)
-               .map(paymentCard => (
-                 <PaymentCard
-                   id={paymentCard.id}
-                   onDelete={handleDeletePaymentCard}
-                   key={paymentCard.id}
-                 />
-               ))
-             }
+            {linkedPaymentCards.map(paymentCard => (
+              <PaymentCard
+                id={paymentCard.id}
+                onDelete={handleDeletePaymentCard}
+                key={paymentCard.id}
+              />
+            ))
+            }
             { unlinkedPaymentCards
               .filter(paymentCard => paymentCard.id === newlyAddedCardId)
               .map(paymentCard => (
