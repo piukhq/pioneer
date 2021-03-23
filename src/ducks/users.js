@@ -1,5 +1,6 @@
 import { authenticateViaMagicLinkToken, login, requestMagicLink } from 'api/users'
 import { serializeError } from 'serialize-error'
+import { setTokenAsUsed } from 'utils/magicLink'
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
@@ -171,6 +172,8 @@ export const actions = {
     dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_REQUEST })
     try {
       const { data: { access_token: apiKey } } = await authenticateViaMagicLinkToken(magicLinkToken)
+      // set successfully used magic link token as used, so that refreshing the page will not try to reuse the token again
+      setTokenAsUsed(magicLinkToken)
       dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key: apiKey } })
       dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_SUCCESS })
     } catch (e) {

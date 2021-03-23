@@ -9,9 +9,11 @@ const useRedirectOnUsedToken = () => {
   const { magicLinkToken } = useParams()
 
   const history = useHistory()
-  if (isTokenUsed(magicLinkToken)) {
-    history.replace('/')
-  }
+  useEffect(() => {
+    if (isTokenUsed(magicLinkToken)) {
+      history.replace('/')
+    }
+  }, [magicLinkToken, history])
 }
 
 const MagicLinkPage = () => {
