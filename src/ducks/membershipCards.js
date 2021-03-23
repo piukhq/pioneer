@@ -231,7 +231,7 @@ export const selectors = {
           .filter(paymentCard => paymentCard.active_link)
           .map(paymentCard => paymentCard)
       )
-      return linkedPaymentCards.filter(linkedCard => allPaymentCardsList.find(card => linkedCard.id === card.id))
+      return linkedPaymentCards.filter(linkedCard => allPaymentCardsList.some(card => linkedCard.id === card.id))
     },
   ),
   activeVouchers: createSelector(
