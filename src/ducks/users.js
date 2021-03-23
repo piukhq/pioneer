@@ -1,4 +1,6 @@
 import { authenticateViaMagicLinkToken, login, requestMagicLink } from 'api/users'
+import { serializeError } from 'serialize-error'
+import { setTokenAsUsed } from 'utils/magicLink'
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
@@ -12,6 +14,7 @@ const types = {
   MAGIC_LINK_AUTHENTICATION_REQUEST: 'users/MAGIC_LINK_AUTHENTICATION_REQUEST',
   MAGIC_LINK_AUTHENTICATION_SUCCESS: 'users/MAGIC_LINK_AUTHENTICATION_SUCCESS',
   MAGIC_LINK_AUTHENTICATION_FAILURE: 'users/MAGIC_LINK_AUTHENTICATION_FAILURE',
+  RESET_MAGIC_LINK_AUTHENTICATION: 'users/RESET_MAGIC_LINK_AUTHENTICATION',
 }
 
 const getInitialState = () => ({
@@ -123,7 +126,17 @@ const reducer = (state = getInitialState(), action) => {
         magicLinkAuthentication: {
           ...state.magicLinkAuthentication,
           loading: false,
-          error: true,
+          error: action.payload,
+          success: false,
+        },
+      }
+    case types.RESET_MAGIC_LINK_AUTHENTICATION:
+      return {
+        ...state,
+        magicLinkAuthentication: {
+          ...state.magicLinkAuthentication,
+          loading: false,
+          error: false,
           success: false,
         },
       }
@@ -145,6 +158,7 @@ export const actions = {
     }
   },
   requestMagicLink: (email) => async dispatch => {
+    dispatch({ type: types.RESET_MAGIC_LINK_AUTHENTICATION })
     dispatch({ type: types.REQUEST_MAGIC_LINK_REQUEST })
     try {
       await requestMagicLink(email)
@@ -158,10 +172,12 @@ export const actions = {
     dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_REQUEST })
     try {
       const { data: { access_token: apiKey } } = await authenticateViaMagicLinkToken(magicLinkToken)
+      // set successfully used magic link token as used, so that refreshing the page will not try to reuse the token again
+      setTokenAsUsed(magicLinkToken)
       dispatch({ type: types.LOGIN_SUCCESS, payload: { api_key: apiKey } })
       dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_SUCCESS })
     } catch (e) {
-      dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_FAILURE })
+      dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_FAILURE, payload: serializeError(e) })
     }
   },
   logout: () => dispatch => {
