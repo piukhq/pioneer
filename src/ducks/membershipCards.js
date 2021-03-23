@@ -221,13 +221,17 @@ export const selectors = {
   ),
   linkedPaymentCards: createSelector(
     membershipCardSelector,
-    (membershipCard) => {
+    paymentCardsListSelector,
+    (membershipCard, allPaymentCardsList) => {
       if (!membershipCard) {
         return []
       }
-      return (
-        membershipCard.payment_cards.filter(paymentCard => paymentCard.active_link)
+      const linkedPaymentCards = (
+        membershipCard.payment_cards
+          .filter(paymentCard => paymentCard.active_link)
+          .map(paymentCard => paymentCard)
       )
+      return linkedPaymentCards.filter(linkedCard => allPaymentCardsList.find(card => linkedCard.id === card.id))
     },
   ),
   activeVouchers: createSelector(
