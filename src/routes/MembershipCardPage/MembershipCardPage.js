@@ -128,14 +128,14 @@ const MembershipCardPage = () => {
             </p>
           ) }
           <PaymentCards>
-             {linkedPaymentCards.map(paymentCard => (
-                 <PaymentCard
-                   id={paymentCard.id}
-                   onDelete={handleDeletePaymentCard}
-                   key={paymentCard.id}
-                 />
-             ))
-             }
+            {linkedPaymentCards.map(paymentCard => (
+              <PaymentCard
+                id={paymentCard.id}
+                onDelete={handleDeletePaymentCard}
+                key={paymentCard.id}
+              />
+            ))
+            }
             { unlinkedPaymentCards
               .filter(paymentCard => paymentCard.id === newlyAddedCardId)
               .map(paymentCard => (
