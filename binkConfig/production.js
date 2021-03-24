@@ -8,4 +8,5 @@ module.exports = {
       case 'wasabi': return 215
     }
   })(),
+  supportDebugLogin: false,
 }

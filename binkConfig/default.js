@@ -41,4 +41,5 @@ module.exports = {
       case 'wasabi': return 'bink_web_wasabi_1@bink.com'
     }
   })(),
+  supportDebugLogin: true,
 }

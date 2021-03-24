@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './LoginForm.module.scss'
 import useLoginForm from './hooks/useLoginForm'
+import Button from 'components/Button'
 
 const LoginForm = () => {
   const {
@@ -13,7 +14,7 @@ const LoginForm = () => {
   } = useLoginForm()
 
   return (
-    <div className={styles.root}>
+    <form className={styles.root} onSubmit={handleSubmit}>
       <label className={styles.root__label}>
         Email
         <input className={styles.root__field} type='text' value={email} onChange={event => setEmail(event.target.value)} />
@@ -22,8 +23,8 @@ const LoginForm = () => {
         Password
         <input className={styles.root__field} type='text' value={password} onChange={event => setPassword(event.target.value)} />
       </label>
-      <button className={styles.root__submit} onClick={handleSubmit}>Login</button>
-    </div>
+      <Button className={styles.root__submit}>Login</Button>
+    </form>
   )
 }
 
