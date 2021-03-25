@@ -116,7 +116,7 @@ const MembershipCardPage = () => {
           <Hero membershipCard={membershipCard} />
           <Vouchers membershipCardId={id} />
           <h2>Payment cards</h2>
-          {(linkedPaymentCards.length > 0) ? (
+          {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
             <p>
               The payment cards below are linked to this loyalty card.
               Simply pay with them to collect points.
