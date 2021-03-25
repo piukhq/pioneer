@@ -38,7 +38,7 @@ const MembershipCardPage = () => {
 
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
-  // const loading = useSelector(state => allSelectors.loadingSelector(state))
+  const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
   const newlyAddedCardId = useSelector(state => state.paymentCards?.add?.card?.id)
@@ -109,10 +109,10 @@ const MembershipCardPage = () => {
       { linkingSuccessModalVisible && (
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
       )}
-      <Hero membershipCard={membershipCard} />
       <MembershipCardRefresher membershipCardId={id} />
       { membershipCard && (
         <>
+          <Hero membershipCard={membershipCard} />
           <Vouchers membershipCardId={id} />
           <h2>Payment cards</h2>
           {linkedPaymentCards.length > 0 ? (
@@ -189,9 +189,9 @@ const MembershipCardPage = () => {
       {/* loading && (
         <Loading />
       ) */}
-      { error && (
+      { (error || (!loading && !membershipCard)) && (
         <>
-          <br /><br /> There was an error
+          Something is wrong.
         </>
       )}
     </div>
