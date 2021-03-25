@@ -221,13 +221,9 @@ export const selectors = {
     },
   ),
   newlyPendingPaymentCard: createSelector(
-    membershipCardSelector,
     paymentCardsListSelector,
     newlyAddedCardIdSelector,
-    (membershipCard, allPaymentCardsList, newlyAddedCardId) => {
-      if (!membershipCard) {
-        return []
-      }
+    (allPaymentCardsList, newlyAddedCardId) => {
       return allPaymentCardsList.filter(paymentCard => paymentCard.id === newlyAddedCardId)[0]
     },
   ),
