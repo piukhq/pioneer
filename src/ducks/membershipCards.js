@@ -206,8 +206,7 @@ export const selectors = {
   unlinkedPaymentCards: createSelector(
     membershipCardSelector,
     paymentCardsListSelector,
-    newlyAddedCardIdSelector,
-    (membershipCard, allPaymentCardsList, newlyAddedCardId) => {
+    (membershipCard, allPaymentCardsList) => {
       if (!membershipCard) {
         return []
       }
