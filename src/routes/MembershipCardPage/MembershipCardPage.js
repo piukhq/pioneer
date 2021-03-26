@@ -137,7 +137,7 @@ const MembershipCardPage = () => {
               />
             ))
             }
-            { newlyPendingPaymentCard &&
+            { newlyPendingPaymentCard && (
                 <PaymentCard
                   id={newlyPendingPaymentCard.id}
                   onClick={handleClickOnPaymentCard}
@@ -145,7 +145,7 @@ const MembershipCardPage = () => {
                   expired={isPaymentCardExpired(newlyPendingPaymentCard)}
                   activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
                 />
-            }
+            )}
             <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
           </PaymentCards>
           { paymentCardAddFormVisible && (
