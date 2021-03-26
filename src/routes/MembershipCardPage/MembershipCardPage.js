@@ -41,13 +41,14 @@ const MembershipCardPage = () => {
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const newlyAddedCardId = useSelector(state => state.paymentCards?.add?.card?.id)
-
+  const linkedPaymentCards = useSelector(
+    state => membershipCardsSelectors.linkedPaymentCards(state, id),
+  )
   const unlinkedPaymentCards = useSelector(
     state => membershipCardsSelectors.unlinkedPaymentCards(state, id),
   )
-  const linkedPaymentCards = useSelector(
-    state => membershipCardsSelectors.linkedPaymentCards(state, id),
+  const newlyPendingPaymentCard = useSelector(
+    state => membershipCardsSelectors.newlyPendingPaymentCard(state, id),
   )
 
   const dispatch = useDispatch()
@@ -115,7 +116,7 @@ const MembershipCardPage = () => {
           <Hero membershipCard={membershipCard} />
           <Vouchers membershipCardId={id} />
           <h2>Payment cards</h2>
-          {linkedPaymentCards.length > 0 ? (
+          {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
             <p>
               The payment cards below are linked to this loyalty card.
               Simply pay with them to collect points.
@@ -136,18 +137,15 @@ const MembershipCardPage = () => {
               />
             ))
             }
-            { unlinkedPaymentCards
-              .filter(paymentCard => paymentCard.id === newlyAddedCardId)
-              .map(paymentCard => (
+            { newlyPendingPaymentCard && (
                 <PaymentCard
-                  id={paymentCard.id}
+                  id={newlyPendingPaymentCard.id}
                   onClick={handleClickOnPaymentCard}
-                  key={paymentCard.id}
-                  expired={isPaymentCardExpired(paymentCard)}
-                  activating={(paymentCard.status === 'pending' && !isPaymentCardExpired(paymentCard))}
+                  key={newlyPendingPaymentCard.id}
+                  expired={isPaymentCardExpired(newlyPendingPaymentCard)}
+                  activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
                 />
-              ))
-            }
+            )}
             <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
           </PaymentCards>
           { paymentCardAddFormVisible && (
@@ -156,7 +154,7 @@ const MembershipCardPage = () => {
           { deleteFormVisible && (
             <PaymentCardDeleteForm id={cardIdToBeDeleted} onClose={ handleCloseDeletePaymentCardForm } />
           ) }
-          { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyAddedCardId).length > 0 && (
+          { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id) && (
             <>
               <h2>Unlinked payment cards</h2>
               <p>
@@ -167,7 +165,7 @@ const MembershipCardPage = () => {
               </p>
               <PaymentCards>
                 { unlinkedPaymentCards
-                  .filter(paymentCard => paymentCard.id !== newlyAddedCardId)
+                  .filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id)
                   .map(paymentCard => (
                     <PaymentCard
                       id={paymentCard.id}

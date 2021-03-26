@@ -195,7 +195,8 @@ export default reducer
 const membershipCardsSelector = state => state.membershipCards.cards
 const paymentCardsListSelector = state => paymentCardsSelectors.cardsList(state)
 const membershipCardSelector = (state, id) => state.membershipCards.cards[id]
-const membershipPlansSelector = (state) => state.membershipPlans.plans
+const membershipPlansSelector = state => state.membershipPlans.plans
+const newlyAddedCardIdSelector = state => state.paymentCards?.add?.card?.id
 
 export const selectors = {
   cardsList: createSelector(
@@ -214,9 +215,15 @@ export const selectors = {
           .filter(paymentCard => paymentCard.active_link)
           .map(paymentCard => paymentCard.id)
       )
-      return allPaymentCardsList.filter(
-        paymentCard => linkedPaymentCardsIds.indexOf(paymentCard.id) === -1,
-      )
+      return allPaymentCardsList
+        .filter(paymentCard => linkedPaymentCardsIds.indexOf(paymentCard.id) === -1)
+    },
+  ),
+  newlyPendingPaymentCard: createSelector(
+    paymentCardsListSelector,
+    newlyAddedCardIdSelector,
+    (allPaymentCardsList, newlyAddedCardId) => {
+      return allPaymentCardsList.filter(paymentCard => paymentCard.id === newlyAddedCardId)[0]
     },
   ),
   linkedPaymentCards: createSelector(
