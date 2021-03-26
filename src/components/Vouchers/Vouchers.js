@@ -3,6 +3,8 @@ import { useMembershipCardStateById } from 'hooks/membershipCards'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import Voucher from 'components/Voucher'
 
+import styles from './Vouchers.module.scss'
+
 const Vouchers = ({ membershipCardId }) => {
   const { activeVouchers, nonActiveVouchers, plan } = useMembershipCardStateById(membershipCardId)
   useLoadMembershipPlans()
@@ -15,9 +17,11 @@ const Vouchers = ({ membershipCardId }) => {
       <div>
         <h2>Vouchers</h2>
         <p>{plan.account?.plan_summary}</p>
+        <div className={styles['root__active-vouchers']}>
         { activeVouchers.map?.((voucher, index) => (
           <Voucher key={index} voucher={voucher} />
         )) }
+        </div>
       </div>
     ) : null
   )
