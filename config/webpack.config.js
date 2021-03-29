@@ -344,6 +344,7 @@ module.exports = function (webpackEnv) {
         api: path.join(__dirname, '../src/api'),
         components: path.join(__dirname, '../src/components'),
         ducks: path.join(__dirname, '../src/ducks'),
+        fonts: path.join(__dirname, '../src/fonts'),
         hooks: path.join(__dirname, '../src/hooks'),
         routes: path.join(__dirname, '../src/routes'),
         images: path.join(__dirname, '../src/images'),
