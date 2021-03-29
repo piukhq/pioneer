@@ -41,8 +41,8 @@ const MembershipCardPage = () => {
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const membershipPlanCurrency = useSelector(state => state.membershipPlans?.plans[membershipCard?.membership_plan]?.balances[0]?.currency)
   const membershipPlanCardName = useSelector(state => state.membershipPlans?.plans[membershipCard?.membership_plan]?.account?.plan_name_card)
+  const membershipCardCurrency = membershipCard?.balances[0]?.currency
 
   const linkedPaymentCards = useSelector(
     state => membershipCardsSelectors.linkedPaymentCards(state, id),
@@ -121,12 +121,12 @@ const MembershipCardPage = () => {
           <h2>Payment cards</h2>
           {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
             <p>
-              The payment cards below are linked to this {membershipPlanCardName}. Simply pay with one to collect {membershipPlanCurrency}.
+              The payment cards below are linked to this {membershipPlanCardName}. Simply pay with one to collect {membershipCardCurrency}.
             </p>
           ) : (
             <p>
               You have yet to add any payment cards. By adding a payment card to your account
-              , you will unlock the ability to auto-collect {membershipPlanCurrency} when you shop.
+              , you will unlock the ability to auto-collect {membershipCardCurrency} when you shop.
             </p>
           ) }
           <PaymentCards>
@@ -160,7 +160,7 @@ const MembershipCardPage = () => {
               <h2>Unlinked payment cards</h2>
               <p>
                 These are payment cards that you have added but are not currently linked to your {membershipPlanCardName}.
-                Making purchases with one these cards <span className={styles.root__warning}>will not collect you {membershipPlanCurrency}</span>.
+                Making purchases with one these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
                 Select the card to see how this can be resolved.
               </p>
               <PaymentCards>
