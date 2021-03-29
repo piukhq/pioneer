@@ -13,6 +13,7 @@ const Vouchers = ({ membershipCardId }) => {
     return null
   }
   return (
+    // todo: nonActiveVouchers conditions should be removed
     plan?.has_vouchers && (activeVouchers.length > 0 || nonActiveVouchers.length > 0) ? (
       <div>
         <h2>Vouchers</h2>
