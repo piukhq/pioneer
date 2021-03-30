@@ -2,6 +2,7 @@ stages:
   - build
   - dev
   - staging
+  - staging-deploy
 
 build:
   stage: build
@@ -63,7 +64,7 @@ deploy-mr:
     - merge_requests
 
 build-staging:
-  stage: build
+  stage: staging
   image: node:14
   script:
     - npm ci
@@ -76,15 +77,16 @@ build-staging:
     paths:
       - build*.tar.gz
     expire_in: 3 weeks
-  only:  # "only" defaults to not include MRs
-    - master
+  when: manual
+  only:
+    - develop
 
 deploy-staging:
-  stage: staging
+  stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi.tar.gz
     - copy --staging --sync wasabi /staging/wasabi/
   only:
-    - master
+    - develop
