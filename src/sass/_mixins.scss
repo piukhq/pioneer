@@ -1,0 +1,16 @@
+@import "src/sass/variables.scss";
+
+@mixin heading-font-style {
+  font-family: $theme-font-family;
+  font-weight: $heading-font-weight;
+  font-size: $heading-font-size;
+  color: $heading-font-color;
+
+  &--first {
+    margin-top: 0;
+  }
+
+  &--last {
+    margin-bottom: 0;
+  }
+}

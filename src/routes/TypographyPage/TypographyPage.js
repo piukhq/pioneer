@@ -1,9 +1,8 @@
 import React from 'react'
+import Heading from './Heading'
 
 const TypographyPage = () => (
-  <div>
-    Styling related information will be put here
-  </div>
+  <Heading />
 )
 
 export default TypographyPage
