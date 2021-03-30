@@ -16,11 +16,6 @@ const PaymentCardDeleteForm = ({ id, onClose, isSolePaymentCard, currency, planN
     handleDelete,
   } = usePaymentCardDeleteForm(id, onClose)
 
-  console.log({
-    isSolePaymentCard,
-    currency,
-    planName,
-  })
   return (
     <Modal onClose={onClose}>
       { isCardExpired ? (
