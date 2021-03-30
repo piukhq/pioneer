@@ -16,6 +16,7 @@ import AccountMenu from 'components/AccountMenu'
 
 import './App.scss'
 import MagicLinkPage from 'routes/MagicLinkPage'
+import TypographyPage from 'routes/TypographyPage'
 
 function App () {
   return (
@@ -46,6 +47,9 @@ function App () {
           </Route>
           <Route path="/membership-plans">
             <MembershipPlansPage />
+          </Route>
+          <Route path="/typography">
+            <TypographyPage />
           </Route>
         </Switch>
       </Router>
