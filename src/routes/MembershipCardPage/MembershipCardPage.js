@@ -41,9 +41,9 @@ const MembershipCardPage = () => {
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const membershipCardCurrency = membershipCard?.balances[0]?.currency
+  const membershipCardCurrency = membershipCard?.balances?.[0]?.currency
   const membershipPlanCardName = useSelector(
-    state => membershipCardsSelectors.plan(state, id).account?.plan_name_card,
+    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
   )
   const linkedPaymentCards = useSelector(
     state => membershipCardsSelectors.linkedPaymentCards(state, id),
@@ -126,8 +126,8 @@ const MembershipCardPage = () => {
             </p>
           ) : (
             <p>
-              You have yet to add any payment cards. By adding a payment card to your account
-              , you will unlock the ability to auto-collect {membershipCardCurrency} when you shop.
+              You have yet to add any payment cards. By adding a payment card to your account,
+              you will unlock the ability to auto-collect {membershipCardCurrency} when you shop.
             </p>
           ) }
           <PaymentCards>
@@ -161,7 +161,7 @@ const MembershipCardPage = () => {
               <h2>Unlinked payment cards</h2>
               <p>
                 These are payment cards that you have added but are not currently linked to your {membershipPlanCardName}.
-                Making purchases with one these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
+                Making purchases with one of these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
                 Select the card to see how this can be resolved.
               </p>
               <PaymentCards>
