@@ -45,7 +45,7 @@ const MembershipCardPage = () => {
   const membershipPlanName = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name,
   )
-  const membershipPlanCardName = useSelector(
+  const membershipCardName = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
   )
   const linkedPaymentCards = useSelector(
@@ -125,7 +125,7 @@ const MembershipCardPage = () => {
           <h2>Payment cards</h2>
           {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
             <p>
-              The payment cards below are linked to this {membershipPlanCardName}. Simply pay with one to collect {membershipCardCurrency}.
+              The payment cards below are linked to this {membershipCardName}. Simply pay with one to collect {membershipCardCurrency}.
             </p>
           ) : (
             <p>
@@ -168,7 +168,7 @@ const MembershipCardPage = () => {
             <>
               <h2>Unlinked payment cards</h2>
               <p>
-                These are payment cards that you have added but are not currently linked to your {membershipPlanCardName}.
+                These are payment cards that you have added but are not currently linked to your {membershipCardName}.
                 Making purchases with one of these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
                 Select the card to see how this can be resolved.
               </p>
