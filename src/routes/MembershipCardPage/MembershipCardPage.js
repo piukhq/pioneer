@@ -42,6 +42,9 @@ const MembershipCardPage = () => {
   const error = useSelector(state => allSelectors.errorSelector(state))
 
   const membershipCardCurrency = membershipCard?.balances?.[0]?.currency
+  const membershipPlanName = useSelector(
+    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name,
+  )
   const membershipPlanCardName = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
   )
@@ -154,7 +157,12 @@ const MembershipCardPage = () => {
             <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
           )}
           { deleteFormVisible && (
-            <PaymentCardDeleteForm id={cardIdToBeDeleted} onClose={ handleCloseDeletePaymentCardForm } />
+            <PaymentCardDeleteForm
+              id={cardIdToBeDeleted}
+              isSolePaymentCard={linkedPaymentCards.length === 1}
+              currency={membershipCardCurrency}
+              planName={membershipPlanName}
+              onClose={ handleCloseDeletePaymentCardForm } />
           ) }
           { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id) && (
             <>
