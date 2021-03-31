@@ -41,8 +41,10 @@ const MembershipCardPage = () => {
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const membershipCardCurrency = membershipCard?.balances?.[0]?.currency
-  const membershipPlanCardName = useSelector(
+  const membershipCardCurrency = useSelector(
+    state => membershipCardsSelectors.currency(state, id),
+  )
+  const membershipCardName = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
   )
   const linkedPaymentCards = useSelector(
@@ -122,7 +124,7 @@ const MembershipCardPage = () => {
           <h2>Payment cards</h2>
           {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
             <p>
-              The payment cards below are linked to this {membershipPlanCardName}. Simply pay with one to collect {membershipCardCurrency}.
+              The payment cards below are linked to this {membershipCardName}. Simply pay with one to collect {membershipCardCurrency}.
             </p>
           ) : (
             <p>
@@ -154,13 +156,16 @@ const MembershipCardPage = () => {
             <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
           )}
           { deleteFormVisible && (
-            <PaymentCardDeleteForm id={cardIdToBeDeleted} onClose={ handleCloseDeletePaymentCardForm } />
+            <PaymentCardDeleteForm
+              paymentCardId={cardIdToBeDeleted}
+              membershipCardId={id}
+              onClose={ handleCloseDeletePaymentCardForm } />
           ) }
           { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id) && (
             <>
               <h2>Unlinked payment cards</h2>
               <p>
-                These are payment cards that you have added but are not currently linked to your {membershipPlanCardName}.
+                These are payment cards that you have added but are not currently linked to your {membershipCardName}.
                 Making purchases with one of these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
                 Select the card to see how this can be resolved.
               </p>

@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
+import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { isPaymentCardExpired } from 'utils/paymentCards'
 
-const usePaymentCardDeleteForm = (id, onClose) => {
-  const card = useSelector(state => state.paymentCards.cards[id])
+const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
+  const card = useSelector(state => state.paymentCards.cards[paymentCardId])
   const last4Digits = card?.card?.last_four_digits
 
   const isCardExpired = isPaymentCardExpired(card)
@@ -16,9 +17,20 @@ const usePaymentCardDeleteForm = (id, onClose) => {
   const error = useSelector(state => state.paymentCards.delete.error)
   const success = useSelector(state => state.paymentCards.delete.success)
 
+  const membershipCardCurrency = useSelector(
+    state => membershipCardsSelectors.currency(state, membershipCardId),
+  )
+  const membershipPlanName = useSelector(
+    state => membershipCardsSelectors.plan(state, membershipCardId)?.account?.plan_name,
+  )
+  const linkedPaymentCards = useSelector(
+    state => membershipCardsSelectors.linkedPaymentCards(state, membershipCardId),
+  )
+  const isLastPaymentCard = linkedPaymentCards.length === 1
+
   const handleDelete = useCallback(() => {
-    dispatch(paymentCardsActions.deletePaymentCard(id))
-  }, [id, dispatch])
+    dispatch(paymentCardsActions.deletePaymentCard(paymentCardId))
+  }, [paymentCardId, dispatch])
 
   useEffect(() => {
     if (success) {
@@ -35,6 +47,9 @@ const usePaymentCardDeleteForm = (id, onClose) => {
     userEnteredLast4Digits,
     setUserEnteredLast4Digits,
     handleDelete,
+    membershipCardCurrency,
+    membershipPlanName,
+    isLastPaymentCard,
   }
 }
 
