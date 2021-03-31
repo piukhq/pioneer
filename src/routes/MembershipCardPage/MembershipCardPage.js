@@ -41,8 +41,9 @@ const MembershipCardPage = () => {
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const membershipCardCurrency = membershipCard?.balances?.[0]?.currency
-
+  const membershipCardCurrency = useSelector(
+    state => membershipCardsSelectors.currency(state, id),
+  )
   const membershipCardName = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
   )

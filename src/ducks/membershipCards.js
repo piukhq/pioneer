@@ -245,6 +245,10 @@ export const selectors = {
     membershipCardSelector,
     membershipCard => membershipCard?.vouchers?.filter(voucher => ['inprogress', 'issued'].indexOf(voucher.state) !== -1),
   ),
+  currency: createSelector(
+    membershipCardSelector,
+    membershipCard => membershipCard?.balances?.[0]?.currency,
+  ),
   nonActiveVouchers: createSelector(
     membershipCardSelector,
     membershipCard => membershipCard?.vouchers

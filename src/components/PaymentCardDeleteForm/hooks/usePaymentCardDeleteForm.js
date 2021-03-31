@@ -17,7 +17,9 @@ const usePaymentCardDeleteForm = (id, onClose, membershipCard) => {
   const error = useSelector(state => state.paymentCards.delete.error)
   const success = useSelector(state => state.paymentCards.delete.success)
 
-  const membershipCardCurrency = membershipCard?.balances?.[0]?.currency
+  const membershipCardCurrency = useSelector(
+    state => membershipCardsSelectors.currency(state, membershipCard.id),
+  )
   const membershipPlanName = useSelector(
     state => membershipCardsSelectors.plan(state, membershipCard.id)?.account?.plan_name,
   )
