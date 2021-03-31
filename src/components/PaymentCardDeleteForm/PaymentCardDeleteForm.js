@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import styles from './PaymentCardDeleteForm.module.scss'
 import usePaymentCardDeleteForm from './hooks/usePaymentCardDeleteForm'
 
-const PaymentCardDeleteForm = ({ id, onClose, isSolePaymentCard, currency, planName }) => {
+const PaymentCardDeleteForm = ({ id, onClose, membershipCard }) => {
   const {
     isCardExpired,
     error,
@@ -14,7 +14,10 @@ const PaymentCardDeleteForm = ({ id, onClose, isSolePaymentCard, currency, planN
     userEnteredLast4Digits,
     setUserEnteredLast4Digits,
     handleDelete,
-  } = usePaymentCardDeleteForm(id, onClose)
+    membershipCardCurrency,
+    membershipPlanName,
+    isLastPaymentCard,
+  } = usePaymentCardDeleteForm(id, onClose, membershipCard)
 
   return (
     <Modal onClose={onClose}>
@@ -38,8 +41,8 @@ const PaymentCardDeleteForm = ({ id, onClose, isSolePaymentCard, currency, planN
           <p>
             Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
           </p>
-          { isSolePaymentCard && (
-            <p>You are about to delete your only active payment card. Doing so will mean you will not automatically collect {planName} {currency}</p>
+          { isLastPaymentCard && (
+            <p>You are about to delete your only active payment card. Doing so will mean you will not automatically collect {membershipPlanName} {membershipCardCurrency}</p>
           )}
           <p>Enter the last four digits of the card to confirm.</p>
           <div className={styles.root__group}>
