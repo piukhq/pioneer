@@ -4,8 +4,8 @@ import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { isPaymentCardExpired } from 'utils/paymentCards'
 
-const usePaymentCardDeleteForm = (id, onClose, membershipCardId) => {
-  const card = useSelector(state => state.paymentCards.cards[id])
+const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
+  const card = useSelector(state => state.paymentCards.cards[paymentCardId])
   const last4Digits = card?.card?.last_four_digits
 
   const isCardExpired = isPaymentCardExpired(card)
@@ -29,8 +29,8 @@ const usePaymentCardDeleteForm = (id, onClose, membershipCardId) => {
   const isLastPaymentCard = linkedPaymentCards.length === 1
 
   const handleDelete = useCallback(() => {
-    dispatch(paymentCardsActions.deletePaymentCard(id))
-  }, [id, dispatch])
+    dispatch(paymentCardsActions.deletePaymentCard(paymentCardId))
+  }, [paymentCardId, dispatch])
 
   useEffect(() => {
     if (success) {

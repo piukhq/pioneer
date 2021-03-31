@@ -157,7 +157,7 @@ const MembershipCardPage = () => {
           )}
           { deleteFormVisible && (
             <PaymentCardDeleteForm
-              id={cardIdToBeDeleted}
+              paymentCardId={cardIdToBeDeleted}
               membershipCardId={id}
               onClose={ handleCloseDeletePaymentCardForm } />
           ) }
