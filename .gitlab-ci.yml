@@ -11,8 +11,7 @@ build:
     - npm ci
     - npm run lint-js
     - npm run lint-css
-    # temporarily point web.dev env to staging. todo: to change `staging` back to `development`
-    - NODE_CONFIG_ENV=staging PUBLIC_URL=/develop/wasabi THEME=wasabi npm run build
+    - NODE_CONFIG_ENV=development PUBLIC_URL=/develop/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
   artifacts:
