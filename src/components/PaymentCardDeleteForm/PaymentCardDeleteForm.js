@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import styles from './PaymentCardDeleteForm.module.scss'
 import usePaymentCardDeleteForm from './hooks/usePaymentCardDeleteForm'
 
-const PaymentCardDeleteForm = ({ id, onClose, membershipCard }) => {
+const PaymentCardDeleteForm = ({ id, onClose, membershipCardId }) => {
   const {
     isCardExpired,
     error,
@@ -17,7 +17,7 @@ const PaymentCardDeleteForm = ({ id, onClose, membershipCard }) => {
     membershipCardCurrency,
     membershipPlanName,
     isLastPaymentCard,
-  } = usePaymentCardDeleteForm(id, onClose, membershipCard)
+  } = usePaymentCardDeleteForm(id, onClose, membershipCardId)
 
   return (
     <Modal onClose={onClose}>
