@@ -1,0 +1,33 @@
+@mixin button-style {
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 24.5px;
+  font-weight: bold;
+  border: none;
+
+  &--primary {
+    background-color: #143d30;
+    color: #fff;
+  }
+
+  &--secondary {
+    color: #000; // todo: not defined yet by specs
+    background-color: transparent; // todo: not defined yet by specs
+  }
+
+  &--tertiary {
+    background-color: red; // todo: not defined yet by specs
+    color: #fff; // todo: not defined yet by specs
+  }
+
+  &--disabled {
+    background-color: #d8d8d8;
+    color: #fff;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
