@@ -1,16 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useMembershipCardsDispatch, useMembershipCardStateById } from 'hooks/membershipCards'
 
 const retryIntervals = [3, 6, 10, 20, 60, 120, 300]
-const PENDING_STATE = 'pending'
 
-const useCardRefresher = (membershipCardId) => {
+const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingState) => {
   const [initialCardState, setCardState] = useState(null)
   const [retryIndex, setRetryIndex] = useState(0)
   const [timeoutId, setTimeoutId] = useState(null)
   const [lastUpdateTime, setLastUpdateTime] = useState(null)
-  const { membershipCard, loading } = useMembershipCardStateById(membershipCardId)
-  const { getMembershipPlans } = useMembershipCardsDispatch()
 
   // useEffect(() => {
   //   // For debugging purposes. Display in console amount of attempts so far and seconds waited
@@ -28,7 +24,7 @@ const useCardRefresher = (membershipCardId) => {
     // if no timer is running, and we got a non-undefined time interval (i.e. didn't reach the end of the array)
     if (timeoutId === null && retryIntervals[retryIndex]) {
       const timeoutId = setTimeout(() => {
-        getMembershipPlans()
+        updateCard()
         setTimeoutId(null)
         setLastUpdateTime(new Date().toString())
       }, retryIntervals[retryIndex] * 1000)
@@ -38,26 +34,26 @@ const useCardRefresher = (membershipCardId) => {
       // mark the timer as running and store the timeoutId to clear the timer if needed
       setTimeoutId(timeoutId)
     }
-  }, [retryIndex, timeoutId, setTimeoutId, getMembershipPlans])
+  }, [retryIndex, timeoutId, setTimeoutId, updateCard])
 
   useEffect(() => {
-    if (membershipCard?.status?.state === PENDING_STATE && !loading) {
+    if (cardStatus === pendingState && !loadingState) {
       setTimerToCheckAgain()
     }
-  }, [membershipCard, loading, setTimerToCheckAgain])
+  }, [setTimerToCheckAgain, cardStatus, pendingState, loadingState])
 
   useEffect(() => {
-    if (!initialCardState && membershipCard) {
-      setCardState(membershipCard?.status?.state)
+    if (!initialCardState && card) {
+      setCardState(cardStatus)
     }
-  }, [membershipCard, initialCardState])
+  }, [initialCardState, cardStatus, card])
 
   useEffect(() => () => clearTimeout(timeoutId), [timeoutId])
 
   return {
-    PENDING_STATE,
+    pendingState,
     initialCardState,
-    membershipCard,
+    card,
     retryIndex,
     isQueuingInProgress: timeoutId !== null,
     lastUpdateTime,

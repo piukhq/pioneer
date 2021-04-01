@@ -23,6 +23,7 @@ import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
+import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
@@ -117,6 +118,7 @@ const MembershipCardPage = () => {
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
       )}
       <MembershipCardRefresher membershipCardId={id} />
+      <PaymentCardRefresher paymentCardId={newlyPendingPaymentCard?.id} />
       { membershipCard && (
         <>
           <Hero membershipCard={membershipCard} />
