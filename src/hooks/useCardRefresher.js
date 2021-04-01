@@ -25,8 +25,7 @@ const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingSta
     // if no timer is running, and we got a non-undefined time interval (i.e. didn't reach the end of the array)
     if (timeoutId === null && retryIntervals[retryIndex]) {
       const timeoutId = setTimeout(() => {
-        console.log(retryIntervals[retryIndex]) // todo: remove this line when done testing
-        updateCard() // move to top and pass down generically
+        updateCard()
         setTimeoutId(null)
         setLastUpdateTime(new Date().toString())
       }, retryIntervals[retryIndex] * 1000)
