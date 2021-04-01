@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
 const retryIntervals = [3, 6, 10, 20, 60, 120, 300]
-const PENDING_STATE = 'pending'
 
-const useCardRefresher = (card, updateCard, cardStatus) => { // cardId
+const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingState) => {
   const [initialCardState, setCardState] = useState(null)
   const [retryIndex, setRetryIndex] = useState(0)
   const [timeoutId, setTimeoutId] = useState(null)
@@ -16,8 +15,7 @@ const useCardRefresher = (card, updateCard, cardStatus) => { // cardId
   //   if (retryIntervals[retryIndex] !== undefined) {
   //     const intervalId = setInterval(() => {
   //       console.log('waited seconds', Math.floor((new Date().getTime() - t0) / 1000))
-  //       getPaymentCards()
-  //       console.log(newPaymentCard)
+  //       updateCard()
   //     }, 5000)
   //     return () => clearInterval(intervalId)
   //   }
@@ -27,7 +25,7 @@ const useCardRefresher = (card, updateCard, cardStatus) => { // cardId
     // if no timer is running, and we got a non-undefined time interval (i.e. didn't reach the end of the array)
     if (timeoutId === null && retryIntervals[retryIndex]) {
       const timeoutId = setTimeout(() => {
-        console.log(retryIntervals[retryIndex])
+        console.log(retryIntervals[retryIndex]) // todo: remove this line when done testing
         updateCard() // move to top and pass down generically
         setTimeoutId(null)
         setLastUpdateTime(new Date().toString())
@@ -40,11 +38,11 @@ const useCardRefresher = (card, updateCard, cardStatus) => { // cardId
     }
   }, [retryIndex, timeoutId, setTimeoutId, updateCard])
 
-  useEffect(() => { // generic card check method
-    if (cardStatus === 'pending') {
+  useEffect(() => {
+    if (cardStatus === pendingState && !loadingState) {
       setTimerToCheckAgain()
     }
-  }, [card, setTimerToCheckAgain, cardStatus])
+  }, [card, setTimerToCheckAgain, cardStatus, pendingState, loadingState])
 
   useEffect(() => {
     if (!initialCardState && card) {
@@ -55,7 +53,7 @@ const useCardRefresher = (card, updateCard, cardStatus) => { // cardId
   useEffect(() => () => clearTimeout(timeoutId), [timeoutId])
 
   return {
-    PENDING_STATE,
+    pendingState,
     initialCardState,
     card,
     retryIndex,
