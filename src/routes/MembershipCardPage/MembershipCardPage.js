@@ -118,7 +118,7 @@ const MembershipCardPage = () => {
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
       )}
       <MembershipCardRefresher membershipCardId={id} />
-      {<PaymentCardRefresher newPaymentCardId={newlyPendingPaymentCard?.id} />}
+      <PaymentCardRefresher paymentCardId={newlyPendingPaymentCard?.id} />
       { membershipCard && (
         <>
           <Hero membershipCard={membershipCard} />

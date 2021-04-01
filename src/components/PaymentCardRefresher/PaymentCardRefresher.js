@@ -2,10 +2,10 @@
 import useCardRefresher from '../../hooks/useCardRefresher'
 import { useGetPaymentCardsDispatch, usePaymentCardById } from '../../hooks/paymentCards'
 
-const PaymentCardRefresher = ({ newPaymentCardId }) => {
+const PaymentCardRefresher = ({ paymentCardId }) => {
   const PENDING_STATE = 'pending'
   const LOADING_STATE = false
-  const paymentCard = usePaymentCardById(newPaymentCardId).card
+  const paymentCard = usePaymentCardById(paymentCardId).card
   const { getPaymentCards } = useGetPaymentCardsDispatch()
   const cardStatus = paymentCard?.status
 
