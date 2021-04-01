@@ -5,8 +5,8 @@ import { useGetPaymentCardsDispatch, usePaymentCardById } from '../../hooks/paym
 const PaymentCardRefresher = ({ newPaymentCardId }) => {
   const PENDING_STATE = 'pending'
   const LOADING_STATE = false
-  const { getPaymentCards } = useGetPaymentCardsDispatch()
   const paymentCard = usePaymentCardById(newPaymentCardId).card
+  const { getPaymentCards } = useGetPaymentCardsDispatch()
   const cardStatus = paymentCard?.status
 
   useCardRefresher(paymentCard, getPaymentCards, cardStatus, PENDING_STATE, LOADING_STATE)
