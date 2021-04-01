@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { usePaymentCardsDispatch, usePaymentCardById } from '../../../hooks/paymentCards'
+import { useGetPaymentCardsDispatch, usePaymentCardById } from '../../../hooks/paymentCards'
 
 const retryIntervals = [3, 6, 10, 20, 60, 120, 300]
 const PENDING_STATE = 'pending'
@@ -10,7 +10,7 @@ const useCardRefresher = (newPaymentCardId) => {
   const [timeoutId, setTimeoutId] = useState(null)
   const [lastUpdateTime, setLastUpdateTime] = useState(null)
   const paymentCard = usePaymentCardById(newPaymentCardId).card
-  const { getPaymentCards } = usePaymentCardsDispatch()
+  const { getPaymentCards } = useGetPaymentCardsDispatch()
 
   // useEffect(() => {
   //   // For debugging purposes. Display in console amount of attempts so far and seconds waited
@@ -30,7 +30,7 @@ const useCardRefresher = (newPaymentCardId) => {
     // if no timer is running, and we got a non-undefined time interval (i.e. didn't reach the end of the array)
     if (timeoutId === null && retryIntervals[retryIndex]) {
       const timeoutId = setTimeout(() => {
-        console.log(retryIntervals[retryIndex]) 
+        console.log(retryIntervals[retryIndex])
         getPaymentCards()
         setTimeoutId(null)
         setLastUpdateTime(new Date().toString())
