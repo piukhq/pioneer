@@ -1,6 +1,6 @@
 // import React from 'react'
-import useCardRefresher from '../../../hooks/useCardRefresher'
-import { useMembershipCardsDispatch, useMembershipCardStateById } from '../../../hooks/membershipCards'
+import useCardRefresher from 'hooks/useCardRefresher'
+import { useMembershipCardsDispatch, useMembershipCardStateById } from 'hooks/membershipCards'
 
 const useMembershipCardRefresher = (membershipCardId) => {
   const PENDING_STATE = 'pending'
