@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import {
-  actions as paymentCardsActions,
-} from 'ducks/paymentCards'
+import { actions as paymentCardsActions } from 'ducks/paymentCards'
 
 export const usePaymentCardsState = () => ({
   cards: useSelector(state => state.paymentCards.cards),
