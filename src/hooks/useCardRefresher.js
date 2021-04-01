@@ -1,16 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useGetPaymentCardsDispatch, usePaymentCardById } from '../../../hooks/paymentCards'
 
 const retryIntervals = [3, 6, 10, 20, 60, 120, 300]
 const PENDING_STATE = 'pending'
 
-const useCardRefresher = (newPaymentCardId) => {
+const useCardRefresher = (card, updateCard, cardStatus) => { // cardId
   const [initialCardState, setCardState] = useState(null)
   const [retryIndex, setRetryIndex] = useState(0)
   const [timeoutId, setTimeoutId] = useState(null)
   const [lastUpdateTime, setLastUpdateTime] = useState(null)
-  const paymentCard = usePaymentCardById(newPaymentCardId).card
-  const { getPaymentCards } = useGetPaymentCardsDispatch()
 
   // useEffect(() => {
   //   // For debugging purposes. Display in console amount of attempts so far and seconds waited
@@ -31,7 +28,7 @@ const useCardRefresher = (newPaymentCardId) => {
     if (timeoutId === null && retryIntervals[retryIndex]) {
       const timeoutId = setTimeout(() => {
         console.log(retryIntervals[retryIndex])
-        getPaymentCards()
+        updateCard() // move to top and pass down generically
         setTimeoutId(null)
         setLastUpdateTime(new Date().toString())
       }, retryIntervals[retryIndex] * 1000)
@@ -41,26 +38,26 @@ const useCardRefresher = (newPaymentCardId) => {
       // mark the timer as running and store the timeoutId to clear the timer if needed
       setTimeoutId(timeoutId)
     }
-  }, [retryIndex, timeoutId, setTimeoutId, getPaymentCards])
+  }, [retryIndex, timeoutId, setTimeoutId, updateCard])
 
-  useEffect(() => {
-    if (paymentCard?.status === 'pending') {
+  useEffect(() => { // generic card check method
+    if (cardStatus === 'pending') {
       setTimerToCheckAgain()
     }
-  }, [paymentCard, setTimerToCheckAgain])
+  }, [card, setTimerToCheckAgain, cardStatus])
 
   useEffect(() => {
-    if (!initialCardState && paymentCard) {
-      setCardState(paymentCard.status)
+    if (!initialCardState && card) {
+      setCardState(cardStatus)
     }
-  }, [paymentCard, initialCardState])
+  }, [card, initialCardState, cardStatus])
 
   useEffect(() => () => clearTimeout(timeoutId), [timeoutId])
 
   return {
     PENDING_STATE,
     initialCardState,
-    paymentCard,
+    card,
     retryIndex,
     lastUpdateTime,
   }

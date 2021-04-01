@@ -1,5 +1,6 @@
 // import React from 'react'
-import useCardRefresher from './hooks/useCardRefresher'
+import useCardRefresher from '../../hooks/useCardRefresher'
+import { useGetPaymentCardsDispatch, usePaymentCardById } from '../../hooks/paymentCards'
 
 const PaymentCardRefresher = ({ newPaymentCardId }) => {
   // const {
@@ -10,7 +11,11 @@ const PaymentCardRefresher = ({ newPaymentCardId }) => {
   //   isQueuingInProgress,
   //   lastUpdateTime,
   // } = useCardRefresher(membershipCardId)
-  useCardRefresher(newPaymentCardId)
+  const { getPaymentCards } = useGetPaymentCardsDispatch()
+  const paymentCard = usePaymentCardById(newPaymentCardId).card // move to top and pass down.
+  const cardStatus = paymentCard?.status
+
+  useCardRefresher(paymentCard, getPaymentCards, cardStatus)
 
   return null
 
