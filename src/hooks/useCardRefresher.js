@@ -15,7 +15,7 @@ const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingSta
   //   if (retryIntervals[retryIndex] !== undefined) {
   //     const intervalId = setInterval(() => {
   //       console.log('waited seconds', Math.floor((new Date().getTime() - t0) / 1000))
-  //     }, 5000)
+  //     }, 1000)
   //     return () => clearInterval(intervalId)
   //   }
   // }, [retryIndex])
@@ -40,13 +40,13 @@ const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingSta
     if (cardStatus === pendingState && !loadingState) {
       setTimerToCheckAgain()
     }
-  }, [card, setTimerToCheckAgain, cardStatus, pendingState, loadingState])
+  }, [setTimerToCheckAgain, cardStatus, pendingState, loadingState])
 
   useEffect(() => {
-    if (!initialCardState) {
+    if (!initialCardState && card) {
       setCardState(cardStatus)
     }
-  }, [initialCardState, cardStatus])
+  }, [initialCardState, cardStatus, card])
 
   useEffect(() => () => clearTimeout(timeoutId), [timeoutId])
 
