@@ -42,12 +42,9 @@ const MembershipCards = ({ onError }) => {
       ) }
       { !Config.isMerchantChannel && membershipCards.length > 1 && (
         <>
-          {/* todo: copy TBD */}
+          {/* todo: copy and format TBD */}
           You have more than one membership card associated to your account.
           You'll have to remove {membershipCards.length - 1} cards to continue.
-
-          {/* todo: temporary to allow adding cards more easily in dev mode */}
-
         </>
       ) }
       { process.env.NODE_ENV === 'development' && ( // todo: refactor out into own dev component
