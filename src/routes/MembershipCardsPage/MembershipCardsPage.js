@@ -9,17 +9,11 @@ const MembershipCardsPage = () => {
   }, [setError])
   return (
     <div>
-      <h1>Membership cards</h1>
       { error ? (
         <p>There was an error</p>
       ) : (
         <MembershipCards onError={handleError}/>
       ) }
-
-      <br /><br /><br />
-      <Link to={'/payment-cards'}>Payment Cards</Link>
-      <br />
-      <Link to={'/membership-plans'}>Membership Plans</Link>
     </div>
   )
 }
