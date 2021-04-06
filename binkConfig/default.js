@@ -34,6 +34,12 @@ module.exports = {
       case 'wasabi': return 'Logout' // todo: change to 'Wasabi Club support' when content modal available
     }
   })(),
+  supportUrl: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return 'https://bink.com' // todo: Add bink support url when known
+      case 'wasabi': return 'https://www.wasabi.uk.com/contact-us/'
+    }
+  })(),
   // dev only (and likely temporary)
   devDefaultUser: (() => {
     switch (process.env.THEME) {
