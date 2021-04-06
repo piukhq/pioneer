@@ -1,4 +1,6 @@
 @mixin button-style {
+  // todo: move font family and colour values to be accessed via variables.scss
+  font-family: 'Wasabi', sans-serif;
   border-radius: 5px;
   font-size: 18px;
   padding: 24.5px;
