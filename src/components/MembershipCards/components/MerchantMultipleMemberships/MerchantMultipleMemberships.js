@@ -13,7 +13,7 @@ const MerchantMultipleMemberships = () => {
   return (
     <div className={styles.root}>
       <h1 className={cx(styles.root__heading, styles['root__heading--first'])}>There is a problem</h1>
-      <p className={styles.root__body}>It looks like there is a problem with your account</p>
+      <p className={styles.root__body}>It looks like there is a problem with your account.</p>
       <p className={styles.root__body}>Please contact us so we can help resolve this as quickly as possible.</p>
       <Button onClick={contactSupport} className={styles.root__wide}>Get in Touch</Button>
       <button className={styles.root__logout} onClick={logout}>Logout</button>
