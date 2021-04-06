@@ -19,6 +19,7 @@ import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
 // import Loading from 'components/Loading'
 
 import styles from './MembershipCardPage.module.scss'
+import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
@@ -111,6 +112,7 @@ const MembershipCardPage = () => {
 
   return (
     <div>
+      <AccountMenu />
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
       )}
