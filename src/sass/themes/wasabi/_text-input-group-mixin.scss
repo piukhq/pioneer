@@ -1,0 +1,68 @@
+@import "src/sass/variables";
+
+@mixin text-input-group {
+  &__label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    color: $text-input-title-color--default;
+
+    &--error {
+      color: $text-input-title-color--error;
+    }
+
+    &--disabled {
+      color: $text-input-title-color--disabled;
+    }
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    height: 70px;
+    font-family: $text-input-font-family;
+    font-size: 23px;
+    line-height: 70px;
+    padding: 0 10px;
+    color: $text-input-text-color--default;
+    background-color: $text-input-background-color--default;
+    border: 1px solid $text-input-border-color--default;
+    border-radius: 5px;
+
+    &:focus {
+      border-color: $text-input-border-color--focused;
+    }
+
+    &--disabled {
+      color: $text-input-text-color--disabled;
+    }
+
+    &--error,
+    &--error:focus, {
+      color: $text-input-text-color--error;
+      background-color: $text-input-background-color--error;
+      border-color: $text-input-border-color--error;
+    }
+
+    &::placeholder {
+      color: $text-input-placeholder-color--default;
+    }
+
+    &--error::placeholder {
+      color: $text-input-placeholder-color--error;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__error {
+    font-family: $text-input-error-font-family;
+    font-weight: 300;
+    color: $text-input-error-color;
+  }
+}
