@@ -5,6 +5,7 @@ import useContactSupport from 'hooks/useContactSupport'
 import cx from 'classnames'
 
 import styles from './MerchantMultipleMemberships.module.scss'
+import MembershipCardsList from '../MembershipCardsList'
 
 const MerchantMultipleMemberships = () => {
   const { contactSupport } = useContactSupport()
@@ -17,6 +18,12 @@ const MerchantMultipleMemberships = () => {
       <p className={styles.root__body}>Please contact us so we can help resolve this as quickly as possible.</p>
       <Button onClick={contactSupport} className={styles.root__wide}>Get in Touch</Button>
       <button className={styles.root__logout} onClick={logout}>Logout</button>
+
+      { process.env.NODE_ENV === 'development' && ( // todo: remove when no longer needed
+        <div className='dev-only'>
+          <MembershipCardsList/>
+        </div>
+      ) }
     </div>
   )
 }
