@@ -19,6 +19,7 @@ const MerchantMembershipCards = () => {
       {/* todo: consider replacing button with link tag to match its functionality */}
       <Button onClick={contactSupport} className={styles.root__wide}>Get in Touch</Button>
       <button className={styles.root__logout} onClick={logout}>Logout</button>
+      {/* todo: remove development only section */}
       { process.env.NODE_ENV === 'development' && (
       <div className="dev-only">
         <MultichannelMembershipCards/>
