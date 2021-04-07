@@ -3,11 +3,11 @@ import useLogout from 'hooks/useLogout'
 import { Link } from 'react-router-dom'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import DevMembershipCardsList from '../DevMembershipCardsList'
-import styles from './BinkMultipleMemberships.module.scss'
+import styles from './MultichannelMembershipCards.module.scss'
 import cx from 'classnames'
 import Config from 'Config'
 
-const BinkMultipleMemberships = () => {
+const MultichannelMembershipCards = () => {
   const { membershipCards } = useMembershipCardsState()
   const { logout } = useLogout()
 
@@ -42,4 +42,4 @@ const BinkMultipleMemberships = () => {
   )
 }
 
-export default BinkMultipleMemberships
+export default MultichannelMembershipCards

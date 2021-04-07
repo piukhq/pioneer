@@ -7,9 +7,9 @@ import cx from 'classnames'
 import Config from 'Config'
 
 import DevMembershipCardsList from '../DevMembershipCardsList'
-import styles from './MerchantMultipleMemberships.module.scss'
+import styles from './MerchantMembershipCards.module.scss'
 
-const MerchantMultipleMemberships = () => {
+const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
   const { membershipCards } = useMembershipCardsState()
@@ -32,4 +32,4 @@ const MerchantMultipleMemberships = () => {
   )
 }
 
-export default MerchantMultipleMemberships
+export default MerchantMembershipCards

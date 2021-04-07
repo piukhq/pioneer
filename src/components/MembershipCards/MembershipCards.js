@@ -6,8 +6,8 @@ import useLoadMembershipCards from './hooks/useLoadMembershipCards'
 import Loading from 'components/Loading'
 
 import Config from 'Config'
-import MerchantMultipleMemberships from './components/MerchantMultipleMemberships'
-import BinkMultipleMemberships from './components/BinkMultipleMemberships'
+import MerchantMembershipCards from './components/MerchantMembershipCards'
+import MultichannelMembershipCards from './components/MultichannelMembershipCards'
 
 const MembershipCards = ({ onError }) => {
   const { loading } = useMembershipCardsState()
@@ -19,10 +19,10 @@ const MembershipCards = ({ onError }) => {
     <>
       {/* todo: probably should filter by membership plan id if merchant channel */}
       { !Config.isMerchantChannel && (
-        <BinkMultipleMemberships />
+        <MultichannelMembershipCards />
       ) }
       { Config.isMerchantChannel && (
-        <MerchantMultipleMemberships />
+        <MerchantMembershipCards />
       ) }
        {/* todo: to decide on the visuals of loading */}
       { loading && (
