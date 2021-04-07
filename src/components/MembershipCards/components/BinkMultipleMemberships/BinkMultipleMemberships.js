@@ -2,10 +2,10 @@ import React from 'react'
 import useLogout from 'hooks/useLogout'
 import { Link } from 'react-router-dom'
 import { useMembershipCardsState } from 'hooks/membershipCards'
+import DevMembershipCardsList from '../DevMembershipCardsList'
 import styles from './BinkMultipleMemberships.module.scss'
 import cx from 'classnames'
 import Config from 'Config'
-import MembershipCardsList from '../MembershipCardsList'
 
 const BinkMultipleMemberships = () => {
   const { membershipCards } = useMembershipCardsState()
@@ -31,14 +31,14 @@ const BinkMultipleMemberships = () => {
         <Link to={'/payment-cards'}>Payment Cards</Link>
         <br />
         <Link to={'/membership-plans'}>Membership Plans</Link>
-
     <button onClick={logout}>Logout</button>
-    { process.env.NODE_ENV === 'development' && ( // todo: remove when no longer needed
-        <div className='dev-only'>
-          <MembershipCardsList/>
-        </div>
-    ) }
+    { membershipCards.length > 1 && process.env.NODE_ENV === 'development' && (
+    <div className="dev-only">
+      <DevMembershipCardsList/>
     </div>
+    )}
+    {/* <RecreateRemovedMembershipCard /> */}
+  </div>
   )
 }
 
