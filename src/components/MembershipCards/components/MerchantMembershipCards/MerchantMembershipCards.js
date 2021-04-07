@@ -2,10 +2,8 @@ import React from 'react'
 import Button from 'components/Button'
 import useLogout from 'hooks/useLogout'
 import useContactSupport from 'hooks/useContactSupport'
-import { useMembershipCardsState } from 'hooks/membershipCards'
 import cx from 'classnames'
 
-import DevMembershipCardsList from '../DevMembershipCardsList'
 import styles from './MerchantMembershipCards.module.scss'
 import MultichannelMembershipCards from '../MultichannelMembershipCards'
 
