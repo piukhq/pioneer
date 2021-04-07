@@ -7,7 +7,7 @@ const useLogout = () => {
   const history = useHistory()
   const logout = () => {
     dispatch(usersActions.logout())
-    history.push('/login')
+    history.push('/')
   }
   return {
     logout,
