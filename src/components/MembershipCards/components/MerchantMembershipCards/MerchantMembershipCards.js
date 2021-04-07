@@ -7,6 +7,7 @@ import cx from 'classnames'
 
 import DevMembershipCardsList from '../DevMembershipCardsList'
 import styles from './MerchantMembershipCards.module.scss'
+import MultichannelMembershipCards from '../MultichannelMembershipCards'
 
 const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
@@ -21,7 +22,7 @@ const MerchantMembershipCards = () => {
       <button className={styles.root__logout} onClick={logout}>Logout</button>
       { process.env.NODE_ENV === 'development' && (
       <div className="dev-only">
-        <DevMembershipCardsList/>
+        <MultichannelMembershipCards/>
       </div>
       ) }
     </div>
