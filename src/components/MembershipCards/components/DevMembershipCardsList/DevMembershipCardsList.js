@@ -5,7 +5,7 @@ import {
   useMembershipCardsDispatch,
 } from 'hooks/membershipCards'
 
-const MembershipCardsList = () => {
+const DevMembershipCardsList = () => {
   const { membershipCards } = useMembershipCardsState()
   const { deleteMembershipCard } = useMembershipCardsDispatch()
 
@@ -29,4 +29,4 @@ const MembershipCardsList = () => {
   )
 }
 
-export default MembershipCardsList
+export default DevMembershipCardsList
