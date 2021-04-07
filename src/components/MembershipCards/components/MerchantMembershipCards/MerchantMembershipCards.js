@@ -5,14 +5,12 @@ import useContactSupport from 'hooks/useContactSupport'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import cx from 'classnames'
 
-
 import DevMembershipCardsList from '../DevMembershipCardsList'
 import styles from './MerchantMembershipCards.module.scss'
 
 const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
-  const { membershipCards } = useMembershipCardsState()
 
   return (
     <div className={styles.root}>
