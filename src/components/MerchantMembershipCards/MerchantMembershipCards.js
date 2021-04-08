@@ -17,7 +17,7 @@ const MerchantMembershipCards = () => {
       <p className={styles.root__body}>It looks like there is a problem with your account.</p>
       <p className={styles.root__body}>Please contact us so we can help resolve this as quickly as possible.</p>
       {/* todo: consider replacing button with link tag to match its functionality */}
-      <Button onClick={contactSupport} className={cx(styles['root__button--wide'])}>Get in Touch</Button>
+      <Button onClick={contactSupport} className={styles.root__button}>Get in Touch</Button>
       <button className={styles.root__logout} onClick={logout}>Logout</button>
       {/* todo: remove development only section */}
       { process.env.NODE_ENV === 'development' && (
