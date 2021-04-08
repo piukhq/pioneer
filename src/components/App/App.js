@@ -20,7 +20,6 @@ function App () {
   return (
     <div className="bink-app">
       <Router basename={process.env.PUBLIC_URL}>
-
         <Switch>
           <Route exact path="/">
             <HomePage />
