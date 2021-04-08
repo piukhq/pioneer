@@ -1,0 +1,11 @@
+@import "src/sass/mixins";
+
+.root {
+  &__heading {
+    @include heading-font-style;
+  }
+
+  &__body {
+    @include body-font-style;
+  }
+}
