@@ -10,6 +10,7 @@ import useRequestMagicLink from './hooks/useRequestMagicLink'
 
 import styles from './RequestMagicLink.module.scss'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
+import Config from 'Config'
 
 const RequestMagicLink = () => {
   const {
@@ -74,11 +75,11 @@ const MagicLinkRequestSuccess = ({ email }) => (
 const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
   <form onSubmit={handleSubmit} className={styles.root}>
     <MagicLinkDefaultSvg className={styles.root__icon} />
-    <h1 className={styles.root__headline}>
-      Access your <span className={styles['root__text--desktop-only']}>loyalty</span> account
-    </h1>
+    <h1 className={styles.root__headline}>{Config.planTitle}</h1>
     <div className={styles.root__description}>
-      Get a link sent to your inbox so you can register or login instantly!
+      {Config.magicLinkRequestFormDescription.map(paragraph => {
+        return <p>{paragraph}</p>
+      })}
     </div>
     <TextInputGroup
       className={styles['root__email-field']}
