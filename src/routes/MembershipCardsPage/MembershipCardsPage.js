@@ -13,15 +13,18 @@ const MembershipCardsPage = () => {
   const handleError = useCallback(() => {
     setError(true)
   }, [setError])
-
-  const { loading } = useMembershipCardsState()
   useLoadMembershipCards(handleError)
+  const { loading, membershipCards } = useMembershipCardsState()
+  const cards = membershipCards.filter(
+    card => card.membership_plan === Config.membershipPlanId,
+  )
+
   return error ? <p>There was an error</p> : (
     <>
     { !Config.isMerchantChannel && (
       <MultichannelMembershipCards />
     ) }
-    { Config.isMerchantChannel && (
+    { Config.isMerchantChannel && cards.length > 1 && (
       <MerchantMembershipCards />
     ) }
      {/* todo: to decide on the visuals of loading */}
