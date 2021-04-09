@@ -51,19 +51,11 @@ export default RequestMagicLink
 
 const MagicLinkRequestSuccess = ({ email }) => (
   <div className={styles.root}>
-    <MagicLinkDefaultSvg className={styles.root__icon} />
-
     <h1 className={styles.root__headline}>Check your inbox!</h1>
-
     <div className={styles.root__description}>
-      <p className={styles.root__paragraph}>
-        We have just emailed a link to
-        <span className={styles.root__email}>{email}.</span>
-      </p>
-      <p className={styles.root__paragraph}>
-        Click the link and you’ll be signed in.
-      </p>
-      <p className={styles.root__paragraph}>
+        <p>We have just emailed a link to <span className={styles.root__email}>{email}.</span></p>
+        <p>Click the link and you’ll be signed in.</p>
+      <p>
         <span className={styles.root__note}>Note:</span>{' '}
         The device you open the link on will be the device you are signed in on.
         For example, if you open the link on your phone you will be logged in on your phone.
