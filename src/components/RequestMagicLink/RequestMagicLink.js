@@ -85,22 +85,21 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
 )
 
 const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }) => (
-  <form onSubmit={handleSubmit} className={styles.root}>
-    <MagicLinkErrorSvg className={styles.root__icon} />
+  <div className={styles.root}>
     <h1 className={styles.root__headline}>Something went wrong</h1>
-    <div className={styles.root__description}>
-      There was a problem authenticating you.<br />
-      Please try again.
-    </div>
-    <TextInputGroup
-      className={styles['root__email-field']}
-      label='Email address'
-      placeholder='Enter email address'
-      value={email}
-      onChange={(event) => setEmail(event.target.value)}
-    />
-    <Button className={styles.root__button}>Continue</Button>
-  </form>
+    <form onSubmit={handleSubmit} className={styles.root__form}>
+      <div className={styles.root__description}>
+        <p>There was a problem, please try again</p>
+      </div>
+      <TextInputGroup
+        className={styles['root__email-field']}
+        placeholder='Enter email address'
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        />
+      <Button disabled={email.length === 0} className={styles.root__button}>Continue</Button>
+    </form>
+  </div>
 )
 
 const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => (
