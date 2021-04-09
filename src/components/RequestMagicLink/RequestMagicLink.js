@@ -73,23 +73,23 @@ const MagicLinkRequestSuccess = ({ email }) => (
 )
 
 const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
-  <form onSubmit={handleSubmit} className={styles.root}>
-    <MagicLinkDefaultSvg className={styles.root__icon} />
+  <div className={styles.root}>
     <h1 className={styles.root__headline}>{Config.planTitle}</h1>
-    <div className={styles.root__description}>
-      {Config.magicLinkRequestFormDescription.map(paragraph => {
-        return <p>{paragraph}</p>
-      })}
-    </div>
-    <TextInputGroup
-      className={styles['root__email-field']}
-      label='Email address'
-      placeholder='Enter email address'
-      value={email}
-      onChange={(event) => setEmail(event.target.value)}
-    />
-    <Button className={styles.root__button}>Continue</Button>
-  </form>
+    <form onSubmit={handleSubmit} className={styles.root__form}>
+      <div className={styles.root__description}>
+        {Config.magicLinkRequestFormDescription.map(paragraph => {
+          return <p>{paragraph}</p>
+        })}
+      </div>
+      <TextInputGroup
+        className={styles['root__email-field']}
+        placeholder='Enter email address'
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        />
+      <Button disabled={email.length === 0} className={styles.root__button}>Continue</Button>
+    </form>
+  </div>
 )
 
 const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }) => (
