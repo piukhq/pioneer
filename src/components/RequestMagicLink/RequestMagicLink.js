@@ -70,8 +70,8 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
     <h1 className={styles.root__headline}>{Config.planTitle}</h1>
     <form onSubmit={handleSubmit} className={styles.root__form}>
       <div className={styles.root__description}>
-        {Config.magicLinkRequestFormDescription.map(paragraph => (
-          <p>{paragraph}</p>
+        {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
         ))}
       </div>
       <TextInputGroup
