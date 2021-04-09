@@ -103,20 +103,20 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
 )
 
 const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => (
-  <form onSubmit={handleSubmit} className={styles.root}>
-    <MagicLinkWarningSvg className={styles.root__icon} />
+  <div className={styles.root}>
     <h1 className={styles.root__headline}>Link expired</h1>
-    <div className={styles.root__description}>
-      To keep your account safe, links are only valid for a short period of time.
-      Enter your email again and we will send you another!
-    </div>
-    <TextInputGroup
-      className={styles['root__email-field']}
-      label='Email address'
-      placeholder='Enter email address'
-      value={email}
-      onChange={(event) => setEmail(event.target.value)}
-    />
-    <Button className={styles.root__button}>Continue</Button>
-  </form>
+    <form onSubmit={handleSubmit} className={styles.root__form}>
+      <div className={styles.root__description}>
+        <p>Links are only valid for a short period of time and this one has expired!</p>
+        <p>Enter your email again and we will send you another.</p>
+      </div>
+      <TextInputGroup
+        className={styles['root__email-field']}
+        placeholder='Enter email address'
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+      />
+      <Button disabled={email.length === 0} className={styles.root__button}>Continue</Button>
+    </form>
+  </div>
 )
