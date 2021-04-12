@@ -1,7 +1,7 @@
 @import "src/sass/variables.scss";
-@import "~sassThemeFolder/_button-mixin.scss";
-@import "~sassThemeFolder/_text-input-group-mixin.scss";
-@import "~sassThemeFolder/_modal-mixin.scss";
+@import "~sassThemeFolder/mixins/button-mixin";
+@import "~sassThemeFolder/mixins/text-input-group-mixin";
+@import "~sassThemeFolder/mixins/modal-mixin";
 
 @mixin heading-font-style {
   font-weight: $heading-font-weight;
