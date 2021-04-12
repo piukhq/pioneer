@@ -1,40 +1,5 @@
-@import "src/sass/variables.scss";
-@import "~sassThemeFolder/_button-mixin.scss";
-@import "~sassThemeFolder/_text-input-group-mixin.scss";
-@import "~sassThemeFolder/_modal-mixin.scss";
-
-@mixin heading-font-style {
-  margin: 0;
-  font-weight: $heading-font-weight;
-  font-size: $heading-font-size;
-  color: $heading-font-color;
-  line-height: $heading-line-height;
-  margin-bottom: $heading-margin-bottom;
-
-  &--first {
-    margin-top: 0;
-  }
-
-  &--last {
-    margin-bottom: 0;
-  }
-
-  @media (max-width: 630px) {
-    font-size: $heading-font-size-small;
-    line-height: $heading-line-height-small;
-  }
-}
-
-@mixin body-font-style {
-  margin: 0;
-  font-size: $body-font-size;
-  color: $body-font-color;
-
-  &--first {
-    margin-top: 0;
-  }
-
-  &--last {
-    margin-bottom: 0;
-  }
-}
+@import "~sassThemeFolder/mixins/button-mixin";
+@import "~sassThemeFolder/mixins/text-input-group-mixin";
+@import "~sassThemeFolder/mixins/modal-mixin";
+@import "~sassThemeFolder/mixins/heading-mixin";
+@import "~sassThemeFolder/mixins/body-text-mixin";

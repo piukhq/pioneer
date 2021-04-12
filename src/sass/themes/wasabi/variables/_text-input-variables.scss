@@ -1,24 +1,3 @@
-$theme-font-family: "Wasabi", sans-serif;
-$theme-font-family-2: "Wasabi Condensed", sans-serif;
-
-// todo: colours could be defined higher up as more abstract concepts as primary, secondary, etc colour
-// it might become clearer what can be done once we have more values to work with
-
-// heading font
-$heading-font-size: 80px;
-$heading-font-weight: bold;
-$heading-font-color: #054127;
-$heading-line-height: 1.1em;
-$heading-margin-bottom: 0.2em;
-
-// heading font changes for smaller viewports
-$heading-font-size-small: 56px;
-$heading-line-height-small: 1.08em;
-
-// body font
-$body-font-size: 18px;
-$body-font-color: #054127;
-
 // input text field font-family and color
 $text-input-font-family: $theme-font-family;
 $text-input-error-font-family: $theme-font-family-2;
@@ -49,14 +28,3 @@ $text-input-placeholder-color--error: rgba(#a30f3c, 0.5); // #a30f3c @ 50% alpha
 //$text-input-placeholder-color--disabled: #cdd9d4;
 
 $text-input-error-color: #a30f27;
-
-// modal styling
-$modal-border-radius: 7px;
-$modal-title-font-size: 25;
-$modal-title-font-color: #054127;
-$modal-title-font-weight: bold;
-$modal-title-font-size: 25px;
-// todo: note that this is just regular body font style after implementing font family like wasabi.uk.com
-$modal-body-font-size: 18px;
-$modal-body-font-color:#054127;
-$modal-body-font-weight: 300;

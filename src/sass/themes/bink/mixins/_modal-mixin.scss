@@ -44,6 +44,20 @@
     cursor: pointer;
   }
 
+  &__top-fade {
+    $top-fade-color: #fff;
+
+    pointer-events: none;
+    position: absolute;
+    // prevent the fade element to render over the rounded corners at the top of the modal
+    left: 14px;
+    right: 14px;
+    top: 0;
+    background: transparent;
+    background: linear-gradient(180deg, rgba($top-fade-color, 1) 0%, rgba($top-fade-color, 0) 100%);
+    height: 25px - 9px;
+  }
+
   &__bottom-fade {
     $bottom-fade-color: #fff;
 
