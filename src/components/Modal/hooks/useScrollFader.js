@@ -30,7 +30,7 @@ const useScrollFader = () => {
     } else {
       measureRef.current = node
     }
-  }, [scrollRef])
+  }, [scrollRef, measureRef])
 
   return [opacity, scrollRefCallback, scrollableRef]
 }
