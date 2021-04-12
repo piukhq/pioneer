@@ -20,6 +20,7 @@ const Modal = ({ children, onClose, className }) => {
           </div>
         </div>
         <div className={styles['root__bottom-fade']} style={{ opacity }}/>
+        <div className={styles['root__top-fade']}/>
       </div>
     </>
   )
