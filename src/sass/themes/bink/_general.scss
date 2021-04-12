@@ -4,6 +4,12 @@ $theme-font-family: "Nunito Sans", sans-serif;
 $heading-font-size: 30px;
 $heading-font-weight: bold;
 $heading-font-color: #000;
+$heading-line-height: 1.1em;
+$heading-margin-bottom: 0.2em;
+
+// heading font changes for smaller viewports
+$heading-font-size-small: $heading-font-size;
+$heading-line-height-small: $heading-line-height;
 
 // body font
 $body-font-size: 14px;
