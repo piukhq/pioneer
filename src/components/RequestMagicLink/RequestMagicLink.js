@@ -11,6 +11,7 @@ import useRequestMagicLink from './hooks/useRequestMagicLink'
 
 import styles from './RequestMagicLink.module.scss'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
+import useIsValidEmail from './hooks/useIsValidEmail'
 import Config from 'Config'
 
 const RequestMagicLink = () => {
@@ -65,7 +66,9 @@ const MagicLinkRequestSuccess = ({ email }) => (
   </div>
 )
 
-const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
+const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
+  const { isValidEmail } = useIsValidEmail(email)
+  return (
   <div className={styles.root}>
     <h1 className={styles.root__headline}>{Config.planTitle}</h1>
     <form onSubmit={handleSubmit} className={styles.root__form}>
@@ -80,44 +83,51 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
         value={email}
         onChange={(event) => setEmail(event.target.value)}
         />
-      <Button disabled={email.length === 0} className={styles.root__button}>Continue</Button>
+      <Button disabled={!isValidEmail} className={styles.root__button}>Continue</Button>
     </form>
   </div>
-)
+  )
+}
 
-const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }) => (
-  <div className={styles.root}>
-    <h1 className={styles.root__headline}>Something went wrong</h1>
-    <form onSubmit={handleSubmit} className={styles.root__form}>
-      <div className={styles.root__description}>
-        <p>There was a problem, please try again</p>
-      </div>
-      <TextInputGroup
-        className={styles['root__email-field']}
-        placeholder='Enter email address'
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
+const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }) => {
+  const { isValidEmail } = useIsValidEmail(email)
+  return (
+    <div className={styles.root}>
+      <h1 className={styles.root__headline}>Something went wrong</h1>
+      <form onSubmit={handleSubmit} className={styles.root__form}>
+        <div className={styles.root__description}>
+          <p>There was a problem, please try again</p>
+        </div>
+        <TextInputGroup
+          className={styles['root__email-field']}
+          placeholder='Enter email address'
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          />
+       <Button disabled={!isValidEmail} className={styles.root__button}>Continue</Button>
+      </form>
+    </div>
+  )
+}
+
+const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
+  const { isValidEmail } = useIsValidEmail(email)
+  return (
+    <div className={styles.root}>
+      <h1 className={styles.root__headline}>Link expired</h1>
+      <form onSubmit={handleSubmit} className={styles.root__form}>
+        <div className={styles.root__description}>
+          <p>Links are only valid for a short period of time and this one has expired!</p>
+          <p>Enter your email again and we will send you another.</p>
+        </div>
+        <TextInputGroup
+          className={styles['root__email-field']}
+          placeholder='Enter email address'
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
-      <Button disabled={email.length === 0} className={styles.root__button}>Continue</Button>
-    </form>
-  </div>
-)
-
-const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => (
-  <div className={styles.root}>
-    <h1 className={styles.root__headline}>Link expired</h1>
-    <form onSubmit={handleSubmit} className={styles.root__form}>
-      <div className={styles.root__description}>
-        <p>Links are only valid for a short period of time and this one has expired!</p>
-        <p>Enter your email again and we will send you another.</p>
-      </div>
-      <TextInputGroup
-        className={styles['root__email-field']}
-        placeholder='Enter email address'
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <Button disabled={email.length === 0} className={styles.root__button}>Continue</Button>
-    </form>
-  </div>
-)
+        <Button disabled={!isValidEmail} className={styles.root__button}>Continue</Button>
+        </form>
+    </div>
+  )
+}
