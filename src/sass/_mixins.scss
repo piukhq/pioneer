@@ -1,6 +1,7 @@
 @import "src/sass/variables.scss";
 @import "~sassThemeFolder/_button-mixin.scss";
 @import "~sassThemeFolder/_text-input-group-mixin.scss";
+@import "~sassThemeFolder/_modal-mixin.scss";
 
 @mixin heading-font-style {
   margin: 0;
