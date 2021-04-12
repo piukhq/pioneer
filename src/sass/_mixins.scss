@@ -4,12 +4,11 @@
 @import "~sassThemeFolder/_modal-mixin.scss";
 
 @mixin heading-font-style {
-  margin: 0;
   font-weight: $heading-font-weight;
   font-size: $heading-font-size;
   color: $heading-font-color;
   line-height: $heading-line-height;
-  margin-bottom: $heading-margin-bottom;
+  margin: 0 0 $heading-margin-bottom;
 
   &--first {
     margin-top: 0;
