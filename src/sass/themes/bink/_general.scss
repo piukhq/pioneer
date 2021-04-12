@@ -9,7 +9,7 @@ $heading-margin-bottom: 0.2em;
 
 // heading font changes for smaller viewports
 $heading-font-size-small: $heading-font-size;
-$heading-line-height-small: 1.1em;
+$heading-line-height-small: $heading-line-height;
 
 // body font
 $body-font-size: 14px;
