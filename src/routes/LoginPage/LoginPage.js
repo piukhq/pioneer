@@ -9,7 +9,7 @@ import Button from 'components/Button'
 import styles from './LoginPage.module.scss'
 import useDebugLogin from './hooks/useDebugLogin'
 
-const HomePage = () => {
+const LoginPage = () => {
   const history = useHistory()
   const apiKey = useSelector(state => state.users.authentication.api_key)
   const loading = useSelector(state => state.users.authentication.loading)
@@ -43,4 +43,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default LoginPage

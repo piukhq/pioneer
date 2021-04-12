@@ -1,0 +1,78 @@
+@import "src/sass/variables";
+
+@mixin modal {
+  &__header {
+    font-size: $modal-title-font-size;
+    color: $modal-title-font-color;
+    font-weight: $modal-title-font-size;
+    margin: 0 20px 0 0;
+  }
+
+  &__overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1999999999;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  &__box {
+    background-color: white;
+    z-index: 2000000000;
+    position: fixed;
+    width: 520px;
+    max-width: calc(100% - 16px);
+    border-radius: $modal-border-radius;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  &__body {
+    overflow: auto;
+    font-weight: $modal-body-font-weight;
+    max-height: 80vh;
+    padding: 20px;
+
+    @media (max-width: 500px) {
+      padding: 15px;
+    }
+  }
+
+  &__close-button {
+    cursor: pointer;
+    position: absolute;
+    background-color: #fff;
+    background-color: rgba(#fff, 0.8);
+    border-radius: 4px;
+    padding: 2px;
+    right: 20px - 2px;
+    top: 20px - 2px;
+
+    @media (max-width: 500px) {
+      right: 15px - 2px;
+      top: 15px - 2px;
+    }
+  }
+
+  &__close-button-svg {
+    display: block;
+  }
+
+  &__bottom-fade {
+    $bottom-fade-color: #fff;
+
+    pointer-events: none;
+    position: absolute;
+    // prevent the fade element to render over the rounded corners at the bottom of the modal
+    left: $modal-border-radius;
+    right: $modal-border-radius;
+    bottom: 0;
+    height: 75px;
+    background: transparent;
+    background: linear-gradient(0deg, rgba($bottom-fade-color, 1) 0%, rgba($bottom-fade-color, 0.7) 70%, rgba($bottom-fade-color, 0) 100%);
+  }
+}
