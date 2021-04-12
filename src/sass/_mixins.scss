@@ -7,6 +7,8 @@
   font-weight: $heading-font-weight;
   font-size: $heading-font-size;
   color: $heading-font-color;
+  line-height: $heading-line-height;
+  margin-bottom: $heading-margin-bottom;
 
   &--first {
     margin-top: 0;
@@ -14,6 +16,11 @@
 
   &--last {
     margin-bottom: 0;
+  }
+
+  @media (max-width: 630px) {
+    font-size: $heading-font-size-small;
+    line-height: $heading-line-height-small;
   }
 }
 

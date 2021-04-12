@@ -6,6 +6,7 @@ import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
 import { useMembershipPlansState } from 'hooks/membershipPlans'
 import styles from './MembershipCardAddPage.module.scss'
 import Button from 'components/Button'
+import AccountMenu from 'components/AccountMenu'
 import MembershipCardAddModal from 'components/MembershipCardAddModal'
 import MembershipCardEnrolModal from 'components/MembershipCardEnrolModal'
 import Loading from 'components/Loading'
@@ -49,6 +50,7 @@ const MembershipCardAddPage = () => {
       { loading ? <Loading /> : null }
       { plan && (
         <>
+          <AccountMenu />
           <div className={styles.root}>
             { imgUrl ? <img className={styles.root__image} src={ `${imgUrl}?width=300&height=183` } alt='' /> : null }
             <h1 className={styles.root__header}>Are you a member of the {plan.account.plan_name}?</h1>
