@@ -8,6 +8,11 @@ $theme-font-family-2: "Wasabi Condensed", sans-serif;
 $heading-font-size: 80px;
 $heading-font-weight: bold;
 $heading-font-color: #054127;
+$heading-line-height: 88px;
+
+// heading font changes for smaller viewports
+$heading-font-size-small: 56px;
+$heading-line-height-small: 60px;
 
 // body font
 $body-font-size: 18px;
