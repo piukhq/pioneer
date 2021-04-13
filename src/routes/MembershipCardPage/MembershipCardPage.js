@@ -149,6 +149,7 @@ const MembershipCardPage = () => {
                 <PaymentCard
                   id={newlyPendingPaymentCard.id}
                   onClick={handleClickOnPaymentCard}
+                  onDelete={handleDeletePaymentCard}
                   key={newlyPendingPaymentCard.id}
                   expired={isPaymentCardExpired(newlyPendingPaymentCard)}
                   activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
