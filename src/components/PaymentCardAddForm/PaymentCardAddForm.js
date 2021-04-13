@@ -27,7 +27,7 @@ const PaymentCardAddForm = ({ onClose }) => {
         <form className={styles.root}>
           <div className={styles.root__groups}>
             <div className={cx(styles.root__group, styles['root__number-group'])}>
-              <label className={styles.root__label}>Card Number</label>
+              <label className={styles.root__label}>Card number</label>
               <div id='bink-spreedly-number' className={styles.root__input} />
             </div>
 
@@ -55,9 +55,9 @@ const PaymentCardAddForm = ({ onClose }) => {
             </div>
           </div>
 
-          <div className={styles['root__privacy-and-security']}>
-            {/* todo: find out what the link should be and set it */}
-            <a href='https://www.bink.com' target='_blank' rel='noreferrer'>Privacy and security</a>
+          <div className={styles['root__privacy-and-terms']}>
+            <a href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Privacy and security</a>
+            <a href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Terms and conditions</a>
           </div>
 
           <Button
@@ -67,7 +67,7 @@ const PaymentCardAddForm = ({ onClose }) => {
               e.preventDefault()
               setFormPhase(2)
             }}
-          >Next</Button>
+          >Add Payment Card</Button>
         </form>
       </div>
       <div className={cx(formPhase !== 2 && styles['root__form-phase--hidden'])}>
