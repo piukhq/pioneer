@@ -21,6 +21,9 @@
 
   &__description {
     @include body-font-style;
+
+    max-width: 100%;
+    width: 570px;
   }
 
   &__email {
