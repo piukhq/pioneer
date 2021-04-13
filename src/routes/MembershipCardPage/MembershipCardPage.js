@@ -145,7 +145,7 @@ const MembershipCardPage = () => {
               />
             ))
             }
-            { newlyPendingPaymentCard && newlyPendingPaymentCard.status === 'pending' && (
+            { newlyPendingPaymentCard && (
                 <PaymentCard
                   id={newlyPendingPaymentCard.id}
                   onClick={handleClickOnPaymentCard}
