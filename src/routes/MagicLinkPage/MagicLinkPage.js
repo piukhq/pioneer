@@ -1,12 +1,12 @@
 import React from 'react'
-import Loading from 'components/Loading'
 import useRedirectLogic from './hooks/useRedirectLogic'
+import HangTight from 'components/HangTight'
 
 const MagicLinkPage = () => {
-  const { loading } = useRedirectLogic()
+  useRedirectLogic()
 
   return (
-    loading ? <Loading /> : null
+    <HangTight />
   )
 }
 
