@@ -1,10 +1,16 @@
 import 'url-search-params-polyfill'
+import ResizeObserver from 'resize-observer-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from 'components/App'
 import reportWebVitals from './reportWebVitals'
 import configureStore from './store/configureStore'
+
+// todo: probably polyfills should be moved into a separate file. To decide where that file should be located.
+if (!window.ResizeObserver) {
+  window.ResizeObserver = ResizeObserver
+}
 
 const store = configureStore()
 
