@@ -30,6 +30,7 @@ export const types = {
 const initialState = {
   loading: false,
   error: false,
+  success: false,
   cards: {},
   delete: {
     loading: false,
@@ -55,12 +56,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: true,
         error: false,
+        success: false,
       }
     case types.MEMBERSHIP_CARDS_SUCCESS:
       return {
         ...state,
         loading: false,
         error: false,
+        success: true,
         cards: action.payload.reduce((acc, card) => { acc[card.id] = card; return acc }, {}),
       }
     case types.MEMBERSHIP_CARDS_FAILURE:
@@ -68,6 +71,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: true,
+        success: false,
         cards: {},
       }
     case types.DELETE_MEMBERSHIP_CARD_REQUEST:
