@@ -9,6 +9,9 @@
 
   &__description {
     @include body-font-style;
+
+    max-width: 570px;
+    margin: 0 auto;
   }
 
   &__loading {
