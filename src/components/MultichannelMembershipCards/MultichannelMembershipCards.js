@@ -5,9 +5,10 @@ import { useMembershipCardsState } from 'hooks/membershipCards'
 import styles from './MultichannelMembershipCards.module.scss'
 import cx from 'classnames'
 import Config from 'Config'
+import Loading from 'components/Loading'
 
 const MultichannelMembershipCards = () => {
-  const { membershipCards } = useMembershipCardsState()
+  const { membershipCards, loading } = useMembershipCardsState()
   const { logout } = useLogout()
 
   return (
@@ -31,6 +32,7 @@ const MultichannelMembershipCards = () => {
       <br />
       <Link to={'/membership-plans'}>Membership Plans</Link>
       <button onClick={logout}>Logout</button>
+      { loading && <Loading /> }
     </div>
   )
 }

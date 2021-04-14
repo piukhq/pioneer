@@ -3,12 +3,14 @@ import users from 'ducks/users'
 import paymentCards from 'ducks/paymentCards'
 import membershipCards from 'ducks/membershipCards'
 import membershipPlans from 'ducks/membershipPlans'
+import service from 'ducks/service'
 
 const appReducer = combineReducers({
   users,
   paymentCards,
   membershipCards,
   membershipPlans,
+  service,
 })
 
 const rootReducer = (state, action) => {
