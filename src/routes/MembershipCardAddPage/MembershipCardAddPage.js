@@ -9,7 +9,7 @@ import Button from 'components/Button'
 import AccountMenu from 'components/AccountMenu'
 import MembershipCardAddModal from 'components/MembershipCardAddModal'
 import MembershipCardEnrolModal from 'components/MembershipCardEnrolModal'
-import Loading from 'components/Loading'
+import HangTight from 'components/HangTight'
 
 const MEMBERSHIP_CARD_IMAGE_TYPES = {
   HERO: 0,
@@ -47,7 +47,7 @@ const MembershipCardAddPage = () => {
 
   return (
     <>
-      { loading ? <Loading /> : null }
+      { loading ? <HangTight /> : null }
       { plan && (
         <>
           <AccountMenu />
