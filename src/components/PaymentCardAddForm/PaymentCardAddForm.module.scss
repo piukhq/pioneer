@@ -1,4 +1,10 @@
+@import "src/sass/mixins";
+
 .root {
+  &__sub-header {
+    @include body-font-style;
+  }
+
   &__label {
     display: block;
     margin-bottom: 5px;

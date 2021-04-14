@@ -67,7 +67,7 @@ const usePaymentCardAddForm = (onClose) => {
 
     Spreedly.tokenizeCreditCard({
       month,
-      year: `20${year}`,
+      year,
       full_name: fullName,
     })
     return false

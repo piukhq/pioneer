@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from 'components/Modal'
 import cx from 'classnames'
 import Button from 'components/Button'
+import TextInputGroup from 'components/Form/TextInputGroup'
 import usePaymentCardAddForm from './hooks/usePaymentCardAddForm'
 
 import styles from './PaymentCardAddForm.module.scss'
@@ -22,7 +23,7 @@ const PaymentCardAddForm = ({ onClose }) => {
     <Modal onClose={formPhase === 1 ? onClose : undefined}>
       <div className={cx(formPhase !== 1 && styles['root__form-phase--hidden'])}>
         <Modal.Header>Add payment card</Modal.Header>
-        Enter details below to add your payment card.
+        <p className={styles['root__sub-header']}>Enter details below to add your payment card.</p>
 
         <form className={styles.root}>
           <div className={styles.root__groups}>
@@ -34,24 +35,20 @@ const PaymentCardAddForm = ({ onClose }) => {
             <label className={cx(styles.root__label, styles['root__label--hidden'])}>CVV</label>
             <div id='bink-spreedly-cvv' className={cx(styles.root__input, styles['root__input--hidden'])} />
 
-            <div className={cx(styles.root__group, styles['root__expiry-group'])}>
-              <label className={styles.root__label}>Expiry</label>
-              <input
-                value={expiry}
-                onChange={event => setExpiry(event.target.value)}
-                className={styles.root__input}
-                placeholder='MM/YY'
-              />
-            </div>
+            <TextInputGroup
+              label='Expiry'
+              placeholder='MM/YYYY'
+              value={expiry}
+              onChange={event => setExpiry(event.target.value)}
+            />
 
             <div className={cx(styles.root__group, styles['root__name-group'])}>
-              <label className={styles.root__label}>Name on card</label>
-              <input
-                value={fullName}
-                onChange={event => setFullName(event.target.value)}
-                className={styles.root__input}
-                placeholder='Name on card'
-              />
+            <TextInputGroup
+              label='Name on card'
+              placeholder='J Appleseed'
+              value={fullName}
+              onChange={event => setFullName(event.target.value)}
+            />
             </div>
           </div>
 
