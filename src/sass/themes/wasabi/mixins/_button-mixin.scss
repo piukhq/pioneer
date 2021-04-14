@@ -1,8 +1,10 @@
 @mixin button-style {
   // todo: move font family and colour values to be accessed via variables.scss
   font-family: 'Wasabi', sans-serif;
+  height: 68px;
   border-radius: 5px;
   font-size: 18px;
+  line-height: 1;
   padding: 24.5px;
   font-weight: bold;
   border: none;
@@ -18,7 +20,7 @@
   }
 
   &--tertiary {
-    background-color: red; // todo: not defined yet by specs
+    background-color: #a30f27; // todo: not defined yet by specs
     color: #fff; // todo: not defined yet by specs
   }
 
