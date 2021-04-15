@@ -15,7 +15,7 @@ const Modal = ({ children, onClose, className }) => {
       <div className={cx(styles.root__box, className)}>
         {onClose && <Modal.CloseButton onClick={onClose} />}
         <div className={styles.root__body} ref={scrollRef}>
-          <div ref={scrollableRef}>
+          <div className={styles.root__scrollable} ref={scrollableRef}>
             {children}
           </div>
         </div>

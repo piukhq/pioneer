@@ -35,6 +35,11 @@
     overflow: auto;
     font-weight: $modal-body-font-weight;
     max-height: 80vh;
+  }
+
+  &__scrollable {
+    // this padding should have been on the &__body element, but due to a firefox bug it is defined here
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=748518 - (padding-bottom/right(block-end/inline-end) is ignored with overflow:auto/scroll because it extends in from the border-box rather than out from the scrollable area)
     padding: 20px;
 
     @media (max-width: 500px) {
