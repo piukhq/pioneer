@@ -4,4 +4,9 @@ const isValidEmail = (email) => {
   return email.match(re)
 }
 
-export default isValidEmail
+const isValidName = (fullName) => {
+  const re = /^[a-z ,.'-]+$/i
+  return fullName.match(re)
+}
+
+export { isValidEmail, isValidName }

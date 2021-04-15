@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Modal from 'components/Modal'
 import cx from 'classnames'
 import Button from 'components/Button'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import usePaymentCardAddForm from './hooks/usePaymentCardAddForm'
-
+import { isValidName } from 'utils/formValidation'
 import styles from './PaymentCardAddForm.module.scss'
 
 // todo: to rename this component to PaymentCardAddModal
@@ -19,6 +19,24 @@ const PaymentCardAddForm = ({ onClose }) => {
     iframeLoaded,
     submitForm,
   } = usePaymentCardAddForm(onClose)
+  const [invalidNameField, setInvalidNameField] = useState(false)
+  const [invalidExpiryField, setInvalidExpiryField] = useState(false)
+
+  const checkExpiryValidation = () => {
+    const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
+    if (month && year && month <= 12 && month >= 1) {
+      const expiryDateObj = new Date(year, month - 1, 1)
+      const currentDateObj = new Date()
+      if (expiryDateObj && expiryDateObj > currentDateObj) {
+        setInvalidExpiryField(false)
+        return
+      }
+    }
+    setInvalidExpiryField(true)
+  }
+
+  const isFormValid = () => fullName !== '' && !invalidNameField && expiry !== '' && !invalidExpiryField
+
   return (
     <Modal onClose={formPhase === 1 ? onClose : undefined}>
       <div className={cx(formPhase !== 1 && styles['root__form-phase--hidden'])}>
@@ -36,20 +54,24 @@ const PaymentCardAddForm = ({ onClose }) => {
             <div id='bink-spreedly-cvv' className={cx(styles.root__input, styles['root__input--hidden'])} />
 
             <TextInputGroup
+              className={cx(styles.root__group, styles['root__expiry-group'])}
               label='Expiry'
               placeholder='MM/YYYY'
               value={expiry}
               onChange={event => setExpiry(event.target.value)}
+              onBlur={checkExpiryValidation}
+              error={invalidExpiryField ? 'Invalid expiry' : null}
             />
 
-            <div className={cx(styles.root__group, styles['root__name-group'])}>
             <TextInputGroup
+              className={cx(styles.root__group, styles['root__name-group'])}
               label='Name on card'
               placeholder='J Appleseed'
               value={fullName}
               onChange={event => setFullName(event.target.value)}
+              onBlur={() => isValidName(fullName) ? setInvalidNameField(false) : setInvalidNameField(true)}
+              error={invalidNameField ? 'Invalid name' : null}
             />
-            </div>
           </div>
 
           <div className={styles['root__privacy-and-terms']}>
@@ -64,6 +86,7 @@ const PaymentCardAddForm = ({ onClose }) => {
               e.preventDefault()
               setFormPhase(2)
             }}
+            disabled={!isFormValid()}
           >Add Payment Card</Button>
         </form>
       </div>

@@ -9,7 +9,7 @@ import TextInputGroup from 'components/Form/TextInputGroup'
 
 import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
-import isValidEmail from 'utils/isValidEmail'
+import { isValidEmail } from 'utils/formValidation'
 import Config from 'Config'
 
 import styles from './RequestMagicLink.module.scss'
