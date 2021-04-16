@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
+import { isValidName, checkIsPaymentCardExpired } from 'utils/validation'
 
 // todo: to further break down this hook
 const usePaymentCardAddForm = (onClose) => {
-  const [formPhase, setFormPhase] = useState(1)
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState('')
-  const [iframeLoaded, setIframeLoaded] = useState(false)
+  const [invalidNameField, setInvalidNameField] = useState(false)
+  const [invalidExpiryField, setInvalidExpiryField] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -18,7 +19,6 @@ const usePaymentCardAddForm = (onClose) => {
       Spreedly.setStyle('number', 'width: 100%; font-size: 16px; line-height: 23px; box-sizing: border-box')
       Spreedly.setPlaceholder('number', 'Card number')
       Spreedly.setNumberFormat('prettyFormat')
-      setIframeLoaded(true)
     })
 
     Spreedly.on('paymentMethod', async function (token, pmData) {
@@ -59,6 +59,21 @@ const usePaymentCardAddForm = (onClose) => {
     }
   }, [dispatch, onClose])
 
+  const checkForInvalidExpiry = () => {
+    const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
+    if (checkIsPaymentCardExpired(month, year)) {
+      setInvalidExpiryField(false)
+    } else {
+      setInvalidExpiryField(true)
+    }
+  }
+
+  const checkForInvalidName = () => {
+    isValidName(fullName) ? setInvalidNameField(false) : setInvalidNameField(true)
+  }
+
+  const isPaymentFormValid = () => fullName !== '' && !invalidNameField && expiry !== '' && !invalidExpiryField
+
   const submitForm = (event) => {
     event.preventDefault()
 
@@ -67,20 +82,22 @@ const usePaymentCardAddForm = (onClose) => {
 
     Spreedly.tokenizeCreditCard({
       month,
-      year,
+      year: `20${year}`,
       full_name: fullName,
     })
     return false
   }
 
   return {
-    formPhase,
-    setFormPhase,
     fullName,
     setFullName,
     expiry,
     setExpiry,
-    iframeLoaded,
+    invalidNameField,
+    invalidExpiryField,
+    checkForInvalidExpiry,
+    checkForInvalidName,
+    isPaymentFormValid,
     submitForm,
   }
 }
