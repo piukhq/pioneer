@@ -46,13 +46,19 @@ module.exports = {
       case 'wasabi': return 'Wasabi Club'
     }
   })(),
+  cardTitle: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return 'card' // todo: placeholder value, this is currently not defined or used in the Bink channel.
+      case 'wasabi': return 'card'
+    }
+  })(),
   magicLinkRequestFormDescription: (() => {
     switch (process.env.THEME) {
       case 'bink': return ['Get a link sent to your inbox so you can register or login instantly!']
-      case 'wasabi': 
+      case 'wasabi':
         return [
-          'Collect 7 stamps for a £7 OFF Meal Voucher. One stamp can be earned per customer per transaction when the qualifying spend in a single transaction for food & drink purchases totals £7.00 or more in a participating Wasabi store. Ts and Cs apply.', 
-          'Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop. By entering your email address below you authorise Bink to check if you already have a loyalty account.', 
+          'Collect 7 stamps for a £7 OFF Meal Voucher. One stamp can be earned per customer per transaction when the qualifying spend in a single transaction for food & drink purchases totals £7.00 or more in a participating Wasabi store. Ts and Cs apply.',
+          'Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop. By entering your email address below Bink will check if you already have a Wasabi Club card.',
           'Log in or become a new member just by entering your email address.'
         ]
      }
