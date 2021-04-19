@@ -56,7 +56,7 @@ const MembershipCardPage = () => {
     state => membershipCardsSelectors.unlinkedPaymentCards(state, id),
   )
   const newlyPendingPaymentCard = useSelector(
-    state => membershipCardsSelectors.newlyPendingPaymentCard(state, id),
+    state => membershipCardsSelectors.newlyPendingPaymentCard(state),
   )
 
   const dispatch = useDispatch()
@@ -145,7 +145,7 @@ const MembershipCardPage = () => {
               />
             ))
             }
-            { newlyPendingPaymentCard && (
+            { newlyPendingPaymentCard && unlinkedPaymentCards.filter(paymentCard => paymentCard.id === newlyPendingPaymentCard?.id).length > 0 && (
                 <PaymentCard
                   id={newlyPendingPaymentCard.id}
                   onClick={handleClickOnPaymentCard}
@@ -166,7 +166,7 @@ const MembershipCardPage = () => {
               membershipCardId={id}
               onClose={ handleCloseDeletePaymentCardForm } />
           ) }
-          { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id) && (
+          { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id).length > 0 && (
             <>
               <h2>Unlinked payment cards</h2>
               <p>
