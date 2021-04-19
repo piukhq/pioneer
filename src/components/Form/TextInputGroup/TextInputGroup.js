@@ -13,6 +13,7 @@ const TextInputGroup = ({
   error,
   disabled,
   type = 'text',
+  ...rest
 }) => {
   return (
     <div className={cx(
@@ -43,6 +44,7 @@ const TextInputGroup = ({
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled}
+        {...rest}
       />
       <div className={styles.root__error}>
         { error || <>&nbsp;</> }

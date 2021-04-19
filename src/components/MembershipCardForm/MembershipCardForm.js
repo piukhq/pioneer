@@ -5,7 +5,7 @@ import useForm from './hooks/useForm'
 import styles from './MembershipCardForm.module.scss'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
 
-const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature }) => {
+const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialValues, disabledFields }) => {
   const {
     values,
     documentValues,
@@ -15,7 +15,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature }) => {
     handleSubmit,
     handleBlur,
     entireFormValid,
-  } = useForm(plan, planId, fieldTypes, linkingFeature)
+  } = useForm(plan, planId, fieldTypes, linkingFeature, initialValues)
 
   const documentText = document => (
     <>
@@ -42,9 +42,11 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature }) => {
               onBlur={handleBlur}
               data={fieldDescription}
               fieldType={fieldType}
+              disabled={disabledFields?.[fieldType]?.[fieldDescription?.column]}
             />
           ))
         )) }
+        {/* todo: indentation */}
          { plan?.account?.plan_documents
            ?.filter(document => document?.display?.includes(linkingFeature))
            ?.map(document => (

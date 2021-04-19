@@ -10,7 +10,7 @@ const types = {
   CHECKBOX: 3,
 }
 
-const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur, error }) => {
+const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur, error, ...rest }) => {
   const {
     choice,
     column,
@@ -41,6 +41,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           name={common_name}
           label={column}
           placeholder={description}
+          {...rest}
         />
       )
     case types.PASSWORD_INPUT:
@@ -55,6 +56,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           label={column}
           placeholder={description}
           type='password'
+          {...rest}
         />
       )
     case types.SELECTBOX:
@@ -68,6 +70,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           error={error}
           name={common_name}
           label={column}
+          {...rest}
         />
       )
     case types.CHECKBOX:
@@ -80,6 +83,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           error={error}
           name={column}
           label={description}
+          {...rest}
         />
       )
     default:

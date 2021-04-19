@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 import usePlanDocumentsValues from './usePlanDocumentsValues'
 
-const useForm = (plan, planId, fieldTypes, linkingFeature) => {
+const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
   const [values, setValues] = useState(null)
   const [errors, setErrors] = useState(null)
   const [entireFormValid, setEntireFormValid] = useState(null)
@@ -22,10 +22,26 @@ const useForm = (plan, planId, fieldTypes, linkingFeature) => {
       const defaultFieldValues = {}
       fieldTypes.forEach(fieldType => {
         defaultFieldValues[fieldType] = plan?.account?.[fieldType].reduce(
-          (acc, field) => ({
-            ...acc,
-            [field.column]: field.choice?.length > 0 ? field.choice[0] : field.type === 3 ? false : '',
-          }),
+          (acc, field) => {
+            let defaultValue
+            if (initialValues?.[fieldType]?.[field.column] !== undefined) {
+              // if an initial value is defined then use it
+              defaultValue = initialValues?.[fieldType]?.[field.column]
+            } else if (field.choice?.length > 0) {
+              // otherwise if is a dropdown then have the first value pre-selected
+              defaultValue = field.choice[0]
+            } else if (field.type === 3) {
+              // if it's a checkbox then the default value should be false
+              defaultValue = false
+            } else {
+              // otherwise it should be a text field and its default value should be empty string
+              defaultValue = ''
+            }
+            return {
+              ...acc,
+              [field.column]: defaultValue,
+            }
+          },
           {},
         )
       })
