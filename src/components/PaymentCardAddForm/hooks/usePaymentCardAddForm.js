@@ -9,6 +9,7 @@ const usePaymentCardAddForm = (onClose) => {
   const [expiry, setExpiry] = useState('')
   const [invalidNameField, setInvalidNameField] = useState(false)
   const [invalidExpiryField, setInvalidExpiryField] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -22,6 +23,7 @@ const usePaymentCardAddForm = (onClose) => {
     })
 
     Spreedly.on('paymentMethod', async function (token, pmData) {
+      console.log('HERE')
       const newCard = await dispatch(paymentCardsActions.addPaymentCard(
         token,
         pmData.last_four_digits,
@@ -35,6 +37,7 @@ const usePaymentCardAddForm = (onClose) => {
         pmData.payment_method_type,
         pmData.fingerprint,
       ))
+      setIsLoading(false)
 
       if (newCard) {
         onClose && onClose()
@@ -74,8 +77,8 @@ const usePaymentCardAddForm = (onClose) => {
 
   const isPaymentFormValid = () => fullName !== '' && !invalidNameField && expiry !== '' && !invalidExpiryField
 
-  const submitForm = (event) => {
-    event.preventDefault()
+  const submitForm = () => {
+    setIsLoading(true)
 
     const Spreedly = window.Spreedly
     const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
@@ -98,6 +101,8 @@ const usePaymentCardAddForm = (onClose) => {
     checkForInvalidExpiry,
     checkForInvalidName,
     isPaymentFormValid,
+    isLoading,
+    setIsLoading,
     submitForm,
   }
 }

@@ -5,6 +5,7 @@ import Button from 'components/Button'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import usePaymentCardAddForm from './hooks/usePaymentCardAddForm'
 import styles from './PaymentCardAddForm.module.scss'
+import Loading3 from 'components/Loading3'
 
 // todo: to rename this component to PaymentCardAddModal
 const PaymentCardAddForm = ({ onClose }) => {
@@ -18,6 +19,7 @@ const PaymentCardAddForm = ({ onClose }) => {
     checkForInvalidExpiry,
     checkForInvalidName,
     isPaymentFormValid,
+    isLoading,
     submitForm,
   } = usePaymentCardAddForm(onClose)
   return (
@@ -61,15 +63,16 @@ const PaymentCardAddForm = ({ onClose }) => {
           <a href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Terms and conditions</a>
         </div>
 
-        <Button
-          primary
-          className={styles.root__button}
-          onClick={(e) => {
-            e.preventDefault()
-            submitForm()
-          }}
-          disabled={!isPaymentFormValid()}
-        >Add Payment Card</Button>
+        <div className={styles['root__button-container']}>
+          <Button
+            primary
+            className={styles.root__button}
+            onClick={submitForm}
+            disabled={!isPaymentFormValid() || isLoading}
+          >
+            {isLoading ? <Loading3 /> : 'Add Payment Card'}
+          </Button>
+        </div>
       </form>
     </Modal>
   )
