@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import SelectboxGroup from 'components/Form/SelectboxGroup'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
@@ -19,13 +19,13 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
     type,
   } = data
 
-  const handleChange = React.useCallback(
+  const handleChange = useCallback(
     (event) => { onChange(event, data, fieldType) },
     [onChange, data, fieldType],
   )
 
-  const handleBlur = React.useCallback(
-    (...params) => { onBlur(...params, data, fieldType) },
+  const handleBlur = useCallback(
+    (event) => { onBlur(event, data, fieldType) },
     [onBlur, data, fieldType],
   )
 
