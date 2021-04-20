@@ -1,3 +1,4 @@
+// todo: adapt based on future multi-merchant design
 import React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -18,7 +19,7 @@ const AccountMenuModal = ({ id, onClose }) => {
   )
   return (
   <Modal onClose={onClose}>
-    <Modal.Header>{membershipPlanName || 'Bink' } support</Modal.Header>
+    <Modal.Header>{membershipPlanName || 'My Account' } support</Modal.Header>
     <div className={styles.root}>
       <p className={styles.root__body}>
         Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop.
@@ -38,14 +39,11 @@ const AccountMenuModal = ({ id, onClose }) => {
   </Modal>
   )
 }
-
 export default AccountMenuModal
 
 const AccountMenuItem = ({ label, link }) => (
   <div className={styles.root}>
-    <div className={styles.root__menuItem}>
-      <a href={link} target="_blank" rel="noreferrer">{label}</a><RightChevronSvg />
-    </div>
+      <a className={styles.root__menuItem} href={link} target="_blank" rel="noreferrer">{label}<RightChevronSvg /></a>
     <hr className={styles.root__hr}/>
   </div>
 )
