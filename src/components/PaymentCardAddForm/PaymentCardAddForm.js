@@ -11,17 +11,18 @@ import Loading3 from 'components/Loading3'
 const PaymentCardAddForm = ({ onClose }) => {
   const {
     fullName,
-    setFullName,
     expiry,
-    setExpiry,
-    invalidNameField,
-    invalidExpiryField,
-    checkForInvalidExpiry,
-    checkForInvalidName,
+    invalidName,
+    invalidExpiry,
+    handleExpiryChange,
+    handleExpiryBlur,
+    handleNameChange,
+    handleNameBlur,
     isPaymentFormValid,
     isLoading,
     submitForm,
   } = usePaymentCardAddForm(onClose)
+
   return (
     <Modal onClose={onClose}>
       <Modal.Header>Add payment card</Modal.Header>
@@ -42,9 +43,10 @@ const PaymentCardAddForm = ({ onClose }) => {
             label='Expiry'
             placeholder='MM/YY'
             value={expiry}
-            onChange={event => setExpiry(event.target.value)}
-            onBlur={checkForInvalidExpiry}
-            error={invalidExpiryField && 'Invalid expiry'}
+            onChange={handleExpiryChange}
+            onBlur={handleExpiryBlur}
+            error={invalidExpiry && 'Invalid expiry'}
+            maxLength={5}
           />
 
           <TextInputGroup
@@ -52,9 +54,9 @@ const PaymentCardAddForm = ({ onClose }) => {
             label='Name on card'
             placeholder='Name on card'
             value={fullName}
-            onChange={event => setFullName(event.target.value)}
-            onBlur={checkForInvalidName}
-            error={invalidNameField && 'Invalid name'}
+            onChange={handleNameChange}
+            onBlur={handleNameBlur}
+            error={invalidName && 'Invalid name'}
           />
         </div>
 

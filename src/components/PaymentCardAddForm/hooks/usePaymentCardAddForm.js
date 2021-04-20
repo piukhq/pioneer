@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { isValidName, checkIsPaymentCardExpired } from 'utils/validation'
@@ -7,8 +7,8 @@ import { isValidName, checkIsPaymentCardExpired } from 'utils/validation'
 const usePaymentCardAddForm = (onClose) => {
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState('')
-  const [invalidNameField, setInvalidNameField] = useState(false)
-  const [invalidExpiryField, setInvalidExpiryField] = useState(false)
+  const [invalidName, setInvalidName] = useState(false)
+  const [invalidExpiry, setInvalidExpiry] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch()
@@ -23,7 +23,6 @@ const usePaymentCardAddForm = (onClose) => {
     })
 
     Spreedly.on('paymentMethod', async function (token, pmData) {
-      console.log('HERE')
       const newCard = await dispatch(paymentCardsActions.addPaymentCard(
         token,
         pmData.last_four_digits,
@@ -45,6 +44,8 @@ const usePaymentCardAddForm = (onClose) => {
     })
 
     Spreedly.on('errors', function (errors) {
+      setIsLoading(false)
+
       for (let i = 0; i < errors.length; i++) {
         const error = errors[i]
         console.log(error)
@@ -62,20 +63,23 @@ const usePaymentCardAddForm = (onClose) => {
     }
   }, [dispatch, onClose])
 
-  const checkForInvalidExpiry = () => {
+  const handleExpiryChange = (event) => setExpiry(event.target.value)
+  const handleNameChange = (event) => setFullName(event.target.value)
+
+  const handleExpiryBlur = useCallback(() => {
     const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
     if (checkIsPaymentCardExpired(month, year)) {
-      setInvalidExpiryField(false)
+      setInvalidExpiry(false)
     } else {
-      setInvalidExpiryField(true)
+      setInvalidExpiry(true)
     }
-  }
+  }, [expiry])
 
-  const checkForInvalidName = () => {
-    isValidName(fullName) ? setInvalidNameField(false) : setInvalidNameField(true)
-  }
+  const handleNameBlur = useCallback(() => {
+    isValidName(fullName) ? setInvalidName(false) : setInvalidName(true)
+  }, [fullName])
 
-  const isPaymentFormValid = () => fullName !== '' && !invalidNameField && expiry !== '' && !invalidExpiryField
+  const isPaymentFormValid = () => fullName !== '' && !invalidName && expiry !== '' && !invalidExpiry
 
   const submitForm = () => {
     setIsLoading(true)
@@ -96,10 +100,12 @@ const usePaymentCardAddForm = (onClose) => {
     setFullName,
     expiry,
     setExpiry,
-    invalidNameField,
-    invalidExpiryField,
-    checkForInvalidExpiry,
-    checkForInvalidName,
+    invalidName,
+    invalidExpiry,
+    handleExpiryChange,
+    handleExpiryBlur,
+    handleNameChange,
+    handleNameBlur,
     isPaymentFormValid,
     isLoading,
     setIsLoading,

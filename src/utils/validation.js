@@ -5,7 +5,7 @@ const isValidEmail = (email) => {
 }
 
 const isValidName = (fullName) => {
-  const re = /^[a-z ,.'-]+$/i
+  const re = /^[a-z '`~.-]+$/i
   return fullName.match(re)
 }
 
