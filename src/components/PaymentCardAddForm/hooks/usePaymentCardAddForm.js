@@ -1,14 +1,14 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
-import { isValidName, checkIsPaymentCardExpired } from 'utils/validation'
+import { isValidName, isValidExpiry } from 'utils/validation'
 
 // todo: to further break down this hook
 const usePaymentCardAddForm = (onClose) => {
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState('')
-  const [invalidName, setInvalidName] = useState(false)
-  const [invalidExpiry, setInvalidExpiry] = useState(false)
+  const [shouldDisplayNameError, setDisplayNameError] = useState(false)
+  const [shouldDisplayExpiryError, setDisplayExpiryError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch()
@@ -67,19 +67,16 @@ const usePaymentCardAddForm = (onClose) => {
   const handleNameChange = (event) => setFullName(event.target.value)
 
   const handleExpiryBlur = useCallback(() => {
-    const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
-    if (checkIsPaymentCardExpired(month, year)) {
-      setInvalidExpiry(false)
-    } else {
-      setInvalidExpiry(true)
-    }
+    setDisplayExpiryError(!isValidExpiry(expiry))
   }, [expiry])
 
   const handleNameBlur = useCallback(() => {
-    isValidName(fullName) ? setInvalidName(false) : setInvalidName(true)
+    isValidName(fullName) ? setDisplayNameError(false) : setDisplayNameError(true)
   }, [fullName])
 
-  const isPaymentFormValid = () => fullName !== '' && !invalidName && expiry !== '' && !invalidExpiry
+  const isPaymentFormValid = useCallback(() => {
+    return fullName !== '' && isValidName(fullName) && expiry !== '' && isValidExpiry(expiry)
+  }, [fullName, expiry])
 
   const submitForm = () => {
     setIsLoading(true)
@@ -89,7 +86,7 @@ const usePaymentCardAddForm = (onClose) => {
 
     Spreedly.tokenizeCreditCard({
       month,
-      year: `20${year}`,
+      year,
       full_name: fullName,
     })
     return false
@@ -100,8 +97,8 @@ const usePaymentCardAddForm = (onClose) => {
     setFullName,
     expiry,
     setExpiry,
-    invalidName,
-    invalidExpiry,
+    shouldDisplayNameError,
+    shouldDisplayExpiryError,
     handleExpiryChange,
     handleExpiryBlur,
     handleNameChange,

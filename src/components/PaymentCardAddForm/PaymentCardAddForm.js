@@ -12,8 +12,8 @@ const PaymentCardAddForm = ({ onClose }) => {
   const {
     fullName,
     expiry,
-    invalidName,
-    invalidExpiry,
+    shouldDisplayNameError,
+    shouldDisplayExpiryError,
     handleExpiryChange,
     handleExpiryBlur,
     handleNameChange,
@@ -41,12 +41,12 @@ const PaymentCardAddForm = ({ onClose }) => {
           <TextInputGroup
             className={cx(styles.root__group, styles['root__expiry-group'])}
             label='Expiry'
-            placeholder='MM/YY'
+            placeholder='MM/YYYY'
             value={expiry}
             onChange={handleExpiryChange}
             onBlur={handleExpiryBlur}
-            error={invalidExpiry && 'Invalid expiry'}
-            maxLength={5}
+            error={shouldDisplayExpiryError && 'Invalid expiry'}
+            maxLength={7}
           />
 
           <TextInputGroup
@@ -56,7 +56,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             value={fullName}
             onChange={handleNameChange}
             onBlur={handleNameBlur}
-            error={invalidName && 'Invalid name'}
+            error={shouldDisplayNameError && 'Invalid name'}
           />
         </div>
 

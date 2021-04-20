@@ -5,8 +5,16 @@ const isValidEmail = (email) => {
 }
 
 const isValidName = (fullName) => {
-  const re = /^[a-z '`~.-]+$/i
+  const re = /\S/i
   return fullName.match(re)
+}
+
+const isValidExpiry = (expiry) => {
+  const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
+  if (month && year) {
+    return !checkIsPaymentCardExpired(month, year)
+  }
+  return false
 }
 
 const checkIsPaymentCardExpired = (expiryMonth, expiryYear) => {
@@ -17,4 +25,4 @@ const checkIsPaymentCardExpired = (expiryMonth, expiryYear) => {
   return expiryDate.getTime() < currentMonthDate.getTime()
 }
 
-export { isValidEmail, isValidName, checkIsPaymentCardExpired }
+export { isValidEmail, isValidName, isValidExpiry, checkIsPaymentCardExpired }
