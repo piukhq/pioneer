@@ -1,18 +1,24 @@
-import React from 'react'
-import useLogout from 'hooks/useLogout'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import styles from './MultichannelMembershipCards.module.scss'
 import cx from 'classnames'
 import Config from 'Config'
 import Loading from 'components/Loading'
+import AccountMenuButton from 'components/AccountMenuButton'
+import AccountMenuModal from 'components/AccountMenuModal'
 
 const MultichannelMembershipCards = () => {
   const { membershipCards, loading } = useMembershipCardsState()
-  const { logout } = useLogout()
+
+  const [accountMenuModalVisible, setAccountMenuModalVisible] = useState(false)
 
   return (
     <div className={styles.root}>
+       <AccountMenuButton handleClick={() => setAccountMenuModalVisible(true)} />
+      { accountMenuModalVisible && (
+        <AccountMenuModal onClose={() => setAccountMenuModalVisible(false)} />
+      )}
       <h1 className={cx(styles.root__heading, styles['root__heading--first'])}>Membership Cards</h1>
       {membershipCards.map(card => (
         <div key={card.id}>
@@ -31,7 +37,6 @@ const MultichannelMembershipCards = () => {
       <Link to={'/payment-cards'}>Payment Cards</Link>
       <br />
       <Link to={'/membership-plans'}>Membership Plans</Link>
-      <button onClick={logout}>Logout</button>
       { loading && <Loading /> }
     </div>
   )
