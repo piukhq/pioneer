@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-end;
 
-  &__menu {
+  &__menu { // todo: move to base theme and use mixin
     display: flex;
     align-items: center;
     border: 0;
