@@ -5,7 +5,6 @@ import Loading from 'components/Loading'
 import MembershipCardForm from 'components/MembershipCardForm'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import useLogout from 'hooks/useLogout'
-import Config from 'Config'
 import { useSelector } from 'react-redux'
 import Button from 'components/Button'
 
@@ -18,12 +17,9 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
   const linkingFeature = 'ENROL'
   const userId = useSelector(state => usersSelectors.accountUserId(state))
   const { logout } = useLogout()
-  let initialValues, disabledFields
-  // todo: this condition shouldn't be necessary. It should have been checked prior to including this component
-  if (Config.isMerchantChannel) {
-    initialValues = { enrol_fields: { Email: userId } }
-    disabledFields = { enrol_fields: { Email: true } }
-  }
+  // Email should be predefined and disabled for Merchant channels
+  const initialValues = useRef({ enrol_fields: { Email: userId } }).current
+  const disabledFields = useRef({ enrol_fields: { Email: true } }).current
 
   return (
     <div className={styles.root}>

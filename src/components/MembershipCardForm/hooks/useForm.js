@@ -2,8 +2,11 @@ import { useState, useEffect, useCallback } from 'react'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 import Config from 'Config'
 import usePlanDocumentsValues from './usePlanDocumentsValues'
+import useRedirectToNewMembershipCard from './useRedirectToNewMembershipCard'
 
 const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
+  useRedirectToNewMembershipCard()
+
   const [values, setValues] = useState(null)
   const [errors, setErrors] = useState(null)
   const [binkTermsValue, setBinkTermsValue] = useState(false)
@@ -167,6 +170,7 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
 
     if (Config.isMerchantChannel) {
       addMembershipCardOnMerchantChannel(accountData, planId)
+      // once a card has been added the useRedirectToNewMembershipCard hook will deal with the redirect
     } else {
       addMembershipCard(accountData, planId)
     }

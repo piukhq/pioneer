@@ -52,7 +52,6 @@ const MembershipCardAddPage = () => {
       { loading ? <HangTight /> : null }
       { plan && (
         <>
-          <AccountMenu />
           <div className={styles.root}>
             { Config.isMerchantChannel ? (
               <>
@@ -60,6 +59,7 @@ const MembershipCardAddPage = () => {
               </>
             ) : (
               <>
+                <AccountMenu />
                 { imgUrl ? <img className={styles.root__image} src={ `${imgUrl}?width=300&height=183` } alt='' /> : null }
                 <h1 className={styles.root__header}>Are you a member of the {plan.account.plan_name}?</h1>
                 <div className={styles.root__text}>

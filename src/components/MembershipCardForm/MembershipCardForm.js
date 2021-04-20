@@ -60,6 +60,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
               styles.root__group,
               styles['root__group--full-width'],
             )}
+            value={binkTermsValue}
             onChange={handleBinkTermsChange}
             label={
               <>
