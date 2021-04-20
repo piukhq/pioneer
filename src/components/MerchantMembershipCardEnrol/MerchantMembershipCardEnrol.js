@@ -4,8 +4,10 @@ import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import Loading from 'components/Loading'
 import MembershipCardForm from 'components/MembershipCardForm'
 import { useMembershipCardsState } from 'hooks/membershipCards'
+import useLogout from 'hooks/useLogout'
 import Config from 'Config'
 import { useSelector } from 'react-redux'
+import Button from 'components/Button'
 
 import styles from './MerchantMembershipCardEnrol.module.scss'
 
@@ -15,7 +17,7 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
   const fieldTypes = useRef(['enrol_fields']).current
   const linkingFeature = 'ENROL'
   const userId = useSelector(state => usersSelectors.accountUserId(state))
-  console.log('userId', userId)
+  const { logout } = useLogout()
   let initialValues, disabledFields
   // todo: this condition shouldn't be necessary. It should have been checked prior to including this component
   if (Config.isMerchantChannel) {
@@ -34,7 +36,9 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
         linkingFeature={linkingFeature}
         initialValues={initialValues}
         disabledFields={disabledFields}
+        submitCaption='Register'
       />
+      <Button secondary onClick={logout} className={styles.root__cancel}>Cancel</Button>
       { (loading || addLoading) && <Loading /> }
     </div>
   )

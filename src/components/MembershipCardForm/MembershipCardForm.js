@@ -6,7 +6,7 @@ import cx from 'classnames'
 import styles from './MembershipCardForm.module.scss'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
 
-const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialValues, disabledFields }) => {
+const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialValues, disabledFields, submitCaption }) => {
   const {
     values,
     documentValues,
@@ -71,7 +71,9 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
              )
            ))
          }
-        <Button disabled={!entireFormValid} className={styles.root__submit}>Add my card</Button>
+        <Button disabled={!entireFormValid} className={styles.root__submit}>
+          { submitCaption || 'Add my card' }
+        </Button>
       </form>
     ) : null
   )
