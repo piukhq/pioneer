@@ -115,7 +115,7 @@ const MembershipCardPage = () => {
     <div>
       <AccountMenuButton handleClick={() => setAccountMenuModalVisible(true)} />
       { accountMenuModalVisible && (
-         <AccountMenuModal plan={getMembershipPlans} id={id} onClose={() => setAccountMenuModalVisible(false)} />
+         <AccountMenuModal id={id} onClose={() => setAccountMenuModalVisible(false)} />
       )}
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
