@@ -33,7 +33,7 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
               // if an initial value is defined then use it
               defaultValue = initialValues?.[fieldType]?.[field.column]
             } else if (field.choice?.length > 0) {
-              // otherwise if is a dropdown then have the first value pre-selected
+              // otherwise if it is a dropdown then have the first value pre-selected
               defaultValue = field.choice[0]
             } else if (field.type === 3) {
               // if it's a checkbox then the default value should be false

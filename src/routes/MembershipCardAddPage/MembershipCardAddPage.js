@@ -11,7 +11,7 @@ import MembershipCardAddModal from 'components/MembershipCardAddModal'
 import MembershipCardEnrolModal from 'components/MembershipCardEnrolModal'
 import HangTight from 'components/HangTight'
 import Config from 'Config'
-import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol/MerchantMembershipCardEnrol'
+import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol'
 
 const MEMBERSHIP_CARD_IMAGE_TYPES = {
   HERO: 0,

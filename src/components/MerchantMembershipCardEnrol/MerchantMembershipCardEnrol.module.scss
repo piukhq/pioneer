@@ -1,6 +1,8 @@
 @import "src/sass/mixins";
 
 .root {
+  text-align: left;
+
   &__header {
     @include heading-font-style;
 
