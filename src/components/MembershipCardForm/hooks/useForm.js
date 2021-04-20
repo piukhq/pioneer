@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
+import Config from 'Config'
 import usePlanDocumentsValues from './usePlanDocumentsValues'
 
 const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
   const [values, setValues] = useState(null)
   const [errors, setErrors] = useState(null)
+  const [binkTermsValue, setBinkTermsValue] = useState(false)
   const [entireFormValid, setEntireFormValid] = useState(null)
 
   const {
@@ -49,12 +51,16 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
       return defaultFieldValues
     }
     setValues(getDefaultFieldValuesFromPlan)
-  }, [plan, fieldTypes])
+  }, [plan, fieldTypes, initialValues])
 
   useEffect(() => {
     const isEntireFormValid = () => {
       let formFieldsAreValid = true
       if (!plan || !values) {
+        return false
+      }
+
+      if (Config.isMerchantChannel && !binkTermsValue) {
         return false
       }
 
@@ -81,7 +87,7 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
     }
 
     setEntireFormValid(isEntireFormValid())
-  }, [values, plan, fieldTypes, allPlanDocumentsAccepted])
+  }, [values, binkTermsValue, plan, fieldTypes, allPlanDocumentsAccepted])
 
   useEffect(() => {
     const getDefaultFieldErrorsFromPlan = () => {
@@ -143,7 +149,11 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
     })
   }, [values, errors])
 
-  const { addMembershipCard } = useMembershipCardsDispatch()
+  const handleBinkTermsChange = useCallback((event) => {
+    setBinkTermsValue(event.target.checked)
+  }, [setBinkTermsValue])
+
+  const { addMembershipCard, addMembershipCardOnMerchantChannel } = useMembershipCardsDispatch()
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
@@ -155,8 +165,12 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
       )
     })
 
-    addMembershipCard(accountData, planId)
-  }, [plan, values, addMembershipCard, planId, fieldTypes])
+    if (Config.isMerchantChannel) {
+      addMembershipCardOnMerchantChannel(accountData, planId)
+    } else {
+      addMembershipCard(accountData, planId)
+    }
+  }, [plan, values, addMembershipCard, addMembershipCardOnMerchantChannel, planId, fieldTypes])
 
   return {
     values,
@@ -165,8 +179,10 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
     handleSubmit,
     handleBlur,
     entireFormValid,
+    binkTermsValue,
     documentValues,
     handleDocumentChange,
+    handleBinkTermsChange,
   }
 }
 

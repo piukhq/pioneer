@@ -4,6 +4,7 @@ import {
   selectors as paymentCardsSelectors,
   actions as paymentCardsActions,
 } from 'ducks/paymentCards'
+import { actions as serviceActions } from 'ducks/service'
 import { serializeError } from 'serialize-error'
 
 export const types = {
@@ -303,6 +304,22 @@ export const actions = {
   addMembershipCard: (accountData, planId) => async (dispatch) => {
     dispatch(actions.addMembershipCardRequest())
     try {
+      const response = await api.addMembershipCard(accountData, planId)
+      dispatch(actions.addMembershipCardSuccess(response.data))
+      // refresh payment and membership cards
+      dispatch(paymentCardsActions.getPaymentCards())
+      dispatch(actions.getMembershipCards())
+    } catch (e) {
+      dispatch(actions.addMembershipCardFailure(e))
+    }
+  },
+  addMembershipCardOnMerchantChannel: (accountData, planId) => async (dispatch, getState) => {
+    dispatch(actions.addMembershipCardRequest())
+    try {
+      await dispatch(serviceActions.postService())
+      if (!getState().service.post.success) {
+        throw new Error('Failed to post to /service')
+      }
       const response = await api.addMembershipCard(accountData, planId)
       dispatch(actions.addMembershipCardSuccess(response.data))
       // refresh payment and membership cards
