@@ -1,9 +1,7 @@
 import React, { useRef } from 'react'
 import { selectors as usersSelectors } from 'ducks/users'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
-import Loading from 'components/Loading'
 import MembershipCardForm from 'components/MembershipCardForm'
-import { useMembershipCardsState } from 'hooks/membershipCards'
 import useLogout from 'hooks/useLogout'
 import { useSelector } from 'react-redux'
 import Button from 'components/Button'
@@ -11,8 +9,7 @@ import Button from 'components/Button'
 import styles from './MerchantMembershipCardEnrol.module.scss'
 
 const MerchantMembershipCardEnrol = ({ planId }) => {
-  const { plan, loading } = useLoadMembershipPlans(planId)
-  const { add: { loading: addLoading } } = useMembershipCardsState()
+  const { plan } = useLoadMembershipPlans(planId)
   const fieldTypes = useRef(['enrol_fields']).current
   const linkingFeature = 'ENROL'
   const userId = useSelector(state => usersSelectors.accountUserId(state))
@@ -33,9 +30,9 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
         initialValues={initialValues}
         disabledFields={disabledFields}
         submitCaption='Register'
+        submittingCaption='Registering'
       />
       <Button secondary onClick={logout} className={styles.root__cancel}>Cancel</Button>
-      { (loading || addLoading) && <Loading /> }
     </div>
   )
 }

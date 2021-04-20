@@ -3,6 +3,7 @@ import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 import Config from 'Config'
 import usePlanDocumentsValues from './usePlanDocumentsValues'
 import useRedirectToNewMembershipCard from './useRedirectToNewMembershipCard'
+import { useSelector } from 'react-redux'
 
 const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
   useRedirectToNewMembershipCard()
@@ -176,6 +177,12 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
     }
   }, [plan, values, addMembershipCard, addMembershipCardOnMerchantChannel, planId, fieldTypes])
 
+  const serviceError = useSelector(state => state.service.post.error)
+  const submitError = useSelector(state => state.membershipCards.add.error)
+
+  const serviceLoading = useSelector(state => state.service.post.loading)
+  const submitLoading = useSelector(state => state.membershipCards.add.loading)
+
   return {
     values,
     errors,
@@ -187,6 +194,10 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
     documentValues,
     handleDocumentChange,
     handleBinkTermsChange,
+    serviceError,
+    submitError,
+    serviceLoading,
+    submitLoading,
   }
 }
 
