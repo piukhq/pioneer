@@ -1,7 +1,14 @@
+@import "src/sass/mixins";
+
 .root {
-  text-align: center;
+  &__header {
+    @include heading-font-style;
+
+    text-align: center;
+  }
 
   &__image {
+    text-align: center;
     display: block;
     border-radius: 16px;
     margin: 0 auto;
@@ -10,7 +17,12 @@
   }
 
   &__text {
+    text-align: center;
     font-size: 16px;
     margin-bottom: 20px;
+  }
+
+  &__buttons {
+    text-align: center;
   }
 }

@@ -1,0 +1,16 @@
+@import "src/sass/mixins";
+
+.root {
+  &__header {
+    @include heading-font-style;
+
+    text-align: center;
+  }
+
+  &__summary {
+    @include body-font-style;
+
+    max-width: 570px;
+    margin: 25px auto;
+  }
+}

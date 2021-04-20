@@ -1,33 +1,32 @@
 import React, { useRef } from 'react'
-import Modal from 'components/Modal'
 import { selectors as usersSelectors } from 'ducks/users'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
-import useCloseModalOnSuccess from './hooks/useCloseModalOnSuccess'
 import Loading from 'components/Loading'
 import MembershipCardForm from 'components/MembershipCardForm'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import Config from 'Config'
 import { useSelector } from 'react-redux'
 
-const MembershipCardEnrolModal = ({ onClose, planId }) => {
+import styles from './MerchantMembershipCardEnrol.module.scss'
+
+const MerchantMembershipCardEnrol = ({ planId }) => {
   const { plan, loading } = useLoadMembershipPlans(planId)
   const { add: { loading: addLoading } } = useMembershipCardsState()
-  useCloseModalOnSuccess(onClose)
   const fieldTypes = useRef(['enrol_fields']).current
   const linkingFeature = 'ENROL'
   const userId = useSelector(state => usersSelectors.accountUserId(state))
+  console.log('userId', userId)
   let initialValues, disabledFields
-  // todo: this should not be reached. It should be handled in a different component
+  // todo: this condition shouldn't be necessary. It should have been checked prior to including this component
   if (Config.isMerchantChannel) {
     initialValues = { enrol_fields: { Email: userId } }
     disabledFields = { enrol_fields: { Email: true } }
   }
 
   return (
-    <Modal onClose={onClose}>
-      { (loading || addLoading) && <Loading /> }
-      <Modal.Header>Sign up for { plan?.account?.plan_name }</Modal.Header>
-      <p>{ plan?.account?.plan_summary }</p>
+    <div className={styles.root}>
+      <h1 className={styles.root__header}>Join {plan.account.plan_name}</h1>
+      <p className={styles.root__summary}>{ plan?.account?.plan_summary }</p>
       <MembershipCardForm
         plan={plan}
         planId={planId}
@@ -36,8 +35,9 @@ const MembershipCardEnrolModal = ({ onClose, planId }) => {
         initialValues={initialValues}
         disabledFields={disabledFields}
       />
-    </Modal>
+      { (loading || addLoading) && <Loading /> }
+    </div>
   )
 }
 
-export default MembershipCardEnrolModal
+export default MerchantMembershipCardEnrol

@@ -2,6 +2,7 @@ import React from 'react'
 import DynamicInputGroup from 'components/Form/DynamicInputGroup'
 import Button from 'components/Button'
 import useForm from './hooks/useForm'
+import cx from 'classnames'
 import styles from './MembershipCardForm.module.scss'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
 
@@ -30,11 +31,14 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
 
   return (
     values ? (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.root}>
         { fieldTypes.map(fieldType => (
           plan.account[fieldType].map(fieldDescription => (
             <DynamicInputGroup
-              className={styles.root__group}
+              className={cx(
+                styles.root__group,
+                fieldDescription.type === 3 && styles['root__group--full-width'], // span checkboxes across 2 columns
+              )}
               key={fieldDescription.column}
               value={values[fieldType][fieldDescription.column]}
               error={errors[fieldType][fieldDescription.column]}
@@ -52,7 +56,10 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
            ?.map(document => (
              document.checkbox ? (
                <CheckboxGroup
-                 className={styles.root__group}
+                 className={cx(
+                   styles.root__group,
+                   styles['root__group--full-width'],
+                 )}
                  key={document.name}
                  label={documentText(document)}
                  name={document.name}
