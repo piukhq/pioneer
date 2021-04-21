@@ -10,7 +10,7 @@ const AccountMenuButton = ({ handleClick }) => {
   return (
     <div className={styles.root}>
       { apiKey ? (
-        <button aria-label="menu" onClick={ handleClick } className={styles.root__menu}>
+        <button aria-label="menu" onClick={ handleClick } className={styles['root__menu-button']}>
           {Config.accountTitle}
           <MenuCogSvg className={ styles['root__menu-icon'] } />
         </button>
