@@ -5,7 +5,7 @@ const isValidEmail = (email) => {
 }
 
 const isValidName = (fullName) => {
-  const re = /\S/i
+  const re = /\S/
   return fullName.match(re)
 }
 

@@ -105,7 +105,6 @@ const usePaymentCardAddForm = (onClose) => {
     handleNameBlur,
     isPaymentFormValid,
     isLoading,
-    setIsLoading,
     submitForm,
   }
 }
