@@ -7,7 +7,7 @@ import { isValidName, isValidExpiry } from 'utils/validation'
 const usePaymentCardAddForm = (onClose) => {
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState('')
-  const [nameError, setNameError] = useState(undefined)
+  const [fullNameError, setFullNameError] = useState(undefined)
   const [expiryError, setExpiryError] = useState(undefined)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -73,7 +73,7 @@ const usePaymentCardAddForm = (onClose) => {
 
   const handleNameBlur = useCallback(() => {
     const errorMessage = isValidName(fullName) ? undefined : 'Invalid name'
-    setNameError(errorMessage)
+    setFullNameError(errorMessage)
   }, [fullName])
 
   const isPaymentFormValid = useCallback(() => isValidName(fullName) && isValidExpiry(expiry), [fullName, expiry])
@@ -97,7 +97,7 @@ const usePaymentCardAddForm = (onClose) => {
     setFullName,
     expiry,
     setExpiry,
-    nameError,
+    fullNameError,
     expiryError,
     handleExpiryChange,
     handleExpiryBlur,
