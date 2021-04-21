@@ -78,7 +78,8 @@ const usePaymentCardAddForm = (onClose) => {
 
   const isPaymentFormValid = useCallback(() => isValidName(fullName) && isValidExpiry(expiry), [fullName, expiry])
 
-  const submitForm = () => {
+  const submitForm = (event) => {
+    event.preventDefault()
     setIsLoading(true)
 
     const Spreedly = window.Spreedly
