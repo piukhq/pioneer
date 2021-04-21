@@ -30,7 +30,7 @@ module.exports = {
   })(),
   accountTitle: (() => {
     switch (process.env.THEME) {
-      case 'bink': return 'My account' 
+      case 'bink': return 'My account'
       case 'wasabi': return 'Wasabi Club support'
     }
   })(),
@@ -39,7 +39,7 @@ module.exports = {
       case 'bink': return {
         support: 'https://bink.com', // todo: Add bink support url when known
       }
-      case 'wasabi': return { //todo: consider addition to plan documents on api?
+      case 'wasabi': return { // todo: consider addition to plan documents on api?
         support: 'https://www.wasabi.uk.com/contact-us/',
         merchantFaq: 'https://www.wasabi.uk.com/faq/',
         binkFaq: 'https://help.bink.com/hc/en-gb/categories/360002202520-Frequently-Asked-Questions',
