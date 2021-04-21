@@ -30,7 +30,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     <>
       {document.description}{' '}
       { document.url ? (
-        <a href={document.url} target='_blank' rel='noreferrer'>{document.name}</a>
+        <a className={styles.root__link} href={document.url} target='_blank' rel='noreferrer'>{document.name}</a>
       ) : (
         document.name
       ) }
@@ -73,6 +73,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
                   href='https://bink.com/terms-and-conditions/'
                   target='_blank'
                   rel='noreferrer'
+                  className={styles.root__link}
                 >terms and conditions</a>.
               </>
             }

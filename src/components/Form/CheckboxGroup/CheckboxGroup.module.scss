@@ -1,8 +1,13 @@
+@import "src/sass/variables";
+
 .root {
   display: flex;
+  font-size: 14px;
+  font-weight: bold;
+  color: $text-color;
 
   &__box {
-    margin: 5px 10px 0 0;
+    margin: 0 10px 0 0;
     flex-grow: 0;
     vertical-align: bottom;
   }

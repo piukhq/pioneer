@@ -4,14 +4,15 @@ import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
 import { useMembershipPlansState } from 'hooks/membershipPlans'
-import styles from './MembershipCardAddPage.module.scss'
 import Button from 'components/Button'
 import AccountMenu from 'components/AccountMenu'
 import MembershipCardAddModal from 'components/MembershipCardAddModal'
 import MembershipCardEnrolModal from 'components/MembershipCardEnrolModal'
 import HangTight from 'components/HangTight'
-import Config from 'Config'
 import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol'
+import Config from 'Config'
+
+import styles from './MembershipCardAddPage.module.scss'
 
 const MEMBERSHIP_CARD_IMAGE_TYPES = {
   HERO: 0,
@@ -54,9 +55,7 @@ const MembershipCardAddPage = () => {
         <>
           <div className={styles.root}>
             { Config.isMerchantChannel ? (
-              <>
-                <MerchantMembershipCardEnrol planId={planId} />
-              </>
+              <MerchantMembershipCardEnrol planId={planId} />
             ) : (
               <>
                 <AccountMenu />
