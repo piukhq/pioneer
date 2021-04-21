@@ -43,7 +43,7 @@ export default AccountMenuModal
 
 const AccountMenuItem = ({ label, link }) => (
   <div className={styles.root}>
-      <a className={styles.root__menuItem} href={link} target="_blank" rel="noreferrer">{label}<RightChevronSvg /></a>
+      <a className={styles['root__menu-item']} href={link} target="_blank" rel="noreferrer">{label}<RightChevronSvg /></a>
     <hr className={styles.root__hr}/>
   </div>
 )
