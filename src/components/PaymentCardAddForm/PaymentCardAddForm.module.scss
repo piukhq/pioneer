@@ -1,4 +1,10 @@
+@import "src/sass/mixins";
+
 .root {
+  &__sub-header {
+    @include body-font-style;
+  }
+
   &__label {
     display: block;
     margin-bottom: 5px;
@@ -49,13 +55,21 @@
     grid-area: name-on-card;
   }
 
-  &__privacy-and-security {
+  &__privacy-and-terms {
     margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button-container {
+    display: flex;
   }
 
   &__button {
     width: 300px;
-    display: block;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

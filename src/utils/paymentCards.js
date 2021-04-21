@@ -1,12 +1,10 @@
+import { checkIsPaymentCardExpired } from 'utils/validation'
+
 export const isPaymentCardExpired = card => {
   const expiryMonth = card?.card?.month
   const expiryYear = card?.card?.year
 
-  const now = new Date()
-  const currentMonthDate = new Date(now.getFullYear(), now.getMonth(), 1)
-  const expiryDate = new Date(expiryYear, expiryMonth - 1, 1)
-
-  return expiryDate.getTime() < currentMonthDate.getTime()
+  return checkIsPaymentCardExpired(expiryMonth, expiryYear)
 }
 
 export const areCardsLinked = (paymentCard, membershipCard) => {

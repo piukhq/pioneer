@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
+import { isValidName, isValidExpiry } from 'utils/validation'
 
 // todo: to further break down this hook
 const usePaymentCardAddForm = (onClose) => {
-  const [formPhase, setFormPhase] = useState(1)
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState('')
-  const [iframeLoaded, setIframeLoaded] = useState(false)
+  const [fullNameError, setFullNameError] = useState(undefined)
+  const [expiryError, setExpiryError] = useState(undefined)
+  const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -18,7 +20,6 @@ const usePaymentCardAddForm = (onClose) => {
       Spreedly.setStyle('number', 'width: 100%; font-size: 16px; line-height: 23px; box-sizing: border-box')
       Spreedly.setPlaceholder('number', 'Card number')
       Spreedly.setNumberFormat('prettyFormat')
-      setIframeLoaded(true)
     })
 
     Spreedly.on('paymentMethod', async function (token, pmData) {
@@ -35,6 +36,7 @@ const usePaymentCardAddForm = (onClose) => {
         pmData.payment_method_type,
         pmData.fingerprint,
       ))
+      setIsLoading(false)
 
       if (newCard) {
         onClose && onClose()
@@ -42,6 +44,8 @@ const usePaymentCardAddForm = (onClose) => {
     })
 
     Spreedly.on('errors', function (errors) {
+      setIsLoading(false)
+
       for (let i = 0; i < errors.length; i++) {
         const error = errors[i]
         console.log(error)
@@ -59,8 +63,24 @@ const usePaymentCardAddForm = (onClose) => {
     }
   }, [dispatch, onClose])
 
+  const handleExpiryChange = (event) => setExpiry(event.target.value)
+  const handleNameChange = (event) => setFullName(event.target.value)
+
+  const handleExpiryBlur = useCallback(() => {
+    const errorMessage = isValidExpiry(expiry) ? undefined : 'Invalid expiry'
+    setExpiryError(errorMessage)
+  }, [expiry])
+
+  const handleNameBlur = useCallback(() => {
+    const errorMessage = isValidName(fullName) ? undefined : 'Invalid name'
+    setFullNameError(errorMessage)
+  }, [fullName])
+
+  const isPaymentFormValid = useCallback(() => isValidName(fullName) && isValidExpiry(expiry), [fullName, expiry])
+
   const submitForm = (event) => {
     event.preventDefault()
+    setIsLoading(true)
 
     const Spreedly = window.Spreedly
     const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
@@ -74,13 +94,18 @@ const usePaymentCardAddForm = (onClose) => {
   }
 
   return {
-    formPhase,
-    setFormPhase,
     fullName,
     setFullName,
     expiry,
     setExpiry,
-    iframeLoaded,
+    fullNameError,
+    expiryError,
+    handleExpiryChange,
+    handleExpiryBlur,
+    handleNameChange,
+    handleNameBlur,
+    isPaymentFormValid,
+    isLoading,
     submitForm,
   }
 }
