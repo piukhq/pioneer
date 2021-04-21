@@ -68,13 +68,13 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
             onChange={handleBinkTermsChange}
             label={
               <>
-                I agree to Bink's{' '}
+                I accept the{' '}
                 <a
                   href='https://bink.com/terms-and-conditions/'
                   target='_blank'
                   rel='noreferrer'
                   className={styles.root__link}
-                >terms and conditions</a>.
+                >Bink terms & conditions</a>.
               </>
             }
           />
