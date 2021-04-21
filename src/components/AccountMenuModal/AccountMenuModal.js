@@ -26,10 +26,10 @@ const AccountMenuModal = ({ id, onClose }) => {
       </p>
       { membershipPlanName && (
         <div>
-          <AccountMenuItem label={membershipPlanName + ' FAQs'} link={Config.urls.merchantFaq} />
-          <AccountMenuItem label={membershipPlanName + ' Terms & Conditions'} link={Config.urls.termsAndConditions} />
+          {Config.urls.merchantFaq?.length > 10 && <AccountMenuItem label={`${membershipPlanName} FAQs`} link={Config.urls.merchantFaq} />}
+          {Config.urls.termsAndConditions?.length > 10 && <AccountMenuItem label={`${membershipPlanName} Terms & Conditions`} link={Config.urls.termsAndConditions} />}
           <br/>
-          <AccountMenuItem label="Bink FAQs" link={Config.urls.binkFaq} />
+          {Config.urls.binkFaq?.length > 10 && <AccountMenuItem label="Bink FAQs" link={Config.urls.binkFaq} />}
         </div>
       )}
       <AccountMenuItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
@@ -44,6 +44,5 @@ export default AccountMenuModal
 const AccountMenuItem = ({ label, link }) => (
   <div className={styles.root}>
       <a className={styles['root__menu-item']} href={link} target="_blank" rel="noreferrer">{label}<RightChevronSvg /></a>
-    <hr className={styles.root__hr}/>
   </div>
 )
