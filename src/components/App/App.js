@@ -1,6 +1,7 @@
 import React from 'react'
 import {
-  BrowserRouter as Router,
+  MemoryRouter,
+  BrowserRouter,
   Switch,
   Route,
 } from 'react-router-dom'
@@ -12,14 +13,24 @@ import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
 import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 
-import './App.scss'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 
-console.log('App.js')
+import './App.scss'
+
+console.log('App.js y 3')
 
 function App () {
-  console.log('App component render')
+  console.log('App component render 4')
+  let Router
+  // this probably should be controlled via env variable. To figure out best approach
+  const embedded = true
+  if (embedded) {
+    Router = MemoryRouter
+  } else {
+    Router = BrowserRouter
+  }
+
   return (
     <div className="bink-app">
       <Router basename={process.env.PUBLIC_URL}>
