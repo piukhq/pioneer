@@ -16,7 +16,10 @@ import './App.scss'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 
+console.log('App.js')
+
 function App () {
+  console.log('App component render')
   return (
     <div className="bink-app">
       <Router basename={process.env.PUBLIC_URL}>
