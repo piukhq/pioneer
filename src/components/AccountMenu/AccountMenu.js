@@ -33,7 +33,7 @@ const AccountMenuButton = ({ onClick }) => (
   </div>
 )
 
-const AccountMenuModal = ({onClose }) => {
+const AccountMenuModal = ({ onClose }) => {
   const { logout } = useLogout()
   const { planTitle } = Config
   const { merchantFaq, termsAndConditions, binkFaq } = Config.urls

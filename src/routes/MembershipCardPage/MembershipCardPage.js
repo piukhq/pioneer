@@ -111,7 +111,7 @@ const MembershipCardPage = () => {
 
   return (
     <div>
-      <AccountMenu id={id}/>
+      <AccountMenu />
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
       )}
