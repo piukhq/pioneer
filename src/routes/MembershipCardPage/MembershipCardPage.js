@@ -194,6 +194,11 @@ const MembershipCardPage = () => {
           <DevDeleteMembershipCard cardId={membershipCard.id} />
         </>
       ) }
+      {/**
+       * Note that if the loyalty card was just created and is in pending state then we keep loading the card details at
+       * certain intervals until the loyalty card becomes either authorized or goes into a failed state.
+       * The Loading component is disabled, because otherwise it would become visible at those intervals.
+       */}
       {/* todo: TBD how we show visually loading state */}
       {/* loading && (
         <Loading />

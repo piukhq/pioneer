@@ -1,6 +1,8 @@
 import { authenticateViaMagicLinkToken, login, requestMagicLink } from 'api/users'
 import { serializeError } from 'serialize-error'
 import { setTokenAsUsed } from 'utils/magicLink'
+import { createSelector } from 'reselect'
+import { getUserIdFromApiKey } from 'utils/users'
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
@@ -145,6 +147,14 @@ const reducer = (state = getInitialState(), action) => {
   }
 }
 export default reducer
+
+const apiKeySelector = state => state.users.authentication.api_key
+export const selectors = {
+  accountUserId: createSelector(
+    apiKeySelector,
+    apiKey => getUserIdFromApiKey(apiKey),
+  ),
+}
 
 export const actions = {
   login: (username, password) => async dispatch => {

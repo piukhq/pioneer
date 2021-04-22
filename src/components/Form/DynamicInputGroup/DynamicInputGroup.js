@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import SelectboxGroup from 'components/Form/SelectboxGroup'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
@@ -10,7 +10,7 @@ const types = {
   CHECKBOX: 3,
 }
 
-const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur, error }) => {
+const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur, error, ...rest }) => {
   const {
     choice,
     column,
@@ -19,13 +19,13 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
     type,
   } = data
 
-  const handleChange = React.useCallback(
+  const handleChange = useCallback(
     (event) => { onChange(event, data, fieldType) },
     [onChange, data, fieldType],
   )
 
-  const handleBlur = React.useCallback(
-    (...params) => { onBlur(...params, data, fieldType) },
+  const handleBlur = useCallback(
+    (event) => { onBlur(event, data, fieldType) },
     [onBlur, data, fieldType],
   )
 
@@ -41,6 +41,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           name={common_name}
           label={column}
           placeholder={description}
+          {...rest}
         />
       )
     case types.PASSWORD_INPUT:
@@ -55,6 +56,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           label={column}
           placeholder={description}
           type='password'
+          {...rest}
         />
       )
     case types.SELECTBOX:
@@ -68,6 +70,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           error={error}
           name={common_name}
           label={column}
+          {...rest}
         />
       )
     case types.CHECKBOX:
@@ -80,6 +83,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           error={error}
           name={column}
           label={description}
+          {...rest}
         />
       )
     default:
