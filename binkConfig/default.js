@@ -30,14 +30,21 @@ module.exports = {
   })(),
   accountTitle: (() => {
     switch (process.env.THEME) {
-      case 'bink': return 'Logout' // todo: change to 'My account' when content modal available
-      case 'wasabi': return 'Logout' // todo: change to 'Wasabi Club support' when content modal available
+      case 'bink': return 'My account'
+      case 'wasabi': return 'Wasabi Club support'
     }
   })(),
-  supportUrl: (() => {
+  urls: (() => {
     switch (process.env.THEME) {
-      case 'bink': return 'https://bink.com' // todo: Add bink support url when known
-      case 'wasabi': return 'https://www.wasabi.uk.com/contact-us/'
+      case 'bink': return {
+        support: 'https://bink.com', // todo: Add bink support url when known
+      }
+      case 'wasabi': return { // todo: consider addition to plan documents on api?
+        support: 'https://www.wasabi.uk.com/contact-us/',
+        merchantFaq: 'https://www.wasabi.uk.com/faq/',
+        binkFaq: 'https://help.bink.com/hc/en-gb/categories/360002202520-Frequently-Asked-Questions',
+        termsAndConditions: 'https://www.wasabi.uk.com/terms-and-conditions/',
+      }
     }
   })(),
   planTitle: (() => {
