@@ -51,8 +51,7 @@ const AccountMenuModal = ({ onClose }) => {
             <br/>
             {binkFaq && <AccountMenuModalItem label="Bink FAQs" link={binkFaq} />}
           </>
-        )
-        }
+        )}
         <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
         <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
         <Button className={styles['root__modal-button']} onClick={logout}>Logout</Button>
@@ -62,7 +61,5 @@ const AccountMenuModal = ({ onClose }) => {
 }
 
 const AccountMenuModalItem = ({ label, link }) => (
-  <>
     <a className={styles['root__modal-item']} href={link} target="_blank" rel="noreferrer">{label}<RightChevronSvg /></a>
-  </>
 )
