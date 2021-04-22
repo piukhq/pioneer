@@ -62,7 +62,7 @@ const AccountMenuModal = ({ id, onClose }) => {
 }
 
 const AccountMenuModalItem = ({ label, link }) => (
-  <div className={styles.root}>
-      <a className={styles['root__modal-item']} href={link} target="_blank" rel="noreferrer">{label}<RightChevronSvg /></a>
-  </div>
+  <>
+    <a className={styles['root__modal-item']} href={link} target="_blank" rel="noreferrer">{label}<RightChevronSvg /></a>
+  </>
 )
