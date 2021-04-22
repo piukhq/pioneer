@@ -36,7 +36,6 @@ const AccountMenuButton = ({ onClick }) => (
 const AccountMenuModal = ({ onClose }) => {
   const { logout } = useLogout()
   const { planTitle, urls: { merchantFaq, termsAndConditions, binkFaq } } = Config
-
   return (
     <Modal onClose={onClose}>
       <Modal.Header>{ Config.accountTitle }</Modal.Header>
