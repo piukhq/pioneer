@@ -40,6 +40,8 @@ const AccountMenuModal = ({ id, onClose }) => {
   const membershipPlanName = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name,
   )
+  const { merchantFaq, termsAndConditions, binkFaq } = Config.urls
+
   return (
     <Modal onClose={onClose}>
       <Modal.Header>{ Config.accountTitle }</Modal.Header>
@@ -48,10 +50,10 @@ const AccountMenuModal = ({ id, onClose }) => {
           Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop.
         </p>
         <div>
-          {Config.urls.merchantFaq && <AccountMenuModalItem label={`${membershipPlanName} FAQs`} link={Config.urls.merchantFaq} />}
-          {Config.urls.termsAndConditions && <AccountMenuModalItem label={`${membershipPlanName} Terms & Conditions`} link={Config.urls.termsAndConditions} />}
+          {merchantFaq && <AccountMenuModalItem label={`${membershipPlanName} FAQs`} link={merchantFaq} />}
+          {termsAndConditions && <AccountMenuModalItem label={`${membershipPlanName} Terms & Conditions`} link={termsAndConditions} />}
           <br/>
-          {Config.urls.binkFaq && <AccountMenuModalItem label="Bink FAQs" link={Config.urls.binkFaq} />}
+          {binkFaq && <AccountMenuModalItem label="Bink FAQs" link={binkFaq} />}
         </div>
         <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
         <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
