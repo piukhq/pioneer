@@ -48,10 +48,10 @@ const AccountMenuModal = ({ id, onClose }) => {
           Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop.
         </p>
         <div>
-          {Config.urls.merchantFaq?.length > 10 && <AccountMenuModalItem label={`${membershipPlanName} FAQs`} link={Config.urls.merchantFaq} />}
-          {Config.urls.termsAndConditions?.length > 10 && <AccountMenuModalItem label={`${membershipPlanName} Terms & Conditions`} link={Config.urls.termsAndConditions} />}
+          {Config.urls.merchantFaq && <AccountMenuModalItem label={`${membershipPlanName} FAQs`} link={Config.urls.merchantFaq} />}
+          {Config.urls.termsAndConditions && <AccountMenuModalItem label={`${membershipPlanName} Terms & Conditions`} link={Config.urls.termsAndConditions} />}
           <br/>
-          {Config.urls.binkFaq?.length > 10 && <AccountMenuModalItem label="Bink FAQs" link={Config.urls.binkFaq} />}
+          {Config.urls.binkFaq && <AccountMenuModalItem label="Bink FAQs" link={Config.urls.binkFaq} />}
         </div>
         <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
         <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
