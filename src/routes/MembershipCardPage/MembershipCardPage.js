@@ -19,8 +19,7 @@ import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
 // import Loading from 'components/Loading'
 
 import styles from './MembershipCardPage.module.scss'
-import AccountMenuButton from 'components/AccountMenuButton'
-import AccountMenuModal from 'components/AccountMenuModal'
+import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
@@ -65,7 +64,6 @@ const MembershipCardPage = () => {
     dispatch(allActions.fullRefresh())
   }, [dispatch])
 
-  const [accountMenuModalVisible, setAccountMenuModalVisible] = useState(false)
   const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
@@ -113,10 +111,7 @@ const MembershipCardPage = () => {
 
   return (
     <div>
-      <AccountMenuButton handleClick={() => setAccountMenuModalVisible(true)} />
-      { accountMenuModalVisible && (
-         <AccountMenuModal id={id} onClose={() => setAccountMenuModalVisible(false)} />
-      )}
+      <AccountMenu id={id}/>
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
       )}
