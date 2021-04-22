@@ -18,16 +18,14 @@ import TypographyPage from 'routes/TypographyPage'
 
 import './App.scss'
 
-console.log('App.js y 5')
+console.log('App.js y 6')
 
 function App () {
   let Router
-  // this probably should be controlled via env variable. To figure out best approach
-  const embedded = window.location.hostname === 'www.wasabi.uk.com'
-  if (embedded) {
-    Router = MemoryRouter
-  } else {
+  if (window.binkConfigNoMemoryRouting) {
     Router = BrowserRouter
+  } else {
+    Router = MemoryRouter
   }
 
   return (

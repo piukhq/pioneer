@@ -13,7 +13,6 @@ if (!window.ResizeObserver) {
 }
 
 const store = configureStore()
-console.log('index.js')
 
 ReactDOM.render(
   <React.StrictMode>
