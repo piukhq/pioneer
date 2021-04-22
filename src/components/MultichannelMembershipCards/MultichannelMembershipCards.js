@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useMembershipCardsState } from 'hooks/membershipCards'
-import styles from './MultichannelMembershipCards.module.scss'
 import cx from 'classnames'
 import Config from 'Config'
 import Loading from 'components/Loading'
 import AccountMenu from 'components/AccountMenu'
+import styles from './MultichannelMembershipCards.module.scss'
 
 const MultichannelMembershipCards = () => {
   const { membershipCards, loading } = useMembershipCardsState()
