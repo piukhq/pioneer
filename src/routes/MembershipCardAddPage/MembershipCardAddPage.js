@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
@@ -6,8 +6,7 @@ import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
 import { useMembershipPlansState } from 'hooks/membershipPlans'
 import styles from './MembershipCardAddPage.module.scss'
 import Button from 'components/Button'
-import AccountMenuButton from 'components/AccountMenuButton'
-import AccountMenuModal from 'components/AccountMenuModal'
+import AccountMenu from 'components/AccountMenu'
 import MembershipCardAddModal from 'components/MembershipCardAddModal'
 import MembershipCardEnrolModal from 'components/MembershipCardEnrolModal'
 import HangTight from 'components/HangTight'
@@ -37,8 +36,6 @@ const MembershipCardAddPage = () => {
     isEnrolMembershipCardModalOpen,
     setEnrolMembershipCardModalOpen,
   } = useEnrolMembershipCard()
-
-  const [accountMenuModalVisible, setAccountMenuModalVisible] = useState(false)
   const { planId } = useParams()
 
   const { loading, membershipPlanById: plan } = useMembershipPlansState(planId)
@@ -52,10 +49,7 @@ const MembershipCardAddPage = () => {
       { loading ? <HangTight /> : null }
       { plan && (
         <>
-          <AccountMenuButton handleClick={() => setAccountMenuModalVisible(true)} />
-          { accountMenuModalVisible && (
-            <AccountMenuModal plan={plan} id={planId} onClose={() => setAccountMenuModalVisible(false)} />
-          )}
+          <AccountMenu id={planId} />
           <div className={styles.root}>
             { imgUrl ? <img className={styles.root__image} src={ `${imgUrl}?width=300&height=183` } alt='' /> : null }
             <h1 className={styles.root__header}>Are you a member of the {plan.account.plan_name}?</h1>
