@@ -39,7 +39,6 @@ const MembershipCardAddPage = () => {
     isEnrolMembershipCardModalOpen,
     setEnrolMembershipCardModalOpen,
   } = useEnrolMembershipCard()
-
   const { planId } = useParams()
 
   const { loading, membershipPlanById: plan } = useMembershipPlansState(planId)
