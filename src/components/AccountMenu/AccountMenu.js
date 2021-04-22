@@ -1,25 +1,23 @@
 // todo: adapt based on future multi-merchant design
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import Modal from 'components/Modal'
 import Button from 'components/Button'
 import { ReactComponent as RightChevronSvg } from 'images/right-chevron.svg'
 import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
 
-import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import useLogout from './hooks/useLogout'
 
 import Config from 'Config'
 import styles from './AccountMenu.module.scss'
 
-const AccountMenu = ({ id }) => {
+const AccountMenu = () => {
   const [accountMenuModalVisible, setAccountMenuModalVisible] = useState(false)
   return (
     <>
       <AccountMenuButton onClick={() => setAccountMenuModalVisible(true)}/>
       { accountMenuModalVisible && (
-        <AccountMenuModal id={id} onClose={() => setAccountMenuModalVisible(false)}/>
+        <AccountMenuModal onClose={() => setAccountMenuModalVisible(false)}/>
       )}
     </>
   )
@@ -35,11 +33,9 @@ const AccountMenuButton = ({ onClick }) => (
   </div>
 )
 
-const AccountMenuModal = ({ id, onClose }) => {
+const AccountMenuModal = ({onClose }) => {
   const { logout } = useLogout()
-  const membershipPlanName = useSelector(
-    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name,
-  )
+  const { planTitle } = Config
   const { merchantFaq, termsAndConditions, binkFaq } = Config.urls
 
   return (
@@ -49,12 +45,15 @@ const AccountMenuModal = ({ id, onClose }) => {
         <p className={styles['root__modal-body']}>
           Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop.
         </p>
-        <div>
-          {merchantFaq && <AccountMenuModalItem label={`${membershipPlanName} FAQs`} link={merchantFaq} />}
-          {termsAndConditions && <AccountMenuModalItem label={`${membershipPlanName} Terms & Conditions`} link={termsAndConditions} />}
-          <br/>
-          {binkFaq && <AccountMenuModalItem label="Bink FAQs" link={binkFaq} />}
-        </div>
+        { Config.isMerchantChannel && (
+          <>
+            {merchantFaq && <AccountMenuModalItem label={`${planTitle} FAQs`} link={merchantFaq} />}
+            {termsAndConditions && <AccountMenuModalItem label={`${planTitle} Terms & Conditions`} link={termsAndConditions} />}
+            <br/>
+            {binkFaq && <AccountMenuModalItem label="Bink FAQs" link={binkFaq} />}
+          </>
+        )
+        }
         <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
         <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
         <Button className={styles['root__modal-button']} onClick={logout}>Logout</Button>

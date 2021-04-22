@@ -52,7 +52,7 @@ const MembershipCardAddPage = () => {
       { loading ? <HangTight /> : null }
       { plan && (
         <>
-          <AccountMenu id={planId} />
+          <AccountMenu />
           <div className={styles.root}>
             { Config.isMerchantChannel ? (
               <MerchantMembershipCardEnrol planId={planId} />
