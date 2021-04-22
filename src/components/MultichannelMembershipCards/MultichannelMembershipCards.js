@@ -1,18 +1,18 @@
 import React from 'react'
-import useLogout from 'hooks/useLogout'
 import { Link } from 'react-router-dom'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import styles from './MultichannelMembershipCards.module.scss'
 import cx from 'classnames'
 import Config from 'Config'
 import Loading from 'components/Loading'
+import AccountMenu from 'components/AccountMenu'
 
 const MultichannelMembershipCards = () => {
   const { membershipCards, loading } = useMembershipCardsState()
-  const { logout } = useLogout()
 
   return (
     <div className={styles.root}>
+       <AccountMenu />
       <h1 className={cx(styles.root__heading, styles['root__heading--first'])}>Membership Cards</h1>
       {membershipCards.map(card => (
         <div key={card.id}>
@@ -31,7 +31,6 @@ const MultichannelMembershipCards = () => {
       <Link to={'/payment-cards'}>Payment Cards</Link>
       <br />
       <Link to={'/membership-plans'}>Membership Plans</Link>
-      <button onClick={logout}>Logout</button>
       { loading && <Loading /> }
     </div>
   )

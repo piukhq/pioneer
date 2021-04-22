@@ -65,11 +65,6 @@ const MembershipCardPage = () => {
   }, [dispatch])
 
   const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
-
-  const handleCloseAddPaymentCardForm = useCallback(() => {
-    setPaymentCardAddFormVisible(false)
-  }, [setPaymentCardAddFormVisible])
-
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
 
@@ -100,6 +95,10 @@ const MembershipCardPage = () => {
     }
   }, [membershipCard, linkCard])
 
+  const handleCloseAddPaymentCardForm = useCallback(() => {
+    setPaymentCardAddFormVisible(false)
+  }, [setPaymentCardAddFormVisible])
+
   const handleDeletePaymentCard = useCallback(async (card) => {
     setCardIdToBeDeleted(card.id)
     setDeleteFormVisible(true)
@@ -112,7 +111,7 @@ const MembershipCardPage = () => {
 
   return (
     <div>
-      <AccountMenu />
+      <AccountMenu id={id}/>
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
       )}
