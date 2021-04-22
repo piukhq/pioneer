@@ -18,13 +18,12 @@ import TypographyPage from 'routes/TypographyPage'
 
 import './App.scss'
 
-console.log('App.js y 3')
+console.log('App.js y 5')
 
 function App () {
-  console.log('App component render 4')
   let Router
   // this probably should be controlled via env variable. To figure out best approach
-  const embedded = true
+  const embedded = window.location.hostname === 'www.wasabi.uk.com'
   if (embedded) {
     Router = MemoryRouter
   } else {
