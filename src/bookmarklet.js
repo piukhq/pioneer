@@ -2,7 +2,7 @@
 (() => {
   var wrapper = document.querySelectorAll('.v-hero-block__wrapper')[0];
   wrapper.innerHTML = '';
-  wrapper.id = 'root';
+  wrapper.id = 'bink-app-root';
 
   var file = 'https://web.dev.gb.bink.com/mr-105/wasabi/static/css/main.css';
   var link = document.createElement('link');

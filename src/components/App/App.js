@@ -18,7 +18,7 @@ import TypographyPage from 'routes/TypographyPage'
 
 import './App.scss'
 
-console.log('App.js y 6')
+console.log('App.js y 7')
 
 function App () {
   let Router
