@@ -5,6 +5,10 @@ import {
   Switch,
   Route,
 } from 'react-router-dom'
+
+// todo: mention why this is the only place where this should be imported before any components
+import './App.scss'
+
 import HomePage from 'routes/HomePage'
 import MembershipPlansPage from 'routes/MembershipPlansPage'
 import MembershipCardsPage from 'routes/MembershipCardsPage'
@@ -15,8 +19,6 @@ import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
-
-import './App.scss'
 
 function App () {
   let Router

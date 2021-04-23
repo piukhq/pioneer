@@ -1,16 +1,20 @@
 @import "src/sass/variables";
 @import "~sassThemeFolder/fonts/font-definitions";
 
-* {
+.bink-app * {
   box-sizing: border-box;
 }
 
 .bink-app {
+  box-sizing: border-box;
   max-width: 970px;
   margin: 0 auto;
   padding: 10px 10px 64px;
 }
 
+// todo: might consider moving this either into whitelabel setup file or a theme folder or a combination of both
+
+// this class should be expected to be defined only in our index.html file and not on the merchant's host site
 .bink-app__body {
   margin: 0;
   padding: 0;

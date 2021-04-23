@@ -1,3 +1,57 @@
-* {
-  /* dummy comment */
+/* Wasabi font face */
+@font-face {
+  font-family: 'Wasabi';
+  src: url('fonts/Wasabi-Light.f049e9d.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Wasabi';
+  src: url('fonts/Wasabi-Light.f049e9d.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Wasabi';
+  src: url('fonts/Wasabi-Regular.627f07c.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Wasabi';
+  src: url('fonts/Wasabi-Bold.1f8d9e2.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Wasabi';
+  src: url('fonts/Wasabi-Bold.1f8d9e2.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Wasabi';
+  src: url('fonts/Wasabi-Bold.1f8d9e2.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Wasabi';
+  src: url('fonts/Wasabi-Bold.1f8d9e2.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Wasabi Condensed font face */
+@font-face {
+  font-family: 'Wasabi Condensed';
+  src: url('fonts/WasabiCondensed-Light.88f085b.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
 }
