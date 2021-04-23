@@ -21,7 +21,7 @@
     display: block;
     width: 100%;
     height: 62px;
-    font-family: $text-input-font-family;
+    //font-family: $text-input-font-family;
     font-size: 23px;
     padding: 0 10px;
     color: $text-input-text-color--default;
@@ -60,7 +60,7 @@
   }
 
   &__error {
-    font-family: $text-input-error-font-family;
+    //font-family: $text-input-error-font-family;
     font-weight: 300;
     color: $text-input-error-color;
   }
