@@ -99,7 +99,8 @@
     "staging": "NODE_CONFIG_ENV=staging node scripts/build.js",
     "test": "jest",
     "lint-js": "eslint src",
-    "lint-css": "npx stylelint \"**/*.scss\""
+    "lint-css": "npx stylelint \"**/*.scss\"",
+    "pre-commit": "npm test"
   },
   "stylelint": {
     "extends": "stylelint-config-standard",
