@@ -1,3 +1,4 @@
+@import "src/sass/variables";
 @import "src/sass/mixins";
 
 .root {
@@ -16,6 +17,12 @@
       @media (min-width: 630px) {
         grid-column: span 2;
       }
+    }
+
+    &--text-only {
+      color: $text-color;
+      font-size: 14px;
+      font-weight: bold;
     }
   }
 
