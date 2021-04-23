@@ -95,7 +95,16 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
                 onChange={event => handleDocumentChange(event, document.name)}
               />
             ) : (
-              <div key={document.name} className={styles.root__group}>{documentText(document)} </div>
+              <div
+                className={cx(
+                  styles.root__group,
+                  styles['root__group--text-only'],
+                  styles['root__group--full-width'],
+                )}
+                key={document.name}
+              >
+                {documentText(document)}
+              </div>
             )
           ))
         }
