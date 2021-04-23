@@ -5,8 +5,10 @@ import {
   Switch,
   Route,
 } from 'react-router-dom'
+import cx from 'classnames'
 
 // todo: mention why this is the only place where this should be imported before any components
+// todo: might have to rename since also have App.modules.scss
 import './App.scss'
 
 import HomePage from 'routes/HomePage'
@@ -20,6 +22,8 @@ import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 
+import styles from './App.module.scss'
+
 function App () {
   let Router
   if (window.binkConfigNoMemoryRouting) {
@@ -29,7 +33,7 @@ function App () {
   }
 
   return (
-    <div className="bink-app">
+    <div className={cx('bink-app', styles.root)}>
       <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/">

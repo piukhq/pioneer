@@ -1,0 +1,5 @@
+@import "src/sass/variables";
+
+@mixin app-style {
+  font-weight: $default-font-weight;
+}
