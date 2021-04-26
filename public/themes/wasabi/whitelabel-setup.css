@@ -38,3 +38,47 @@ select,
 textarea {
   font-family: Wasabi, sans-serif;
 }
+
+/* set-up styling that has to be countered from wasabi.uk.com */
+
+/* - */
+
+body {
+  line-height: 28px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+blockquote,
+body,
+dd,
+dl,
+fieldset,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+legend,
+ol,
+p,
+pre,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* - */
+
+/* end of styling that has to be countered */
