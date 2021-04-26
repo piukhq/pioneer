@@ -2,10 +2,4 @@
 
 .root {
   @include app-style;
-
-  // wasabi.uk.com has an overlapping issue between the top nav bar and the content
-  // this is supposed to account for that
-  @media (min-width: 1025px) {
-    margin-top: 22px;
-  }
 }
