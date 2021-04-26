@@ -103,11 +103,6 @@
     "lint-css": "npx stylelint \"**/*.scss\"",
     "pre-commit": "npm test"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pre-commit"
-    }
-  },
   "stylelint": {
     "extends": "stylelint-config-standard",
     "rules": {

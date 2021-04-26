@@ -47,7 +47,7 @@ const Voucher = ({ voucher }) => {
       </div>
       { (voucher.state === 'inprogress' || voucher.state === 'earned') && (
         <div className={styles.root__footer}>
-          Collected:{' '}
+          Collected:
           <span className={styles['root__progress-value']}>
             {voucher?.earn?.prefix}{voucher?.earn?.value}/{voucher?.earn?.prefix}{voucher?.earn?.target_value} {voucher?.earn?.suffix}
           </span>
