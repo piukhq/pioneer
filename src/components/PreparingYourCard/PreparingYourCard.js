@@ -14,7 +14,7 @@ const PreparingYourCard = () => (
     <div className={styles.root__loading}>
       <Loading2/>
     </div>
-    <p className={styles.root__support}>If this is taking longer than you expect, <a className={styles['root__support-link']} href={Config.urls.support} target="_blank" rel="noreferrer">reach out to us</a> and we can help.</p>
+    <p className={styles.root__support}>If this is taking longer than you expect, <a className={styles['root__support--link']} href={Config.urls.support} target="_blank" rel="noreferrer">reach out to us</a> and we can help.</p>
   </div>
 )
 
