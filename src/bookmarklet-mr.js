@@ -20,6 +20,5 @@
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://web.dev.gb.bink.com/mr-105/wasabi/static/js/main.js';
-  /* script.src = 'http://localhost:3000/static/js/bundle.js'; */
   document.body.appendChild(script);
 })()

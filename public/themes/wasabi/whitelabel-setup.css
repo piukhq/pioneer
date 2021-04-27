@@ -1,3 +1,8 @@
+/* This files should contain styling that is expected to be found on a merchant website and that would affect the Bink
+ * app. The styling that goes here will not be embedded back into the merchant site. This will be used only in our own
+ * index.html deployed to our own environments
+ */
+
 @font-face {
   font-family: Wasabi;
   font-style: normal;
