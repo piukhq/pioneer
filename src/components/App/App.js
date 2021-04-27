@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom'
 import cx from 'classnames'
 
-// todo: mention why this is the only place where this should be imported before any components
-// todo: might have to rename since also have App.modules.scss
-import './App.scss'
+// This scss import should be defined before any component import. This way any styling defined in base.scss
+// will be overwritten by styles defined in components
+import './base.scss'
 
 import HomePage from 'routes/HomePage'
 import MembershipPlansPage from 'routes/MembershipPlansPage'
