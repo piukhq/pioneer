@@ -32,6 +32,7 @@ const Voucher = ({ voucher }) => {
                 styles[`root__progress-step--filled-${voucher?.state}`],
               )}
               key={index}
+              data-testid={`filled progress-step test id ${index}`}
             />
           ) : (
             <span
@@ -41,6 +42,7 @@ const Voucher = ({ voucher }) => {
                 styles[`root__progress-step--empty-${voucher?.state}`],
               )}
               key={index}
+              data-testid={`empty progress-step test id ${index}`}
             />
           )
         )) }

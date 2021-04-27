@@ -1,201 +1,214 @@
 import React from 'react'
-import ShallowRenderer from 'react-test-renderer/shallow'
+import { render } from '@testing-library/react'
+
 import Voucher from './Voucher'
-import styles from './Voucher.module.scss'
 
-describe("Test 'Voucher' component", () => {
-  const defaultProps = {
-    voucher: {},
+describe('Test Voucher', () => {
+  const prefix = 'mock_prefix'
+  const value = 2
+  const suffix = 'mock_suffix'
+  const target_value = 3
+  const mockVoucher = {
+    burn: {
+      prefix,
+      value,
+      suffix,
+    },
+    earn: {
+      prefix,
+      value,
+      suffix,
+      target_value,
+    },
   }
-  const createShallowRenderer = (overrideProps = {}) => {
-    const props = { ...defaultProps, ...overrideProps }
-    const shallowRenderer = new ShallowRenderer()
-    shallowRenderer.render(<Voucher {...props} />)
 
-    return shallowRenderer.getRenderOutput()
-  }
-
-  let shallowRender
-  beforeEach(() => {
-    jest.resetModules()
-    shallowRender = createShallowRenderer()
+  it('should render voucher title', () => {
+    const mockTitle = prefix + value + ' ' + suffix
+    const { getByText } = render(
+      <Voucher
+        voucher={mockVoucher}
+      />,
+    )
+    expect(getByText(mockTitle)).toBeInTheDocument()
   })
 
-  describe('Test rendered output', () => {
-    it('should render parent div container', () => {
-      expect(shallowRender.type).toBe('div')
-      expect(shallowRender.props.className).toBe(styles.root)
+  it('should render voucher description', () => {
+    const mockDescription = 'for collecting ' + prefix + target_value + ' ' + suffix
+    const { getByText } = render(
+      <Voucher
+        voucher={mockVoucher}
+      />,
+    )
+    expect(getByText(mockDescription)).toBeInTheDocument()
+  })
+
+  describe('Test voucher headline', () => {
+    it('should render issued text', () => {
+      const { getByText } = render(
+        <Voucher
+          voucher={{ ...mockVoucher, state: 'issued' }}
+        />,
+      )
+      expect(getByText('Earned')).toBeInTheDocument()
     })
 
-    it('should render children div containers', () => {
-      const [title, description, headline, progress] = shallowRender.props.children
-
-      expect(title.type).toBe('div')
-      expect(title.props.className).toBe(styles.root__title)
-
-      expect(description.type).toBe('div')
-      expect(description.props.className).toBe(styles.root__description)
-
-      expect(headline.type).toBe('div')
-      expect(headline.props.className).toBe(styles.root__headline)
-
-      expect(progress.type).toBe('div')
-      expect(progress.props.className).toBe(styles.root__progress)
+    it('should render inprogress text', () => {
+      const mockStamps = target_value - value
+      const { getByText } = render(
+        <Voucher
+          voucher={{ ...mockVoucher, state: 'inprogress' }}
+        />,
+      )
+      expect(getByText(`${mockStamps} stamp to go`)).toBeInTheDocument()
     })
 
-    it('should render the correct number of progress identifiers', () => {
-      const mockTargetValue = 5
-      const mockVoucher = {
-        earn: {
-          target_value: mockTargetValue,
-        },
-      }
-      shallowRender = createShallowRenderer({ voucher: mockVoucher })
-
-      const [, , , progress] = shallowRender.props.children
-      expect(progress.props.children.length).toEqual(mockTargetValue)
+    it('should render deafult state text', () => {
+      const mockState = 'mock_state'
+      const { getByText } = render(
+        <Voucher
+          voucher={{ ...mockVoucher, state: mockState }}
+        />,
+      )
+      expect(getByText(mockState)).toBeInTheDocument()
     })
   })
 
-  describe('Test rendered text', () => {
-    const prefix = 'mock_prefix'
-    const value = 1
-    const suffix = 'mock_suffix'
-    const target_value = 3
-    const mockVoucher = {
-      burn: {
-        prefix,
-        value,
-        suffix,
-      },
-      earn: {
-        prefix,
-        value,
-        suffix,
-        target_value,
-      },
-    }
-    beforeEach(() => {
-      shallowRender = createShallowRenderer({ voucher: mockVoucher })
-    })
-    it('should render correct title values', () => {
-      const mockTitle = [prefix, value, ' ', suffix]
-      const [title] = shallowRender.props.children
-      expect(title.props.children).toEqual(mockTitle)
+  describe('Test voucher progress steps', () => {
+    it('should render the correct number of filled progress steps', () => {
+      const { queryByTestId } = render(
+        <Voucher
+          voucher={mockVoucher}
+        />,
+      )
+      const mockFilledProgressStep1 = 'filled progress-step test id 0'
+      const mockFilledProgressStep2 = 'filled progress-step test id 1'
+      const mockFilledProgressStep3 = 'filled progress-step test id 2'
+
+      expect(queryByTestId(mockFilledProgressStep1)).toBeInTheDocument()
+      expect(queryByTestId(mockFilledProgressStep2)).toBeInTheDocument()
+      expect(queryByTestId(mockFilledProgressStep3)).not.toBeInTheDocument()
     })
 
-    it('should render correct description values', () => {
-      const mockDescription = ['for collecting ', prefix, target_value, ' ', suffix]
-      const [, description] = shallowRender.props.children
-      expect(description.props.children).toEqual(mockDescription)
+    it('should render the correct number of empty progress steps', () => {
+      const { queryByTestId } = render(
+        <Voucher
+          voucher={mockVoucher}
+        />,
+      )
+      const mockEmptyProgressStep1 = 'empty progress-step test id 0'
+      const mockEmptyProgressStep2 = 'empty progress-step test id 1'
+      const mockEmptyProgressStep3 = 'empty progress-step test id 2'
+
+      expect(queryByTestId(mockEmptyProgressStep1)).not.toBeInTheDocument()
+      expect(queryByTestId(mockEmptyProgressStep2)).not.toBeInTheDocument()
+      expect(queryByTestId(mockEmptyProgressStep3)).toBeInTheDocument()
+    })
+  })
+
+  describe('Test voucher footer', () => {
+    describe('Test inprogress/earned footer', () => {
+      const inProgressEarnedText = `${prefix}${value}/${prefix}${target_value} ${suffix}`
+      it("should render correct footer if voucher state is 'inprogress'", () => {
+        const { getByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'inprogress' }}
+          />,
+        )
+        expect(getByText('Collected:')).toBeInTheDocument()
+        expect(getByText(inProgressEarnedText)).toBeInTheDocument()
+      })
+
+      it("should render correct footer if voucher state is 'earned'", () => {
+        const { getByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'earned' }}
+          />,
+        )
+        expect(getByText('Collected:')).toBeInTheDocument()
+        expect(getByText(inProgressEarnedText)).toBeInTheDocument()
+      })
+
+      it("should not render 'inprogress' or 'earned' footer", () => {
+        const { queryByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'mock_state' }}
+          />,
+        )
+        expect(queryByText('Collected:')).not.toBeInTheDocument()
+        expect(queryByText(inProgressEarnedText)).not.toBeInTheDocument()
+      })
     })
 
-    describe('Test headline render outcomes', () => {
-      let mockVoucherState
-
-      it("should render correct headline when state equals 'issued'", () => {
-        mockVoucherState = 'issued'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState } })
-        const [, , headline] = shallowRender.props.children
-
-        expect(headline.props.children).toEqual('Earned')
+    describe('Test redeemed footer', () => {
+      const expectedText = 'on 01 Jan 2000'
+      const date = new Date(2000, 0, 1)
+      const mockRedeemedDate = date.getTime() / 1000
+      it("should render redeemed footer if state is 'redeemed' and date_redeemed is not undefined", () => {
+        const { getByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'redeemed', date_redeemed: mockRedeemedDate }}
+          />,
+        )
+        expect(getByText(expectedText)).toBeInTheDocument()
       })
 
-      it("should render correct headline when state equals 'inprogress'", () => {
-        mockVoucherState = 'inprogress'
-        const mockStampsToGo = target_value - value
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState } })
-        const [, , headline] = shallowRender.props.children
-        const expectResult = `${mockStampsToGo} stamps to go`
-        expect(headline.props.children).toEqual(expectResult)
+      it("should not render redeemed footer if state is not 'redeemed'", () => {
+        const { queryByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'mock_state', date_redeemed: mockRedeemedDate }}
+          />,
+        )
+        expect(queryByText(expectedText)).not.toBeInTheDocument()
       })
 
-      it("should render correct headline when state does not equal 'inprogress' or 'issued'", () => {
-        mockVoucherState = 'mock_state'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState } })
-        const [, , headline] = shallowRender.props.children
-
-        expect(headline.props.children).toEqual(mockVoucherState)
+      it('should not render redeemed footer if date_redeemed is undefined', () => {
+        const { queryByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'redeemed' }}
+          />,
+        )
+        expect(queryByText(expectedText)).not.toBeInTheDocument()
       })
     })
 
-    describe('Test footer', () => {
-      let mockVoucherState
-
-      it("should render correct footer if state equals 'inprogress' or 'earned'", () => {
-        mockVoucherState = 'inprogress'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState } })
-        const [, , , , inProgressFooter] = shallowRender.props.children
-        expect(inProgressFooter.type).toBe('div')
-        expect(inProgressFooter.props.className).toBe(styles.root__footer)
-        const [, footerSpan1] = inProgressFooter.props.children
-        expect(footerSpan1.type).toBe('span')
-        expect(footerSpan1.props.className).toBe(styles['root__progress-value'])
-
-        mockVoucherState = 'earned'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState } })
-        const [, , , , earnedFooter] = shallowRender.props.children
-        const [, footerSpan2] = earnedFooter.props.children
-        expect(footerSpan2.type).toBe('span')
-        expect(footerSpan2.props.className).toBe(styles['root__progress-value'])
+    describe('Test expired/cancelled footer', () => {
+      const expectedText = 'on 01 Jan 2000'
+      const date = new Date(2000, 0, 1)
+      const mockExpiredDate = date.getTime() / 1000
+      it("should render footer if state is 'expired' and expiry_date is not undefined", () => {
+        const { getByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'expired', expiry_date: mockExpiredDate }}
+          />,
+        )
+        expect(getByText(expectedText)).toBeInTheDocument()
       })
 
-      it("should not render footer if state does not equal 'inprogress' or 'earned'", () => {
-        mockVoucherState = 'mock_state'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState } })
-        const [, , , , inProgressFooter] = shallowRender.props.children
-        expect(inProgressFooter).toBeFalsy()
+      it("should render footer if state is 'cancelled' and expiry_date is not undefined", () => {
+        const { getByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'cancelled', expiry_date: mockExpiredDate }}
+          />,
+        )
+        expect(getByText(expectedText)).toBeInTheDocument()
       })
 
-      it("should render redeemed footer if state equals 'redeemed'", () => {
-        mockVoucherState = 'redeemed'
-
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState, date_redeemed: true } })
-        const [, , , , , reedeemedFooter] = shallowRender.props.children
-        expect(reedeemedFooter.type).toBe('div')
-        expect(reedeemedFooter.props.className).toBe(styles.root__footer)
+      it("should not render redeemed footer if state is not 'expired' or 'cancelled'", () => {
+        const { queryByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'mock_state', expiry_date: mockExpiredDate }}
+          />,
+        )
+        expect(queryByText(expectedText)).not.toBeInTheDocument()
       })
 
-      it("should not render redeemed footer if state does not equal 'redeemed' or 'date_redeemed' is false", () => {
-        mockVoucherState = 'mock_state'
-        let mockDateRedeemed = true
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState, date_redeemed: mockDateRedeemed } })
-        const [, , , , , reedeemedFooter1] = shallowRender.props.children
-        expect(reedeemedFooter1).toBeFalsy()
-
-        mockVoucherState = 'redeemed'
-        mockDateRedeemed = false
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState, date_redeemed: mockDateRedeemed } })
-        const [, , , , , reedeemedFooter2] = shallowRender.props.children
-        expect(reedeemedFooter2).toBeFalsy()
-      })
-
-      it("should render correct footer if state equals 'expired' or 'cancelled' and 'expiry_date' exists", () => {
-        mockVoucherState = 'expired'
-        const mockExpiryDate = 'mock_expiry_date'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState, expiry_date: mockExpiryDate } })
-        const [, , , , , , expiredFooter] = shallowRender.props.children
-        expect(expiredFooter.type).toBe('div')
-        expect(expiredFooter.props.className).toBe(styles.root__footer)
-
-        mockVoucherState = 'cancelled'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState, expiry_date: mockExpiryDate } })
-        const [, , , , , , cancelledFooter] = shallowRender.props.children
-        expect(cancelledFooter.type).toBe('div')
-        expect(cancelledFooter.props.className).toBe(styles.root__footer)
-      })
-
-      it("should not render redeemed footer if state does not equal 'expired' or 'cancelled' or 'expiry_date' does not exist", () => {
-        mockVoucherState = 'mock_state'
-        const mockExpiryDate = 'mock_expiry_date'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState, expiry_date: mockExpiryDate } })
-        const [, , , , , , mockFooter1] = shallowRender.props.children
-        expect(mockFooter1).toBeFalsy()
-
-        mockVoucherState = 'expired'
-        shallowRender = createShallowRenderer({ voucher: { ...mockVoucher, state: mockVoucherState } })
-        const [, , , , , , mockFooter2] = shallowRender.props.children
-        expect(mockFooter2).toBeFalsy()
+      it('should not render redeemed footer if expiry_date is undefined', () => {
+        const { queryByText } = render(
+          <Voucher
+            voucher={{ ...mockVoucher, state: 'cancelled' }}
+          />,
+        )
+        expect(queryByText(expectedText)).not.toBeInTheDocument()
       })
     })
   })
