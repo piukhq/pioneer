@@ -13,6 +13,10 @@
 
     max-width: 400px;
     margin: 23px auto;
+
+    &-paragraph {
+      margin: 0;
+    }
   }
 
   &__support {
@@ -20,7 +24,7 @@
 
     margin: 20px auto;
 
-    & a {
+    &-link {
       @include body-font-style;
     }
   }
