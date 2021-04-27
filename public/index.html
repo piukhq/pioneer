@@ -26,6 +26,8 @@
     -->
     <link href="%PUBLIC_URL%/themes/%THEME%/whitelabel-setup.css" rel="stylesheet" />
     <script>
+      // White-label merchant websites should not have this defined. On white-labels MemoryRouter should be used
+      // However multichannel themes an white-label themes in a non embedded environment should use BrowserRouter.
       window.binkConfigNoMemoryRouting = true
     </script>
     <script src="https://core.spreedly.com/iframe/iframe-v1.min.js"></script>

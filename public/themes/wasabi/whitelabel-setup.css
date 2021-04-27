@@ -22,6 +22,8 @@
   src: url(fonts/Wasabi-Light.ce6af32.eot?#iefix) format("embedded-opentype"), url(fonts/Wasabi-Light.5d9e74a.woff2) format("woff2"), url(fonts/Wasabi-Light.6f42425.woff) format("woff"), url(fonts/Wasabi-Light.f049e9d.ttf) format("truetype");
 }
 
+/* note that this overrides the @font-face Wasabi, normal, 400 from above. This is how it is on wasabi.uk.com
+   and was left the same way to highlight that font-weight:400 is used mainly in buttons and inputs */
 @font-face {
   font-family: Wasabi;
   font-style: normal;
@@ -40,8 +42,6 @@ textarea {
 }
 
 /* set-up styling that has to be countered from wasabi.uk.com */
-
-/* - */
 
 body {
   line-height: 28px;
@@ -78,7 +78,5 @@ ul {
   margin: 0;
   padding: 0;
 }
-
-/* - */
 
 /* end of styling that has to be countered */
