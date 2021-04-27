@@ -13,8 +13,7 @@
 
   &__body {
     @include body-font-style;
-
-    padding-top: 23px;
+    @include paragraph-spacing-styling;
   }
 
   &__button {
