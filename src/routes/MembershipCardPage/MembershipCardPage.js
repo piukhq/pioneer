@@ -16,6 +16,7 @@ import PaymentCards from 'components/PaymentCards'
 import PaymentCardAdd from 'components/PaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
+import PreparingYourCard from 'components/PreparingYourCard'
 // import Loading from 'components/Loading'
 
 import styles from './MembershipCardPage.module.scss'
@@ -29,6 +30,7 @@ import Vouchers from 'components/Vouchers'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
 import Hero from './components/Hero'
+import Config from 'Config'
 
 const MembershipCardPage = () => {
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
@@ -109,9 +111,17 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  return (
+  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
+    return (
+      <>
+        <MembershipCardRefresher membershipCardId={id} />
+        <PreparingYourCard />
+      </>
+    )
+  }
+
+  return ( // todo: refactor below into separate component
     <div>
-      <AccountMenu />
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
       )}
@@ -122,6 +132,7 @@ const MembershipCardPage = () => {
       <PaymentCardRefresher paymentCardId={newlyPendingPaymentCard?.id} />
       { membershipCard && (
         <>
+          <AccountMenu />
           <Hero membershipCard={membershipCard} />
           <Vouchers membershipCardId={id} />
           <h2>Payment cards</h2>
