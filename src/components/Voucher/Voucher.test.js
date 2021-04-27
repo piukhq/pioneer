@@ -80,9 +80,9 @@ describe('Test Voucher', () => {
           voucher={mockVoucher}
         />,
       )
-      const mockFilledProgressStep1 = 'filled progress-step test id 0'
-      const mockFilledProgressStep2 = 'filled progress-step test id 1'
-      const mockFilledProgressStep3 = 'filled progress-step test id 2'
+      const mockFilledProgressStep1 = 'filled progress-step 0'
+      const mockFilledProgressStep2 = 'filled progress-step 1'
+      const mockFilledProgressStep3 = 'filled progress-step 2'
 
       expect(queryByTestId(mockFilledProgressStep1)).toBeInTheDocument()
       expect(queryByTestId(mockFilledProgressStep2)).toBeInTheDocument()
@@ -95,9 +95,9 @@ describe('Test Voucher', () => {
           voucher={mockVoucher}
         />,
       )
-      const mockEmptyProgressStep1 = 'empty progress-step test id 0'
-      const mockEmptyProgressStep2 = 'empty progress-step test id 1'
-      const mockEmptyProgressStep3 = 'empty progress-step test id 2'
+      const mockEmptyProgressStep1 = 'empty progress-step 0'
+      const mockEmptyProgressStep2 = 'empty progress-step 1'
+      const mockEmptyProgressStep3 = 'empty progress-step 2'
 
       expect(queryByTestId(mockEmptyProgressStep1)).not.toBeInTheDocument()
       expect(queryByTestId(mockEmptyProgressStep2)).not.toBeInTheDocument()

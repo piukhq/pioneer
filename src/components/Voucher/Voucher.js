@@ -4,6 +4,7 @@ import styles from './Voucher.module.scss'
 import dayjs from 'dayjs'
 
 const Voucher = ({ voucher }) => {
+  console.log(voucher)
   return (
     <div className={styles.root}>
       <div className={styles.root__title}>
@@ -32,7 +33,7 @@ const Voucher = ({ voucher }) => {
                 styles[`root__progress-step--filled-${voucher?.state}`],
               )}
               key={index}
-              data-testid={`filled progress-step test id ${index}`}
+              data-testid={`filled progress-step ${index}`}
             />
           ) : (
             <span
@@ -42,7 +43,7 @@ const Voucher = ({ voucher }) => {
                 styles[`root__progress-step--empty-${voucher?.state}`],
               )}
               key={index}
-              data-testid={`empty progress-step test id ${index}`}
+              data-testid={`empty progress-step ${index}`}
             />
           )
         )) }
