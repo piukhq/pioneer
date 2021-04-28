@@ -3,6 +3,7 @@ import { serializeError } from 'serialize-error'
 import { setTokenAsUsed } from 'utils/magicLink'
 import { createSelector } from 'reselect'
 import { getUserIdFromApiKey } from 'utils/users'
+import { actions as serviceActions } from 'ducks/service'
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
@@ -189,6 +190,9 @@ export const actions = {
     } catch (e) {
       dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_FAILURE, payload: serializeError(e) })
     }
+  },
+  acceptTerms: () => dispatch => {
+    dispatch(serviceActions.postService())
   },
   logout: () => dispatch => {
     dispatch({ type: 'RESET_ALL' })

@@ -2,8 +2,13 @@ import React from 'react'
 import Config from 'Config'
 import Button from 'components/Button'
 import styles from './WeFoundYou.module.scss'
+import useAcceptTerms from './hooks/useAcceptTerms'
+import useLogout from 'hooks/useLogout'
 
 const WeFoundYou = () => {
+  const acceptTerms = useAcceptTerms()
+  const { logout } = useLogout()
+
   return (
   <div className={styles.root}>
     <h1 className={styles.root__heading}>We found you!</h1>
@@ -16,14 +21,14 @@ const WeFoundYou = () => {
       <Button
         primary
         className={styles.root__button}
-        onClick={() => {}}
-        >I agree</Button>
+        onClick={acceptTerms}
+      >I agree</Button>
 
       <Button
         secondary
         className={styles.root__button}
-        onClick={() => {}}
-        >I disagree</Button>
+        onClick={logout}
+      >I disagree</Button>
     </div>
   </div>
   )
