@@ -23,6 +23,7 @@ describe('Test Voucher', () => {
   }
 
   it('should render voucher title', () => {
+    // mockTitle: "mock_prefix2 mock_suffix"
     const mockTitle = prefix + value + ' ' + suffix
     const { getByText } = render(
       <Voucher
@@ -33,6 +34,7 @@ describe('Test Voucher', () => {
   })
 
   it('should render voucher description', () => {
+    // mockDescription: "for collecting mock_prefix3 mock_suffix"
     const mockDescription = 'for collecting ' + prefix + target_value + ' ' + suffix
     const { getByText } = render(
       <Voucher
@@ -107,6 +109,7 @@ describe('Test Voucher', () => {
 
   describe('Test voucher footer', () => {
     describe('Test inprogress/earned footer', () => {
+    // inProgressEarnedText: "mock_prefix2/mock_prefix3 mock_suffix"
       const inProgressEarnedText = `${prefix}${value}/${prefix}${target_value} ${suffix}`
       it("should render correct footer if voucher state is 'inprogress'", () => {
         const { getByText } = render(
