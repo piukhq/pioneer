@@ -6,7 +6,7 @@ import useAcceptTerms from './hooks/useAcceptTerms'
 import useLogout from 'hooks/useLogout'
 
 const WeFoundYou = () => {
-  const acceptTerms = useAcceptTerms()
+  const { acceptTerms } = useAcceptTerms()
   const { logout } = useLogout()
 
   return (

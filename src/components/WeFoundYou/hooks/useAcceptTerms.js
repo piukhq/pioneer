@@ -3,8 +3,11 @@ import { actions as usersActions } from 'ducks/users'
 
 const useAcceptTerms = () => {
   const dispatch = useDispatch()
-  return () => {
+  const acceptTerms = () => {
     dispatch(usersActions.acceptTerms())
+  }
+  return {
+    acceptTerms,
   }
 }
 
