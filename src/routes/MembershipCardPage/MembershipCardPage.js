@@ -29,6 +29,7 @@ import Vouchers from 'components/Vouchers'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
 import Hero from './components/Hero'
+import WeFoundYou from 'components/WeFoundYou'
 
 const MembershipCardPage = () => {
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
@@ -42,6 +43,7 @@ const MembershipCardPage = () => {
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
+  const { error: serviceError } = useSelector(state => state.service)
 
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
@@ -108,6 +110,11 @@ const MembershipCardPage = () => {
     setDeleteFormVisible(false)
     setCardIdToBeDeleted(null)
   }, [])
+
+  // Displayed when service error occurs, meaning T&Cs have not been accepted
+  if (serviceError) {
+    return <WeFoundYou />
+  }
 
   return (
     <div>
