@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux'
 import Button from 'components/Button'
 import { useParams } from 'react-router-dom'
 
-import styles from './MerchantMembershipCardEnrolError.module.scss'
+import styles from './MerchantMembershipCardReenrol.module.scss'
 
-const MerchantMembershipCardEnrolError = () => {
+const MerchantMembershipCardReenrol = () => {
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const planId = membershipCard.membership_plan
@@ -28,7 +28,7 @@ const MerchantMembershipCardEnrolError = () => {
   return (
     <div className={styles.root}>
       <h1 className={styles.root__header}>Let's try again</h1>
-      <p className={styles.root__summary}>There was a problem getting your card setup. Please try again. Remember, we are always here to help if you would rather us help resolve this.</p>
+      <p className={styles.root__summary}>There was a problem getting your card set up. Please try again. Remember, we are always here to help if you would rather us help resolve this.</p>
       <MembershipCardForm
         plan={plan}
         planId={planId}
@@ -38,10 +38,11 @@ const MerchantMembershipCardEnrolError = () => {
         disabledFields={disabledFields}
         submitCaption='Register'
         submittingCaption='Registering'
+        existingCardId={id}
       />
       <Button secondary onClick={contactSupport} className={styles.root__cancel}>Contact Support</Button>
     </div>
   )
 }
 
-export default MerchantMembershipCardEnrolError
+export default MerchantMembershipCardReenrol

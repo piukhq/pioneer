@@ -17,6 +17,7 @@ import PaymentCardAdd from 'components/PaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
 import PreparingYourCard from 'components/PreparingYourCard'
+import MerchantMembershipCardReenrol from 'components/MerchantMembershipCardReenrol'
 // import Loading from 'components/Loading'
 import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
@@ -131,6 +132,14 @@ const MembershipCardPage = () => {
       <>
         <MembershipCardRefresher membershipCardId={id} />
         <PreparingYourCard />
+      </>
+    )
+  }
+  if (membershipCard?.status?.state === 'failed' && Config.isMerchantChannel) { // todo: revise for X202 errors
+    console.log(membershipCard?.status.reason_codes[0])
+    return (
+      <>
+        <MerchantMembershipCardReenrol />
       </>
     )
   }
