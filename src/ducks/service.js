@@ -60,6 +60,8 @@ const reducer = (state = initialState, action) => {
     case types.POST_SERVICE_SUCCESS:
       return {
         ...state,
+        error: false,
+        success: true,
         post: {
           ...state.post,
           loading: false,

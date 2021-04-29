@@ -28,12 +28,15 @@ import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
 import WeFoundYou from 'components/WeFoundYou'
+import HangTight from 'components/HangTight'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
-
+import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
 import Config from 'Config'
 
 const MembershipCardPage = () => {
+  useLoadService()
+
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
   // to further attempt optimizing the process
   const { getMembershipPlans } = useMembershipPlansDispatch()
@@ -45,7 +48,8 @@ const MembershipCardPage = () => {
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
-  const { error: serviceError, post: servicePost } = useSelector(state => state.service)
+
+  const { loading: getServiceLoading, error: serviceError, post: { loading: postServiceLoading } } = useSelector(state => state.service)
 
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
@@ -113,13 +117,11 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  // Displayed when service error occurs and service post is not yet successful,
-  // signifying T&Cs have not yet been accepted
-  if (serviceError && !servicePost.success) {
+  if (getServiceLoading || postServiceLoading) return <HangTight />
+  else if (serviceError) {
+    // Displayed when service error occurs, signifying T&Cs have not yet been accepted
     return <WeFoundYou />
-  }
-
-  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
+  } else if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
     return (
       <>
         <MembershipCardRefresher membershipCardId={id} />
