@@ -76,13 +76,14 @@ const MembershipCardPage = () => {
   const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
-
   const [linkingSuccessModalVisible, setLinkingSuccessModalVisible] = useState(false)
+
   const handleLinkingSuccess = useCallback(() => {
     setLinkingSuccessModalVisible(true)
   }, [setLinkingSuccessModalVisible])
 
   const [linkingErrorModalVisible, setLinkingErrorModalVisible] = useState(false)
+
   const handleLinkingError = useCallback(() => {
     setLinkingErrorModalVisible(true)
   }, [setLinkingErrorModalVisible])
@@ -128,6 +129,19 @@ const MembershipCardPage = () => {
   }
 
   if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
+  const membershipCardStatusCode = membershipCard?.status.reason_codes[0]
+  // membership reenroll path
+  const reenrollCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
+  if (reenrollCodes.includes(membershipCardStatusCode) && Config.isMerchantChannel) {
+    console.log(membershipCardStatusCode)
+    return (
+      <>
+        <MerchantMembershipCardReenrol />
+      </>
+    )
+  }
+  // membership card pending path
+  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
     return (
       <>
         <MembershipCardRefresher membershipCardId={id} />
@@ -135,16 +149,10 @@ const MembershipCardPage = () => {
       </>
     )
   }
-  if (membershipCard?.status?.state === 'failed' && Config.isMerchantChannel) { // todo: revise for X202 errors
-    console.log(membershipCard?.status.reason_codes[0])
-    return (
-      <>
-        <MerchantMembershipCardReenrol />
-      </>
-    )
-  }
 
-  return ( // todo: refactor below into separate component
+  // todo: Account already exists path
+
+  return ( // todo: refactor below into separate component when all paths are added.
     <div>
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
