@@ -38,7 +38,7 @@ const MerchantMembershipCardReenrol = () => {
         disabledFields={disabledFields}
         submitCaption='Register'
         submittingCaption='Registering'
-        existingCardId={id}
+        currentCardId={id}
       />
       <Button secondary onClick={contactSupport} className={styles.root__cancel}>Contact Support</Button>
     </div>
