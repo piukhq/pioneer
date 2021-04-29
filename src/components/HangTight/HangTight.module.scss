@@ -15,6 +15,10 @@
     margin: 0 auto;
   }
 
+  &__paragraph {
+    @include paragraph-spacing-styling;
+  }
+
   &__loading {
     margin-top: 5px;
   }

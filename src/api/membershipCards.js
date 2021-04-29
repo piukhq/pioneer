@@ -66,32 +66,3 @@ export const unLinkPaymentCard = (paymentCardId, membershipCardId) => (
     },
   )
 )
-
-// todo: to remove. This functionality was added because every now and then someone or something would remove the
-// membership card for the test user account
-export const addTestMembershipCard = () => (
-  axios.post(
-    `${Config.apiUrl}/ubiquity/membership_cards`,
-    {
-      account: {
-        add_fields: [
-          {
-            column: 'Membership card number',
-            value: '1048175136',
-          }],
-        authorise_fields: [
-          {
-            column: 'Email',
-            value: 'binktestuser18@wasabi.com',
-          }],
-      },
-      membership_plan: '315',
-    },
-    {
-      headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json;v=1.3',
-      },
-    },
-  )
-)

@@ -1,4 +1,14 @@
+@import "src/sass/mixins";
+
 .root {
+  &__headline {
+    @include headline-style;
+  }
+
+  &__paragraph {
+    @include paragraph-spacing-styling;
+  }
+
   &__warning {
     // todo: to decide on the actual shade of red
     color: red;

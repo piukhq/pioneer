@@ -4,7 +4,7 @@
   &__header {
     font-size: $modal-title-font-size;
     color: $modal-title-font-color;
-    font-weight: $modal-title-font-size;
+    font-weight: $modal-title-font-weight;
     margin: 0 20px 0 0;
   }
 
@@ -33,7 +33,6 @@
 
   &__body {
     overflow: auto;
-    font-weight: $modal-body-font-weight;
     max-height: 80vh;
   }
 

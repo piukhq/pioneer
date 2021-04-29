@@ -55,9 +55,9 @@ const MagicLinkRequestSuccess = ({ email }) => (
   <div className={styles.root}>
     <h1 className={styles.root__headline}>Check your inbox!</h1>
     <div className={styles.root__description}>
-        <p>We have just emailed a link to <span className={styles.root__email}>{email}.</span></p>
-        <p>Click the link and you’ll be signed in.</p>
-      <p>
+      <p className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></p>
+      <p className={styles.root__paragraph}>Click the link and you’ll be signed in.</p>
+      <p className={styles.root__paragraph}>
         <span className={styles.root__note}>Note:</span>{' '}
         The device you open the link on will be the device you are signed in on.
         For example, if you open the link on your phone you will be logged in on your phone.
@@ -72,7 +72,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
     <form onSubmit={handleSubmit} className={styles.root__form}>
       <div className={styles.root__description}>
         {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
+          <p className={styles.root__paragraph} key={index}>{paragraph}</p>
         ))}
       </div>
       <TextInputGroup
@@ -91,7 +91,7 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
     <h1 className={styles.root__headline}>Something went wrong</h1>
     <form onSubmit={handleSubmit} className={styles.root__form}>
       <div className={styles.root__description}>
-        <p>There was a problem, please try again</p>
+        <p className={styles.root__paragraph}>There was a problem, please try again</p>
       </div>
       <TextInputGroup
         className={styles['root__email-field']}
@@ -109,8 +109,8 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => (
     <h1 className={styles.root__headline}>Link expired</h1>
     <form onSubmit={handleSubmit} className={styles.root__form}>
       <div className={styles.root__description}>
-        <p>Links are only valid for a short period of time and this one has expired!</p>
-        <p>Enter your email again and we will send you another.</p>
+        <p className={styles.root__paragraph}>Links are only valid for a short period of time and this one has expired!</p>
+        <p className={styles.root__paragraph}>Enter your email again and we will send you another.</p>
       </div>
       <TextInputGroup
         className={styles['root__email-field']}

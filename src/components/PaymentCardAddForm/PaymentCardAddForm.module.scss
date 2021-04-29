@@ -1,8 +1,9 @@
 @import "src/sass/mixins";
 
 .root {
-  &__sub-header {
+  &__paragraph {
     @include body-font-style;
+    @include paragraph-spacing-styling;
   }
 
   &__label {

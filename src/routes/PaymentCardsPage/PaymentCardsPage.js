@@ -4,6 +4,7 @@ import PaymentCards from 'components/PaymentCards'
 
 import styles from './PaymentCardsPage.module.scss'
 
+// todo: This page doesn't really exist anymore. Probably it should be removed
 const PaymentCardsPage = () => {
   const history = useHistory()
   const handleError = useCallback(() => {
