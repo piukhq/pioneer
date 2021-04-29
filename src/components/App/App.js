@@ -25,12 +25,7 @@ import TypographyPage from 'routes/TypographyPage'
 import styles from './App.module.scss'
 
 function App () {
-  let Router
-  if (window.binkConfigNoMemoryRouting) {
-    Router = BrowserRouter
-  } else {
-    Router = MemoryRouter
-  }
+  const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
 
   return (
     <div className={cx('bink-app', styles.root)}>
