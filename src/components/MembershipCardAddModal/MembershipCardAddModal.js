@@ -6,6 +6,8 @@ import Loading from 'components/Loading'
 import MembershipCardForm from 'components/MembershipCardForm'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 
+import styles from './MembershipCardAddModal.module.scss'
+
 const MembershipCardAddModal = ({ onClose, planId }) => {
   const { plan, loading } = useLoadMembershipPlans(planId)
   const { add: { loading: addLoading } } = useMembershipCardsState()
@@ -17,7 +19,7 @@ const MembershipCardAddModal = ({ onClose, planId }) => {
     <Modal onClose={onClose}>
       { (loading || addLoading) && <Loading /> }
       <Modal.Header>Add your card</Modal.Header>
-      <p>Please enter the following information to add your existing card to your account.</p>
+      <p className={styles.root__paragraph}>Please enter the following information to add your existing card to your account.</p>
       <MembershipCardForm
         plan={plan}
         planId={planId}
