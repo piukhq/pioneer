@@ -152,7 +152,7 @@ const MembershipCardPage = () => {
 
   // todo: Account already exists path
 
-  //success path
+  // success path
   return ( // todo: refactor success path into a separate component when all paths are added.
     <div>
       { linkingErrorModalVisible && (
