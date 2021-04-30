@@ -21,16 +21,11 @@
   }
 
   &__buttons {
-    margin-top: 43px;
-    display: flex;
-    flex-direction: column;
+    margin: 43px auto;
+    max-width: 497px;
   }
 
   &__button {
-    width: 497px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
   }
 }
