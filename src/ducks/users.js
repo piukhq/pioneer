@@ -191,9 +191,6 @@ export const actions = {
       dispatch({ type: types.MAGIC_LINK_AUTHENTICATION_FAILURE, payload: serializeError(e) })
     }
   },
-  acceptTerms: () => dispatch => {
-    dispatch(serviceActions.postService())
-  },
   logout: () => dispatch => {
     dispatch({ type: 'RESET_ALL' })
   },

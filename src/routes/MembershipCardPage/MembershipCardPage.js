@@ -18,8 +18,6 @@ import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
 import PreparingYourCard from 'components/PreparingYourCard'
 // import Loading from 'components/Loading'
-
-import styles from './MembershipCardPage.module.scss'
 import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
@@ -33,6 +31,8 @@ import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
 import Config from 'Config'
+
+import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
   useLoadService()
@@ -54,9 +54,12 @@ const MembershipCardPage = () => {
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
   )
-  const membershipCardName = useSelector(
-    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
+  const membershipCardAccount = useSelector(
+    state => membershipCardsSelectors.plan(state, id)?.account,
   )
+
+  const membershipCardName = membershipCardAccount?.plan_name_card
+
   const linkedPaymentCards = useSelector(
     state => membershipCardsSelectors.linkedPaymentCards(state, id),
   )
@@ -120,7 +123,7 @@ const MembershipCardPage = () => {
   if (getServiceLoading || postServiceLoading) return <HangTight />
   else if (serviceError) {
     // Displayed when service error occurs, signifying T&Cs have not yet been accepted
-    return <WeFoundYou />
+    return <WeFoundYou account={membershipCardAccount} />
   } else if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
     return (
       <>

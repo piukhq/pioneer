@@ -39,6 +39,10 @@ const reducer = (state = initialState, action) => {
         error: false,
         success: true,
         data: action.payload,
+        post: {
+          error: false,
+          success: true,
+        },
       }
     case types.SERVICE_FAILURE:
       return {
