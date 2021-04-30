@@ -133,11 +133,8 @@ const MembershipCardPage = () => {
   // membership reenroll path
   const reenrollCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
   if (reenrollCodes.includes(membershipCardStatusCode) && Config.isMerchantChannel) {
-    console.log(membershipCardStatusCode)
     return (
-      <>
         <MerchantMembershipCardReenrol />
-      </>
     )
   }
   // membership card pending path
