@@ -6,6 +6,8 @@ import Loading from 'components/Loading'
 import MembershipCardForm from 'components/MembershipCardForm'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 
+import styles from './MembershipCardEnrolModal.module.scss'
+
 const MembershipCardEnrolModal = ({ onClose, planId }) => {
   const { plan, loading } = useLoadMembershipPlans(planId)
   const { add: { loading: addLoading } } = useMembershipCardsState()
@@ -17,7 +19,7 @@ const MembershipCardEnrolModal = ({ onClose, planId }) => {
     <Modal onClose={onClose}>
       { (loading || addLoading) && <Loading /> }
       <Modal.Header>Sign up for { plan?.account?.plan_name }</Modal.Header>
-      <p>{ plan?.account?.plan_summary }</p>
+      <p className={styles.root__paragraph}>{ plan?.account?.plan_summary }</p>
       <MembershipCardForm
         plan={plan}
         planId={planId}

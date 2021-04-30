@@ -26,6 +26,10 @@
     width: 570px;
   }
 
+  &__paragraph {
+    @include paragraph-spacing-styling;
+  }
+
   &__email {
     font-weight: bold;
   }

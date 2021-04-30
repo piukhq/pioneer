@@ -1,9 +1,9 @@
 import React from 'react'
 import Modal from 'components/Modal'
 import Button from 'components/Button'
+import usePaymentCardDeleteForm from './hooks/usePaymentCardDeleteForm'
 
 import styles from './PaymentCardDeleteForm.module.scss'
-import usePaymentCardDeleteForm from './hooks/usePaymentCardDeleteForm'
 
 const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => {
   const {
@@ -24,7 +24,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
       { isCardExpired ? (
         <>
           <Modal.Header>Card Expired</Modal.Header>
-          <p className={styles.root__message}>
+          <p className={styles.root__paragraph}>
             This payment card has expired and can no longer be used to auto-collect points and rewards.
           </p>
           {/* todo: refine handling of error */}
@@ -38,13 +38,13 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
       ) : (
         <>
           <Modal.Header>Delete this card</Modal.Header>
-          <p>
+          <p className={styles.root__paragraph}>
             Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
           </p>
           { isLastPaymentCard && (
-            <p>You are about to delete your only active payment card. Doing so will mean you will not automatically collect {membershipPlanName} {membershipCardCurrency}</p>
+            <p className={styles.root__paragraph}>You are about to delete your only active payment card. Doing so will mean you will not automatically collect {membershipPlanName} {membershipCardCurrency}</p>
           )}
-          <p>Enter the last four digits of the card to confirm.</p>
+          <p className={styles.root__paragraph}>Enter the last four digits of the card to confirm.</p>
           <div className={styles.root__group}>
             <label className={styles.root__label}>Last four digits</label>
             <input

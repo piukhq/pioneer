@@ -20,7 +20,7 @@ ReactDOM.render(
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('bink-app-root'),
 )
 
 // If you want to start measuring performance in your app, pass a function

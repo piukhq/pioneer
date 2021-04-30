@@ -90,6 +90,9 @@ function getClientEnvironment(publicUrl) {
         // which is why it's disabled by default.
         // It is defined here so it is available in the webpackHotDevClient.
         FAST_REFRESH: process.env.FAST_REFRESH !== 'false',
+        // THEME parameter injected into index.html. This allows us to set up a per theme css at the index.html level.
+        // This is supposed to allow us to replicate how styling looks like on white-label merchant's website.
+        THEME: process.env.THEME || 'bink',
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin

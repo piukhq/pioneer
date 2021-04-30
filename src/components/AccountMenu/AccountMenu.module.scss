@@ -1,3 +1,4 @@
+@import "src/sass/variables";
 @import "src/sass/mixins";
 
 .root {
@@ -23,6 +24,7 @@
     cursor: pointer;
     background-color: transparent;
     color: #444;
+    font-weight: $default-font-weight;
   }
 
   &__menu-button-icon {
@@ -34,7 +36,6 @@
     @include body-font-style;
 
     padding: 15px 30px 20px 0;
-    font-weight: 400;
   }
 
   &__modal-button {

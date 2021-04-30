@@ -6,9 +6,7 @@ import Config from 'Config'
 
 const useMerchantMembershipCardsLogic = () => {
   const { membershipCards } = useMembershipCardsState()
-  // todo:
-  //  - to decide what means that user did accept T&C, and what means that the user did not.
-  //  - Is there also a network failure or should we just assume the user didn't accept T&C in case of a 404 response
+  // note: a 404 response means serviceError. The user has to accept Bink T&C. error is also assumed on a network error
   const { success: serviceSuccess, error: serviceError } = useSelector(state => state.service)
 
   const history = useHistory()

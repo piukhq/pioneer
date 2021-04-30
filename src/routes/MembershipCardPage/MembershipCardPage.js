@@ -148,13 +148,13 @@ const MembershipCardPage = () => {
           <AccountMenu />
           <Hero membershipCard={membershipCard} />
           <Vouchers membershipCardId={id} />
-          <h2>Payment cards</h2>
+          <h2 className={styles.root__headline}>Payment cards</h2>
           {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
-            <p>
+            <p className={styles.root__paragraph}>
               The payment cards below are linked to this {membershipCardName}. Simply pay with one to collect {membershipCardCurrency}.
             </p>
           ) : (
-            <p>
+            <p className={styles.root__paragraph}>
               You have yet to add any payment cards. By adding a payment card to your account,
               you will unlock the ability to auto-collect {membershipCardCurrency} when you shop.
             </p>
@@ -191,8 +191,8 @@ const MembershipCardPage = () => {
           ) }
           { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id).length > 0 && (
             <>
-              <h2>Unlinked payment cards</h2>
-              <p>
+              <h2 className={styles.root__headline}>Unlinked payment cards</h2>
+              <p className={styles.root__paragraph}>
                 These are payment cards that you have added but are not currently linked to your {membershipCardName}.
                 Making purchases with one of these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
                 Select the card to see how this can be resolved.

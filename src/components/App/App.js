@@ -1,9 +1,16 @@
 import React from 'react'
 import {
-  BrowserRouter as Router,
+  MemoryRouter,
+  BrowserRouter,
   Switch,
   Route,
 } from 'react-router-dom'
+import cx from 'classnames'
+
+// This scss import should be defined before any component import. This way any styling defined in base.scss
+// will be overwritten by styles defined in components
+import './base.scss'
+
 import HomePage from 'routes/HomePage'
 import MembershipPlansPage from 'routes/MembershipPlansPage'
 import MembershipCardsPage from 'routes/MembershipCardsPage'
@@ -12,13 +19,16 @@ import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
 import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 
-import './App.scss'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 
+import styles from './App.module.scss'
+
 function App () {
+  const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
+
   return (
-    <div className="bink-app">
+    <div className={cx('bink-app', styles.root)}>
       <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/">
