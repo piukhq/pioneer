@@ -49,17 +49,14 @@ const MembershipCardPage = () => {
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const { loading: getServiceLoading, error: serviceError } = useSelector(state => state.service)
+  const { success: serviceSuccess, loading: serviceLoading, error: serviceError, post: { success: postServiceSuccess } } = useSelector(state => state.service)
 
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
   )
-  const membershipCardAccount = useSelector(
-    state => membershipCardsSelectors.plan(state, id)?.account,
+  const membershipCardName = useSelector(
+    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
   )
-
-  const membershipCardName = membershipCardAccount?.plan_name_card
-
   const linkedPaymentCards = useSelector(
     state => membershipCardsSelectors.linkedPaymentCards(state, id),
   )
@@ -120,11 +117,16 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  if (getServiceLoading) return <HangTight />
-  else if (serviceError) {
+  if (serviceLoading) {
+    return <HangTight />
+  } else if (serviceSuccess || postServiceSuccess) {
+    // prevent next elseifs executing
+  } else if (serviceError) {
     // Displayed when service error occurs, signifying T&Cs have not yet been accepted
-    return <WeFoundYou account={membershipCardAccount} />
-  } else if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
+    return <WeFoundYou />
+  }
+
+  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
     return (
       <>
         <MembershipCardRefresher membershipCardId={id} />

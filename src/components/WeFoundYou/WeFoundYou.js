@@ -1,16 +1,27 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Button from 'components/Button'
+import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import useAcceptTerms from './hooks/useAcceptTerms'
 import useLogout from 'hooks/useLogout'
 import styles from './WeFoundYou.module.scss'
 
 // TODO: determine whether to display 'a' or 'an' either as a result from the API
 // or using a library to determine string variations
-const WeFoundYou = ({ account = {} }) => {
-  const { plan_name: planName = '', plan_name_card: planCardName = '' } = account
+const WeFoundYou = () => {
+  const { id } = useParams()
   const { acceptTerms } = useAcceptTerms()
   const { logout } = useLogout()
+  const { post: { error } } = useSelector(state => state.service)
 
+  const membershipCardAccount = useSelector(
+    state => membershipCardsSelectors.plan(state, id)?.account,
+  )
+
+  const { plan_name: planName = '', plan_name_card: planCardName = '' } = membershipCardAccount
+
+  // TODO: should fail state error message api for accepting terms fails
   return (
     <div className={styles.root}>
       <h1 className={styles.root__heading}>We found you!</h1>
