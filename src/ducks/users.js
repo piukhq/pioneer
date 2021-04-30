@@ -3,7 +3,6 @@ import { serializeError } from 'serialize-error'
 import { setTokenAsUsed } from 'utils/magicLink'
 import { createSelector } from 'reselect'
 import { getUserIdFromApiKey } from 'utils/users'
-import { actions as serviceActions } from 'ducks/service'
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
