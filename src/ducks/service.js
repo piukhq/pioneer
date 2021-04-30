@@ -39,10 +39,6 @@ const reducer = (state = initialState, action) => {
         error: false,
         success: true,
         data: action.payload,
-        post: {
-          error: false,
-          success: true,
-        },
       }
     case types.SERVICE_FAILURE:
       return {
@@ -72,6 +68,7 @@ const reducer = (state = initialState, action) => {
           error: false,
           success: true,
         },
+        data: action.payload,
       }
     case types.POST_SERVICE_FAILURE:
       return {
@@ -104,8 +101,8 @@ export const actions = {
     try {
       dispatch({ type: types.POST_SERVICE_REQUEST })
       const email = usersSelectors.accountUserId(getState())
-      await postService(email)
-      dispatch({ type: types.POST_SERVICE_SUCCESS })
+      const response = await postService(email)
+      dispatch({ type: types.POST_SERVICE_SUCCESS, payload: response.data })
     } catch (e) {
       dispatch({ type: types.POST_SERVICE_FAILURE })
     }

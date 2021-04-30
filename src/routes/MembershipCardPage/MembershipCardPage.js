@@ -49,7 +49,7 @@ const MembershipCardPage = () => {
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const { loading: getServiceLoading, error: serviceError, post: { loading: postServiceLoading } } = useSelector(state => state.service)
+  const { loading: getServiceLoading, error: serviceError } = useSelector(state => state.service)
 
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
@@ -120,7 +120,7 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  if (getServiceLoading || postServiceLoading) return <HangTight />
+  if (getServiceLoading) return <HangTight />
   else if (serviceError) {
     // Displayed when service error occurs, signifying T&Cs have not yet been accepted
     return <WeFoundYou account={membershipCardAccount} />

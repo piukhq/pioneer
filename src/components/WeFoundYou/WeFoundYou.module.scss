@@ -16,6 +16,10 @@
     margin: 0 auto;
   }
 
+  &__paragraph {
+    @include paragraph-spacing-styling;
+  }
+
   &__url {
     @include link;
   }
