@@ -31,7 +31,6 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
         disabledFields={disabledFields}
         submitCaption='Register'
         submittingCaption='Registering'
-        currentCardId={null}
       />
       <Button secondary onClick={logout} className={styles.root__cancel}>Cancel</Button>
     </div>
