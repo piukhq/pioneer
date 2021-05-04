@@ -13,7 +13,7 @@ const WeFoundYou = () => {
   const { id } = useParams()
   const { acceptTerms } = useAcceptTerms()
   const { logout } = useLogout()
-  const { post: { error } } = useSelector(state => state.service)
+  const { post: { error: postError } } = useSelector(state => state.service)
 
   const planName = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name,
@@ -44,7 +44,7 @@ const WeFoundYou = () => {
           onClick={logout}
         >I disagree</Button>
 
-        {error && <p className={styles['root__paragraph--errorMessage']}>Something went wrong. Please try again.</p>}
+        {postError && <p className={styles['root__paragraph--error-message']}>Something went wrong. Please try again.</p>}
       </div>
     </div>
   )

@@ -19,7 +19,7 @@
   &__paragraph {
     @include paragraph-spacing-styling;
 
-    &--errorMessage {
+    &--error-message {
       color: #a30f27;
     }
   }
