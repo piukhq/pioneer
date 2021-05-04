@@ -13,6 +13,7 @@ export const getService = () => (
   )
 )
 
+// Used to submit the user's consent to the Bink T&Cs
 export const postService = (email) => (
   axios.post(
     `${Config.apiUrl}/ubiquity/service`,

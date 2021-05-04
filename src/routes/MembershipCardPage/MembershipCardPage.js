@@ -18,8 +18,6 @@ import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
 import PreparingYourCard from 'components/PreparingYourCard'
 // import Loading from 'components/Loading'
-
-import styles from './MembershipCardPage.module.scss'
 import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
@@ -27,12 +25,18 @@ import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
+import WeFoundYou from 'components/WeFoundYou'
+import HangTight from 'components/HangTight'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
-
+import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
 import Config from 'Config'
 
+import styles from './MembershipCardPage.module.scss'
+
 const MembershipCardPage = () => {
+  useLoadService()
+
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
   // to further attempt optimizing the process
   const { getMembershipPlans } = useMembershipPlansDispatch()
@@ -44,6 +48,8 @@ const MembershipCardPage = () => {
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
+
+  const { success: serviceSuccess, loading: serviceLoading, error: serviceError, post: { success: postServiceSuccess } } = useSelector(state => state.service)
 
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
@@ -110,6 +116,15 @@ const MembershipCardPage = () => {
     setDeleteFormVisible(false)
     setCardIdToBeDeleted(null)
   }, [])
+
+  if (serviceSuccess || postServiceSuccess) {
+    // prevent next elseifs executing
+  } else if (serviceLoading) {
+    return <HangTight />
+  } else if (serviceError) {
+    // Displayed when service error occurs, signifying T&Cs have not yet been accepted
+    return <WeFoundYou />
+  }
 
   if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
     return (
