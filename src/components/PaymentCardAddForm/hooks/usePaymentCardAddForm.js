@@ -66,8 +66,14 @@ const usePaymentCardAddForm = (onClose) => {
     }
   }, [dispatch, onClose])
 
-  const handleExpiryChange = (event) => setExpiry(event.target.value)
-  const handleNameChange = (event) => setFullName(event.target.value)
+  const handleExpiryChange = (event) => {
+    setExpiry(event.target.value)
+    setExpiryError(undefined)
+  }
+  const handleNameChange = (event) => {
+    setFullName(event.target.value)
+    setFullNameError(undefined)
+  }
 
   const handleExpiryBlur = useCallback(() => {
     const errorMessage = isValidExpiry(expiry) ? undefined : 'Invalid expiry'
