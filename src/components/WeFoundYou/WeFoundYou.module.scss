@@ -1,0 +1,39 @@
+// TODO: Consolidate these shared styles with all onboarding user screens
+@import "src/sass/mixins";
+
+.root {
+  text-align: center;
+  margin-top: 54px;
+
+  &__heading {
+    @include heading-font-style;
+  }
+
+  &__description {
+    @include body-font-style;
+
+    max-width: 571px;
+    margin: 0 auto;
+  }
+
+  &__paragraph {
+    @include paragraph-spacing-styling;
+
+    &--error-message {
+      color: #a30f27;
+    }
+  }
+
+  &__url {
+    @include link;
+  }
+
+  &__buttons {
+    margin: 43px auto;
+    max-width: 497px;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}
