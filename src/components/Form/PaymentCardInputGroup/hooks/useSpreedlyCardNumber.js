@@ -11,7 +11,7 @@ const useSpreedlyCardNumber = (error, onChange, onBlur, onReady) => {
     const Spreedly = window.Spreedly
 
     const onSpreedlyReady = () => {
-      Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
+      Spreedly.setStyle('number', decodeURIComponent(Config.spreedlyCardNumberStyle.default))
       Spreedly.setPlaceholder('number', 'Card number')
       Spreedly.setNumberFormat('prettyFormat')
 
@@ -42,9 +42,9 @@ const useSpreedlyCardNumber = (error, onChange, onBlur, onReady) => {
 
     if (isIframeReady) {
       if (error) {
-        Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.error)
+        Spreedly.setStyle('number', decodeURIComponent(Config.spreedlyCardNumberStyle.error))
       } else {
-        Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
+        Spreedly.setStyle('number', decodeURIComponent(Config.spreedlyCardNumberStyle.default))
       }
     }
   }, [error, isIframeReady])
