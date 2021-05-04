@@ -4,8 +4,10 @@ import cx from 'classnames'
 import Button from 'components/Button'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import usePaymentCardAddForm from './hooks/usePaymentCardAddForm'
-import styles from './PaymentCardAddForm.module.scss'
 import Loading3 from 'components/Loading3'
+import PaymentCardInputGroup from 'components/Form/PaymentCardInputGroup'
+
+import styles from './PaymentCardAddForm.module.scss'
 
 // todo: to rename this component to PaymentCardAddModal
 const PaymentCardAddForm = ({ onClose }) => {
@@ -14,6 +16,9 @@ const PaymentCardAddForm = ({ onClose }) => {
     expiry,
     fullNameError,
     expiryError,
+    cardNumberFocus,
+    cardNumberError,
+    cardNumberLength,
     handleExpiryChange,
     handleExpiryBlur,
     handleNameChange,
@@ -30,10 +35,11 @@ const PaymentCardAddForm = ({ onClose }) => {
 
       <form className={styles.root}>
         <div className={styles.root__groups}>
-          <div className={cx(styles.root__group, styles['root__number-group'])}>
-            <label className={styles.root__label}>Card number</label>
-            <div id='bink-spreedly-number' className={styles.root__input} />
-          </div>
+          <PaymentCardInputGroup
+            error={cardNumberError}
+            focus={cardNumberFocus}
+            length={cardNumberLength}
+          />
 
           <label className={cx(styles.root__label, styles['root__label--hidden'])}>CVV</label>
           <div id='bink-spreedly-cvv' className={cx(styles.root__input, styles['root__input--hidden'])} />

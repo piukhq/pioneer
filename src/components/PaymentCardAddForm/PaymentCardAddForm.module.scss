@@ -6,6 +6,7 @@
     @include paragraph-spacing-styling;
   }
 
+  // todo: to clean up this one
   &__label {
     display: block;
     margin-bottom: 5px;
@@ -16,6 +17,7 @@
     display: none;
   }
 
+  // todo: to clean up once done
   &__input {
     display: block;
     width: 100%;
@@ -29,6 +31,7 @@
     display: none;
   }
 
+  // todo: to clean up
   &__form-phase--hidden {
     display: none;
   }
@@ -46,6 +49,11 @@
 
   &__number-group {
     grid-area: card-number;
+    border: 1px solid red;
+
+    &:focus-within {
+      border: 1px solid blue;
+    }
   }
 
   &__expiry-group {

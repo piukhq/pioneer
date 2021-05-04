@@ -5,21 +5,79 @@ import { isValidName, isValidExpiry } from 'utils/validation'
 
 // todo: to further break down this hook
 const usePaymentCardAddForm = (onClose) => {
+  const Spreedly = window.Spreedly
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState('')
   const [fullNameError, setFullNameError] = useState(undefined)
   const [expiryError, setExpiryError] = useState(undefined)
   const [isLoading, setIsLoading] = useState(false)
+  const [cardNumberValid, setCardNumberValid] = useState(false)
+  const [cardNumberError, setCardNumberError] = useState(false)
+  const [cardNumberFocus, setCardNumberFocus] = useState(false)
+  const [cardNumberLength, setCardNumberLength] = useState(0)
+  const [isIframeLoaded, setIframeLoaded] = useState(false)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const Spreedly = window.Spreedly
+    const onSpreedlyBlur = () => {
+      if (!cardNumberValid) {
+        setCardNumberError('Invalid card number')
+      } else {
+        setCardNumberError(false)
+      }
+    }
+    window.addEventListener('bink.spreedly.onblur', onSpreedlyBlur)
+    return () => window.removeEventListener('bink.spreedly.onblur', onSpreedlyBlur)
+  }, [cardNumberValid, setCardNumberError])
 
+  useEffect(() => {
+    const onSpreedlyInput = () => {
+      setCardNumberError(false)
+    }
+    window.addEventListener('bink.spreedly.input', onSpreedlyInput)
+    return () => window.removeEventListener('bink.spreedly.input', onSpreedlyInput)
+  }, [setCardNumberError])
+
+  useEffect(() => {
+    if (isIframeLoaded) {
+      if (cardNumberError) {
+        Spreedly.setStyle('number', 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #a30f27')
+      } else {
+        Spreedly.setStyle('number', 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #054127')
+      }
+    }
+  }, [cardNumberError])
+
+  useEffect(() => {
     Spreedly.on('ready', function () {
-      Spreedly.setStyle('number', 'width: 100%; font-size: 16px; line-height: 23px; box-sizing: border-box')
+      console.log('spreedly ready 1')
+      Spreedly.setStyle('number', 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #054127')
       Spreedly.setPlaceholder('number', 'Card number')
       Spreedly.setNumberFormat('prettyFormat')
+
+      setIframeLoaded(true)
+    })
+
+    Spreedly.on('validation', function ({ numberLength, validNumber }) {
+      setCardNumberLength(numberLength)
+      setCardNumberValid(validNumber)
+    })
+
+    Spreedly.on('fieldEvent', function (name, event) {
+      // note: for some reason Spreedly.on('input') event doesn't trigger
+      if (name === 'number' && event === 'input') {
+        Spreedly.validate()
+        window.dispatchEvent(new CustomEvent('bink.spreedly.input'))
+      }
+
+      if (name === 'number' && event === 'focus') {
+        setCardNumberFocus(true)
+      }
+      if (name === 'number' && event === 'blur') {
+        setCardNumberFocus(false)
+        window.dispatchEvent(new CustomEvent('bink.spreedly.onblur'))
+      }
     })
 
     Spreedly.on('paymentMethod', async function (token, pmData) {
@@ -96,10 +154,13 @@ const usePaymentCardAddForm = (onClose) => {
   return {
     fullName,
     setFullName,
+    fullNameError,
     expiry,
     setExpiry,
-    fullNameError,
     expiryError,
+    cardNumberFocus,
+    cardNumberError,
+    cardNumberLength,
     handleExpiryChange,
     handleExpiryBlur,
     handleNameChange,

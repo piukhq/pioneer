@@ -17,6 +17,17 @@
     }
   }
 
+  &__iframe-placeholder {
+    opacity: 0.3;
+
+    &--error {
+      // note: Spreedly doesn't allow customisation of the placeholder
+      // This is an approximation only of the error colour.
+      opacity: 0.7;
+      filter: sepia(1) saturate(1) hue-rotate(-45deg);
+    }
+  }
+
   &__input {
     display: block;
     width: 100%;
@@ -29,7 +40,8 @@
     border: 1px solid $text-input-border-color--default;
     border-radius: 5px;
 
-    &:focus {
+    &:focus,
+    &--focus {
       border-color: $text-input-border-color--focused;
     }
 
