@@ -1,9 +1,12 @@
 import React from 'react'
 import cx from 'classnames'
+import useSpreedlyCardNumber from './hooks/useSpreedlyCardNumber'
 
 import styles from './PaymentCardInputGroup.module.scss'
 
-const PaymentCardInputGroup = ({ className, error, focus, length }) => {
+const PaymentCardInputGroup = ({ className, error, onChange, onBlur, onReady }) => {
+  const { focus, length } = useSpreedlyCardNumber(error, onChange, onBlur, onReady)
+
   return (
     <div className={cx(
       className,

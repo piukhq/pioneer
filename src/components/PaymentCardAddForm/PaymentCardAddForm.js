@@ -16,13 +16,13 @@ const PaymentCardAddForm = ({ onClose }) => {
     expiry,
     fullNameError,
     expiryError,
-    cardNumberFocus,
-    cardNumberError,
-    cardNumberLength,
     handleExpiryChange,
     handleExpiryBlur,
     handleNameChange,
     handleNameBlur,
+    cardNumberError,
+    handlePaymentCardChange,
+    handlePaymentCardBlur,
     isPaymentFormValid,
     isLoading,
     submitForm,
@@ -37,8 +37,8 @@ const PaymentCardAddForm = ({ onClose }) => {
         <div className={styles.root__groups}>
           <PaymentCardInputGroup
             error={cardNumberError}
-            focus={cardNumberFocus}
-            length={cardNumberLength}
+            onChange={handlePaymentCardChange}
+            onBlur={handlePaymentCardBlur}
           />
 
           <label className={cx(styles.root__label, styles['root__label--hidden'])}>CVV</label>
