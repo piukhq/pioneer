@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-
-const spreedlyInputNormalStyle = 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #054127'
-const spreedlyInputErrorStyle = 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #a30f27'
+import Config from 'Config'
 
 const useSpreedlyCardNumber = (error, onChange, onBlur, onReady) => {
   const [length, setLength] = useState(0)
@@ -13,7 +11,7 @@ const useSpreedlyCardNumber = (error, onChange, onBlur, onReady) => {
     const Spreedly = window.Spreedly
 
     const onSpreedlyReady = () => {
-      Spreedly.setStyle('number', spreedlyInputNormalStyle)
+      Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
       Spreedly.setPlaceholder('number', 'Card number')
       Spreedly.setNumberFormat('prettyFormat')
 
@@ -21,7 +19,7 @@ const useSpreedlyCardNumber = (error, onChange, onBlur, onReady) => {
     }
     window.addEventListener('bink.spreedly.ready', onSpreedlyReady)
     return () => window.removeEventListener('bink.spreedly.ready', onSpreedlyReady)
-  }, [onBlur])
+  }, [onReady])
 
   useEffect(() => {
     const onSpreedlyBlur = () => {
@@ -44,12 +42,12 @@ const useSpreedlyCardNumber = (error, onChange, onBlur, onReady) => {
 
     if (isIframeReady) {
       if (error) {
-        Spreedly.setStyle('number', spreedlyInputErrorStyle)
+        Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.error)
       } else {
-        Spreedly.setStyle('number', spreedlyInputNormalStyle)
+        Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
       }
     }
-  }, [error])
+  }, [error, isIframeReady])
 
   useEffect(() => {
     const Spreedly = window.Spreedly

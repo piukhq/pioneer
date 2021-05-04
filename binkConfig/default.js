@@ -74,4 +74,18 @@ module.exports = {
     }
   })(),
   supportDebugLogin: true,
+  spreedlyCardNumberStyle: (() => {
+    switch (process.env.THEME) {
+      case 'bink':
+        return {
+          default: 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #054127',
+          error: 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #a30f27',
+        }
+      case 'wasabi':
+        return {
+          default: 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #054127',
+          error: 'width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #a30f27',
+        }
+    }
+  })(),
 }

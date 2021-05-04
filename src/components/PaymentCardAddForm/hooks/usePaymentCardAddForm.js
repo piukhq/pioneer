@@ -5,7 +5,6 @@ import { isValidName, isValidExpiry } from 'utils/validation'
 
 // todo: to further break down this hook
 const usePaymentCardAddForm = (onClose) => {
-  const Spreedly = window.Spreedly
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState('')
   const [fullNameError, setFullNameError] = useState(undefined)
@@ -30,6 +29,8 @@ const usePaymentCardAddForm = (onClose) => {
   }, [setCardNumberError])
 
   useEffect(() => {
+    const Spreedly = window.Spreedly
+
     Spreedly.on('paymentMethod', async function (token, pmData) {
       const newCard = await dispatch(paymentCardsActions.addPaymentCard(
         token,
@@ -98,20 +99,17 @@ const usePaymentCardAddForm = (onClose) => {
   return {
     fullName,
     setFullName,
-    fullNameError,
-    handleNameChange,
-    handleNameBlur,
-    //
     expiry,
     setExpiry,
+    fullNameError,
     expiryError,
     handleExpiryChange,
     handleExpiryBlur,
-    //
+    handleNameChange,
+    handleNameBlur,
     cardNumberError,
     handlePaymentCardChange,
     handlePaymentCardBlur,
-    //
     isPaymentFormValid,
     isLoading,
     submitForm,
