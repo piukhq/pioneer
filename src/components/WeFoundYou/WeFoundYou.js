@@ -15,13 +15,14 @@ const WeFoundYou = () => {
   const { logout } = useLogout()
   const { post: { error } } = useSelector(state => state.service)
 
-  const membershipCardAccount = useSelector(
-    state => membershipCardsSelectors.plan(state, id)?.account,
+  const planName = useSelector(
+    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name,
+  )
+  const planCardName = useSelector(
+    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
   )
 
-  const { plan_name: planName = '', plan_name_card: planCardName = '' } = membershipCardAccount
-
-  // TODO: should fail state error message api for accepting terms fails
+  // TODO: possibly consolidate error message into generic Button error
   return (
     <div className={styles.root}>
       <h1 className={styles.root__heading}>We found you!</h1>
@@ -42,6 +43,8 @@ const WeFoundYou = () => {
           className={styles.root__button}
           onClick={logout}
         >I disagree</Button>
+
+        {error && <p className={styles['root__paragraph--errorMessage']}>Something went wrong. Please try again.</p>}
       </div>
     </div>
   )

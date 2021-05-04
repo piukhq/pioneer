@@ -1,4 +1,4 @@
-// TODO: Consolidate these sshared styles with all onboarding user screens
+// TODO: Consolidate these shared styles with all onboarding user screens
 @import "src/sass/mixins";
 
 .root {
@@ -18,6 +18,10 @@
 
   &__paragraph {
     @include paragraph-spacing-styling;
+
+    &--errorMessage {
+      color: #a30f27;
+    }
   }
 
   &__url {

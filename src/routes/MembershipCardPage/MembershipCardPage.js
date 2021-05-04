@@ -117,10 +117,10 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  if (serviceLoading) {
-    return <HangTight />
-  } else if (serviceSuccess || postServiceSuccess) {
+  if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing
+  } else if (serviceLoading) {
+    return <HangTight />
   } else if (serviceError) {
     // Displayed when service error occurs, signifying T&Cs have not yet been accepted
     return <WeFoundYou />
