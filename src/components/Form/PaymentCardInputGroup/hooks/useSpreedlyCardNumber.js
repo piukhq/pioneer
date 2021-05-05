@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Config from 'Config'
 
 const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) => {
+  const Spreedly = window.Spreedly
   const [length, setLength] = useState(0)
   const [focus, setFocus] = useState(false)
   const [isIframeReady, setIframeReady] = useState(false)
@@ -40,6 +41,10 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
     window.addEventListener('bink.spreedly.input', onSpreedlyInput)
     return () => window.removeEventListener('bink.spreedly.input', onSpreedlyInput)
   }, [onChange, valid])
+
+  const handleLabelClick = () => {
+    Spreedly.transferFocus('number')
+  }
 
   useEffect(() => {
     const Spreedly = window.Spreedly
@@ -90,6 +95,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
   return {
     focus,
     length,
+    handleLabelClick,
   }
 }
 
