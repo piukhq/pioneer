@@ -68,15 +68,18 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
 
     Spreedly.on('fieldEvent', function (name, type, activeEl, inputProperties) {
       if (name === 'number') {
-        if (type === 'input') {
-          window.dispatchEvent(new CustomEvent('bink.spreedly.input', { detail: inputProperties }))
-        }
-        if (type === 'focus') {
-          setFocus(true)
-        }
-        if (type === 'blur') {
-          setFocus(false)
-          window.dispatchEvent(new CustomEvent('bink.spreedly.blur'))
+        switch (type) {
+          case 'input':
+            window.dispatchEvent(new CustomEvent('bink.spreedly.input', { detail: inputProperties }))
+            break
+          case 'focus':
+            setFocus(true)
+            break
+          case 'blur':
+            setFocus(false)
+            window.dispatchEvent(new CustomEvent('bink.spreedly.blur'))
+            break
+          default:
         }
       }
     })
