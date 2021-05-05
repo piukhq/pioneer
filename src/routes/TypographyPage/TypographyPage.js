@@ -5,6 +5,7 @@ import ButtonExample from './ButtonExample'
 import ModalExample from './ModalExample'
 import TextInputGroupExample from 'routes/TypographyPage/TextInputGroupExample'
 import Loading2 from 'components/Loading2'
+import PaymentCardInputGroupExample from 'routes/TypographyPage/PaymentCardInputGroupExample'
 
 const TypographyPage = () => (
   <>
@@ -12,6 +13,7 @@ const TypographyPage = () => (
     <BodyExample />
     <Loading2 />
     <ButtonExample />
+    <PaymentCardInputGroupExample />
     <TextInputGroupExample />
     <ModalExample />
   </>

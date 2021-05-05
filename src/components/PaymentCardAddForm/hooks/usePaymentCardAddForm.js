@@ -10,17 +10,26 @@ const usePaymentCardAddForm = (onClose) => {
   const [fullNameError, setFullNameError] = useState(undefined)
   const [expiryError, setExpiryError] = useState(undefined)
   const [isLoading, setIsLoading] = useState(false)
+  const [cardNumberValid, setCardNumberValid] = useState(false)
+  const [cardNumberError, setCardNumberError] = useState(false)
 
   const dispatch = useDispatch()
 
+  const handlePaymentCardBlur = useCallback(() => {
+    if (!cardNumberValid) {
+      setCardNumberError('Invalid card number')
+    } else {
+      setCardNumberError(false)
+    }
+  }, [cardNumberValid, setCardNumberError])
+
+  const handlePaymentCardChange = useCallback(({ valid }) => {
+    setCardNumberError(false)
+    setCardNumberValid(valid)
+  }, [setCardNumberError])
+
   useEffect(() => {
     const Spreedly = window.Spreedly
-
-    Spreedly.on('ready', function () {
-      Spreedly.setStyle('number', 'width: 100%; font-size: 16px; line-height: 23px; box-sizing: border-box')
-      Spreedly.setPlaceholder('number', 'Card number')
-      Spreedly.setNumberFormat('prettyFormat')
-    })
 
     Spreedly.on('paymentMethod', async function (token, pmData) {
       const newCard = await dispatch(paymentCardsActions.addPaymentCard(
@@ -52,19 +61,19 @@ const usePaymentCardAddForm = (onClose) => {
       }
     })
 
-    // todo: to move into config
-    Spreedly.init('Yc7xn3gDP73PPOQLEB2BYpv31EV', {
-      numberEl: 'bink-spreedly-number',
-      cvvEl: 'bink-spreedly-cvv',
-    })
-
     return () => {
       Spreedly.removeHandlers()
     }
   }, [dispatch, onClose])
 
-  const handleExpiryChange = (event) => setExpiry(event.target.value)
-  const handleNameChange = (event) => setFullName(event.target.value)
+  const handleExpiryChange = (event) => {
+    setExpiry(event.target.value)
+    setExpiryError(undefined)
+  }
+  const handleNameChange = (event) => {
+    setFullName(event.target.value)
+    setFullNameError(undefined)
+  }
 
   const handleExpiryBlur = useCallback(() => {
     const errorMessage = isValidExpiry(expiry) ? undefined : 'Invalid expiry'
@@ -76,7 +85,10 @@ const usePaymentCardAddForm = (onClose) => {
     setFullNameError(errorMessage)
   }, [fullName])
 
-  const isPaymentFormValid = useCallback(() => isValidName(fullName) && isValidExpiry(expiry), [fullName, expiry])
+  const isPaymentFormValid = useCallback(
+    () => isValidName(fullName) && isValidExpiry(expiry) && cardNumberValid,
+    [fullName, expiry, cardNumberValid],
+  )
 
   const submitForm = (event) => {
     event.preventDefault()
@@ -104,6 +116,9 @@ const usePaymentCardAddForm = (onClose) => {
     handleExpiryBlur,
     handleNameChange,
     handleNameBlur,
+    cardNumberError,
+    handlePaymentCardChange,
+    handlePaymentCardBlur,
     isPaymentFormValid,
     isLoading,
     submitForm,

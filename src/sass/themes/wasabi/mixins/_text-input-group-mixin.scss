@@ -17,6 +17,25 @@
     }
   }
 
+  &__spreedly-container {
+    height: 100%;
+  }
+
+  // Spreedly selector
+  &__iframe-placeholder {
+    // apply opacity to the entire iframe
+    opacity: 0.3;
+
+    // note: Spreedly doesn't allow customisation of the placeholder.
+    // See comments section on:
+    // https://support.spreedly.com/hc/en-us/community/posts/221864208-Can-you-add-support-for-stylization-of-the-iFrame-
+    // The shade of red is an approximation only of the error colour. It is achieved by applying a filter to the entire iframe.
+    &--error {
+      opacity: 0.7;
+      filter: sepia(1) saturate(1) hue-rotate(-73deg);
+    }
+  }
+
   &__input {
     display: block;
     width: 100%;
@@ -29,7 +48,9 @@
     border: 1px solid $text-input-border-color--default;
     border-radius: 5px;
 
-    &:focus {
+    &:focus,
+    // Spreedly selector
+    &--focus {
       border-color: $text-input-border-color--focused;
     }
 
