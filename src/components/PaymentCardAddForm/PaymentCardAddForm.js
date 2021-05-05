@@ -37,6 +37,8 @@ const PaymentCardAddForm = ({ onClose }) => {
         <div className={styles.root__groups}>
           <PaymentCardInputGroup
             className={styles['root__number-group']}
+            label='Card number'
+            placeholder='Card number'
             error={cardNumberError}
             onChange={handlePaymentCardChange}
             onBlur={handlePaymentCardBlur}

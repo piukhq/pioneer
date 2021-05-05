@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Config from 'Config'
 
-const useSpreedlyCardNumber = (error, onChange, onBlur, onReady) => {
+const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) => {
   const [length, setLength] = useState(0)
   const [focus, setFocus] = useState(false)
   const [isIframeReady, setIframeReady] = useState(false)
@@ -12,14 +12,14 @@ const useSpreedlyCardNumber = (error, onChange, onBlur, onReady) => {
 
     const onSpreedlyReady = () => {
       Spreedly.setStyle('number', decodeURIComponent(Config.spreedlyCardNumberStyle.default))
-      Spreedly.setPlaceholder('number', 'Card number')
+      Spreedly.setPlaceholder('number', placeholder)
       Spreedly.setNumberFormat('prettyFormat')
 
       onReady && onReady()
     }
     window.addEventListener('bink.spreedly.ready', onSpreedlyReady)
     return () => window.removeEventListener('bink.spreedly.ready', onSpreedlyReady)
-  }, [onReady])
+  }, [onReady, placeholder])
 
   useEffect(() => {
     const onSpreedlyBlur = () => {

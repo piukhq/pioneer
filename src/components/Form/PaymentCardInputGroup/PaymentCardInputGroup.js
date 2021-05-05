@@ -4,8 +4,8 @@ import useSpreedlyCardNumber from './hooks/useSpreedlyCardNumber'
 
 import styles from './PaymentCardInputGroup.module.scss'
 
-const PaymentCardInputGroup = ({ className, error, onChange, onBlur, onReady }) => {
-  const { focus, length } = useSpreedlyCardNumber(error, onChange, onBlur, onReady)
+const PaymentCardInputGroup = ({ className, label, placeholder, error, onChange, onBlur, onReady }) => {
+  const { focus, length } = useSpreedlyCardNumber(placeholder, error, onChange, onBlur, onReady)
 
   return (
     <div className={cx(
@@ -17,7 +17,7 @@ const PaymentCardInputGroup = ({ className, error, onChange, onBlur, onReady }) 
       <label className={cx(
         styles.root__label,
         error && styles['root__label--error'],
-      )}>Card number</label>
+      )}>{label}</label>
       <div className={cx(
         styles.root__input,
         error && styles['root__input--error'],
