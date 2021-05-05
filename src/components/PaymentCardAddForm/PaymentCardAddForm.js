@@ -49,6 +49,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             label='Expiry'
             placeholder='MM/YY'
             value={expiry}
+            name='payment-card-expiry'
             onChange={handleExpiryChange}
             onBlur={handleExpiryBlur}
             error={expiryError}
@@ -59,6 +60,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             className={cx(styles.root__group, styles['root__name-group'])}
             label='Name on card'
             placeholder='Name on card'
+            name='payment-card-cardholder-name'
             value={fullName}
             onChange={handleNameChange}
             onBlur={handleNameBlur}

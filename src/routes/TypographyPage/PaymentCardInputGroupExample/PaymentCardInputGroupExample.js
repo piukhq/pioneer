@@ -14,7 +14,7 @@ const PaymentCardInputGroupExample = () => {
   const handleChange = useCallback(({ valid }) => {
     setValid(valid)
     setError(false)
-  }, [valid, setValid, setError])
+  }, [setValid, setError])
   return (
     <PaymentCardInputGroup
       label='Card number'
