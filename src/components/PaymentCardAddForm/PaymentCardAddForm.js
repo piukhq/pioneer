@@ -36,13 +36,11 @@ const PaymentCardAddForm = ({ onClose }) => {
       <form className={styles.root}>
         <div className={styles.root__groups}>
           <PaymentCardInputGroup
+            className={styles['root__number-group']}
             error={cardNumberError}
             onChange={handlePaymentCardChange}
             onBlur={handlePaymentCardBlur}
           />
-
-          <label className={cx(styles.root__label, styles['root__label--hidden'])}>CVV</label>
-          <div id='bink-spreedly-cvv' className={cx(styles.root__input, styles['root__input--hidden'])} />
 
           <TextInputGroup
             className={cx(styles.root__group, styles['root__expiry-group'])}

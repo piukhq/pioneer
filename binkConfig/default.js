@@ -79,8 +79,8 @@ module.exports = {
       case 'bink':
         return {
           // note: use encodeURIComponent since the config library doesn't like the character % in its strings
-          default: encodeURIComponent('width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #054127'),
-          error: encodeURIComponent('width: 100%; font-size: 18px; line-height: 62px; box-sizing: border-box; color: #a30f27'),
+          default: encodeURIComponent('width: 100%; font-size: 16px; line-height: 22px; box-sizing: border-box; color: #054127'),
+          error: encodeURIComponent('width: 100%; font-size: 16px; line-height: 22px; box-sizing: border-box; color: #a30f27'),
         }
       case 'wasabi':
         return {

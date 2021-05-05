@@ -6,36 +6,6 @@
     @include paragraph-spacing-styling;
   }
 
-  // todo: to clean up this one
-  &__label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-  &__label--hidden {
-    display: none;
-  }
-
-  // todo: to clean up once done
-  &__input {
-    display: block;
-    width: 100%;
-    height: 25px;
-    border: 1px solid #ccc;
-    border-width: 0 0 1px 0;
-    font-size: 16px;
-  }
-
-  &__input--hidden {
-    display: none;
-  }
-
-  // todo: to clean up
-  &__form-phase--hidden {
-    display: none;
-  }
-
   &__groups {
     margin: 30px 0;
     display: grid;
@@ -49,11 +19,6 @@
 
   &__number-group {
     grid-area: card-number;
-    border: 1px solid red;
-
-    &:focus-within {
-      border: 1px solid blue;
-    }
   }
 
   &__expiry-group {

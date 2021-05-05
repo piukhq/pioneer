@@ -2,4 +2,8 @@
 
 .root {
   @include text-input-group;
+
+  &__cvv {
+    display: none;
+  }
 }
