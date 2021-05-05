@@ -4,8 +4,10 @@ import cx from 'classnames'
 import Button from 'components/Button'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import usePaymentCardAddForm from './hooks/usePaymentCardAddForm'
-import styles from './PaymentCardAddForm.module.scss'
 import Loading3 from 'components/Loading3'
+import PaymentCardInputGroup from 'components/Form/PaymentCardInputGroup'
+
+import styles from './PaymentCardAddForm.module.scss'
 
 // todo: to rename this component to PaymentCardAddModal
 const PaymentCardAddForm = ({ onClose }) => {
@@ -18,6 +20,9 @@ const PaymentCardAddForm = ({ onClose }) => {
     handleExpiryBlur,
     handleNameChange,
     handleNameBlur,
+    cardNumberError,
+    handlePaymentCardChange,
+    handlePaymentCardBlur,
     isPaymentFormValid,
     isLoading,
     submitForm,
@@ -30,19 +35,21 @@ const PaymentCardAddForm = ({ onClose }) => {
 
       <form className={styles.root}>
         <div className={styles.root__groups}>
-          <div className={cx(styles.root__group, styles['root__number-group'])}>
-            <label className={styles.root__label}>Card number</label>
-            <div id='bink-spreedly-number' className={styles.root__input} />
-          </div>
-
-          <label className={cx(styles.root__label, styles['root__label--hidden'])}>CVV</label>
-          <div id='bink-spreedly-cvv' className={cx(styles.root__input, styles['root__input--hidden'])} />
+          <PaymentCardInputGroup
+            className={styles['root__number-group']}
+            label='Card number'
+            placeholder='Card number'
+            error={cardNumberError}
+            onChange={handlePaymentCardChange}
+            onBlur={handlePaymentCardBlur}
+          />
 
           <TextInputGroup
             className={cx(styles.root__group, styles['root__expiry-group'])}
             label='Expiry'
             placeholder='MM/YY'
             value={expiry}
+            name='payment-card-expiry'
             onChange={handleExpiryChange}
             onBlur={handleExpiryBlur}
             error={expiryError}
@@ -53,6 +60,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             className={cx(styles.root__group, styles['root__name-group'])}
             label='Name on card'
             placeholder='Name on card'
+            name='payment-card-cardholder-name'
             value={fullName}
             onChange={handleNameChange}
             onBlur={handleNameBlur}

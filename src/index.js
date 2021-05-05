@@ -1,4 +1,5 @@
 import 'url-search-params-polyfill'
+import 'custom-event-polyfill'
 import ResizeObserver from 'resize-observer-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
