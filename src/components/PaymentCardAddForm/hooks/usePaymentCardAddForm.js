@@ -76,7 +76,7 @@ const usePaymentCardAddForm = (onClose) => {
   }
 
   const handleExpiryBlur = useCallback(() => {
-    const errorMessage = isValidExpiry(expiry) ? undefined : 'Invalid expiry'
+    const errorMessage = isValidExpiry(expiry) ? undefined : 'Invalid date'
     setExpiryError(errorMessage)
   }, [expiry])
 
