@@ -24,6 +24,7 @@ const PaymentCardInputGroup = ({ className, label, placeholder, error, onChange,
         focus && styles['root__input--focus'],
       )}>
         <div id='bink-spreedly-number' className={cx(
+          styles['root__spreedly-container'],
           length === 0 && styles['root__iframe-placeholder'],
           length === 0 && error && styles['root__iframe-placeholder--error'],
         )} />
