@@ -30,8 +30,12 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
   }, [onBlur])
 
   useEffect(() => {
-    const onSpreedlyInput = () => {
-      onChange && onChange({ valid })
+    const onSpreedlyInput = (event) => {
+      const { numberLength, validNumber } = event.detail
+      setLength(numberLength)
+      setValid(validNumber)
+
+      onChange && onChange({ valid: validNumber })
     }
     window.addEventListener('bink.spreedly.input', onSpreedlyInput)
     return () => window.removeEventListener('bink.spreedly.input', onSpreedlyInput)
@@ -57,24 +61,18 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
       window.dispatchEvent(new CustomEvent('bink.spreedly.ready'))
     })
 
-    Spreedly.on('validation', function ({ numberLength, validNumber }) {
-      setLength(numberLength)
-      setValid(validNumber)
-    })
-
-    Spreedly.on('fieldEvent', function (name, event) {
-      // note: for some reason Spreedly.on('input') event doesn't trigger
-      if (name === 'number' && event === 'input') {
-        Spreedly.validate()
-        window.dispatchEvent(new CustomEvent('bink.spreedly.input'))
-      }
-
-      if (name === 'number' && event === 'focus') {
-        setFocus(true)
-      }
-      if (name === 'number' && event === 'blur') {
-        setFocus(false)
-        window.dispatchEvent(new CustomEvent('bink.spreedly.blur'))
+    Spreedly.on('fieldEvent', function (name, type, activeEl, inputProperties) {
+      if (name === 'number') {
+        if (type === 'input') {
+          window.dispatchEvent(new CustomEvent('bink.spreedly.input', { detail: inputProperties }))
+        }
+        if (type === 'focus') {
+          setFocus(true)
+        }
+        if (type === 'blur') {
+          setFocus(false)
+          window.dispatchEvent(new CustomEvent('bink.spreedly.blur'))
+        }
       }
     })
 

@@ -85,7 +85,10 @@ const usePaymentCardAddForm = (onClose) => {
     setFullNameError(errorMessage)
   }, [fullName])
 
-  const isPaymentFormValid = useCallback(() => isValidName(fullName) && isValidExpiry(expiry), [fullName, expiry])
+  const isPaymentFormValid = useCallback(
+    () => isValidName(fullName) && isValidExpiry(expiry) && cardNumberValid,
+    [fullName, expiry, cardNumberValid],
+  )
 
   const submitForm = (event) => {
     event.preventDefault()
