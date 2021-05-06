@@ -22,16 +22,17 @@ const MerchantMembershipCardEnrol = ({ planId, currentMembershipCard }) => {
   const initialValues = useRef({ enrol_fields: { Email: userId } }).current
   const disabledFields = useRef({ enrol_fields: { Email: true } }).current
 
+  const isReenrol = (currentMembershipCard?.status === 'reenrol')
+
   return (
     <div className={styles.root}>
-      {currentMembershipCard && (
+      {isReenrol && (
         <>
           <h1 className={styles.root__header}>Let's try again</h1>
           <p className={styles.root__summary}>There was a problem getting your card set up. Please try again. Remember, we are always here to help if you would rather us help resolve this.</p>
         </>
       )}
-
-      {!currentMembershipCard && (
+      {!isReenrol && (
         <>
           <h1 className={styles.root__header}>Join {plan?.account.plan_name}</h1>
           <p className={styles.root__summary}>{ plan?.account?.plan_summary }</p>
@@ -50,8 +51,8 @@ const MerchantMembershipCardEnrol = ({ planId, currentMembershipCard }) => {
         currentMembershipCardId={currentMembershipCard?.id}
       />
 
-      {currentMembershipCard && <Button secondary onClick={contactSupport} className={styles['root__alternate-option']}>Contact Support</Button>}
-      {!currentMembershipCard && <Button secondary onClick={logout} className={styles['root__alternate-option']}>Cancel</Button>}
+      {isReenrol && <Button secondary onClick={contactSupport} className={styles['root__alternate-option']}>Contact Support</Button>}
+      {!isReenrol && <Button secondary onClick={logout} className={styles['root__alternate-option']}>Cancel</Button>}
     </div>
   )
 }
