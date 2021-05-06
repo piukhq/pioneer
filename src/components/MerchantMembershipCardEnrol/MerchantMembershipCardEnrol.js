@@ -8,7 +8,7 @@ import useLogout from 'hooks/useLogout'
 import { useSelector } from 'react-redux'
 import Button from 'components/Button'
 
-import styles from './MerchantMembershipCardReenrol.module.scss'
+import styles from './MerchantMembershipCardEnrol.module.scss'
 
 const MerchantMembershipCardEnrol = ({ planId, currentMembershipCard }) => {
   const { plan } = useLoadMembershipPlans(planId)
