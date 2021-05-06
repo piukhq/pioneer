@@ -46,7 +46,7 @@ export const useMembershipCardsDispatch = () => {
   return {
     deleteMembershipCard: (id) => dispatch(membershipCardsActions.deleteMembershipCard(id)),
     addMembershipCard: (accountData, planId) => dispatch(membershipCardsActions.addMembershipCard(accountData, planId)),
-    addMembershipCardOnMerchantChannel: (accountData, planId, currentMembershipCardId, currentCardStatus) => dispatch(membershipCardsActions.addMembershipCardOnMerchantChannel(accountData, planId, currentCardStatus)),
+    addMembershipCardOnMerchantChannel: (accountData, planId, currentMembershipCardId) => dispatch(membershipCardsActions.addMembershipCardOnMerchantChannel(accountData, planId, currentMembershipCardId)),
     addMembershipCardResetSuccessStatus: () => dispatch(membershipCardsActions.addMembershipCardResetSuccessStatus()),
     linkPaymentCard: (paymentCardId, membershipCardId) => dispatch(membershipCardsActions.linkPaymentCard(paymentCardId, membershipCardId)),
     getMembershipPlans: () => dispatch(membershipCardsActions.getMembershipCards()),
