@@ -119,6 +119,15 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
+  if (serviceSuccess || postServiceSuccess) {
+    // prevent next elseifs executing
+  } else if (serviceLoading) {
+    return <HangTight />
+  } else if (serviceError) {
+    // Displayed when service error occurs, signifying T&Cs have not yet been accepted
+    return <WeFoundYou />
+  }
+
   // Membership card pending path
   if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
     return (
