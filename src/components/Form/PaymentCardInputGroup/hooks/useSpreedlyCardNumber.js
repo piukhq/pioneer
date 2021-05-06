@@ -13,9 +13,6 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
     const onSpreedlyReady = () => {
       Spreedly.setStyle('number', decodeURIComponent(Config.spreedlyCardNumberStyle.default))
       Spreedly.setPlaceholder('number', placeholder)
-      // field type has to be set to text for the prettyFormat to work
-      Spreedly.setFieldType('number', 'text')
-      Spreedly.setNumberFormat('prettyFormat')
 
       onReady && onReady()
     }
