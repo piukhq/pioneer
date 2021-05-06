@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
@@ -30,6 +30,8 @@ const MEMBERSHIP_CARD_IMAGE_TYPES = {
 const MembershipCardAddPage = () => {
   useLoadMembershipPlans()
 
+  const currentMembershipCard = useHistory().location.state
+
   const {
     isAddMembershipCardModalOpen,
     setAddMembershipCardModalOpen,
@@ -54,7 +56,7 @@ const MembershipCardAddPage = () => {
         <>
           <div className={styles.root}>
             { Config.isMerchantChannel ? (
-              <MerchantMembershipCardEnrol planId={planId} />
+              <MerchantMembershipCardEnrol planId={planId} currentMembershipCard={currentMembershipCard} />
             ) : (
               <>
                 <AccountMenu />
