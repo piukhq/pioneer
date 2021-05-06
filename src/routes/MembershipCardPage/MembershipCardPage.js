@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -44,6 +44,7 @@ const MembershipCardPage = () => {
   useEffect(() => {
     getMembershipPlans()
   }, [getMembershipPlans])
+  const history = useHistory()
 
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
@@ -119,25 +120,7 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  if (serviceSuccess || postServiceSuccess) {
-    // prevent next elseifs executing
-  } else if (serviceLoading) {
-    return <HangTight />
-  } else if (serviceError) {
-    // Displayed when service error occurs, signifying T&Cs have not yet been accepted
-    return <WeFoundYou />
-  }
-
-  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
-  const membershipCardStatusCode = membershipCard?.status.reason_codes[0]
-  // membership reenroll path
-  const reenrollCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
-  if (reenrollCodes.includes(membershipCardStatusCode) && Config.isMerchantChannel) {
-    return (
-        <MerchantMembershipCardReenrol />
-    )
-  }
-  // membership card pending path
+  // Membership card pending path
   if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
     return (
       <>
@@ -147,9 +130,18 @@ const MembershipCardPage = () => {
     )
   }
 
-  // todo: Account already exists path
+  const membershipCardStatusCode = membershipCard?.status.reason_codes[0]
 
-  // success path
+  // Membership card reenroll path
+  const reenrollCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
+  if (reenrollCodes.includes(membershipCardStatusCode) && Config.isMerchantChannel) {
+    history.replace({
+      pathname: `/membership-card/add/${Config.membershipPlanId}`,
+      state: { status: 'reenrol', id },
+    })
+  }
+
+  // Membership card active path
   return ( // todo: refactor success path into a separate component when all paths are added.
     <div>
       { linkingErrorModalVisible && (
