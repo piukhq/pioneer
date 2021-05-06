@@ -8,7 +8,7 @@ import CheckboxGroup from 'components/Form/CheckboxGroup'
 
 import styles from './MembershipCardForm.module.scss'
 
-const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialValues, disabledFields, submitCaption, submittingCaption, currentCardId }) => {
+const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialValues, disabledFields, submitCaption, submittingCaption, currentMembershipCardId }) => {
   const {
     values,
     documentValues,
@@ -22,9 +22,10 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     entireFormValid,
     serviceError,
     submitError,
+    deleteError,
     serviceLoading,
     submitLoading,
-  } = useForm(plan, planId, fieldTypes, linkingFeature, initialValues, currentCardId)
+  } = useForm(plan, planId, fieldTypes, linkingFeature, initialValues, currentMembershipCardId)
 
   const documentText = document => (
     <>
@@ -125,7 +126,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         >
           { ((serviceLoading || submitLoading) && submittingCaption) || submitCaption || 'Add my card' }
         </Button>
-        { (serviceError || submitError) && (
+        { (serviceError || submitError || deleteError) && (
           <div className={styles.root__error}>There was an error. Please try again.</div>
         ) }
       </form>
