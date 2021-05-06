@@ -316,7 +316,7 @@ export const actions = {
   },
   addMembershipCardOnMerchantChannel: (accountData, planId, currentMembershipCardId) => async (dispatch, getState) => {
     // todo: can this be refactored to use existing delete path?
-    //remove any existing membership card
+    // remove any existing membership card
     if (currentMembershipCardId) {
       dispatch(actions.deleteMembershipCardRequest())
       try {
