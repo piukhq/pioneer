@@ -314,7 +314,19 @@ export const actions = {
       dispatch(actions.addMembershipCardFailure(e))
     }
   },
-  addMembershipCardOnMerchantChannel: (accountData, planId) => async (dispatch, getState) => {
+  addMembershipCardOnMerchantChannel: (accountData, planId, currentMembershipCardId) => async (dispatch, getState) => {
+    // todo: can this be refactored to use existing delete path?
+    //remove any existing membership card
+    if (currentMembershipCardId) {
+      dispatch(actions.deleteMembershipCardRequest())
+      try {
+        await api.deleteMembershipCard(currentMembershipCardId)
+        dispatch(actions.deleteMembershipCardSuccess())
+      } catch (e) {
+        dispatch(actions.deleteMembershipCardFailure(e))
+      }
+    }
+    // add membershipCard
     dispatch(actions.addMembershipCardRequest())
     try {
       await dispatch(serviceActions.postService())
