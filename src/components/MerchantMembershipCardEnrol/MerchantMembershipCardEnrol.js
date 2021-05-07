@@ -1,17 +1,19 @@
 import React, { useRef } from 'react'
+import { useSelector } from 'react-redux'
 import { selectors as usersSelectors } from 'ducks/users'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
+import useLoadMembershipCardsStatus from './hooks/useLoadMembershipCardsStatus'
 import MembershipCardForm from 'components/MembershipCardForm'
 
 import useContactSupport from 'hooks/useContactSupport'
 import useLogout from 'hooks/useLogout'
-import { useSelector } from 'react-redux'
 import Button from 'components/Button'
 
 import styles from './MerchantMembershipCardEnrol.module.scss'
 
-const MerchantMembershipCardEnrol = ({ planId, currentMembershipCard }) => {
+const MerchantMembershipCardEnrol = ({ planId }) => {
   const { plan } = useLoadMembershipPlans(planId)
+  const { isReenrol } = useLoadMembershipCardsStatus()
   const { logout } = useLogout()
   const fieldTypes = useRef(['enrol_fields']).current
   const linkingFeature = 'ENROL'
@@ -21,8 +23,6 @@ const MerchantMembershipCardEnrol = ({ planId, currentMembershipCard }) => {
   // Email should be predefined and disabled for Merchant channels
   const initialValues = useRef({ enrol_fields: { Email: userId } }).current
   const disabledFields = useRef({ enrol_fields: { Email: true } }).current
-
-  const isReenrol = (currentMembershipCard?.status === 'reenrol')
 
   return (
     <div className={styles.root}>
@@ -48,7 +48,6 @@ const MerchantMembershipCardEnrol = ({ planId, currentMembershipCard }) => {
         disabledFields={disabledFields}
         submitCaption='Register'
         submittingCaption='Registering'
-        currentMembershipCardId={currentMembershipCard?.id}
       />
 
       {isReenrol && <Button secondary onClick={contactSupport} className={styles['root__alternate-option']}>Contact Support</Button>}

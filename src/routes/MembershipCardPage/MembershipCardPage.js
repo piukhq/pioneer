@@ -47,6 +47,7 @@ const MembershipCardPage = () => {
 
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
+  const membershipCardsStatus = useSelector(state => membershipCardsSelectors.membershipCardsStatus(state))
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
@@ -138,15 +139,9 @@ const MembershipCardPage = () => {
     )
   }
 
-  const membershipCardStatusCode = membershipCard?.status.reason_codes[0]
-
   // Membership card reenroll path
-  const reenrollCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
-  if (reenrollCodes.includes(membershipCardStatusCode) && Config.isMerchantChannel) {
-    history.replace({
-      pathname: `/membership-card/add/${Config.membershipPlanId}`,
-      state: { status: 'reenrol', id },
-    })
+  if (membershipCardsStatus === 'reenrol') {
+    history.replace(`/membership-card/add/${Config.membershipPlanId}`)
   }
 
   // Membership card active path
