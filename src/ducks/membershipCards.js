@@ -6,7 +6,9 @@ import {
 } from 'ducks/paymentCards'
 import { actions as serviceActions } from 'ducks/service'
 import { serializeError } from 'serialize-error'
+
 import { isPaymentCardExpired } from 'utils/paymentCards'
+import Config from 'Config'
 
 export const types = {
   MEMBERSHIP_CARDS_REQUEST: 'membershipCards/MEMBERSHIP_CARDS_REQUEST',
@@ -209,6 +211,24 @@ export const selectors = {
     membershipCardsSelector,
     cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
   ),
+  membershipCardsStatus: createSelector(
+    membershipCardsSelector,
+    (cardsObject) => {
+      const membershipCards = Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId])
+      if (membershipCards.length === 0) {
+        return 'unenrolled'
+      }
+      const membershipCardReasonCode = membershipCards[0]?.status?.reason_codes[0]
+      const reenrollCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
+      // todo: add duplicate card status by checking number of cards
+      if (reenrollCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel) {
+        return 'reenrol'
+      } else {
+        return 'active'
+      }
+    },
+  ),
+
   unlinkedPaymentCards: createSelector(
     membershipCardSelector,
     paymentCardsListSelector,
@@ -281,6 +301,7 @@ export const actions = {
       dispatch(actions.getMembershipCardsFailure())
     }
   },
+
   deleteMembershipCardRequest: () => ({ type: types.DELETE_MEMBERSHIP_CARD_REQUEST }),
   deleteMembershipCardFailure: (error) => ({ type: types.DELETE_MEMBERSHIP_CARD_FAILURE, payload: serializeError(error) }),
   deleteMembershipCardSuccess: () => ({ type: types.DELETE_MEMBERSHIP_CARD_SUCCESS }),
@@ -314,17 +335,20 @@ export const actions = {
       dispatch(actions.addMembershipCardFailure(e))
     }
   },
-  addMembershipCardOnMerchantChannel: (accountData, planId, currentMembershipCardId) => async (dispatch, getState) => {
-    // todo: can this be refactored to use existing delete path?
-    // remove any existing membership card
-    if (currentMembershipCardId) {
-      dispatch(actions.deleteMembershipCardRequest())
-      try {
-        await api.deleteMembershipCard(currentMembershipCardId)
-        dispatch(actions.deleteMembershipCardSuccess())
-      } catch (e) {
-        dispatch(actions.deleteMembershipCardFailure(e))
-      }
+  addMembershipCardOnMerchantChannel: (accountData, planId) => async (dispatch, getState) => {
+    // check for multiple membership cards and delete if found
+    const response = await api.getMembershipCards()
+    const membershipCards = response.data
+    if (membershipCards.length !== 0 && Config.isMerchantChannel) {
+      membershipCards.forEach(async (membershipCard) => {
+        dispatch(actions.deleteMembershipCardRequest(membershipCard.id))
+        try {
+          await api.deleteMembershipCard(membershipCard.id)
+          dispatch(actions.deleteMembershipCardSuccess())
+        } catch (e) {
+          dispatch(actions.deleteMembershipCardFailure(e))
+        }
+      })
     }
     // add membershipCard
     dispatch(actions.addMembershipCardRequest())
