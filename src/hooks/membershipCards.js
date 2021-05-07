@@ -6,6 +6,7 @@ import {
 
 export const useMembershipCardsState = () => {
   const membershipCards = useSelector(state => membershipCardsSelectors.cardsList(state))
+
   const loading = useSelector(state => state.membershipCards.loading)
   const error = useSelector(state => state.membershipCards.error)
 
@@ -46,7 +47,7 @@ export const useMembershipCardsDispatch = () => {
   return {
     deleteMembershipCard: (id) => dispatch(membershipCardsActions.deleteMembershipCard(id)),
     addMembershipCard: (accountData, planId) => dispatch(membershipCardsActions.addMembershipCard(accountData, planId)),
-    addMembershipCardOnMerchantChannel: (accountData, planId, currentMembershipCardId) => dispatch(membershipCardsActions.addMembershipCardOnMerchantChannel(accountData, planId, currentMembershipCardId)),
+    addMembershipCardOnMerchantChannel: (accountData, planId) => dispatch(membershipCardsActions.addMembershipCardOnMerchantChannel(accountData, planId)),
     addMembershipCardResetSuccessStatus: () => dispatch(membershipCardsActions.addMembershipCardResetSuccessStatus()),
     linkPaymentCard: (paymentCardId, membershipCardId) => dispatch(membershipCardsActions.linkPaymentCard(paymentCardId, membershipCardId)),
     getMembershipPlans: () => dispatch(membershipCardsActions.getMembershipCards()),

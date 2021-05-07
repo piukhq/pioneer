@@ -8,7 +8,7 @@ import CheckboxGroup from 'components/Form/CheckboxGroup'
 
 import styles from './MembershipCardForm.module.scss'
 
-const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialValues, disabledFields, submitCaption, submittingCaption, currentMembershipCardId }) => {
+const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialValues, disabledFields, submitCaption, submittingCaption }) => {
   const {
     values,
     documentValues,
@@ -25,7 +25,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     deleteError,
     serviceLoading,
     submitLoading,
-  } = useForm(plan, planId, fieldTypes, linkingFeature, initialValues, currentMembershipCardId)
+  } = useForm(plan, planId, fieldTypes, linkingFeature, initialValues)
 
   const documentText = document => (
     <>

@@ -5,7 +5,7 @@ import usePlanDocumentsValues from './usePlanDocumentsValues'
 import useRedirectToNewMembershipCard from './useRedirectToNewMembershipCard'
 import { useSelector } from 'react-redux'
 
-const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues, currentMembershipCardId) => {
+const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
   useRedirectToNewMembershipCard()
   const [values, setValues] = useState(null)
   const [errors, setErrors] = useState(null)
@@ -167,12 +167,12 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues, curren
       )
     })
     if (Config.isMerchantChannel) {
-      addMembershipCardOnMerchantChannel(accountData, planId, currentMembershipCardId)
+      addMembershipCardOnMerchantChannel(accountData, planId)
       // once a card has been added the useRedirectToNewMembershipCard hook will deal with the redirect
     } else {
       addMembershipCard(accountData, planId)
     }
-  }, [plan, values, addMembershipCard, addMembershipCardOnMerchantChannel, planId, fieldTypes, currentMembershipCardId])
+  }, [plan, values, addMembershipCard, addMembershipCardOnMerchantChannel, planId, fieldTypes])
 
   const deleteError = useSelector(state => state.membershipCards.delete.error)
 
