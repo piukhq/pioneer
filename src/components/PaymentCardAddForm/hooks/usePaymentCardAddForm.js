@@ -95,7 +95,7 @@ const usePaymentCardAddForm = (onClose) => {
     setIsLoading(true)
 
     const Spreedly = window.Spreedly
-    const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
+    const [, month, year] = expiry.match(/^(\d\d)\/(\d\d)$/) || []
 
     Spreedly.tokenizeCreditCard({
       month,
