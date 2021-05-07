@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import {
   selectors as membershipCardsSelectors,
   actions as membershipCardsActions,
@@ -8,6 +9,7 @@ import {
 const useLoadMembershipCardsStatus = () => {
   const error = useSelector(state => state.membershipCards.error)
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const [isReenrol, setIsReenrol] = useState(false)
 
@@ -15,13 +17,16 @@ const useLoadMembershipCardsStatus = () => {
     dispatch(membershipCardsActions.getMembershipCards())
   }, [dispatch])
 
-  const membershipCardStatus = useSelector(state => membershipCardsSelectors.membershipCardsStatus(state))
+  const membershipCardsStatus = useSelector(state => membershipCardsSelectors.membershipCardsStatus(state))
 
+  // todo: potentially add other state checks here
   useEffect(() => {
-    if (membershipCardStatus === 'reenrol') {
+    if (membershipCardsStatus === 'reenrol') {
       setIsReenrol(true)
+    } else if (membershipCardsStatus === 'active') {
+      history.replace('/membership-cards')
     }
-  }, [membershipCardStatus, setIsReenrol])
+  }, [membershipCardsStatus, setIsReenrol, history])
   return {
     error, isReenrol,
   }
