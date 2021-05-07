@@ -15,10 +15,10 @@ import Config from 'Config'
 Sentry.init({
   dsn: 'https://0526306eb4e946c49b13604301365d31@o503751.ingest.sentry.io/5725548',
   integrations: [new Integrations.BrowserTracing()],
-
+  // Used to set depth limit to redux store recorded state recorded in Senrty
+  normalizeDepth: 10,
   // e.g. `Bink staging`
   environment: `${Config.theme} ${Config.env}`,
-
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
