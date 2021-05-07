@@ -10,7 +10,7 @@ const isValidName = (fullName) => {
 }
 
 const isValidExpiry = (expiry) => {
-  const [, month, year] = expiry.match(/^\s*(\d+)\/(\d+)\s*$/) || []
+  const [, month, year] = expiry.match(/^(\d\d)\/(\d\d)$/) || []
   if (year && month && month >= 1 && month <= 12) {
     return !checkIsPaymentCardExpired(month, `20${year}`)
   }
