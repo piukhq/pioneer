@@ -35,6 +35,12 @@
     justify-content: space-between;
   }
 
+  &__generic-error {
+    text-align: center;
+    color: #a30f27;
+    margin: 30px;
+  }
+
   &__button-container {
     display: flex;
   }

@@ -23,6 +23,8 @@ const PaymentCardAddForm = ({ onClose }) => {
     cardNumberError,
     handlePaymentCardChange,
     handlePaymentCardBlur,
+    genericSpreedlyError,
+    genericBinkError,
     isPaymentFormValid,
     isLoading,
     submitForm,
@@ -72,6 +74,12 @@ const PaymentCardAddForm = ({ onClose }) => {
           <a className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Privacy and security</a>
           <a className={styles.root__url} href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Terms and conditions</a>
         </div>
+
+        { (genericSpreedlyError || genericBinkError) && (
+          <div className={styles['root__generic-error']}>
+            {genericSpreedlyError || genericBinkError}
+          </div>
+        ) }
 
         <div className={styles['root__button-container']}>
           <Button
