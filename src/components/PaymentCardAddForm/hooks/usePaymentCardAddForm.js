@@ -1,9 +1,8 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { isValidName, isValidExpiry } from 'utils/validation'
 
-// todo: to further break down this hook
 const usePaymentCardAddForm = (onClose) => {
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState('')
@@ -12,6 +11,7 @@ const usePaymentCardAddForm = (onClose) => {
   const [isLoading, setIsLoading] = useState(false)
   const [cardNumberValid, setCardNumberValid] = useState(false)
   const [cardNumberError, setCardNumberError] = useState(false)
+  const [genericSpreedlyError, setGenericSpreedlyError] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -55,6 +55,36 @@ const usePaymentCardAddForm = (onClose) => {
     Spreedly.on('errors', function (errors) {
       setIsLoading(false)
 
+      let anyNonFieldRelatedError = false
+      let anyFieldRelatedError = false
+      // todo:
+      //   Most of field related errors here would mean that local validation passed while Spreedly returned an error.
+      //   Once / if we'll have any logging implemented it would be worth logging it for refining further the local validation.
+      errors.forEach(error => {
+        switch (error.attribute) {
+          case 'month':
+          case 'year':
+            anyFieldRelatedError = true
+            setExpiryError('Invalid date')
+            break
+          case 'first_name':
+          case 'last_name':
+            anyFieldRelatedError = true
+            setFullNameError('Invalid name')
+            break
+          case 'number':
+            anyFieldRelatedError = true
+            setCardNumberError('Invalid card number')
+            break
+          default:
+            anyNonFieldRelatedError = true
+        }
+
+        if (anyNonFieldRelatedError && !anyFieldRelatedError) {
+          setGenericSpreedlyError('Something went wrong. Please try again later')
+        }
+      })
+
       for (let i = 0; i < errors.length; i++) {
         const error = errors[i]
         console.log(error)
@@ -92,6 +122,14 @@ const usePaymentCardAddForm = (onClose) => {
 
   const submitForm = (event) => {
     event.preventDefault()
+
+    // Reset errors that might have come back from Spreedly.
+    // Note that a form may still be valid and submittable even if it has visual errors against some of the fields.
+    setExpiryError(false)
+    setFullNameError(false)
+    setCardNumberError(false)
+    setGenericSpreedlyError(false)
+
     setIsLoading(true)
 
     const Spreedly = window.Spreedly
@@ -104,6 +142,9 @@ const usePaymentCardAddForm = (onClose) => {
     })
     return false
   }
+
+  const binkApiError = useSelector(state => state.paymentCards.add.error)
+  const genericBinkError = binkApiError && 'Something went wrong. Please try again later'
 
   return {
     fullName,
@@ -119,6 +160,8 @@ const usePaymentCardAddForm = (onClose) => {
     cardNumberError,
     handlePaymentCardChange,
     handlePaymentCardBlur,
+    genericSpreedlyError,
+    genericBinkError,
     isPaymentFormValid,
     isLoading,
     submitForm,

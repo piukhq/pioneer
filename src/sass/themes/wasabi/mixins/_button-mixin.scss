@@ -8,6 +8,9 @@
   font-weight: 400;
   letter-spacing: 1px;
   border: none;
+  // set a min-height for cases where there is only an svg (e.g spinner) that might be block an not have a line-height
+  // min-height = line-height + 2 * padding
+  min-height: 56px;
 
   &--primary {
     background-color: #143d30;
