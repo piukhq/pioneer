@@ -40,8 +40,13 @@ build-mr:
     - npm ci
     - npm run lint-js
     - npm run lint-css
+    # build wasabi theme
     - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi.tar.gz .
+    - rm -rf build
+    # build fatface theme
+    - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/fatface THEME=fatface npm run build
+    - tar -C build -zcvf build-fatface.tar.gz .
     - rm -rf build
   artifacts:
     paths:
@@ -54,9 +59,15 @@ deploy-mr:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
+    # deploy wasabi theme
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi.tar.gz
     - copy --sync wasabi /mr-$CI_MERGE_REQUEST_IID/wasabi/
+
+    # deploy fatface theme
+    - mkdir fatface
+    - tar -C fatface -xf build-fatface.tar.gz
+    - copy --sync fatface /mr-$CI_MERGE_REQUEST_IID/fatface/
 
     - python .ci-scripts/comment-deployment-url.py
   only:
