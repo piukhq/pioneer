@@ -6,6 +6,7 @@ module.exports = {
     switch (process.env.THEME) {
       case 'bink': return null
       case 'wasabi': return 215
+      case 'fatface': return 215 // todo: @jack
     }
   })(),
   supportDebugLogin: false,

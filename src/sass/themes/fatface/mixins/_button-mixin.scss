@@ -1,0 +1,40 @@
+
+@mixin button-style {
+  // todo: change colour values to be accessed via variables.scss
+  border-radius: 5px;
+  font-size: 24px;
+  line-height: 32px;
+  padding: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border: none;
+  // set a min-height for cases where there is only an svg (e.g spinner) that might be block an not have a line-height
+  // min-height = line-height + 2 * padding
+  min-height: 56px;
+
+  &--primary {
+    background-color: #143d30;
+    color: #fff;
+  }
+
+  &--secondary {
+    color: $text-color; // todo: not defined yet by specs
+    background-color: transparent; // todo: not defined yet by specs
+  }
+
+  &--tertiary {
+    background-color: #a30f27; // todo: not defined yet by specs
+    color: #fff; // todo: not defined yet by specs
+  }
+
+  &--disabled {
+    background-color: #d8d8d8;
+    color: #fff;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
