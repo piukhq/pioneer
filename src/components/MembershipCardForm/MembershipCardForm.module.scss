@@ -23,6 +23,9 @@
       color: $text-color;
       font-size: 14px;
       font-weight: bold;
+
+      // To vertically align the copy and offset any checkboxes above
+      padding-left: 23px;
     }
   }
 
