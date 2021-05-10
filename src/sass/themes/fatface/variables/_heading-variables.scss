@@ -1,10 +1,10 @@
 // heading font
-$heading-font-size: 80px;
+$heading-font-size: 48px;
 $heading-font-weight: bold;
-$heading-font-color: #054127;
-$heading-line-height: 1.1em;
+$heading-font-color: #57595b; // todo: to look into any remaining values of the wasabi colour #054127 not to appear in fatface
+$heading-line-height: 1em;
 $heading-margin-bottom: 0.2em;
 
 // heading font changes for smaller viewports
-$heading-font-size-small: 56px;
-$heading-line-height-small: 1.08em;
+$heading-font-size-small: 48px;
+$heading-line-height-small: 1em;

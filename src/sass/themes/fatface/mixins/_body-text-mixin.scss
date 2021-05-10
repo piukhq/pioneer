@@ -1,1 +1,14 @@
-@import "src/sass/themes/_default/mixins/body-text-mixin";
+@mixin body-font-style {
+  margin: 0;
+  font-family: $font-scotch;
+  font-size: $body-font-size;
+  color: $body-font-color;
+
+  &--first {
+    margin-top: 0;
+  }
+
+  &--last {
+    margin-bottom: 0;
+  }
+}
