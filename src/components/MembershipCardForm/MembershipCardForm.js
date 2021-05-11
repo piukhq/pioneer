@@ -108,6 +108,17 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
             )
           ))
         }
+
+        {Config.isMerchantChannel && (
+          <div className={cx(
+            styles.root__group,
+            styles['root__group--text-only'],
+            styles['root__group--full-width'],
+          )}>
+            Please read the <a className={styles.root__link} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink privacy policy</a>
+          </div>
+        )}
+
         <Button
           disabled={!entireFormValid || serviceLoading || submitLoading}
           className={styles.root__submit}
