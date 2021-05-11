@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
@@ -29,8 +29,6 @@ const MEMBERSHIP_CARD_IMAGE_TYPES = {
 
 const MembershipCardAddPage = () => {
   useLoadMembershipPlans()
-
-  const currentMembershipCard = useHistory().location.state
 
   const {
     isAddMembershipCardModalOpen,
