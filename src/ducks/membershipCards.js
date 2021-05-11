@@ -211,21 +211,13 @@ export const selectors = {
     membershipCardsSelector,
     cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
   ),
-  membershipCardsStatus: createSelector(
+  isReenrol: createSelector(
     membershipCardsSelector,
     (cardsObject) => {
-      const membershipCards = Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId])
-      if (membershipCards.length === 0) {
-        return 'unenrolled'
-      }
-      const membershipCardReasonCode = membershipCards[0]?.status?.reason_codes[0]
-      const reenrollCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
-      // todo: add duplicate card status by checking number of cards
-      if (reenrollCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel) {
-        return 'reenrol'
-      } else {
-        return 'active'
-      }
+      const membershipCardsArray = Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId])
+      const membershipCardReasonCode = membershipCardsArray[0]?.status?.reason_codes[0]
+      const reenrolCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
+      return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel && membershipCardsArray.length > 0)
     },
   ),
 
@@ -318,7 +310,15 @@ export const actions = {
       dispatch(actions.deleteMembershipCardFailure(e))
     }
   },
-
+  deleteAllMerchantMembershipCards: () => async (dispatch, getState) => {
+    const state = getState()
+    const membershipCardsArray = selectors.cardsList(state)
+    for (const index in membershipCardsArray) {
+      await dispatch(actions.deleteMembershipCard(membershipCardsArray[index].id))
+    }
+    await dispatch(actions.getMembershipCards())
+    dispatch(paymentCardsActions.getPaymentCards())
+  },
   addMembershipCardRequest: () => ({ type: types.ADD_MEMBERSHIP_CARD_REQUEST }),
   addMembershipCardFailure: (error) => ({ type: types.ADD_MEMBERSHIP_CARD_FAILURE, payload: serializeError(error) }),
   addMembershipCardSuccess: (payload) => ({ type: types.ADD_MEMBERSHIP_CARD_SUCCESS, payload }),
@@ -336,34 +336,27 @@ export const actions = {
     }
   },
   addMembershipCardOnMerchantChannel: (accountData, planId) => async (dispatch, getState) => {
-    // check for multiple membership cards and delete if found
-    const response = await api.getMembershipCards()
-    const membershipCards = response.data
-    if (membershipCards.length !== 0 && Config.isMerchantChannel) {
-      membershipCards.forEach(async (membershipCard) => {
-        dispatch(actions.deleteMembershipCardRequest(membershipCard.id))
-        try {
-          await api.deleteMembershipCard(membershipCard.id)
-          dispatch(actions.deleteMembershipCardSuccess())
-        } catch (e) {
-          dispatch(actions.deleteMembershipCardFailure(e))
-        }
-      })
+    if (Config.isMerchantChannel) {
+      await dispatch(actions.deleteAllMerchantMembershipCards())
     }
-    // add membershipCard
-    dispatch(actions.addMembershipCardRequest())
-    try {
-      await dispatch(serviceActions.postService())
-      if (!getState().service.post.success) {
-        throw new Error('Failed to post to /service')
+    const state = await getState()
+    const membershipCards = state.membershipCards.cards
+    if (Object.keys(membershipCards).length === 0) {
+      // add membershipCard
+      dispatch(actions.addMembershipCardRequest())
+      try {
+        await dispatch(serviceActions.postService())
+        if (!getState().service.post.success) {
+          throw new Error('Failed to post to /service')
+        }
+        const response = await api.addMembershipCard(accountData, planId)
+        dispatch(actions.addMembershipCardSuccess(response.data))
+        // refresh payment and membership cards
+        dispatch(paymentCardsActions.getPaymentCards())
+        dispatch(actions.getMembershipCards())
+      } catch (e) {
+        dispatch(actions.addMembershipCardFailure(e))
       }
-      const response = await api.addMembershipCard(accountData, planId)
-      dispatch(actions.addMembershipCardSuccess(response.data))
-      // refresh payment and membership cards
-      dispatch(paymentCardsActions.getPaymentCards())
-      dispatch(actions.getMembershipCards())
-    } catch (e) {
-      dispatch(actions.addMembershipCardFailure(e))
     }
   },
 
