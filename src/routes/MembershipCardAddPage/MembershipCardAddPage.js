@@ -56,7 +56,7 @@ const MembershipCardAddPage = () => {
         <>
           <div className={styles.root}>
             { Config.isMerchantChannel ? (
-              <MerchantMembershipCardEnrol planId={planId} currentMembershipCard={currentMembershipCard} />
+              <MerchantMembershipCardEnrol planId={planId} />
             ) : (
               <>
                 <AccountMenu />
