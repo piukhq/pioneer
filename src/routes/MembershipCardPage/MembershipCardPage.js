@@ -47,7 +47,7 @@ const MembershipCardPage = () => {
 
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
-  const membershipCardsStatus = useSelector(state => membershipCardsSelectors.membershipCardsStatus(state))
+  const isReenrol = useSelector(state => membershipCardsSelectors.isReenrol(state))
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
@@ -140,7 +140,7 @@ const MembershipCardPage = () => {
   }
 
   // Membership card reenroll path
-  if (membershipCardsStatus === 'reenrol') {
+  if (isReenrol) {
     history.replace(`/membership-card/add/${Config.membershipPlanId}`)
   }
 
