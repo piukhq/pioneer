@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import {
   selectors as membershipCardsSelectors,
   actions as membershipCardsActions,
@@ -9,8 +8,6 @@ import {
 const useLoadMembershipCardsReenrol = () => {
   const error = useSelector(state => state.membershipCards.error)
   const dispatch = useDispatch()
-  const history = useHistory()
-
   const [reenrolFormVisible, setReenrolFormVisible] = useState(false)
 
   useEffect(() => {
@@ -24,7 +21,7 @@ const useLoadMembershipCardsReenrol = () => {
     if (isReenrolRequired) {
       setReenrolFormVisible(true)
     }
-  }, [isReenrolRequired, setReenrolFormVisible, history])
+  }, [isReenrolRequired, setReenrolFormVisible])
   return {
     error, reenrolFormVisible,
   }
