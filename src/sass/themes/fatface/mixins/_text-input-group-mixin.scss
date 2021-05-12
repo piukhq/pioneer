@@ -3,8 +3,8 @@
 @mixin text-input-group {
   &__label {
     display: block;
+    font-family: $font-maven;
     margin-bottom: 10px;
-    font-weight: bold;
     font-size: 14px;
     color: $text-input-title-color--default;
 
@@ -56,6 +56,7 @@
 
     &--disabled {
       color: $text-input-text-color--disabled;
+      border: 1px solid $text-input-border-color--disabled;
     }
 
     &--error,
@@ -73,6 +74,10 @@
       color: $text-input-placeholder-color--error;
     }
 
+    &:focus::placeholder {
+      color: $text-input-placeholder-color--focused;
+    }
+
     &:hover,
     &:active,
     &:focus {
@@ -82,6 +87,7 @@
 
   &__error {
     font-weight: 400;
+    font-family: $font-maven;
     color: $text-input-error-color;
   }
 }

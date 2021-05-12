@@ -1,28 +1,28 @@
 // input text field colors
 
-$text-input-title-color--default: #054127;
-//$text-input-title-color--focused: #054127;
-$text-input-title-color--error: #a30f27;
-$text-input-title-color--disabled: #cdd9d4;
+$text-input-title-color--default: #57595b;
+//$text-input-title-color--focused: #57595b;
+$text-input-title-color--error: #57595b;
+$text-input-title-color--disabled: #57595b;
 
-$text-input-border-color--default: #cdd9d4;
-$text-input-border-color--focused: #054127;
-$text-input-border-color--error: #a30f3c;
-//$text-input-border-color--disabled: #cdd9d4;
+$text-input-border-color--default: #949494;
+$text-input-border-color--focused: #57595b;
+$text-input-border-color--error: #e6230a;
+$text-input-border-color--disabled: #57595b;
 
-$text-input-background-color--default: #f1f5f4;
-//$text-input-background-color--focused: #f1f5f4;
-$text-input-background-color--error: #f6e9ed;
-//$text-input-background-color--disabled: #f1f5f4;
+$text-input-background-color--default: #fff;
+//$text-input-background-color--focused: #fff;
+$text-input-background-color--error: #fff;
+//$text-input-background-color--disabled: #fff;
 
-$text-input-text-color--default: #054127;
-//$text-input-text-color--focused: #054127;
-$text-input-text-color--error: #a30f27;
-$text-input-text-color--disabled: #cdd9d4;
+$text-input-text-color--default: #57595b;
+//$text-input-text-color--focused: #57595b;
+$text-input-text-color--error: #57595b;
+$text-input-text-color--disabled: #57595b;
 
-$text-input-placeholder-color--default: #cdd9d4;
-//$text-input-placeholder-color--focused: #cdd9d4;
-$text-input-placeholder-color--error: rgba(#a30f3c, 0.5);
-//$text-input-placeholder-color--disabled: #cdd9d4;
+$text-input-placeholder-color--default: #6b6b6b;
+$text-input-placeholder-color--focused: #c9c9c9;
+$text-input-placeholder-color--error: #6b6b6b;
+//$text-input-placeholder-color--disabled: #6b6b6b;
 
-$text-input-error-color: #a30f27;
+$text-input-error-color: #e6230a;
