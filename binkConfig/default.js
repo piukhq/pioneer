@@ -120,8 +120,8 @@ module.exports = {
           // Line-height should be 62px - 2px. The 2px are substracted due to the border around the input box
           // Margin: 0, is added due to the fact than in safari there is some padding on the input field and the text
           // will not be properly centered vertically.
-          default: encodeURIComponent('width: 100%; font-size: 18px; line-height: 60px; box-sizing: border-box; color: #054127; margin: 0'),
-          error: encodeURIComponent('width: 100%; font-size: 18px; line-height: 60px; box-sizing: border-box; color: #a30f27; margin: 0'),
+          default: encodeURIComponent('width: 100%; font-size: 14px; line-height: 38px; box-sizing: border-box; color: #57595b; margin: 0'),
+          error: encodeURIComponent('width: 100%; font-size: 14px; line-height: 38px; box-sizing: border-box; color: #57595b; margin: 0'),
         }
     }
   })(),

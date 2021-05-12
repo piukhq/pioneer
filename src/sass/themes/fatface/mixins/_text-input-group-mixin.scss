@@ -39,14 +39,15 @@
   &__input {
     display: block;
     width: 100%;
-    height: 62px;
-    font-size: 23px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
     letter-spacing: 1px;
     padding: 0 10px;
     color: $text-input-text-color--default;
     background-color: $text-input-background-color--default;
     border: 1px solid $text-input-border-color--default;
-    border-radius: 5px;
+    border-radius: 0;
 
     &:focus,
     // Spreedly selector
@@ -86,8 +87,8 @@
   }
 
   &__error {
-    font-weight: 400;
     font-family: $font-maven;
+    font-size: 14px;
     color: $text-input-error-color;
   }
 }
