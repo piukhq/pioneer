@@ -33,7 +33,7 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
         </>
       ) : (
         <>
-          <h1 className={styles.root__header}>Join {plan?.account.plan_name}</h1>
+          <h1 className={styles.root__header}>Join {plan?.account?.plan_name}</h1>
           <p className={styles.root__summary}>{ plan?.account?.plan_summary }</p>
         </>
       ) }
@@ -48,9 +48,9 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
         submittingCaption='Registering'
       />
       {reenrolFormVisible ? (
-        <Button secondary onClick={contactSupport} className={styles['root__alternate-option']}>Contact Support</Button>
+        <Button secondary onClick={contactSupport} className={styles['root__contact-support']}>Contact Support</Button>
       ) : (
-        <Button secondary onClick={logout} className={styles['root__alternate-option']}>Cancel</Button>
+        <Button secondary onClick={logout} className={styles['root__cancel']}>Cancel</Button>
       ) }
   </div>
   )
