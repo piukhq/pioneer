@@ -211,7 +211,7 @@ export const selectors = {
     membershipCardsSelector,
     cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
   ),
-  isReenrol: createSelector(
+  isReenrolRequired: createSelector(
     membershipCardsSelector,
     (cardsObject) => {
       const membershipCardsArray = Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId])
@@ -336,27 +336,27 @@ export const actions = {
     }
   },
   addMembershipCardOnMerchantChannel: (accountData, planId) => async (dispatch, getState) => {
+    dispatch(actions.addMembershipCardRequest())
     if (Config.isMerchantChannel) {
       await dispatch(actions.deleteAllMerchantMembershipCards())
     }
-    const state = await getState()
-    const membershipCards = state.membershipCards.cards
-    if (Object.keys(membershipCards).length === 0) {
-      // add membershipCard
-      dispatch(actions.addMembershipCardRequest())
-      try {
-        await dispatch(serviceActions.postService())
-        if (!getState().service.post.success) {
-          throw new Error('Failed to post to /service')
-        }
-        const response = await api.addMembershipCard(accountData, planId)
-        dispatch(actions.addMembershipCardSuccess(response.data))
-        // refresh payment and membership cards
-        dispatch(paymentCardsActions.getPaymentCards())
-        dispatch(actions.getMembershipCards())
-      } catch (e) {
-        dispatch(actions.addMembershipCardFailure(e))
+    const state = getState()
+    const membershipCards = selectors.cardsList(state)
+    try {
+      if (membershipCards.length > 0) {
+        throw new Error('Failed to delete prior membership cards')
       }
+      await dispatch(serviceActions.postService())
+      if (!getState().service.post.success) {
+        throw new Error('Failed to post to /service')
+      }
+      const response = await api.addMembershipCard(accountData, planId)
+      dispatch(actions.addMembershipCardSuccess(response.data))
+      // refresh payment and membership cards
+      dispatch(paymentCardsActions.getPaymentCards())
+      dispatch(actions.getMembershipCards())
+    } catch (e) {
+      dispatch(actions.addMembershipCardFailure(e))
     }
   },
 
