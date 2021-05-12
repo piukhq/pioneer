@@ -11,22 +11,22 @@ const useLoadMembershipCardsReenrol = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const [isReenrol, setIsReenrol] = useState(false)
+  const [reenrolFormVisible, setReenrolFormVisible] = useState(false)
 
   useEffect(() => {
     dispatch(membershipCardsActions.getMembershipCards())
   }, [dispatch])
 
-  const isReenrolSelector = useSelector(state => membershipCardsSelectors.isReenrol(state))
+  const isReenrolRequired = useSelector(state => membershipCardsSelectors.isReenrolRequired(state))
 
   // todo: potentially add other state checks here
   useEffect(() => {
-    if (isReenrolSelector) {
-      setIsReenrol(true)
+    if (isReenrolRequired) {
+      setReenrolFormVisible(true)
     }
-  }, [isReenrolSelector, setIsReenrol, history])
+  }, [isReenrolRequired, setReenrolFormVisible, history])
   return {
-    error, isReenrol,
+    error, reenrolFormVisible,
   }
 }
 
