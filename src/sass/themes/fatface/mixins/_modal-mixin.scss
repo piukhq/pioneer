@@ -2,6 +2,7 @@
 
 @mixin modal {
   &__header {
+    font-family: $font-scotch;
     font-size: $modal-title-font-size;
     color: $modal-title-font-color;
     font-weight: $modal-title-font-weight;
