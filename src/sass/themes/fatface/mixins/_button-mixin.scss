@@ -4,35 +4,63 @@
   // todo: change colour values to be accessed via variables.scss
   border-radius: 0;
   font-size: 16px;
-  line-height: 32px;
-  padding: 12px;
+  line-height: 40px;
+  padding: 0 16px;
   font-weight: 400;
-  letter-spacing: 1px;
+  text-transform: uppercase;
   border: none;
-  // set a min-height for cases where there is only an svg (e.g spinner) that might be block an not have a line-height
-  // min-height = line-height + 2 * padding + 2 * border
-  min-height: 56px;
+  height: 40px;
 
   &--primary {
-    border: 1px solid #48494b;
-    background-color: #48494b; // todo: this is bad, not as fatface.com
+    border: 1px solid #57595b;
+    background-color: #57595b;
     color: #fff;
+
+    &:focus {
+      background-color: #707375;
+    }
+
+    &:hover {
+      background-color: #646668;
+    }
+
+    &:active {
+      background-color: #48494b;
+    }
   }
 
   &--secondary {
-    border: 1px solid #57595b; // todo: this is bad, not as fatface.com
+    border: 1px solid #57595b;
     color: #57595b;
-    background-color: #fff; // todo: should be transparent @jack
+    background-color: transparent;
+
+    &:focus,
+    &:hover {
+      border: 1px solid #252627;
+      color: #252627;
+    }
+
+    &:active {
+      border: 1px solid #48494b;
+      color: #48494b;
+    }
   }
 
   &--tertiary {
+    border: 1px solid #a30f27;
     background-color: #a30f27; // todo: not defined yet by specs
     color: #fff; // todo: not defined yet by specs
   }
 
   &--disabled {
-    background-color: #d8d8d8;
-    color: #fff;
+    border: 1px solid #f0f0f0;
+    background-color: #f0f0f0;
+    color: #bebfc1;
+
+    &:hover,
+    &:active {
+      background-color: #f0f0f0;
+    }
   }
 
   &:hover,
