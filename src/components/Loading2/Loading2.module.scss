@@ -1,5 +1,7 @@
+@import "src/sass/variables";
+
 .root {
   circle {
-    fill: #054127;
+    fill: $text-color;
   }
 }
