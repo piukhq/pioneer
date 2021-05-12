@@ -201,9 +201,10 @@ const reducer = (state = initialState, action) => {
 export default reducer
 
 const membershipCardsSelector = state => state.membershipCards.cards
-const paymentCardsListSelector = state => paymentCardsSelectors.cardsList(state)
+const membershipCardsListSelector = state => selectors.cardsList(state)
 const membershipCardSelector = (state, id) => state.membershipCards.cards[id]
 const membershipPlansSelector = state => state.membershipPlans.plans
+const paymentCardsListSelector = state => paymentCardsSelectors.cardsList(state)
 const newlyAddedCardIdSelector = state => state.paymentCards?.add?.card?.id
 
 export const selectors = {
@@ -212,12 +213,11 @@ export const selectors = {
     cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
   ),
   isReenrolRequired: createSelector(
-    membershipCardsSelector,
-    (cardsObject) => {
-      const membershipCardsArray = Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId])
-      const membershipCardReasonCode = membershipCardsArray[0]?.status?.reason_codes[0]
+    membershipCardsListSelector,
+    (membershipCardsArray) => {
+      const membershipCardReasonCode = membershipCardsArray?.[0]?.status?.reason_codes?.[0]
       const reenrolCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
-      return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel && membershipCardsArray.length > 0)
+      return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
     },
   ),
 
