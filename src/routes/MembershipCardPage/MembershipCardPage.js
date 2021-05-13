@@ -35,6 +35,7 @@ import Config from 'Config'
 import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
+  // todo: refactor to reduce overall complexity and size of this component.
   useLoadService()
 
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
