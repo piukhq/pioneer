@@ -141,12 +141,7 @@ const MembershipCardPage = () => {
   }
 
   // Membership card reenroll path
-  if (isReenrolRequired) {
-    history.replace(`/membership-card/add/${Config.membershipPlanId}`)
-  }
-
-  // Membership card active path
-  return ( // todo: refactor success path into a separate component when all paths are added.
+  isReenrolRequired ? history.replace(`/membership-card/add/${Config.membershipPlanId}`) : (
     <div>
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
