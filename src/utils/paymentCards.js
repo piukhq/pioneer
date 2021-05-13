@@ -11,7 +11,7 @@ export const areCardsLinked = (paymentCard, membershipCard) => {
   return (
     membershipCard?.payment_cards
       ?.filter(
-        nestedPaymentCard => nestedPaymentCard.id === paymentCard.id && nestedPaymentCard.active_link,
+        nestedPaymentCard => nestedPaymentCard.id === paymentCard.id && nestedPaymentCard.active_link && !isPaymentCardExpired(paymentCard),
       ).length === 1
   )
 }

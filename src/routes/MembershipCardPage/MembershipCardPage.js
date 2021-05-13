@@ -89,14 +89,17 @@ const MembershipCardPage = () => {
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
 
   const handleClickOnPaymentCard = useCallback(async (card) => {
-    // Currently relying on the fact that expired cards are displayed as unlinked but are reflected as linked in the api
-    if (!areCardsLinked(card, membershipCard) || isPaymentCardExpired(card)) {
-      // card is not liked but is expired
-      setCardIdToBeDeleted(card.id)
-      setDeleteFormVisible(true)
+    if (!areCardsLinked(card, membershipCard)) {
+      if (isPaymentCardExpired(card)) {
+        // card is not liked but is expired
+        setCardIdToBeDeleted(card.id)
+        setDeleteFormVisible(true)
+      } else {
+        // card is not linked as is not expired
+        linkCard(card)
+      }
     } else {
-      // card is not linked and is not expired
-      linkCard(card)
+      // card is linked. should do nothing if clicked
     }
   }, [membershipCard, linkCard])
 
