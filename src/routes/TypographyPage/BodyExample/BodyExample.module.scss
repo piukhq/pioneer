@@ -3,5 +3,9 @@
 .root {
   &__body {
     @include body-font-style;
+
+    &--with-paragraph-spacing {
+      @include paragraph-spacing-styling;
+    }
   }
 }

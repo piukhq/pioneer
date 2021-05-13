@@ -11,7 +11,7 @@ const ModalExample = () => {
   const [narrowModal, setNarrowModal] = useState(false)
   return (
     <div>
-      <Button onClick={() => setSimpleModal(true)}>Simple modal</Button>
+      <Button onClick={() => setSimpleModal(true)} className={styles.root__button}>Simple modal</Button>
       { simpleModal && (
         <Modal onClose={() => setSimpleModal(false)}>
           <Modal.Header>Simple modal title</Modal.Header>
@@ -21,7 +21,7 @@ const ModalExample = () => {
         </Modal>
       ) }
 
-      <Button onClick={() => setNoCloseModal(true)}>No close button modal</Button>
+      <Button onClick={() => setNoCloseModal(true)} className={styles.root__button}>No close button modal</Button>
       { noCloseModal && (
         <Modal>
           <Modal.Header>Modal with no close button</Modal.Header>
@@ -32,7 +32,7 @@ const ModalExample = () => {
         </Modal>
       ) }
 
-      <Button onClick={() => setScrollableModal(true)}>Scrollable modal</Button>
+      <Button onClick={() => setScrollableModal(true)} className={styles.root__button}>Scrollable modal</Button>
       { scrollableModal && (
         <Modal onClose={() => setScrollableModal(false)}>
           <Modal.Header>Scrollable modal title</Modal.Header>
@@ -42,7 +42,7 @@ const ModalExample = () => {
         </Modal>
       ) }
 
-      <Button onClick={() => setNarrowModal(true)}>Narrow modal</Button>
+      <Button onClick={() => setNarrowModal(true)} className={styles.root__button}>Narrow modal</Button>
       { narrowModal && (
         <Modal className={styles['root__modal--narrow']} onClose={() => setNarrowModal(false)}>
           <Modal.Header>Narrow modal title</Modal.Header>
