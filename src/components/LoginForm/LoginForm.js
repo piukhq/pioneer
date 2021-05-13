@@ -1,8 +1,8 @@
 import React from 'react'
-
-import styles from './LoginForm.module.scss'
 import useLoginForm from './hooks/useLoginForm'
 import Button from 'components/Button'
+
+import styles from './LoginForm.module.scss'
 
 const LoginForm = () => {
   const {

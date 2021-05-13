@@ -52,11 +52,11 @@ module.exports = {
         termsAndConditions: 'https://www.wasabi.uk.com/terms-and-conditions/',
       }
       case 'fatface': return { // todo: consider addition to plan documents on api?
-        // todo: these still link to wasabi for now
-        support: 'https://www.wasabi.uk.com/contactf-us/',
-        merchantFaq: 'https://www.wasabi.uk.com/faq/',
+        support: 'https://www.fatface.com/help-centre/contact-us.html',
+        merchantFaq: 'https://www.fatface.com/help-centre/frequently-asked-questions.html',
+        // todo: this is as Wasabi for now. Might require updating when we know what it should be
         binkFaq: 'https://help.bink.com/hc/en-gb/categories/360002202520-Frequently-Asked-Questions',
-        termsAndConditions: 'https://www.wasabi.uk.com/terms-and-conditions/',
+        termsAndConditions: 'https://www.fatface.com/legal-info/terms-and-conditions.html',
       }
     }
   })(),
