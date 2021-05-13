@@ -6,6 +6,7 @@ import {
 } from 'ducks/paymentCards'
 import { actions as serviceActions } from 'ducks/service'
 import { serializeError } from 'serialize-error'
+import { isPaymentCardExpired } from 'utils/paymentCards'
 
 export const types = {
   MEMBERSHIP_CARDS_REQUEST: 'membershipCards/MEMBERSHIP_CARDS_REQUEST',
@@ -221,7 +222,7 @@ export const selectors = {
           .map(paymentCard => paymentCard.id)
       )
       return allPaymentCardsList
-        .filter(paymentCard => linkedPaymentCardsIds.indexOf(paymentCard.id) === -1)
+        .filter(paymentCard => linkedPaymentCardsIds.indexOf(paymentCard.id) === -1 || isPaymentCardExpired(paymentCard))
     },
   ),
   newlyPendingPaymentCard: createSelector(
@@ -243,7 +244,7 @@ export const selectors = {
           .filter(paymentCard => paymentCard.active_link)
           .map(paymentCard => paymentCard)
       )
-      return linkedPaymentCards.filter(linkedCard => allPaymentCardsList.some(card => linkedCard.id === card.id))
+      return linkedPaymentCards.filter(linkedCard => allPaymentCardsList.some(card => linkedCard.id === card.id && !isPaymentCardExpired(card)))
     },
   ),
   activeVouchers: createSelector(

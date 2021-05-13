@@ -28,7 +28,6 @@ import Vouchers from 'components/Vouchers'
 import WeFoundYou from 'components/WeFoundYou'
 import HangTight from 'components/HangTight'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
-import { useUnlinkExpiredPaymentCards } from 'hooks/membershipCards'
 import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
 import Config from 'Config'
@@ -37,7 +36,6 @@ import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
   useLoadService()
-  useUnlinkExpiredPaymentCards()
 
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
   // to further attempt optimizing the process
@@ -91,17 +89,14 @@ const MembershipCardPage = () => {
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
 
   const handleClickOnPaymentCard = useCallback(async (card) => {
-    if (!areCardsLinked(card, membershipCard)) {
-      if (isPaymentCardExpired(card)) {
-        // card is not liked but is expired
-        setCardIdToBeDeleted(card.id)
-        setDeleteFormVisible(true)
-      } else {
-        // card is not linked as is not expired
-        linkCard(card)
-      }
+    // Currently relying on the fact that expired cards are displayed as unlinked but are reflected as linked in the api
+    if (!areCardsLinked(card, membershipCard) || isPaymentCardExpired(card)) {
+      // card is not liked but is expired
+      setCardIdToBeDeleted(card.id)
+      setDeleteFormVisible(true)
     } else {
-      // card is linked. should do nothing if clicked
+      // card is not linked and is not expired
+      linkCard(card)
     }
   }, [membershipCard, linkCard])
 
