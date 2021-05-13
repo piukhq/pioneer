@@ -22,7 +22,6 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     entireFormValid,
     serviceError,
     submitError,
-    deleteError,
     serviceLoading,
     submitLoading,
   } = useForm(plan, planId, fieldTypes, linkingFeature, initialValues)
@@ -126,7 +125,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         >
           { ((serviceLoading || submitLoading) && submittingCaption) || submitCaption || 'Add my card' }
         </Button>
-        { (serviceError || submitError || deleteError) && (
+        { (serviceError || submitError) && (
           <div className={styles.root__error}>There was an error. Please try again.</div>
         ) }
       </form>

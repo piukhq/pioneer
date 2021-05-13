@@ -174,8 +174,6 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
     }
   }, [plan, values, addMembershipCard, addMembershipCardOnMerchantChannel, planId, fieldTypes])
 
-  const deleteError = useSelector(state => state.membershipCards.delete.error)
-
   const serviceError = useSelector(state => state.service.post.error)
   const submitError = useSelector(state => state.membershipCards.add.error)
 
@@ -194,7 +192,6 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
     handleDocumentChange,
     handleBinkTermsChange,
     serviceError,
-    deleteError,
     submitError,
     serviceLoading,
     submitLoading,
