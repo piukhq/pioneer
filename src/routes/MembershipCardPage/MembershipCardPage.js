@@ -44,6 +44,7 @@ const MembershipCardPage = () => {
   useEffect(() => {
     getMembershipPlans()
   }, [getMembershipPlans])
+
   const history = useHistory()
 
   const { id } = useParams()
@@ -121,6 +122,13 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
+  // membership reenrol path
+  useEffect(() => {
+    if (isReenrolRequired) {
+      history.replace(`/membership-card/add/${Config.membershipPlanId}`)
+    }
+  }, [isReenrolRequired, history])
+
   if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing
   } else if (serviceLoading) {
@@ -139,9 +147,8 @@ const MembershipCardPage = () => {
       </>
     )
   }
-
-  // Membership card reenroll path
-  isReenrolRequired ? history.replace(`/membership-card/add/${Config.membershipPlanId}`) : (
+  // Membership card active path
+  return (
     <div>
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
