@@ -7,6 +7,9 @@ export const isPaymentCardExpired = card => {
   return checkIsPaymentCardExpired(expiryMonth, expiryYear)
 }
 
+// Expired payment cards are not currently being unlinked on the api side, but we still consider them as unlinked on the client side.
+// If this function were to be used in the future to decide to display an `unlink` button,
+// then an expired card would not display that button, even though it is technically linked
 export const areCardsLinked = (paymentCard, membershipCard) => {
   return (
     membershipCard?.payment_cards
