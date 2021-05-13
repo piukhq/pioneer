@@ -337,12 +337,12 @@ export const actions = {
   },
   addMembershipCardOnMerchantChannel: (accountData, planId) => async (dispatch, getState) => {
     dispatch(actions.addMembershipCardRequest())
-    if (Config.isMerchantChannel) {
-      await dispatch(actions.deleteAllMerchantMembershipCards())
-    }
-    const state = getState()
-    const membershipCards = selectors.cardsList(state)
     try {
+      if (Config.isMerchantChannel) {
+        await dispatch(actions.deleteAllMerchantMembershipCards())
+      }
+      const state = getState()
+      const membershipCards = selectors.cardsList(state)
       if (membershipCards.length > 0) {
         throw new Error('Failed to delete prior membership cards')
       }
