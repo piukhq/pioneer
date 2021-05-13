@@ -23,7 +23,8 @@ const useLoadMembershipCardsReenrol = () => {
     }
   }, [isReenrolRequired, setReenrolFormVisible])
   return {
-    error, reenrolFormVisible,
+    error,
+    reenrolFormVisible,
   }
 }
 
