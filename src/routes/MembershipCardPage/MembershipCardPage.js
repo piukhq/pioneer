@@ -28,6 +28,7 @@ import Vouchers from 'components/Vouchers'
 import WeFoundYou from 'components/WeFoundYou'
 import HangTight from 'components/HangTight'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
+import { useUnlinkExpiredPaymentCards } from 'hooks/membershipCards'
 import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
 import Config from 'Config'
@@ -36,6 +37,7 @@ import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
   useLoadService()
+  useUnlinkExpiredPaymentCards()
 
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
   // to further attempt optimizing the process

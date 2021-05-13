@@ -1,8 +1,33 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectors as membershipCardsSelectors,
   actions as membershipCardsActions,
 } from 'ducks/membershipCards'
+import {
+  selectors as paymentCardsSelectors,
+} from 'ducks/paymentCards'
+import { isPaymentCardExpired } from 'utils/paymentCards'
+
+export const useUnlinkExpiredPaymentCards = () => {
+  const { unLinkPaymentCard } = useMembershipCardsDispatch()
+  const paymentCards = useSelector(state => paymentCardsSelectors.cardsList(state))
+  const membershipCards = useSelector(state => membershipCardsSelectors.cardsList(state))
+
+  useEffect(() => {
+    if (paymentCards.length !== 0 && membershipCards.length !== 0) {
+      // Possibly need to multichannel with multiple membership cards
+      membershipCards.forEach(membershipCard => {
+        const expiredLinkedPaymentCards = membershipCard.payment_cards.filter(linkedCard => {
+          const paymentCard = paymentCards.find(paymentCard => paymentCard.id === linkedCard.id)
+          return isPaymentCardExpired(paymentCard)
+        })
+
+        expiredLinkedPaymentCards.forEach(expiredCard => unLinkPaymentCard(expiredCard.id, membershipCard.id))
+      })
+    }
+  }, [membershipCards, paymentCards, unLinkPaymentCard])
+}
 
 export const useMembershipCardsState = () => {
   const membershipCards = useSelector(state => membershipCardsSelectors.cardsList(state))
