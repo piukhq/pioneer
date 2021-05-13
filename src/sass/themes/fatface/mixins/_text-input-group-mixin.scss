@@ -25,15 +25,6 @@
   &__iframe-placeholder {
     // apply opacity to the entire iframe
     opacity: 0.3;
-
-    // note: Spreedly doesn't allow customisation of the placeholder.
-    // See comments section on:
-    // https://support.spreedly.com/hc/en-us/community/posts/221864208-Can-you-add-support-for-stylization-of-the-iFrame-
-    // The shade of red is an approximation only of the error colour. It is achieved by applying a filter to the entire iframe.
-    &--error {
-      opacity: 0.7;
-      filter: sepia(1) saturate(1) hue-rotate(-73deg);
-    }
   }
 
   &__input {
