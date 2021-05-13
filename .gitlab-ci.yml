@@ -11,8 +11,14 @@ build:
     - npm ci
     - npm run lint-js
     - npm run lint-css
+    # build wasabi theme
     - NODE_CONFIG_ENV=development PUBLIC_URL=/develop/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi.tar.gz .
+    - rm -rf build
+
+    # build fatface theme
+    - NODE_CONFIG_ENV=development PUBLIC_URL=/develop/fatface THEME=fatface npm run build
+    - tar -C build -zcvf build-fatface.tar.gz .
     - rm -rf build
   artifacts:
     paths:
@@ -25,9 +31,15 @@ deploy-dev:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
+    # deploy wasabi theme
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi.tar.gz
     - copy --sync wasabi /develop/wasabi/
+
+    # deploy fatface theme
+    - mkdir fatface
+    - tar -C fatface -xf build-fatface.tar.gz
+    - copy --sync fatface /develop/fatface/
   only:
     - develop
 
@@ -44,6 +56,7 @@ build-mr:
     - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
+
     # build fatface theme
     - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/fatface THEME=fatface npm run build
     - tar -C build -zcvf build-fatface.tar.gz .
@@ -81,8 +94,14 @@ build-staging:
     - npm ci
     - npm run lint-js
     - npm run lint-css
+    # build wasabi theme
     - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi.tar.gz .
+    - rm -rf build
+
+    # build fatface theme
+    - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/fatface THEME=fatface npm run build
+    - tar -C build -zcvf build-fatface.tar.gz .
     - rm -rf build
   artifacts:
     paths:
@@ -96,8 +115,14 @@ deploy-staging:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
+    # deploy wasabi theme
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi.tar.gz
     - copy --staging --sync wasabi /staging/wasabi/
+
+    # deploy fatface theme
+    - mkdir fatface
+    - tar -C fatface -xf build-fatface.tar.gz
+    - copy --staging --sync fatface /staging/fatface/
   only:
     - develop
