@@ -316,8 +316,8 @@ export const actions = {
     for (const index in membershipCardsArray) {
       await dispatch(actions.deleteMembershipCard(membershipCardsArray[index].id))
     }
-    await dispatch(actions.getMembershipCards())
     dispatch(paymentCardsActions.getPaymentCards())
+    await dispatch(actions.getMembershipCards())
   },
   addMembershipCardRequest: () => ({ type: types.ADD_MEMBERSHIP_CARD_REQUEST }),
   addMembershipCardFailure: (error) => ({ type: types.ADD_MEMBERSHIP_CARD_FAILURE, payload: serializeError(error) }),
