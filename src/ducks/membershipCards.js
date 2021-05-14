@@ -6,7 +6,9 @@ import {
 } from 'ducks/paymentCards'
 import { actions as serviceActions } from 'ducks/service'
 import { serializeError } from 'serialize-error'
+
 import { isPaymentCardExpired } from 'utils/paymentCards'
+import Config from 'Config'
 
 export const types = {
   MEMBERSHIP_CARDS_REQUEST: 'membershipCards/MEMBERSHIP_CARDS_REQUEST',
@@ -199,9 +201,10 @@ const reducer = (state = initialState, action) => {
 export default reducer
 
 const membershipCardsSelector = state => state.membershipCards.cards
-const paymentCardsListSelector = state => paymentCardsSelectors.cardsList(state)
+const membershipCardsListSelector = state => selectors.cardsList(state)
 const membershipCardSelector = (state, id) => state.membershipCards.cards[id]
 const membershipPlansSelector = state => state.membershipPlans.plans
+const paymentCardsListSelector = state => paymentCardsSelectors.cardsList(state)
 const newlyAddedCardIdSelector = state => state.paymentCards?.add?.card?.id
 
 export const selectors = {
@@ -209,6 +212,15 @@ export const selectors = {
     membershipCardsSelector,
     cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
   ),
+  isReenrolRequired: createSelector(
+    membershipCardsListSelector,
+    (membershipCardsArray) => {
+      const membershipCardReasonCode = membershipCardsArray?.[0]?.status?.reason_codes?.[0]
+      const reenrolCodes = ['X101', 'X102', 'X104', 'X302', 'X303', 'X304']
+      return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
+    },
+  ),
+
   unlinkedPaymentCards: createSelector(
     membershipCardSelector,
     paymentCardsListSelector,
@@ -281,6 +293,7 @@ export const actions = {
       dispatch(actions.getMembershipCardsFailure())
     }
   },
+
   deleteMembershipCardRequest: () => ({ type: types.DELETE_MEMBERSHIP_CARD_REQUEST }),
   deleteMembershipCardFailure: (error) => ({ type: types.DELETE_MEMBERSHIP_CARD_FAILURE, payload: serializeError(error) }),
   deleteMembershipCardSuccess: () => ({ type: types.DELETE_MEMBERSHIP_CARD_SUCCESS }),
@@ -297,7 +310,15 @@ export const actions = {
       dispatch(actions.deleteMembershipCardFailure(e))
     }
   },
-
+  deleteAllMerchantMembershipCards: () => async (dispatch, getState) => {
+    const state = getState()
+    const membershipCardsArray = selectors.cardsList(state)
+    for (const index in membershipCardsArray) {
+      await dispatch(actions.deleteMembershipCard(membershipCardsArray[index].id))
+    }
+    dispatch(paymentCardsActions.getPaymentCards())
+    await dispatch(actions.getMembershipCards())
+  },
   addMembershipCardRequest: () => ({ type: types.ADD_MEMBERSHIP_CARD_REQUEST }),
   addMembershipCardFailure: (error) => ({ type: types.ADD_MEMBERSHIP_CARD_FAILURE, payload: serializeError(error) }),
   addMembershipCardSuccess: (payload) => ({ type: types.ADD_MEMBERSHIP_CARD_SUCCESS, payload }),
@@ -317,6 +338,14 @@ export const actions = {
   addMembershipCardOnMerchantChannel: (accountData, planId) => async (dispatch, getState) => {
     dispatch(actions.addMembershipCardRequest())
     try {
+      if (Config.isMerchantChannel) {
+        await dispatch(actions.deleteAllMerchantMembershipCards())
+      }
+      const state = getState()
+      const membershipCards = selectors.cardsList(state)
+      if (membershipCards.length > 0) {
+        throw new Error('Failed to delete prior membership cards')
+      }
       await dispatch(serviceActions.postService())
       if (!getState().service.post.success) {
         throw new Error('Failed to post to /service')
