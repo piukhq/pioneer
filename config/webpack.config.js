@@ -161,6 +161,7 @@ module.exports = function (webpackEnv) {
   };
 
   return {
+    // todo: this will have to be replaced. Check other todos in this file to see by what and why
     externals: {
       Config: JSON.stringify(binkConfig),
     },
@@ -574,6 +575,11 @@ module.exports = function (webpackEnv) {
       ],
     },
     plugins: [
+      // todo: Should replace `externals: { Config: JSON.stringify(binkConfig) }` in the file with this line here
+      //  new webpack.DefinePlugin({ Config: JSON.stringify(binkConfig) }),
+      //  Please note that when that's done Config will become a globally accessible value and its import will have to
+      //  be removed from all across the proejct
+      //  The reason behind it is that this way strings containing the character % won't have to be URI encoded
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1
       }),

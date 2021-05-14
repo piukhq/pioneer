@@ -1,0 +1,85 @@
+@import "src/sass/variables";
+
+@mixin text-input-group {
+  &__label {
+    display: block;
+    font-family: $font-maven;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: $text-input-title-color--default;
+
+    &--error {
+      color: $text-input-title-color--error;
+    }
+
+    &--disabled {
+      color: $text-input-title-color--disabled;
+    }
+  }
+
+  &__spreedly-container {
+    height: 100%;
+  }
+
+  // Spreedly selector
+  &__iframe-placeholder {
+    // apply opacity to the entire iframe
+    opacity: 0.3;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 0 10px;
+    color: $text-input-text-color--default;
+    background-color: $text-input-background-color--default;
+    border: 1px solid $text-input-border-color--default;
+    border-radius: 0;
+
+    &:focus,
+    // Spreedly selector
+    &--focus {
+      border-color: $text-input-border-color--focused;
+    }
+
+    &--disabled {
+      color: $text-input-text-color--disabled;
+      border: 1px solid $text-input-border-color--disabled;
+    }
+
+    &--error,
+    &--error:focus, {
+      color: $text-input-text-color--error;
+      background-color: $text-input-background-color--error;
+      border-color: $text-input-border-color--error;
+    }
+
+    &::placeholder {
+      color: $text-input-placeholder-color--default;
+    }
+
+    &--error::placeholder {
+      color: $text-input-placeholder-color--error;
+    }
+
+    &:focus::placeholder {
+      color: $text-input-placeholder-color--focused;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__error {
+    font-family: $font-maven;
+    font-size: 14px;
+    color: $text-input-error-color;
+  }
+}
