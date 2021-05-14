@@ -124,7 +124,7 @@ const MembershipCardPage = () => {
 
   // membership reenrol path
   useEffect(() => {
-    if (isReenrolRequired) {
+    if (isReenrolRequired && Config.isMerchantChannel) {
       history.replace(`/membership-card/add/${Config.membershipPlanId}`)
     }
   }, [isReenrolRequired, history])
