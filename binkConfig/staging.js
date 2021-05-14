@@ -6,12 +6,14 @@ module.exports = {
     switch (process.env.THEME) {
       case 'bink': return null
       case 'wasabi': return 281
+      case 'fatface': return 246
     }
   })(),
   clientId: (() => {
     switch (process.env.THEME) {
       case 'bink': return 'MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd'
       case 'wasabi': return 'Lut7mjRCl0WqrCvsDbRB6zt7IyDzVltSU9tKg1Igxh29xBS0MX'
+      case 'fatface': return 'zARoBYFRmsocQOEYyp8Cl3su5YstcGzsMFANgytYFObLYlrJ6l'
     }
   })(),
 }
