@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Config from 'Config'
 
 const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) => {
   const Spreedly = window.Spreedly
@@ -11,7 +10,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
     const Spreedly = window.Spreedly
 
     const onSpreedlyReady = () => {
-      Spreedly.setStyle('number', decodeURIComponent(Config.spreedlyCardNumberStyle.default))
+      Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
       Spreedly.setPlaceholder('number', placeholder)
 
       onReady && onReady()
@@ -48,9 +47,9 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
 
     if (isIframeReady) {
       if (error) {
-        Spreedly.setStyle('number', decodeURIComponent(Config.spreedlyCardNumberStyle.error))
+        Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.error)
       } else {
-        Spreedly.setStyle('number', decodeURIComponent(Config.spreedlyCardNumberStyle.default))
+        Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
       }
     }
   }, [error, isIframeReady])

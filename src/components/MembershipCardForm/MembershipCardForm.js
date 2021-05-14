@@ -3,7 +3,6 @@ import DynamicInputGroup from 'components/Form/DynamicInputGroup'
 import Button from 'components/Button'
 import useForm from './hooks/useForm'
 import cx from 'classnames'
-import Config from 'Config'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
 
 import styles from './MembershipCardForm.module.scss'

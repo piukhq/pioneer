@@ -10,7 +10,6 @@ import MembershipCardAddModal from 'components/MembershipCardAddModal'
 import MembershipCardEnrolModal from 'components/MembershipCardEnrolModal'
 import HangTight from 'components/HangTight'
 import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol'
-import Config from 'Config'
 
 import styles from './MembershipCardAddPage.module.scss'
 

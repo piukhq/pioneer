@@ -30,7 +30,6 @@ import HangTight from 'components/HangTight'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
-import Config from 'Config'
 
 import styles from './MembershipCardPage.module.scss'
 

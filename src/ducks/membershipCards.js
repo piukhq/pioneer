@@ -8,7 +8,6 @@ import { actions as serviceActions } from 'ducks/service'
 import { serializeError } from 'serialize-error'
 
 import { isPaymentCardExpired } from 'utils/paymentCards'
-import Config from 'Config'
 
 export const types = {
   MEMBERSHIP_CARDS_REQUEST: 'membershipCards/MEMBERSHIP_CARDS_REQUEST',

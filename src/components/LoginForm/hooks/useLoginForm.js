@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useUsersDispatch } from 'hooks/users'
-import Config from 'Config'
 
 const useLoginForm = () => {
   // todo: to remove default values for username and password

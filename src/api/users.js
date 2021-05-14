@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Config from 'Config'
 
 export const login = (email, password) => (
   axios.post(
