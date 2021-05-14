@@ -1,5 +1,4 @@
 import React from 'react'
-import Config from 'Config'
 import useLoadMembershipCards from './hooks/useLoadMembershipCards'
 import MerchantMembershipCards from 'components/MerchantMembershipCards'
 import MultichannelMembershipCards from 'components/MultichannelMembershipCards'

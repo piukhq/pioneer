@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
-import Config from 'Config'
 import usePlanDocumentsValues from './usePlanDocumentsValues'
 import useRedirectToNewMembershipCard from './useRedirectToNewMembershipCard'
 import { useSelector } from 'react-redux'

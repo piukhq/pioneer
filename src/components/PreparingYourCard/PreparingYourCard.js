@@ -2,7 +2,6 @@ import React from 'react'
 
 import styles from './PreparingYourCard.module.scss'
 import Loading2 from 'components/Loading2'
-import Config from 'Config'
 
 const PreparingYourCard = () => (
   <div className={styles.root}>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Config from 'Config'
 
 const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) => {
   const Spreedly = window.Spreedly

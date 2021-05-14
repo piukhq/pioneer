@@ -10,7 +10,6 @@ import reportWebVitals from './reportWebVitals'
 import configureStore from './store/configureStore'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
-import Config from 'Config'
 
 Sentry.init({
   dsn: 'https://0526306eb4e946c49b13604301365d31@o503751.ingest.sentry.io/5725548',
