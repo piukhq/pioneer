@@ -1,6 +1,7 @@
 import 'url-search-params-polyfill'
 import 'custom-event-polyfill'
 import ResizeObserver from 'resize-observer-polyfill'
+import 'polyfill-array-includes'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'

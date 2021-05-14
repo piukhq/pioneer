@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -35,6 +35,7 @@ import Config from 'Config'
 import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
+  // todo: refactor to reduce overall complexity and size of this component.
   useLoadService()
 
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
@@ -44,8 +45,11 @@ const MembershipCardPage = () => {
     getMembershipPlans()
   }, [getMembershipPlans])
 
+  const history = useHistory()
+
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
+  const isReenrolRequired = useSelector(state => membershipCardsSelectors.isReenrolRequired(state))
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
@@ -75,13 +79,14 @@ const MembershipCardPage = () => {
   const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
-
   const [linkingSuccessModalVisible, setLinkingSuccessModalVisible] = useState(false)
+
   const handleLinkingSuccess = useCallback(() => {
     setLinkingSuccessModalVisible(true)
   }, [setLinkingSuccessModalVisible])
 
   const [linkingErrorModalVisible, setLinkingErrorModalVisible] = useState(false)
+
   const handleLinkingError = useCallback(() => {
     setLinkingErrorModalVisible(true)
   }, [setLinkingErrorModalVisible])
@@ -117,6 +122,13 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
+  // membership reenrol path
+  useEffect(() => {
+    if (isReenrolRequired && Config.isMerchantChannel) {
+      history.replace(`/membership-card/add/${Config.membershipPlanId}`)
+    }
+  }, [isReenrolRequired, history])
+
   if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing
   } else if (serviceLoading) {
@@ -126,7 +138,8 @@ const MembershipCardPage = () => {
     return <WeFoundYou />
   }
 
-  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) { // todo: revise conditionals when fail path in web-276 is implemented
+  // Membership card pending path
+  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
     return (
       <>
         <MembershipCardRefresher membershipCardId={id} />
@@ -134,8 +147,8 @@ const MembershipCardPage = () => {
       </>
     )
   }
-
-  return ( // todo: refactor below into separate component
+  // Membership card active path
+  return (
     <div>
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />

@@ -7,12 +7,10 @@ import { useSelector } from 'react-redux'
 
 const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
   useRedirectToNewMembershipCard()
-
   const [values, setValues] = useState(null)
   const [errors, setErrors] = useState(null)
   const [binkTermsValue, setBinkTermsValue] = useState(false)
   const [entireFormValid, setEntireFormValid] = useState(null)
-
   const {
     allPlanDocumentsAccepted,
     documentValues,
@@ -168,7 +166,6 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
         ({ column }) => ({ column, value: values[fieldType][column] }),
       )
     })
-
     if (Config.isMerchantChannel) {
       addMembershipCardOnMerchantChannel(accountData, planId)
       // once a card has been added the useRedirectToNewMembershipCard hook will deal with the redirect
