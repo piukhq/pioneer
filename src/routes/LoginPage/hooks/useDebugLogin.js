@@ -1,5 +1,4 @@
 import { useHistory } from 'react-router-dom'
-import Config from 'Config'
 
 const useDebugLogin = () => {
   const history = useHistory()

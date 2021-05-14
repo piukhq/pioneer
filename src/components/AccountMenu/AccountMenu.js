@@ -8,7 +8,6 @@ import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
 
 import useLogout from './hooks/useLogout'
 
-import Config from 'Config'
 import styles from './AccountMenu.module.scss'
 
 const AccountMenu = () => {

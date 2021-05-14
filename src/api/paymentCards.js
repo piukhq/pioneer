@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Config from 'Config'
 
 export const getPaymentCards = () => (
   axios.get(

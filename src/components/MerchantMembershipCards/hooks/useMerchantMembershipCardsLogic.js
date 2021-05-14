@@ -2,7 +2,6 @@ import { useMembershipCardsState } from 'hooks/membershipCards'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import Config from 'Config'
 
 const useMerchantMembershipCardsLogic = () => {
   const { membershipCards } = useMembershipCardsState()

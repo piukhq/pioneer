@@ -142,6 +142,9 @@
         "never"
       ],
       "camelcase": "off"
+    },
+    "globals": {
+      "Config": true
     }
   },
   "browserslist": {
