@@ -6,7 +6,6 @@ import {
 } from 'ducks/membershipCards'
 
 const useLoadMembershipCardsReenrol = () => {
-  const error = useSelector(state => state.membershipCards.error)
   const dispatch = useDispatch()
   const [reenrolFormVisible, setReenrolFormVisible] = useState(false)
 
@@ -23,7 +22,6 @@ const useLoadMembershipCardsReenrol = () => {
     }
   }, [isReenrolRequired, setReenrolFormVisible])
   return {
-    error,
     reenrolFormVisible,
   }
 }
