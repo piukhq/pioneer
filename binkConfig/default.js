@@ -108,25 +108,24 @@ module.exports = {
     switch (process.env.THEME) {
       case 'bink':
         return {
-          // note: use encodeURIComponent since the config library doesn't like the character % in its strings
-          default: encodeURIComponent('width: 100%; font-size: 16px; line-height: 22px; box-sizing: border-box; color: #054127; margin: 0'),
-          error: encodeURIComponent('width: 100%; font-size: 16px; line-height: 22px; box-sizing: border-box; color: #a30f27 margin: 0'),
+          default: 'width: 100%; font-size: 16px; line-height: 22px; box-sizing: border-box; color: #054127; margin: 0',
+          error: 'width: 100%; font-size: 16px; line-height: 22px; box-sizing: border-box; color: #a30f27 margin: 0',
         }
       case 'wasabi':
         return {
           // Line-height should be 62px - 2px. The 2px are substracted due to the border around the input box
           // Margin: 0, is added due to the fact than in safari there is some padding on the input field and the text
           // will not be properly centered vertically.
-          default: encodeURIComponent('width: 100%; font-size: 18px; line-height: 60px; box-sizing: border-box; color: #054127; margin: 0'),
-          error: encodeURIComponent('width: 100%; font-size: 18px; line-height: 60px; box-sizing: border-box; color: #a30f27; margin: 0'),
+          default: 'width: 100%; font-size: 18px; line-height: 60px; box-sizing: border-box; color: #054127; margin: 0',
+          error: 'width: 100%; font-size: 18px; line-height: 60px; box-sizing: border-box; color: #a30f27; margin: 0',
         }
       case 'fatface':
         return {
           // Line-height should be 40px - 2px. The 2px are substracted due to the border around the input box
           // Margin: 0, is added due to the fact than in safari there is some padding on the input field and the text
           // will not be properly centered vertically.
-          default: encodeURIComponent('width: 100%; font-size: 14px; line-height: 38px; box-sizing: border-box; color: #57595b; margin: 0'),
-          error: encodeURIComponent('width: 100%; font-size: 14px; line-height: 38px; box-sizing: border-box; color: #57595b; margin: 0'),
+          default: 'width: 100%; font-size: 14px; line-height: 38px; box-sizing: border-box; color: #57595b; margin: 0',
+          error: 'width: 100%; font-size: 14px; line-height: 38px; box-sizing: border-box; color: #57595b; margin: 0',
         }
     }
   })(),
