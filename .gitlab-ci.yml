@@ -103,6 +103,11 @@ build-staging:
     - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/fatface THEME=fatface npm run build
     - tar -C build -zcvf build-fatface.tar.gz .
     - rm -rf build
+
+    # build wasabi theme for sandbox
+    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/sandbox/wasabi THEME=wasabi npm run build
+    - tar -C build -zcvf build-wasabi-sandbox.tar.gz .
+    - rm -rf build
   artifacts:
     paths:
       - build*.tar.gz
@@ -124,5 +129,10 @@ deploy-staging:
     - mkdir fatface
     - tar -C fatface -xf build-fatface.tar.gz
     - copy --staging --sync fatface /staging/fatface/
+
+    # deploy wasabi theme for sandbox
+    - mkdir sandbox
+    - tar -C sandbox -xf build-wasabi-sandbox.tar.gz
+    - copy --staging --sync sandbox /sandbox/wasabi/
   only:
     - develop
