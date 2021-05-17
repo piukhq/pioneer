@@ -49,6 +49,7 @@ const MembershipCardPage = () => {
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const isReenrolRequired = useSelector(state => membershipCardsSelectors.isReenrolRequired(state))
+  const isReaddRequired = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
@@ -127,6 +128,12 @@ const MembershipCardPage = () => {
       history.replace(`/membership-card/add/${Config.membershipPlanId}`)
     }
   }, [isReenrolRequired, history])
+  // membership readd path
+  useEffect(() => {
+    if (isReaddRequired && Config.isMerchantChannel) {
+      history.replace(`/membership-card/add/${Config.membershipPlanId}`)
+    }
+  }, [isReaddRequired, history])
 
   if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing

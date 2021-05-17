@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
@@ -10,6 +11,8 @@ import MembershipCardAddModal from 'components/MembershipCardAddModal'
 import MembershipCardEnrolModal from 'components/MembershipCardEnrolModal'
 import HangTight from 'components/HangTight'
 import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol'
+import MerchantMembershipCardAdd from 'components/MerchantMembershipCardAdd'
+import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import styles from './MembershipCardAddPage.module.scss'
 
@@ -45,7 +48,12 @@ const MembershipCardAddPage = () => {
 
   const canAdd = plan?.feature_set?.linking_support?.includes('ADD')
   const canEnrol = plan?.feature_set?.linking_support?.includes('ENROL')
+  const isReaddRequired = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
 
+  if (Config.isMerchantChannel && isReaddRequired) {
+    // return <MembershipCardAddModal planId={planId} onClose={() => setAddMembershipCardModalOpen(false)} />
+    return <MerchantMembershipCardAdd planId={planId} />
+  }
   return (
     <>
       { loading ? <HangTight /> : null }

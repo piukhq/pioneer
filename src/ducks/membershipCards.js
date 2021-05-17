@@ -219,6 +219,13 @@ export const selectors = {
       return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
     },
   ),
+  isReaddRequired: createSelector(
+    membershipCardsListSelector,
+    (membershipCardsArray) => {
+      const membershipCardReasonCode = membershipCardsArray?.[0]?.status?.reason_codes?.[0]
+      return (membershipCardReasonCode === 'X202' && Config.isMerchantChannel)
+    },
+  ),
 
   unlinkedPaymentCards: createSelector(
     membershipCardSelector,
