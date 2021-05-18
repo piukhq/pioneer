@@ -36,6 +36,36 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     </>
   )
 
+  // Readd Membership card form
+  if (linkingFeature === 'ADD') {
+    return (
+      values ? (
+        <form onSubmit={handleSubmit} className={styles['root--add-only']}>
+          { fieldTypes.map(fieldType => (
+            plan?.account[fieldType].map(fieldDescription => (
+              <DynamicInputGroup
+                className={cx(
+                  styles.root__group,
+                  fieldDescription.type === 3 && styles['root__group--full-width'],
+                )}
+                key={fieldDescription.column}
+                value={values[fieldType][fieldDescription.column]}
+                error={errors[fieldType][fieldDescription.column]}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                data={fieldDescription}
+                fieldType={fieldType}
+                disabled={disabledFields?.[fieldType]?.[fieldDescription?.column]}
+              />
+            ))
+          ))}
+           <Button disabled={!entireFormValid || submitLoading} className={styles['root__submit--add-only']}>Continue</Button>
+        </form>
+      ) : null
+    )
+  }
+
+  // Standard Enrollment form
   return (
     values ? (
       <form onSubmit={handleSubmit} className={styles.root}>
