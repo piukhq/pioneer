@@ -28,6 +28,7 @@ const MerchantMembershipCardAdd = ({ planId }) => {
         planId={planId}
         fieldTypes={fieldTypes}
         linkingFeature={linkingFeature}
+        submitCaption='Continue'
       />
       <Button secondary onClick={contactSupport} className={styles['root__contact-support']}>Forgotten your card number? Contact us</Button>
     </div>

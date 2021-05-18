@@ -1,7 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import DynamicInputGroup from 'components/Form/DynamicInputGroup'
 import Button from 'components/Button'
 import useForm from './hooks/useForm'
+import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import cx from 'classnames'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
 
@@ -25,6 +27,8 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     submitLoading,
   } = useForm(plan, planId, fieldTypes, linkingFeature, initialValues)
 
+  const isAddForm = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
+
   const documentText = document => (
     <>
       {document.description}{' '}
@@ -36,39 +40,9 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     </>
   )
 
-  // Readd form
-  if (linkingFeature === 'ADD') {
-    return (
-      values ? (
-        <form onSubmit={handleSubmit} className={styles['root--add-only']}>
-          { fieldTypes.map(fieldType => (
-            plan?.account[fieldType].map(fieldDescription => (
-              <DynamicInputGroup
-                className={cx(
-                  styles.root__group,
-                  fieldDescription.type === 3 && styles['root__group--full-width'],
-                )}
-                key={fieldDescription.column}
-                value={values[fieldType][fieldDescription.column]}
-                error={errors[fieldType][fieldDescription.column]}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                data={fieldDescription}
-                fieldType={fieldType}
-                disabled={disabledFields?.[fieldType]?.[fieldDescription?.column]}
-              />
-            ))
-          ))}
-           <Button disabled={!entireFormValid || submitLoading} className={styles['root__submit--add-only']}>Continue</Button>
-        </form>
-      ) : null
-    )
-  }
-
-  // Standard Enrollment form
   return (
     values ? (
-      <form onSubmit={handleSubmit} className={styles.root}>
+      <form onSubmit={handleSubmit} className={isAddForm ? styles['root--add-only'] : styles.root}>
         { fieldTypes.map(fieldType => (
           plan.account[fieldType].map(fieldDescription => (
             <DynamicInputGroup
@@ -87,7 +61,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
             />
           ))
         )) }
-        { Config.isMerchantChannel && (
+        { Config.isMerchantChannel && !isAddForm && (
           <CheckboxGroup
             className={cx(
               styles.root__group,
@@ -138,7 +112,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
           ))
         }
 
-        {Config.isMerchantChannel && (
+        {Config.isMerchantChannel && !isAddForm && (
           <div className={cx(
             styles.root__group,
             styles['root__group--text-only'],
