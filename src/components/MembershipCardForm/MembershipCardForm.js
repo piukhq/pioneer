@@ -40,6 +40,70 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     </>
   )
 
+  const enrolFormSection = () => (
+    <>
+      { Config.isMerchantChannel && (
+        <CheckboxGroup
+          className={cx(
+            styles.root__group,
+            styles['root__group--full-width'],
+          )}
+          value={binkTermsValue}
+          onChange={handleBinkTermsChange}
+          label={
+            <>
+              I accept the{' '}
+              <a
+                href='https://bink.com/terms-and-conditions/'
+                target='_blank'
+                rel='noreferrer'
+                className={styles.root__link}
+              >Bink terms & conditions</a>.
+            </>
+          }
+        />
+      ) }
+      { plan?.account?.plan_documents
+        ?.filter(document => document?.display?.includes(linkingFeature))
+        ?.map(document => (
+          document.checkbox ? (
+            <CheckboxGroup
+              className={cx(
+                styles.root__group,
+                styles['root__group--full-width'],
+              )}
+              key={document.name}
+              label={documentText(document)}
+              name={document.name}
+              value={documentValues[document.name]}
+              onChange={event => handleDocumentChange(event, document.name)}
+            />
+          ) : (
+            <div
+              className={cx(
+                styles.root__group,
+                styles['root__group--text-only'],
+                styles['root__group--full-width'],
+              )}
+              key={document.name}
+            >
+              {documentText(document)}
+            </div>
+          )
+        ))
+      }
+      {Config.isMerchantChannel && (
+        <div className={cx(
+          styles.root__group,
+          styles['root__group--text-only'],
+          styles['root__group--full-width'],
+        )}>
+          Please read the <a className={styles.root__link} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink privacy policy</a>
+        </div>
+      )}
+    </>
+  )
+
   return (
     values ? (
       <form onSubmit={handleSubmit}
@@ -66,70 +130,15 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
             />
           ))
         )) }
-        { Config.isMerchantChannel && !isAddForm && (
-          <CheckboxGroup
-            className={cx(
-              styles.root__group,
-              styles['root__group--full-width'],
-            )}
-            value={binkTermsValue}
-            onChange={handleBinkTermsChange}
-            label={
-              <>
-                I accept the{' '}
-                <a
-                  href='https://bink.com/terms-and-conditions/'
-                  target='_blank'
-                  rel='noreferrer'
-                  className={styles.root__link}
-                >Bink terms & conditions</a>.
-              </>
-            }
-          />
-        ) }
-        { plan?.account?.plan_documents
-          ?.filter(document => document?.display?.includes(linkingFeature))
-          ?.map(document => (
-            document.checkbox ? (
-              <CheckboxGroup
-                className={cx(
-                  styles.root__group,
-                  styles['root__group--full-width'],
-                )}
-                key={document.name}
-                label={documentText(document)}
-                name={document.name}
-                value={documentValues[document.name]}
-                onChange={event => handleDocumentChange(event, document.name)}
-              />
-            ) : (
-              <div
-                className={cx(
-                  styles.root__group,
-                  styles['root__group--text-only'],
-                  styles['root__group--full-width'],
-                )}
-                key={document.name}
-              >
-                {documentText(document)}
-              </div>
-            )
-          ))
-        }
 
-        {Config.isMerchantChannel && !isAddForm && (
-          <div className={cx(
-            styles.root__group,
-            styles['root__group--text-only'],
-            styles['root__group--full-width'],
-          )}>
-            Please read the <a className={styles.root__link} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink privacy policy</a>
-          </div>
-        )}
+        { !isAddForm && enrolFormSection() }
 
         <Button
           disabled={!entireFormValid || serviceLoading || submitLoading}
-          className={styles.root__submit}
+          className={cx(
+            styles.root__submit,
+            isAddForm && styles['root__submit--add-only'],
+          )}
         >
           { ((serviceLoading || submitLoading) && submittingCaption) || submitCaption || 'Add my card' }
         </Button>

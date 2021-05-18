@@ -9,9 +9,9 @@
   gap: 25px;
 
   &--add-only {
-    grid-template-columns: 1fr;
-    max-width: 470px;
+    display: block;
     margin: 0 auto;
+    max-width: 470px;
   }
 
   @media (min-width: 630px) {
