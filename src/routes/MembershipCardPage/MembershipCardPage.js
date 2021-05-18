@@ -122,18 +122,12 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  // membership reenrol path
+  // membership reenrol/readd path
   useEffect(() => {
-    if (isReenrolRequired && Config.isMerchantChannel) {
+    if ((isReenrolRequired || isReaddRequired) && Config.isMerchantChannel) {
       history.replace(`/membership-card/add/${Config.membershipPlanId}`)
     }
-  }, [isReenrolRequired, history])
-  // membership readd path
-  useEffect(() => {
-    if (isReaddRequired && Config.isMerchantChannel) {
-      history.replace(`/membership-card/add/${Config.membershipPlanId}`)
-    }
-  }, [isReaddRequired, history])
+  }, [isReenrolRequired, isReaddRequired, history])
 
   if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing

@@ -36,7 +36,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     </>
   )
 
-  // Readd Membership card form
+  // Readd form
   if (linkingFeature === 'ADD') {
     return (
       values ? (

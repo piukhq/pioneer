@@ -13,13 +13,9 @@ import styles from './MerchantMembershipCardAdd.module.scss'
 const MerchantMembershipCardAdd = ({ planId }) => {
   const userId = useSelector(state => usersSelectors.accountUserId(state))
   const { plan } = useLoadMembershipPlans(planId)
-
+  const { contactSupport } = useContactSupport()
   const fieldTypes = useRef(['add_fields']).current
   const linkingFeature = 'ADD'
-
-  const { contactSupport } = useContactSupport()
-
-  // Email should be predefined and disabled for Merchant channels
 
   return (
     <div className={styles.root}>

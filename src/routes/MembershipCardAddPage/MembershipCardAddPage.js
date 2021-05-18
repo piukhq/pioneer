@@ -51,7 +51,6 @@ const MembershipCardAddPage = () => {
   const isReaddRequired = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
 
   if (Config.isMerchantChannel && isReaddRequired) {
-    // return <MembershipCardAddModal planId={planId} onClose={() => setAddMembershipCardModalOpen(false)} />
     return <MerchantMembershipCardAdd planId={planId} />
   }
   return (
