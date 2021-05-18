@@ -17,5 +17,6 @@ export const useGetPaymentCardsDispatch = () => {
   const dispatch = useDispatch()
   return {
     getPaymentCards: () => dispatch(paymentCardsActions.getPaymentCards()),
+    resetPendingPaymentCard: () => dispatch(paymentCardsActions.resetPendingPaymentCard()),
   }
 }
