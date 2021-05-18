@@ -17,6 +17,8 @@ export const types = {
   DELETE_PAYMENT_CARDS_SUCCESS: 'paymentCards/DELETE_PAYMENT_CARDS_SUCCESS',
   DELETE_PAYMENT_CARDS_FAILURE: 'paymentCards/DELETE_PAYMENT_CARDS_FAILURE',
   DELETE_PAYMENT_CARDS_RESET_SUCCESS_STATUS: 'paymentCards/DELETE_PAYMENT_CARDS_RESET_SUCCESS_STATUS',
+
+  RESET_PENDING_PAYMENT_CARD: 'paymentCards/RESET_PENDING_PAYMENT_CARD',
 }
 
 const initialState = {
@@ -134,6 +136,17 @@ const reducer = (state = initialState, action) => {
           success: false,
         },
       }
+    case types.RESET_PENDING_PAYMENT_CARD:
+      return {
+        ...state,
+        add: {
+          ...state.add,
+          loading: false,
+          error: false,
+          success: false,
+          card: null,
+        },
+      }
     default:
       return state
   }
@@ -220,4 +233,5 @@ export const actions = {
       dispatch(actions.deletePaymentCardFailure(e))
     }
   },
+  resetPendingCard: () => ({ type: types.RESET_PENDING_PAYMENT_CARD }),
 }
