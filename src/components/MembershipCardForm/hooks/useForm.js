@@ -61,7 +61,7 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
         return false
       }
 
-      if (Config.isMerchantChannel && !binkTermsValue) {
+      if (Config.isMerchantChannel && !binkTermsValue && linkingFeature !== 'ADD') { // add journey should already have terms accepted.
         return false
       }
 
@@ -83,12 +83,11 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
           }
         })
       })
-
       return formFieldsAreValid && allPlanDocumentsAccepted
     }
 
     setEntireFormValid(isEntireFormValid())
-  }, [values, binkTermsValue, plan, fieldTypes, allPlanDocumentsAccepted])
+  }, [values, binkTermsValue, plan, fieldTypes, allPlanDocumentsAccepted, linkingFeature])
 
   useEffect(() => {
     const getDefaultFieldErrorsFromPlan = () => {
