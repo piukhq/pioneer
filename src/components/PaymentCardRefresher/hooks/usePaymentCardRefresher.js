@@ -5,10 +5,10 @@ import { useGetPaymentCardsDispatch, usePaymentCardById } from 'hooks/paymentCar
 const usePaymentCardRefresher = (paymentCardId) => {
   const PENDING_STATE = 'pending'
   const paymentCard = usePaymentCardById(paymentCardId).card
-  const { getPaymentCards, loading, resetPendingCard } = useGetPaymentCardsDispatch()
+  const { getPaymentCards, loading, resetPendingPaymentCard } = useGetPaymentCardsDispatch()
   const cardStatus = paymentCard?.status
 
-  useCardRefresher(paymentCard, getPaymentCards, cardStatus, PENDING_STATE, loading, resetPendingCard)
+  useCardRefresher(paymentCard, getPaymentCards, cardStatus, PENDING_STATE, loading, resetPendingPaymentCard)
 }
 
 export default usePaymentCardRefresher

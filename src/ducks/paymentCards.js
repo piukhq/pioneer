@@ -233,5 +233,5 @@ export const actions = {
       dispatch(actions.deletePaymentCardFailure(e))
     }
   },
-  resetPendingCard: () => ({ type: types.RESET_PENDING_PAYMENT_CARD }),
+  resetPendingPaymentCard: () => ({ type: types.RESET_PENDING_PAYMENT_CARD }),
 }
