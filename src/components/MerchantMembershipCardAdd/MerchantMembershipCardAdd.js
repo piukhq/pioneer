@@ -13,6 +13,7 @@ import styles from './MerchantMembershipCardAdd.module.scss'
 const MerchantMembershipCardAdd = ({ planId }) => {
   const userId = useSelector(state => usersSelectors.accountUserId(state))
   const { plan } = useLoadMembershipPlans(planId)
+
   const fieldTypes = useRef(['add_fields']).current
   const linkingFeature = 'ADD'
 
