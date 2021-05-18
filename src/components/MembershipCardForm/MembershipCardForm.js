@@ -42,7 +42,12 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
 
   return (
     values ? (
-      <form onSubmit={handleSubmit} className={isAddForm ? styles['root--add-only'] : styles.root}>
+      <form onSubmit={handleSubmit}
+        className={cx(
+          styles.root,
+          isAddForm && styles['root--add-only'],
+        )}
+      >
         { fieldTypes.map(fieldType => (
           plan.account[fieldType].map(fieldDescription => (
             <DynamicInputGroup
