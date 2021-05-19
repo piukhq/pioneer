@@ -29,7 +29,8 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
 
   const isAddForm = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
 
-  const documentText = document => (
+  // todo: Adopt the following render<Name> naming convention across the app for other functions that return JSX
+  const renderDocumentText = document => (
     <>
       {document.description}{' '}
       { document.url ? (
@@ -40,7 +41,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     </>
   )
 
-  const enrolFormSection = () => (
+  const renderEnrolFormSection = () => (
     <>
       { Config.isMerchantChannel && (
         <CheckboxGroup
@@ -73,7 +74,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
                 styles['root__group--full-width'],
               )}
               key={document.name}
-              label={documentText(document)}
+              label={renderDocumentText(document)}
               name={document.name}
               value={documentValues[document.name]}
               onChange={event => handleDocumentChange(event, document.name)}
@@ -87,7 +88,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
               )}
               key={document.name}
             >
-              {documentText(document)}
+              {renderDocumentText(document)}
             </div>
           )
         ))
@@ -131,7 +132,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
           ))
         )) }
 
-        { !isAddForm && enrolFormSection() }
+        { !isAddForm && renderEnrolFormSection() }
 
         <Button
           disabled={!entireFormValid || serviceLoading || submitLoading}
