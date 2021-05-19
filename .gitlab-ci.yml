@@ -63,8 +63,8 @@ build-mr:
     - rm -rf build
 
     # build wasabi theme for sandbox
-    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/sandbox/wasabi THEME=wasabi npm run build
-    - tar -C build -zcvf build-wasabi-sandbox.tar.gz .
+    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/sandbox THEME=wasabi npm run build
+    - tar -C build -zcvf build-sandbox.tar.gz .
     - rm -rf build
   artifacts:
     paths:
@@ -89,8 +89,8 @@ deploy-mr:
 
     # deploy wasabi theme for sandbox
     - mkdir sandbox
-    - tar -C sandbox -xf build-wasabi-sandbox.tar.gz
-    - copy --sync sandbox /mr-$CI_MERGE_REQUEST_IID/sandbox/wasabi/
+    - tar -C sandbox -xf build-sandbox.tar.gz
+    - copy --sync sandbox /mr-$CI_MERGE_REQUEST_IID/sandbox/
 
     - python .ci-scripts/comment-deployment-url.py
   only:
