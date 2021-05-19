@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useMembershipCardsDispatch } from 'hooks/membershipCards'
+import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import usePlanDocumentsValues from './usePlanDocumentsValues'
 import useRedirectToNewMembershipCard from './useRedirectToNewMembershipCard'
 import { useSelector } from 'react-redux'
@@ -10,6 +11,7 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
   const [errors, setErrors] = useState(null)
   const [binkTermsValue, setBinkTermsValue] = useState(false)
   const [entireFormValid, setEntireFormValid] = useState(null)
+  const isAddForm = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
   const {
     allPlanDocumentsAccepted,
     documentValues,
@@ -61,7 +63,7 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
         return false
       }
 
-      if (Config.isMerchantChannel && !binkTermsValue) {
+      if (Config.isMerchantChannel && !binkTermsValue && !isAddForm) { // add journey should already have terms accepted.
         return false
       }
 
@@ -83,12 +85,11 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
           }
         })
       })
-
       return formFieldsAreValid && allPlanDocumentsAccepted
     }
 
     setEntireFormValid(isEntireFormValid())
-  }, [values, binkTermsValue, plan, fieldTypes, allPlanDocumentsAccepted])
+  }, [values, binkTermsValue, plan, fieldTypes, allPlanDocumentsAccepted, isAddForm])
 
   useEffect(() => {
     const getDefaultFieldErrorsFromPlan = () => {
