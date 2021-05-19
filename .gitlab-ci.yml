@@ -61,11 +61,6 @@ build-mr:
     - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/fatface THEME=fatface npm run build
     - tar -C build -zcvf build-fatface.tar.gz .
     - rm -rf build
-
-    # build wasabi theme for sandbox
-    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/sandbox THEME=wasabi npm run build
-    - tar -C build -zcvf build-sandbox.tar.gz .
-    - rm -rf build
   artifacts:
     paths:
       - build*.tar.gz
@@ -86,11 +81,6 @@ deploy-mr:
     - mkdir fatface
     - tar -C fatface -xf build-fatface.tar.gz
     - copy --sync fatface /mr-$CI_MERGE_REQUEST_IID/fatface/
-
-    # deploy wasabi theme for sandbox
-    - mkdir sandbox
-    - tar -C sandbox -xf build-sandbox.tar.gz
-    - copy --sync sandbox /mr-$CI_MERGE_REQUEST_IID/sandbox/
 
     - python .ci-scripts/comment-deployment-url.py
   only:
@@ -115,7 +105,7 @@ build-staging:
     - rm -rf build
 
     # build wasabi theme for sandbox
-    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/sandbox/wasabi THEME=wasabi npm run build
+    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/staging/sandbox THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi-sandbox.tar.gz .
     - rm -rf build
   artifacts:
@@ -143,6 +133,6 @@ deploy-staging:
     # deploy wasabi theme for sandbox
     - mkdir sandbox
     - tar -C sandbox -xf build-wasabi-sandbox.tar.gz
-    - copy --staging --sync sandbox /sandbox/wasabi/
+    - copy --staging --sync sandbox /staging/sandbox/
   only:
     - develop
