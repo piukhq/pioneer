@@ -30,11 +30,15 @@
     @include paragraph-spacing-styling;
   }
 
+  &__note {
+    @include note-font-style;
+  }
+
   &__email {
     font-weight: bold;
   }
 
-  &__note {
+  &--bold {
     font-weight: bold;
   }
 
