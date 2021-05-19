@@ -1,0 +1,13 @@
+@mixin note-font-style {
+  margin: 0;
+  font-size: $note-font-size;
+  color: $note-font-color;
+
+  &--first {
+    margin-top: 0;
+  }
+
+  &--last {
+    margin-bottom: 0;
+  }
+}
