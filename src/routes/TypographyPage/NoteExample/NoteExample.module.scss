@@ -1,0 +1,7 @@
+@import "src/sass/mixins";
+
+.root {
+  &__note {
+    @include note-font-style;
+  }
+}
