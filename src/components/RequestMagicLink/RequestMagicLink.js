@@ -57,7 +57,7 @@ const MagicLinkRequestSuccess = ({ email }) => (
       <p className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></p>
       <p className={styles.root__paragraph}>Click the link and you’ll be signed in.</p>
       <p className={styles.root__note}>
-        <span className={styles['root--bold']}>Note:</span>{' '}
+        <span className={styles['root--bold']}>Note: </span>
         The device you open the link on will be the device you are signed in on.
         For example, if you open the link on your phone you will be logged in on your phone.
       </p>
