@@ -18,7 +18,7 @@ const MerchantMembershipCards = () => {
   return (
     tooManyCardsError ? (
       <div className={styles.root}>
-        <h1 className={cx(styles.root__heading, styles['root__heading--first'])}>There is a problem</h1>
+        <h1 className={cx(styles.root__heading)}>There is a problem</h1>
         <p className={styles.root__body}>It looks like there is a problem with your account.</p>
         <p className={styles.root__body}>Please contact us so we can help resolve this as quickly as possible.</p>
         {/* todo: consider replacing button with link tag to match its functionality */}

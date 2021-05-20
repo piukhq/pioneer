@@ -4,7 +4,7 @@ import styles from './HeadingExample.module.scss'
 
 const HeadingExample = () => (
   <div>
-    <h1 className={cx(styles.root__heading, styles['root__heading--first'])}>This is a heading</h1>
+    <h1 className={cx(styles.root__heading)}>This is a heading</h1>
   </div>
 )
 
