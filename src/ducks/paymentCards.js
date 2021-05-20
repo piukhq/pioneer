@@ -209,7 +209,7 @@ export const actions = {
       )
       dispatch(actions.addPaymentCardSuccess(response.data))
       // refresh payment and membership cards
-      dispatch(actions.getPaymentCards())
+      await dispatch(actions.getPaymentCards())
       dispatch(membershipCardsActions.getMembershipCards())
       return response.data
     } catch (e) {
