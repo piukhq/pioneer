@@ -1,6 +1,7 @@
 import React from 'react'
 import Heading from './HeadingExample'
 import BodyExample from './BodyExample'
+import NoteExample from './NoteExample'
 import ButtonExample from './ButtonExample'
 import ModalExample from './ModalExample'
 import TextInputGroupExample from 'routes/TypographyPage/TextInputGroupExample'
@@ -11,6 +12,7 @@ const TypographyPage = () => (
   <>
     <Heading />
     <BodyExample />
+    <NoteExample />
     <Loading2 />
     <ButtonExample />
     <PaymentCardInputGroupExample />
