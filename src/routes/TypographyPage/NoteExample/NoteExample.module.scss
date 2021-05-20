@@ -3,5 +3,7 @@
 .root {
   &__note {
     @include note-font-style;
+
+    padding: 50px 0;
   }
 }
