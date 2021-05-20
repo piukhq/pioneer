@@ -32,13 +32,13 @@
 
   &__note {
     @include note-font-style;
+
+    &--bold {
+      font-weight: bold;
+    }
   }
 
   &__email {
-    font-weight: bold;
-  }
-
-  &--bold {
     font-weight: bold;
   }
 
