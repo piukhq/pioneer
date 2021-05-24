@@ -4,6 +4,8 @@
   text-align: center;
 
   &__description {
+    @include body-font-style;
+
     margin-top: 20px;
   }
 
