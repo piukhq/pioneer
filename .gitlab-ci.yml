@@ -105,7 +105,7 @@ build-staging:
     - rm -rf build
 
     # build wasabi theme for sandbox
-    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/staging/sandbox THEME=wasabi npm run build
+    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/wasabi THEME=wasabi npm run build
     - tar -C build -zcvf build-wasabi-sandbox.tar.gz .
     - rm -rf build
   artifacts:
@@ -133,6 +133,6 @@ deploy-staging:
     # deploy wasabi theme for sandbox
     - mkdir sandbox
     - tar -C sandbox -xf build-wasabi-sandbox.tar.gz
-    - copy --staging --sync sandbox /staging/sandbox/
+    - copy --sandbox --sync sandbox /wasabi/
   only:
     - develop
