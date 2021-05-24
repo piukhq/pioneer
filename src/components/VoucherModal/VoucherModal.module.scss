@@ -1,0 +1,36 @@
+@import "src/sass/mixins";
+
+.root {
+  text-align: center;
+
+  &__description {
+    margin-top: 20px;
+  }
+
+  &__paragraph {
+    @include paragraph-spacing-styling;
+    @include body-font-style;
+  }
+
+  &__dates {
+    @include paragraph-spacing-styling;
+    @include body-font-style;
+
+    margin: 20px auto;
+  }
+
+  &__image {
+    width: 50%;
+    height: 100%;
+    margin: 20px auto;
+    display: block;
+    border-radius: 5px;
+  }
+
+  &__link {
+    @include body-font-style;
+    @include link;
+
+    margin: 10px auto;
+  }
+}
