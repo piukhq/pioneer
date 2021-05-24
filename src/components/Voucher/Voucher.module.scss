@@ -1,8 +1,14 @@
 .root {
   padding: 20px;
   box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border: none;
+  background: #fff;
   margin-bottom: 15px;
+  text-align: left;
+
+  &__issued {
+    cursor: pointer;
+  }
 
   &__title {
     color: rgb(69, 126, 255);

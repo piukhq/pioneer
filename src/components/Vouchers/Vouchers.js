@@ -19,7 +19,7 @@ const Vouchers = ({ membershipCardId }) => {
         <p className={styles.root__paragraph}>{plan.account?.plan_summary}</p>
         <div className={styles['root__active-vouchers']}>
         { activeVouchers.map?.((voucher, index) => (
-          <Voucher key={index} voucher={voucher} />
+          <Voucher key={index} voucher={voucher} plan={plan}/>
         )) }
         </div>
       </div>
