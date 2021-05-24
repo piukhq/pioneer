@@ -12,7 +12,7 @@ const MultichannelMembershipCards = () => {
   return (
     <div className={styles.root}>
        <AccountMenu />
-      <h1 className={cx(styles.root__heading, styles['root__heading--first'])}>Membership Cards</h1>
+      <h1 className={cx(styles.root__heading)}>Membership Cards</h1>
       {membershipCards.map(card => (
         <div key={card.id}>
           <Link to={`/membership-card/${card.id}`}>
