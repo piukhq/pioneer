@@ -88,7 +88,8 @@ const MembershipCardPage = () => {
 
   const [linkingErrorModalVisible, setLinkingErrorModalVisible] = useState(false)
 
-  const handleLinkingError = useCallback(() => {
+  const handleLinkingError = useCallback((card) => {
+    setCardIdToBeDeleted(card?.id)
     setLinkingErrorModalVisible(true)
   }, [setLinkingErrorModalVisible])
 
@@ -167,7 +168,9 @@ const MembershipCardPage = () => {
   return (
     <div>
       { linkingErrorModalVisible && (
-        <LinkCardsErrorModal onClose={() => setLinkingErrorModalVisible(false)} />
+        <LinkCardsErrorModal
+          paymentCardId={cardIdToBeDeleted}
+          onClose={() => setLinkingErrorModalVisible(false)} />
       )}
       { linkingSuccessModalVisible && (
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
