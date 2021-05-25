@@ -71,20 +71,16 @@ module.exports = {
     switch (process.env.THEME) {
       case 'bink': return ['Get a link sent to your inbox so you can register or login instantly!']
       case 'wasabi': {
-        const planTitle = 'Wasabi Club'
-        const planType = 'card'
         return [
           'Collect 7 stamps for a £7 OFF Meal Voucher. One stamp can be earned per customer per transaction when the qualifying spend in a single transaction for food & drink purchases totals £7.00 or more in a participating Wasabi store. Ts and Cs apply.',
-          `Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop. By entering your email address below Bink will check if you already have a ${planTitle} ${planType}.`,
+          'Bink is technology that makes loyalty simpler. By connecting your loyalty account to the payment card of your choice, you earn rewards every time you shop. By entering your email address you authorise Bink to check if you already have a loyalty account.',
           'Log in or become a new member just by entering your email address.',
         ]
       }
       case 'fatface': {
-        const planTitle = 'FatFace Rewards'
-        const planType = 'account'
         return [
           'Use your linked payment cards every time you shop in a FatFace store or online at fatface.com to start earning Rewards. Each purchase gets you closer to a Reward Voucher. Once you have spent £100 you will receive a 15% Voucher to use online.',
-          `Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop. By entering your email address below Bink will check if you already have a ${planTitle} ${planType}.`,
+          'Bink is technology that makes loyalty simpler. By connecting your loyalty account to the payment card of your choice, you earn rewards every time you shop. By entering your email address you authorise Bink to check if you already have a loyalty account.',
           'Log in or become a new member just by entering your email address.',
         ]
       }
