@@ -14,6 +14,7 @@ import useLinkPaymentCard from './hooks/useLinkPaymentCard'
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
 import PaymentCardAdd from 'components/PaymentCardAdd'
+import BinkPaymentCardAdd from 'components/BinkPaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
 import PreparingYourCard from 'components/PreparingYourCard'
@@ -147,6 +148,14 @@ const MembershipCardPage = () => {
       </>
     )
   }
+
+  const renderAddPaymentCardButton = () => {
+    if (Config.theme === 'bink') {
+      return <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+    }
+    return <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+  }
+
   // Membership card active path
   return (
     <div>
@@ -193,7 +202,8 @@ const MembershipCardPage = () => {
                   activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
                 />
             )}
-            <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+
+            {renderAddPaymentCardButton()}
           </PaymentCards>
           { paymentCardAddFormVisible && (
             <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
