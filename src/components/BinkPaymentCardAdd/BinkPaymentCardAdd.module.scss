@@ -1,0 +1,29 @@
+@import "src/sass/variables.scss";
+
+// TODO: Possibly consolidate these styles into a per theme mixin
+.root {
+  cursor: pointer;
+  background: $add-card-background-fallback;
+  background: linear-gradient(to right, $add-card-gradient-left, $add-card-gradient-right);
+
+  &__border {
+    height: 120px;
+    border: 4px solid $add-card-background-fallback;
+    border-image: url("/images/card-dash.svg") 12 round;
+    border-image-width: 16px;
+  }
+
+  &__inner {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: $page-background-color;
+  }
+
+  &__payment-add-svg {
+    fill: $add-payment-card-color;
+  }
+}
