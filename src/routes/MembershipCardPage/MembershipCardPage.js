@@ -130,6 +130,13 @@ const MembershipCardPage = () => {
     }
   }, [isReenrolRequired, isReaddRequired, history])
 
+  // Scroll screen into display if major page re-render event occurs
+  useEffect(() => {
+    if (serviceLoading || serviceError || membershipCard?.status?.state === 'pending') {
+      window.scrollTo(0, 0)
+    }
+  }, [serviceLoading, serviceError, membershipCard?.status?.state])
+
   if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing
   } else if (serviceLoading) {

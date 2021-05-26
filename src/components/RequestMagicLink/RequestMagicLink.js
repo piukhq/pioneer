@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // todo: Remove SVGs if no longer needed for MultiMerchant/future designs
 // import { ReactComponent as MagicLinkDefaultSvg } from 'images/magic-link-default.svg'
 // import { ReactComponent as MagicLinkErrorSvg } from 'images/magic-link-error.svg'
@@ -27,6 +27,13 @@ const RequestMagicLink = () => {
     error: authenticationError,
     isExpiredToken,
   } = useMagicLinkAuthenticationStatus()
+
+  // Scroll screen into display if major page re-render event occurs
+  useEffect(() => {
+    if (requestLoading || requestSuccess || requestError || authenticationError || isExpiredToken) {
+      window.scrollTo(0, 0)
+    }
+  }, [requestLoading, requestSuccess, requestError, authenticationError, isExpiredToken])
 
   return (
     <>
