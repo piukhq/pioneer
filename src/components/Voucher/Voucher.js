@@ -78,13 +78,13 @@ const Voucher = ({ voucher, plan }) => {
             </span>
           </div>
         ) }
-        {/* TODO: to check when we have the data from the API */}
+        {/* TODO: Check with Jack to understand: to check when we have the data from the API */}
         { state === 'redeemed' && dateRedeemed && (
           <div className={styles.root__footer}>
             on {dayjs(dateRedeemed * 1000).format('DD MMM YYYY')}
           </div>
         ) }
-        {/* TODO: to check the state=cancelled scenario when we have the data from the API */}
+        {/* TODO:  Check with Jack to understand: to check the state=cancelled scenario when we have the data from the API */}
         { (state === 'expired' || state === 'cancelled') && expiryDate && (
           <div className={styles.root__footer}>
             on {dayjs(expiryDate * 1000).format('DD MMM YYYY')}

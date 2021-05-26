@@ -3,8 +3,8 @@ import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
 const useLoadMembershipPlans = () => {
   /*
-   todo: to consider a soft loading approach
-   where data can be loaded only if not present or in the process of being loaded
+   todo: to consider the soft loading approach used through the app with regards to plans.
+   where data can be loaded only if not present or not in the process of being loaded so that is only called once.
   */
 
   const { getMembershipPlans } = useMembershipPlansDispatch()

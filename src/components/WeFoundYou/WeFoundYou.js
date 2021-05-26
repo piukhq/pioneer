@@ -5,14 +5,14 @@ import useMembershipCardDetailsByParams from 'hooks/useMembershipCardDetailsByPa
 import useLogout from 'hooks/useLogout'
 import styles from './WeFoundYou.module.scss'
 
-// TODO: determine whether to display 'a' or 'an' either as a result from the API
+// TODO: Check with Jack determine whether to display 'a' or 'an' either as a result from the API
 // or using a library to determine string variations
 const WeFoundYou = () => {
   const { acceptTerms, postError } = useBinkTermsAndConditions()
   const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
   const { logout } = useLogout()
 
-  // TODO: possibly consolidate error message into generic Button error
+  // TODO: Consolidate error message into generic Button error
   return (
     <div className={styles.root}>
       <h1 className={styles.root__heading}>We found you!</h1>

@@ -51,7 +51,7 @@ const TransactionsModal = ({ membershipCardId, onClose }) => {
         </>
       ) : (
         <p className={styles.root__description}>
-          You don't have any transactions yet. {/* todo: to decide the copy */}
+          You don't have any transactions yet.
         </p>
       ) }
     </Modal>

@@ -53,7 +53,7 @@ export const linkPaymentCard = (paymentCardId, membershipCardId) => (
   )
 )
 
-// todo: temporarily introduced
+// todo: should be removed before deployment to production
 export const unLinkPaymentCard = (paymentCardId, membershipCardId) => (
   axios.delete(
     `${Config.apiUrl}/ubiquity/membership_card/${membershipCardId}/payment_card/${paymentCardId}`,

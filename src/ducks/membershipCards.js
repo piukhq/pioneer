@@ -384,7 +384,7 @@ export const actions = {
     }
   },
 
-  // todo: temporarily introduced
+  // todo: should be removed before deployment to production
   unLinkPaymentCard: (paymentCardId, membershipCardId) => async (dispatch) => {
     // dispatch(actions.linkPaymentCardRequest())
     try {

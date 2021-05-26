@@ -1,4 +1,3 @@
-// todo: adapt based on future multi-merchant design
 import React, { useState } from 'react'
 
 import Modal from 'components/Modal'
