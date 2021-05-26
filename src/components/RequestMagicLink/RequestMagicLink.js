@@ -36,7 +36,7 @@ const RequestMagicLink = () => {
   }, [requestLoading, requestSuccess, requestError, authenticationError, isExpiredToken])
 
   return (
-    <div style={{ height: '3000px' }}>
+    <>
       { requestLoading && <Loading /> }
       { requestSuccess ? (
         <MagicLinkRequestSuccess email={email} />
@@ -51,7 +51,7 @@ const RequestMagicLink = () => {
           <MagicLinkRequestForm handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
         )
       ) }
-    </div>
+    </>
   )
 }
 
