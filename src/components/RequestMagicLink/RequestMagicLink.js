@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-// todo: Remove SVGs if no longer needed for MultiMerchant/future designs
+// todo: Check with Jack to Remove SVGs if no longer needed for MultiMerchant/future designs
 // import { ReactComponent as MagicLinkDefaultSvg } from 'images/magic-link-default.svg'
 // import { ReactComponent as MagicLinkErrorSvg } from 'images/magic-link-error.svg'
 // import { ReactComponent as MagicLinkWarningSvg } from 'images/magic-link-warning.svg'
