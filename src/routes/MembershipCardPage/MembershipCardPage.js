@@ -32,6 +32,8 @@ import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
 
+import Button from 'components/Button'
+
 import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
@@ -129,6 +131,13 @@ const MembershipCardPage = () => {
       history.replace(`/membership-card/add/${Config.membershipPlanId}`)
     }
   }, [isReenrolRequired, isReaddRequired, history])
+
+  // Scroll screen into display if major page re-render event occurs
+  useEffect(() => {
+    if (serviceLoading || serviceError || membershipCard?.status?.state === 'pending') {
+      window.scrollTo(0, 0)
+    }
+  }, [serviceLoading, serviceError, membershipCard?.status?.state])
 
   if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing

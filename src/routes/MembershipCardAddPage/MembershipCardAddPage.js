@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
@@ -50,9 +50,15 @@ const MembershipCardAddPage = () => {
   const canEnrol = plan?.feature_set?.linking_support?.includes('ENROL')
   const isReaddRequired = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
 
+  // Scroll screen into display if major page re-render event occurs
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [loading, isReaddRequired])
+
   if (Config.isMerchantChannel && isReaddRequired) {
     return <MerchantMembershipCardAdd planId={planId} />
   }
+
   return (
     <>
       { loading ? <HangTight /> : null }
