@@ -32,8 +32,6 @@ import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
 
-import Button from 'components/Button'
-
 import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
