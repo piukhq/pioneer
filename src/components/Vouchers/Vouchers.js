@@ -8,12 +8,11 @@ import styles from './Vouchers.module.scss'
 const Vouchers = ({ membershipCardId }) => {
   const { activeVouchers, plan } = useMembershipCardStateById(membershipCardId)
   useLoadMembershipPlans()
-
-  if (!plan?.has_vouchers || !activeVouchers || activeVouchers.length === 0) {
+  if (!activeVouchers || activeVouchers.length === 0) {
     return null
   }
   return (
-    plan?.has_vouchers && (activeVouchers.length > 0) ? (
+    (activeVouchers.length > 0) ? (
       <div>
         <h2 className={styles.root__headline}>Vouchers</h2>
         <p className={styles.root__paragraph}>{plan.account?.plan_summary}</p>
