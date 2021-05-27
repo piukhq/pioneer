@@ -14,12 +14,10 @@ const VoucherModal = ({ onClose, voucher, plan }) => {
   return (
   <Modal className={styles.root} onClose={onClose}>
     { imgUrl && <img className={styles.root__image} src={imgUrl} alt='' /> }
-    <Modal.Header>{voucher.code}</Modal.Header>
-    <div className={styles.root__description}>
-      <h2>Use the code shown to redeem your reward.</h2>
-      <h2>You will get £5 off your purchase.</h2>
-    </div>
-    <div className={styles.root__dates}>
+    <p className={styles.root__heading}>Free Meal for collecting 7 stamps.</p>
+    <p className={styles.root__code}>{voucher.code}</p>
+    <div className={styles.root__details}>
+      <p className={styles.root__paragraph}>Use the code shown to redeem your reward.</p>
       <p className={styles.root__paragraph}>Added {formattedIssueDate}</p>
       <p className={styles.root__paragraph}>Expires {formattedExpiryDate}</p>
     </div>
