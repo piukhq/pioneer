@@ -19,10 +19,10 @@ const VoucherModal = ({ onClose, voucher, plan }) => {
     <img className={styles.root__image} src={imgUrl} alt='' onLoad={ () => setImageLoading(false)}/>
     <p className={styles.root__heading}>{voucher?.burn?.prefix}{voucher?.burn?.value} {voucher?.burn?.suffix} for collecting {voucher?.earn?.prefix}{voucher?.earn?.target_value} {voucher?.earn?.suffix}</p>
     <p className={styles.root__code}>{voucher.code}</p>
-    <div className={styles.root__details}>
-      <p className={styles.root__paragraph}>{issuedDetail}</p>
-      <p className={styles.root__paragraph}>Added {formattedIssueDate}</p>
-      <p className={styles.root__paragraph}>Expires {formattedExpiryDate}</p>
+    <div className={styles.root__information}>
+      <p className={styles['root__information__issued-detail']}>{issuedDetail}</p>
+      <p className={styles.root__information__date}>Added {formattedIssueDate}</p>
+      <p className={styles.root__information__date}>Expires {formattedExpiryDate}</p>
     </div>
     <a className={styles.root__link} href={Config.urls.termsAndConditions}>Terms & Conditions</a>
   </Modal>
