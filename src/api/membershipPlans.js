@@ -6,7 +6,7 @@ export const getMembershipPlans = () => (
     {
       headers: {
         Authorization: `Token ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json;v=1.3',
+        Accept: 'application/json;v=1.3',
       },
     },
   )
