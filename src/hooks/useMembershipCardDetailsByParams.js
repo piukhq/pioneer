@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
-const useMembershipCardDetails = () => {
+const useMembershipCardDetailsByParams = () => {
   const { id } = useParams()
 
   const planName = useSelector(
@@ -18,4 +18,4 @@ const useMembershipCardDetails = () => {
   }
 }
 
-export default useMembershipCardDetails
+export default useMembershipCardDetailsByParams

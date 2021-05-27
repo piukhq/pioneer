@@ -9,10 +9,8 @@ const useLinkPaymentCard = (membershipCard, onSuccess, onError) => {
 
   useEffect(() => {
     if (justFinishedLinkingPaymentCard) {
-      if (error) {
-        onError && onError()
-      } else if (updatedCard.status === 'pending') {
-        onError && onError()
+      if ((error || updatedCard.status === 'pending') && onError) {
+        onError(updatedCard)
       } else if (updatedCard.status === 'active') {
         onSuccess && onSuccess()
       }
