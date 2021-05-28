@@ -1,6 +1,7 @@
 import React from 'react'
 import Modal from 'components/Modal'
 import Button from 'components/Button'
+import TextInputGroup from 'components/Form/TextInputGroup'
 import usePaymentCardDeleteForm from './hooks/usePaymentCardDeleteForm'
 
 import styles from './PaymentCardDeleteForm.module.scss'
@@ -45,15 +46,14 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
             <p className={styles.root__paragraph}>You are about to delete your only active payment card. Doing so will mean you will not automatically collect {membershipPlanName} {membershipCardCurrency}</p>
           )}
           <p className={styles.root__paragraph}>Enter the last four digits of the card to confirm.</p>
-          <div className={styles.root__group}>
-            <label className={styles.root__label}>Last four digits</label>
-            <input
-              placeholder='Last four digits'
-              className={styles.root__input}
-              value={userEnteredLast4Digits}
-              onChange={(event) => { setUserEnteredLast4Digits(event.target.value) }}
-            />
-          </div>
+          <TextInputGroup
+            label='Last four digits'
+            placeholder='Last four digits'
+            name='last-four-digits'
+            value={userEnteredLast4Digits}
+            maxLength={4}
+            onChange={(event) => { setUserEnteredLast4Digits(event.target.value) }}
+          />
           { error && (
             <div className={styles.root__error}>
               There was an error
