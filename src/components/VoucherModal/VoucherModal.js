@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import Modal from 'components/Modal'
+import { dayShortMonthYear } from 'utils/dates'
 
 import styles from './VoucherModal.module.scss'
 
 const VoucherModal = ({ onClose, voucher, plan }) => {
   const [imageLoading, setImageLoading] = useState(true)
-  const issueDate = new Date(voucher.date_issued)
-  const expiryDate = new Date(voucher.expiry_date)
 
-  const formattedIssueDate = `${issueDate.getDate()} ${issueDate.toLocaleString('en-uk', { month: 'short' })} ${issueDate.getFullYear()}`
-  const formattedExpiryDate = `${expiryDate.getDate()} ${expiryDate.toLocaleString('en-uk', { month: 'short' })} ${expiryDate.getFullYear()}`
+  const formattedIssueDate = dayShortMonthYear(new Date(voucher.date_issued))
+  const formattedExpiryDate = dayShortMonthYear(new Date(voucher.expiry_date))
   const imgUrl = plan?.images?.filter(image => image.type === 9)[0].url
   const issuedDetail = plan.content.filter(content => content.column === 'Voucher_Issued_Detail')[0].value
 
