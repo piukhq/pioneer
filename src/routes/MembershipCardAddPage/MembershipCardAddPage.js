@@ -68,12 +68,12 @@ const MembershipCardAddPage = () => {
             { Config.isMerchantChannel ? (
               <MerchantMembershipCardEnrol planId={planId} />
             ) : (
-              <>
+                <>
+                {/* This is Multimerchant specific and may change in future */}
                 <AccountMenu />
                 { imgUrl ? <img className={styles.root__image} src={ `${imgUrl}?width=300&height=183` } alt='' /> : null }
                 <h1 className={styles.root__header}>Are you a member of the {plan.account.plan_name}?</h1>
                 <div className={styles.root__text}>
-                  {/* todo: this copy should depend on the canAdd and canEnrol feature flags */}
                   Already have a card? Great we can get it associated to you in a few clicks. If not, we can get you a new one!
                 </div>
                 <div className={styles.root__buttons}>
