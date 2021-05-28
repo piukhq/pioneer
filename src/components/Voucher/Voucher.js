@@ -14,7 +14,7 @@ const Voucher = ({ voucher, plan }) => {
 
   return (
     <>
-      { voucherModalVisible && (
+      { voucherModalVisible && voucher && (
         <VoucherModal voucher={voucher} plan={plan} onClose={handleCloseVoucherModal} />
       )}
       <button onClick={() => isVoucherIssued ? setVoucherModalVisible(true) : null} className={ cx(
