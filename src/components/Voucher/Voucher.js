@@ -12,12 +12,16 @@ const Voucher = ({ voucher, plan }) => {
     setVoucherModalVisible(false)
   }, [setVoucherModalVisible])
 
+  const handleVoucherClick = useCallback(() => {
+    isVoucherIssued && setVoucherModalVisible(true)
+  }, [isVoucherIssued, setVoucherModalVisible])
+
   return (
     <>
       { voucherModalVisible && voucher && (
         <VoucherModal voucher={voucher} plan={plan} onClose={handleCloseVoucherModal} />
       )}
-      <button onClick={() => isVoucherIssued ? setVoucherModalVisible(true) : null} className={ cx(
+      <button onClick={handleVoucherClick} className={ cx(
         styles.root,
         styles[`root__${voucher.state}`],
       ) }>
