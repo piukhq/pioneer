@@ -180,7 +180,7 @@ const MembershipCardPage = () => {
       { membershipCard && (
         <>
           <AccountMenu />
-          <Hero membershipCard={membershipCard} />
+          <Hero membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
           <Vouchers membershipCardId={id} />
           <h2 className={styles.root__headline}>Payment cards</h2>
           {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
