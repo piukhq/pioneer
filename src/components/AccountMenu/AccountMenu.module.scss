@@ -14,7 +14,7 @@
     margin-bottom: 10px;
   }
 
-  &__menu-button { // todo: move to base theme and use mixin
+  &__menu-button {
     @include body-font-style;
 
     display: flex;

@@ -4,8 +4,7 @@
 
 @include base-styling;
 
-// todo: dev only. temporary might want to remove
-// used to highlight components on a page that should be visible only by devs
+// dev only, used to highlight components on a page that should be visible only by devs
 .dev-only {
   border: 1px dashed #006bcd;
   background-color: #c3e9ff;

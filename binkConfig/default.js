@@ -86,7 +86,7 @@ module.exports = {
       }
     }
   })(),
-  // dev only (and likely temporary)
+  // used for development
   devDefaultUser: (() => {
     switch (process.env.THEME) {
       case 'bink': return 'bink_web_user_2@bink.com'

@@ -80,7 +80,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
       }
     })
 
-    // todo: to move into config
+    // todo: Check with Jack to see if this changes for production, if so move into config
     Spreedly.init('Yc7xn3gDP73PPOQLEB2BYpv31EV', {
       numberEl: 'bink-spreedly-number',
       cvvEl: 'bink-spreedly-cvv',

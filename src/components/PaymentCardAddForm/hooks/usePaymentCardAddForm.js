@@ -57,7 +57,6 @@ const usePaymentCardAddForm = (onClose) => {
 
       let anyNonFieldRelatedError = false
       let anyFieldRelatedError = false
-      // todo:
       //   Most of field related errors here would mean that local validation passed while Spreedly returned an error.
       //   Once / if we'll have any logging implemented it would be worth logging it for refining further the local validation.
       errors.forEach(error => {

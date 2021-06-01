@@ -57,7 +57,6 @@ export const actions = {
   getMembershipPlans: () => async (dispatch, getState) => {
     const alreadyLoaded = Object.keys(getState().membershipPlans.plans).length > 0
     // changing membership plans is highly unlikely. use the already loaded version
-    // todo: consider implementing a timeout since the app could be running for months
     if (alreadyLoaded) {
       return
     }
