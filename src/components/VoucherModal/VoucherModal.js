@@ -8,8 +8,8 @@ const VoucherModal = ({ onClose, voucher, plan }) => {
   const [imageLoading, setImageLoading] = useState(true)
 
   const { code = '', burn = {}, earn = {}, date_issued = null, expiry_date = null } = voucher
-  const { prefix: burnPrefix, value: burnValue, suffix: burnSuffix } = burn
-  const { prefix: earnPrefix, target_value: earnTargetValue, suffix: earnSuffix } = earn
+  const { prefix: burnPrefix = null, value: burnValue = null, suffix: burnSuffix = null } = burn
+  const { prefix: earnPrefix = null, target_value: earnTargetValue = null, suffix: earnSuffix = null } = earn
   const formattedIssueDate = dayShortMonthYear(new Date(date_issued))
   const formattedExpiryDate = dayShortMonthYear(new Date(expiry_date))
 
