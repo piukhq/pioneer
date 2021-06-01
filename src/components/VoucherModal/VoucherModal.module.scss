@@ -1,0 +1,51 @@
+@import "src/sass/mixins";
+
+.root {
+  text-align: center;
+
+  &__image {
+    width: 60%;
+    border-radius: 10px;
+    margin: 10px 0 20px 0;
+  }
+
+  &__placeholder {
+    height: 172px;
+  }
+
+  &__heading {
+    @include body-font-style;
+
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+
+  &__code {
+    @include heading-font-style;
+
+    margin-bottom: 10px;
+  }
+
+  &__information {
+    @include body-font-style;
+
+    font-size: 1.3em;
+    margin-bottom: 20px;
+
+    &__issued-detail {
+      line-height: 1.2em;
+      padding-bottom: 10px;
+    }
+
+    &__date {
+      line-height: 1.7em;
+    }
+  }
+
+  &__link {
+    @include body-font-style;
+    @include link;
+
+    font-size: 1.6em;
+  }
+}
