@@ -23,6 +23,22 @@
     }
   }
 
+  &--no-payment-cards {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    row-gap: 15px;
+    grid-template-areas:
+      "image image"
+      "no-payment-card-state no-payment-card-state";
+
+    @media (min-width: 800px) {
+      grid-template-columns: auto 250px;
+      grid-template-rows: auto;
+      column-gap: 20px;
+      grid-template-areas: "image no-payment-card-state";
+    }
+  }
+
   &--failed {
     grid-template-areas:
       "image image"
@@ -131,6 +147,17 @@
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &__no-payment-card-state {
+    cursor: pointer;
+    grid-area: no-payment-card-state;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin: 10px 0;
+    }
   }
 
   &__failed-state {

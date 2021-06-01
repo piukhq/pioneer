@@ -37,6 +37,7 @@ export const useMembershipCardStateById = (id) => {
     vouchers: useSelector(state => state.membershipCards.cards[id]?.vouchers),
     activeVouchers: useSelector(state => membershipCardsSelectors.activeVouchers(state, id)),
     nonActiveVouchers: useSelector(state => membershipCardsSelectors.nonActiveVouchers(state, id)),
+    redeemableVouchers: useSelector(state => membershipCardsSelectors.redeemableVouchers(state, id)),
     plan: useSelector(state => membershipCardsSelectors.plan(state, id)),
     transactions: useSelector(state => state.membershipCards.cards[id]?.membership_transactions),
   }
