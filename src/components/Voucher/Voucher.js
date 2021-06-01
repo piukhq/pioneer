@@ -16,6 +16,10 @@ const Voucher = ({ voucher, plan }) => {
     isVoucherIssued && setVoucherModalVisible(true)
   }, [isVoucherIssued, setVoucherModalVisible])
 
+  const { burn = {}, earn = {}, date_redeemed: dateRedeemed = null, expiry_date: expiryDate = null, state = null } = voucher
+  const { prefix: burnPrefix = null, value: burnValue = null, suffix: burnSuffix = null } = burn
+  const { prefix: earnPrefix = null, value: earnValue = null, target_value: earnTargetValue = null, suffix: earnSuffix = null } = earn
+
   return (
     <>
       { voucherModalVisible && voucher && (
@@ -23,32 +27,32 @@ const Voucher = ({ voucher, plan }) => {
       )}
       <button onClick={handleVoucherClick} className={ cx(
         styles.root,
-        styles[`root__${voucher.state}`],
+        styles[`root__${state}`],
       ) }>
         <div className={styles.root__title}>
-          {voucher?.burn?.prefix}{voucher?.burn?.value} {voucher?.burn?.suffix}
+          {burnPrefix}{burnValue} {burnSuffix}
         </div>
         <div className={styles.root__description}>
-          for collecting {voucher?.earn?.prefix}{voucher?.earn?.target_value} {voucher?.earn?.suffix}
+          for collecting {earnPrefix}{earnTargetValue} {earnSuffix}
         </div>
         <div className={styles.root__headline}>
           { (() => {
-            const stampsToGo = voucher?.earn?.target_value - voucher?.earn?.value
-            switch (voucher?.state) {
+            const stampsToGo = earnTargetValue - earnValue
+            switch (state) {
               case 'issued': return 'Earned'
               case 'inprogress': return `${stampsToGo} stamp${stampsToGo > 1 ? 's' : ''} to go`
-              default: return voucher.state
+              default: return state
             }
           })() }
         </div>
         <div className={styles.root__progress}>
-          { Array.from({ length: voucher?.earn?.target_value }).map((value, index) => (
-            index < voucher?.earn?.value ? (
+          { Array.from({ length: earnTargetValue }).map((value, index) => (
+            index < earnValue ? (
               <span
                 className={cx(
                   styles['root__progress-step'],
                   styles['root__progress-step--filled'],
-                  styles[`root__progress-step--filled-${voucher?.state}`],
+                  styles[`root__progress-step--filled-${state}`],
                 )}
                 key={index}
                 data-testid={`filled progress-step ${index}`}
@@ -58,7 +62,7 @@ const Voucher = ({ voucher, plan }) => {
                 className={cx(
                   styles['root__progress-step'],
                   styles['root__progress-step--empty'],
-                  styles[`root__progress-step--empty-${voucher?.state}`],
+                  styles[`root__progress-step--empty-${state}`],
                 )}
                 key={index}
                 data-testid={`empty progress-step ${index}`}
@@ -66,24 +70,24 @@ const Voucher = ({ voucher, plan }) => {
             )
           )) }
         </div>
-        { (voucher.state === 'inprogress' || voucher.state === 'earned') && (
+        { (state === 'inprogress' || voucher.state === 'earned') && (
           <div className={styles.root__footer}>
             Collected:
             <span className={styles['root__progress-value']}>
-              {voucher?.earn?.prefix}{voucher?.earn?.value}/{voucher?.earn?.prefix}{voucher?.earn?.target_value} {voucher?.earn?.suffix}
+              {earnPrefix}{earnValue}/{earnPrefix}{earnTargetValue} {earnSuffix}
             </span>
           </div>
         ) }
         {/* TODO: to check when we have the data from the API */}
-        { voucher.state === 'redeemed' && voucher?.date_redeemed && (
+        { state === 'redeemed' && dateRedeemed && (
           <div className={styles.root__footer}>
-            on {dayjs(voucher?.date_redeemed * 1000).format('DD MMM YYYY')}
+            on {dayjs(dateRedeemed * 1000).format('DD MMM YYYY')}
           </div>
         ) }
         {/* TODO: to check the state=cancelled scenario when we have the data from the API */}
-        { (voucher.state === 'expired' || voucher.state === 'cancelled') && voucher?.expiry_date && (
+        { (state === 'expired' || state === 'cancelled') && expiryDate && (
           <div className={styles.root__footer}>
-            on {dayjs(voucher?.expiry_date * 1000).format('DD MMM YYYY')}
+            on {dayjs(expiryDate * 1000).format('DD MMM YYYY')}
           </div>
         ) }
       </button>
