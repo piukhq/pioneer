@@ -5,25 +5,26 @@ import Voucher from 'components/Voucher'
 
 import styles from './Vouchers.module.scss'
 
-const Vouchers = ({ membershipCardId }) => {
-  const { activeVouchers, plan } = useMembershipCardStateById(membershipCardId)
+const Vouchers = ({ membershipCardId, displayRedeemableOnly = false }) => {
+  const { activeVouchers, redeemableVouchers, plan } = useMembershipCardStateById(membershipCardId)
   useLoadMembershipPlans()
-  // todo: consider moving this check to the parent component
-  if (!activeVouchers || activeVouchers.length === 0) {
-    return null
+
+  const renderVouchers = () => {
+    const vouchersToDisplay = displayRedeemableOnly ? redeemableVouchers : activeVouchers
+
+    return vouchersToDisplay.map?.((voucher, index) => (
+      <Voucher key={index} voucher={voucher} plan={plan} />
+    ))
   }
+
   return (
-    (activeVouchers.length > 0) ? (
-      <>
-        <h2 className={styles.root__headline}>Vouchers</h2>
-        <p className={styles.root__paragraph}>{plan?.account?.plan_summary}</p>
-        <div className={styles['root__active-vouchers']}>
-        { activeVouchers.map?.((voucher, index) => (
-          <Voucher key={index} voucher={voucher} plan={plan}/>
-        )) }
-        </div>
-      </>
-    ) : null
+    <>
+      <h2 className={styles.root__headline}>Vouchers</h2>
+      <p className={styles.root__paragraph}>{plan.account?.plan_summary}</p>
+      <div className={styles['root__active-vouchers']}>
+        {renderVouchers()}
+      </div>
+    </>
   )
 }
 

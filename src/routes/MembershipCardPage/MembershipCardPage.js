@@ -9,7 +9,10 @@ import {
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 
+import { useMembershipCardStateById } from 'hooks/membershipCards'
+import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLinkPaymentCard from './hooks/useLinkPaymentCard'
+import useLoadService from 'hooks/useLoadService'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
@@ -28,8 +31,6 @@ import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
 import WeFoundYou from 'components/WeFoundYou'
 import HangTight from 'components/HangTight'
-import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
-import useLoadService from 'hooks/useLoadService'
 import Hero from './components/Hero'
 
 import styles from './MembershipCardPage.module.scss'
@@ -71,6 +72,8 @@ const MembershipCardPage = () => {
   const newlyPendingPaymentCard = useSelector(
     state => membershipCardsSelectors.newlyPendingPaymentCard(state),
   )
+
+  const { activeVouchers, redeemableVouchers, plan } = useMembershipCardStateById(id)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -164,6 +167,20 @@ const MembershipCardPage = () => {
     return <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
   }
 
+  const shouldRenderVoucherSection = () => {
+    if (!plan?.has_vouchers || !activeVouchers || activeVouchers.length === 0) {
+      return null
+    }
+
+    if (membershipCard?.payment_cards?.length === 0) {
+      if (redeemableVouchers.length !== 0) {
+        return <Vouchers membershipCardId={id} displayRedeemableOnly />
+      }
+      return null
+    }
+    return <Vouchers membershipCardId={id} />
+  }
+
   // Membership card active path
   return (
     <div>
@@ -180,8 +197,10 @@ const MembershipCardPage = () => {
       { membershipCard && (
         <>
           <AccountMenu />
-          <Hero membershipCard={membershipCard} />
-          <Vouchers membershipCardId={id} />
+          <Hero membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
+
+          {shouldRenderVoucherSection()}
+
           <h2 className={styles.root__headline}>Payment cards</h2>
           {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
             <p className={styles.root__paragraph}>
