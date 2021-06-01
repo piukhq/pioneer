@@ -26,7 +26,7 @@ const MEMBERSHIP_CARD_IMAGE_TYPES = {
   ALTERNATIVE: 9,
 }
 
-const Hero = ({ membershipCard, addPaymentCardClickHandler }) => {
+const Hero = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
   const imgUrl = membershipCard?.images?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.HERO)?.[0]?.url
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
