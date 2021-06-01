@@ -39,7 +39,6 @@ const Hero = ({ membershipCard, addPaymentCardClickHandler }) => {
 
   // possible states: authorised, failed, pending, suggested, unauthorised
 
-  // TODO: MAKE THIS BETTER
   let state = membershipCard?.status?.state
   if (state === 'suggested' || state === 'unauthorised') {
     state = 'failed'
