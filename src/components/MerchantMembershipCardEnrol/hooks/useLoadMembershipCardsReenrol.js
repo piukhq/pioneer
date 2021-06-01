@@ -15,7 +15,6 @@ const useLoadMembershipCardsReenrol = () => {
 
   const isReenrolRequired = useSelector(state => membershipCardsSelectors.isReenrolRequired(state))
 
-  // todo: potentially add other state checks here
   useEffect(() => {
     if (isReenrolRequired) {
       setReenrolFormVisible(true)

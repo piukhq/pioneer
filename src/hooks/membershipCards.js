@@ -51,7 +51,7 @@ export const useMembershipCardsDispatch = () => {
     addMembershipCardResetSuccessStatus: () => dispatch(membershipCardsActions.addMembershipCardResetSuccessStatus()),
     linkPaymentCard: (paymentCardId, membershipCardId) => dispatch(membershipCardsActions.linkPaymentCard(paymentCardId, membershipCardId)),
     getMembershipPlans: () => dispatch(membershipCardsActions.getMembershipCards()),
-    // todo: temporarily introduced
+    // todo: should be removed before deployment to production
     unLinkPaymentCard: (paymentCardId, membershipCardId) => dispatch(membershipCardsActions.unLinkPaymentCard(paymentCardId, membershipCardId)),
   }
 }
