@@ -6,12 +6,11 @@ import Voucher from 'components/Voucher'
 import styles from './Vouchers.module.scss'
 
 const Vouchers = ({ membershipCardId, displayRedeemableOnly = false }) => {
-  const { activeVouchers, plan } = useMembershipCardStateById(membershipCardId)
+  const { activeVouchers, redeemableVouchers, plan } = useMembershipCardStateById(membershipCardId)
   useLoadMembershipPlans()
 
   const renderVouchers = () => {
-    // State is probably different
-    const vouchersToDisplay = displayRedeemableOnly ? activeVouchers.filter(voucher => voucher.state === 'earned') : activeVouchers
+    const vouchersToDisplay = displayRedeemableOnly ? redeemableVouchers : activeVouchers
 
     return vouchersToDisplay.map?.((voucher, index) => (
       <Voucher key={index} voucher={voucher} />

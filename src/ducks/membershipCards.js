@@ -280,6 +280,10 @@ export const selectors = {
       ?.filter(voucher => ['redeemed', 'expired', 'cancelled'].indexOf(voucher.state) !== -1)
       ?.sort((voucher1, voucher2) => voucher2.expiry_date - voucher1.expiry_date),
   ),
+  redeemableVouchers: createSelector(
+    membershipCardSelector,
+    membershipCard => membershipCard?.vouchers?.filter(voucher => voucher.state === 'issued'),
+  ),
   plan: createSelector(
     membershipCardSelector,
     membershipPlansSelector,

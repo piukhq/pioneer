@@ -73,7 +73,7 @@ const MembershipCardPage = () => {
     state => membershipCardsSelectors.newlyPendingPaymentCard(state),
   )
 
-  const { activeVouchers, plan } = useMembershipCardStateById(id)
+  const { activeVouchers, redeemableVouchers, plan } = useMembershipCardStateById(id)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -173,8 +173,7 @@ const MembershipCardPage = () => {
     }
 
     if (membershipCard?.payment_cards?.length === 0) {
-      // Perform check if redeemable vouchers present
-      if (!plan?.has_vouchers) {
+      if (redeemableVouchers.length !== 0) {
         return <Vouchers membershipCardId={id} displayRedeemableOnly />
       }
       return null
