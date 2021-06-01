@@ -13,7 +13,7 @@ const Vouchers = ({ membershipCardId, displayRedeemableOnly = false }) => {
     const vouchersToDisplay = displayRedeemableOnly ? redeemableVouchers : activeVouchers
 
     return vouchersToDisplay.map?.((voucher, index) => (
-      <Voucher key={index} voucher={voucher} />
+      <Voucher key={index} voucher={voucher} plan={plan} />
     ))
   }
 
