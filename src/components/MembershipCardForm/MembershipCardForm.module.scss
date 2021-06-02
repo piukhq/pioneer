@@ -47,17 +47,6 @@
 
   &__submit {
     display: block;
-    width: 380px;
-    max-width: 100%;
     margin: 0 auto;
-
-    @media (min-width: 630px) {
-      grid-column: span 2;
-    }
-
-    &--add-only {
-      max-width: 100%;
-      width: 470px;
-    }
   }
 }
