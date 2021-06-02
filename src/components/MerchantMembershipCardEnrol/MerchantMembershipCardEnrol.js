@@ -24,6 +24,16 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
   const initialValues = useRef({ enrol_fields: { Email: userId } }).current
   const disabledFields = useRef({ enrol_fields: { Email: true } }).current
 
+  const renderPlanSummary = () => {
+    // If theme specifi config values are defined then use them, else default to API driven copy
+    if (Config.planSummary.length > 0) {
+      return Config.planSummary.map((summaryText, index) => (
+        <p className={styles.root__summary} key={index}>{summaryText}</p>
+      ))
+    }
+    return <p className={styles.root__summary}>{plan?.account?.plan_summary}</p>
+  }
+
   return (
     <div className={styles.root}>
       {reenrolFormVisible ? (
@@ -34,7 +44,7 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
       ) : (
         <>
           <h1 className={styles.root__header}>Join {plan?.account?.plan_name}</h1>
-          <p className={styles.root__summary}>{ plan?.account?.plan_summary }</p>
+          {renderPlanSummary()}
         </>
       ) }
       <MembershipCardForm

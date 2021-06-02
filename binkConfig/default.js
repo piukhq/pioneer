@@ -81,6 +81,18 @@ module.exports = {
       case 'fatface': return null
     }
   })(),
+  planSummary: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return []
+      case 'wasabi': {
+        return [
+          'Receive a £7 Off Meal Voucher when you collect 7 stamps!',
+          'Fill in the form to become a member.',
+        ]
+      }
+      case 'fatface': return []
+    }
+  })(),
   magicLinkRequestFormDescription: (() => {
     switch (process.env.THEME) {
       case 'bink': return ['Get a link sent to your inbox so you can register or login instantly!']
