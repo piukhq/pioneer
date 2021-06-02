@@ -135,6 +135,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         { !isAddForm && renderEnrolFormSection() }
 
         <Button
+          primary
           disabled={!entireFormValid || serviceLoading || submitLoading}
           className={cx(
             styles.root__submit,
