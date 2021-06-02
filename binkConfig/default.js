@@ -60,6 +60,13 @@ module.exports = {
       }
     }
   })(),
+  planTitlePrefix: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return 'Welcome to'
+      case 'fatface': return null
+    }
+  })(),
   planTitle: (() => { // used by the login page
     switch (process.env.THEME) {
       case 'bink': return 'Access your loyalty account'
@@ -67,14 +74,34 @@ module.exports = {
       case 'fatface': return 'FatFace Rewards'
     }
   })(),
+  planTitleSuffix: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return '!'
+      case 'fatface': return null
+    }
+  })(),
+  planSummary: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return []
+      case 'wasabi': {
+        return [
+          'Receive a £7 Off Meal Voucher when you collect 7 stamps!',
+          'Fill in the form to become a member.',
+        ]
+      }
+      case 'fatface': return []
+    }
+  })(),
   magicLinkRequestFormDescription: (() => {
     switch (process.env.THEME) {
       case 'bink': return ['Get a link sent to your inbox so you can register or login instantly!']
       case 'wasabi': {
         return [
-          'Collect 7 stamps for a £7 OFF Meal Voucher. One stamp can be earned per customer per transaction when the qualifying spend in a single transaction for food & drink purchases totals £7.00 or more in a participating Wasabi store. Ts and Cs apply.',
+          'Receive a £7 Off Meal Voucher when you collect 7 stamps!',
           'Bink is technology that makes loyalty simpler. By connecting your loyalty account to the payment card of your choice, you earn rewards every time you shop. By entering your email address you authorise Bink to check if you already have a loyalty account.',
-          'Log in or become a new member just by entering your email address.',
+          'Current members just need to log in.',
+          'New members can join the club by entering your email address.',
         ]
       }
       case 'fatface': {
@@ -83,6 +110,20 @@ module.exports = {
           'Bink is technology that makes loyalty simpler. By connecting your loyalty account to the payment card of your choice, you earn rewards every time you shop. By entering your email address you authorise Bink to check if you already have a loyalty account.',
           'Log in or become a new member just by entering your email address.',
         ]
+      }
+    }
+  })(),
+  magicLinkRequestFormFooterNotes: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return []
+      case 'wasabi': {
+        return [
+          'Terms and Conditions* apply.',
+          '*One stamp can be earned per transaction when you spend £7 or more in a participating Wasabi store.',
+        ]
+      }
+      case 'fatface': {
+        return []
       }
     }
   })(),
