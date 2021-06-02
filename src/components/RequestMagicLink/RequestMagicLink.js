@@ -59,14 +59,13 @@ export default RequestMagicLink
 
 const MagicLinkRequestSuccess = ({ email }) => (
   <div className={styles.root}>
-    <h1 className={styles.root__headline}>Check your inbox!</h1>
+    <h1 className={styles.root__headline}>Check your inbox</h1>
     <div className={styles.root__description}>
       <p className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></p>
       <p className={styles.root__paragraph}>Click the link and you’ll be signed in.</p>
       <p className={styles.root__note}>
         <span className={styles['root__note--bold']}>Note: </span>
         The device you open the link on will be the device you are signed in on.
-        For example, if you open the link on your phone you will be logged in on your phone.
       </p>
     </div>
   </div>
@@ -74,7 +73,7 @@ const MagicLinkRequestSuccess = ({ email }) => (
 
 const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
   <div className={styles.root}>
-    <h1 className={styles.root__headline}>{Config.planTitle}</h1>
+    <h1 className={styles.root__headline}>{Config.planTitlePrefix} {Config.planTitle}{Config.planTitleSuffix}</h1>
     <form onSubmit={handleSubmit} className={styles.root__form}>
       <div className={styles.root__description}>
         {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
@@ -88,6 +87,14 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
         onChange={(event) => setEmail(event.target.value)}
         />
       <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+
+      { Config.magicLinkRequestFormFooterNotes.length > 0 && (
+        <div className={styles.root__footerNotes}>
+          {Config.magicLinkRequestFormFooterNotes.map((note, index) => (
+            <p className={styles.root__note} key={index}>{note}</p>
+          ))}
+        </div>
+      )}
     </form>
   </div>
 )
@@ -115,8 +122,8 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => (
     <h1 className={styles.root__headline}>Link expired</h1>
     <form onSubmit={handleSubmit} className={styles.root__form}>
       <div className={styles.root__description}>
-        <p className={styles.root__paragraph}>Links are only valid for a short period of time and this one has expired!</p>
-        <p className={styles.root__paragraph}>Enter your email again and we will send you another.</p>
+        <p className={styles.root__paragraph}>Links are only valid for 10 minutes and this one has expired.</p>
+        <p className={styles.root__paragraph}>Enter your email again and we will send you a new one.</p>
       </div>
       <TextInputGroup
         className={styles['root__email-field']}
