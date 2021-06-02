@@ -12,6 +12,7 @@ import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLinkPaymentCard from './hooks/useLinkPaymentCard'
+import useMembershipCardDetailsByParams from 'hooks/useMembershipCardDetailsByParams'
 import useLoadService from 'hooks/useLoadService'
 
 import PaymentCard from 'components/PaymentCard'
@@ -60,9 +61,6 @@ const MembershipCardPage = () => {
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
   )
-  const membershipCardName = useSelector(
-    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
-  )
   const linkedPaymentCards = useSelector(
     state => membershipCardsSelectors.linkedPaymentCards(state, id),
   )
@@ -74,6 +72,8 @@ const MembershipCardPage = () => {
   )
 
   const { activeVouchers, redeemableVouchers, plan } = useMembershipCardStateById(id)
+
+  const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -204,7 +204,7 @@ const MembershipCardPage = () => {
           <h2 className={styles.root__headline}>Payment cards</h2>
           {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
             <p className={styles.root__paragraph}>
-              The payment cards below are linked to this {membershipCardName}. Simply pay with one to collect {membershipCardCurrency}.
+              The payment cards below are linked to your {planName} {planNameSuffix}. Simply pay with them to automatically collect {membershipCardCurrency}.
             </p>
           ) : (
             <p className={styles.root__paragraph}>
@@ -247,7 +247,7 @@ const MembershipCardPage = () => {
             <>
               <h2 className={styles.root__headline}>Unlinked payment cards</h2>
               <p className={styles.root__paragraph}>
-                These are payment cards that you have added but are not currently linked to your {membershipCardName}.
+                These are payment cards that you have added but are not currently linked to your {planNameSuffix}.
                 Making purchases with one of these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
                 Select the card to see how this can be resolved.
               </p>

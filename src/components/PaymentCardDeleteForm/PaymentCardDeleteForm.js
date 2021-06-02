@@ -41,6 +41,9 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
           <p className={styles.root__paragraph}>
             Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
           </p>
+          <p className={styles.root__paragraph}>
+            Any stamps that have not yet been redeemed will be lost. If you have recently transacted, be sure any stamps have been received.
+          </p>
           { isLastPaymentCard && (
             <p className={styles.root__paragraph}>You are about to delete your only active payment card. Doing so will mean you will not automatically collect {membershipPlanName} {membershipCardCurrency}</p>
           )}
