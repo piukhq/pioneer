@@ -168,7 +168,7 @@ const MembershipCardPage = () => {
   }
 
   const shouldRenderVoucherSection = () => {
-    if (!plan?.has_vouchers || !activeVouchers || activeVouchers.length === 0) {
+    if (!activeVouchers || activeVouchers.length === 0) {
       return null
     }
 
