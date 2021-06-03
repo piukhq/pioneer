@@ -4,25 +4,28 @@ import { useCallback, useEffect, useState } from 'react'
 const useLinkPaymentCard = (membershipCard, onSuccess, onError) => {
   const { linkPaymentCard } = useMembershipCardsDispatch()
   const [justFinishedLinkingPaymentCard, setJustFinishedLinkingPaymentCard] = useState(false)
+  const [linkingPaymentCard, setLinkingPaymentCard] = useState(null)
 
-  const { linkPaymentCard: { card: updatedCard, loading, error } } = useMembershipCardsState()
+  const { linkPaymentCard: { loading, error } } = useMembershipCardsState()
 
   useEffect(() => {
     if (justFinishedLinkingPaymentCard) {
-      if ((error || updatedCard.status === 'pending') && onError) {
-        onError(updatedCard)
-      } else if (updatedCard.status === 'active') {
+      if (error) {
+        onError && onError(linkingPaymentCard)
+      } else if (linkingPaymentCard.status === 'pending') {
+        onError && onError(linkingPaymentCard)
+      } else if (linkingPaymentCard.status === 'active') {
         onSuccess && onSuccess()
       }
-
       setJustFinishedLinkingPaymentCard(false)
     }
-  }, [justFinishedLinkingPaymentCard, error, updatedCard, onError, onSuccess])
+  }, [justFinishedLinkingPaymentCard, error, linkingPaymentCard, onError, onSuccess])
 
   const linkCard = useCallback(
     async (paymentCard) => {
       setJustFinishedLinkingPaymentCard(false)
       await linkPaymentCard(paymentCard.id, membershipCard.id)
+      setLinkingPaymentCard(paymentCard)
       setJustFinishedLinkingPaymentCard(true)
     },
     [membershipCard, linkPaymentCard],
