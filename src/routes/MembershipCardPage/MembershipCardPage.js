@@ -193,7 +193,10 @@ const MembershipCardPage = () => {
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
       )}
       <MembershipCardRefresher membershipCardId={id} />
-      <PaymentCardRefresher paymentCardId={newlyPendingPaymentCard?.id} />
+
+      {/* Only mount component if there is a newly added payment card in a pending state */}
+      { newlyPendingPaymentCard && <PaymentCardRefresher paymentCardId={newlyPendingPaymentCard.id} /> }
+
       { membershipCard && (
         <>
           <AccountMenu />
