@@ -48,5 +48,9 @@
   &__submit {
     display: block;
     margin: 0 auto;
+
+    @media (min-width: 630px) {
+      grid-column: span 2;
+    }
   }
 }
