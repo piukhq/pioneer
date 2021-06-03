@@ -10,13 +10,13 @@ const usePaymentCardRefresher = (paymentCardId) => {
   const { getPaymentCards, loading, resetPendingPaymentCard } = useGetPaymentCardsDispatch()
   const cardStatus = paymentCard?.status
 
-  const handlePaymentCardPendingCompletion = () => {
+  const handlePaymentCardStateChange = () => {
     resetPendingPaymentCard()
     // Refresh membership cards once payment card is no longer pending
     getMembershipPlans()
   }
 
-  useCardRefresher(paymentCard, getPaymentCards, cardStatus, PENDING_STATE, loading, handlePaymentCardPendingCompletion)
+  useCardRefresher(paymentCard, getPaymentCards, cardStatus, PENDING_STATE, loading, handlePaymentCardStateChange)
 }
 
 export default usePaymentCardRefresher

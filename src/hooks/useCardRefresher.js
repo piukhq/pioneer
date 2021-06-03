@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 const retryIntervals = [3, 6, 10, 20, 60, 120, 300]
 
-const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingState, handlePaymentCardPendingCompletion) => {
+const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingState, handlePaymentCardStateChange) => {
   const [initialCardState, setCardState] = useState(null)
   const [retryIndex, setRetryIndex] = useState(0)
   const [timeoutId, setTimeoutId] = useState(null)
@@ -41,9 +41,9 @@ const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingSta
       setTimerToCheckAgain()
     } else if (cardStatus !== pendingState && !loadingState) {
       // If the card is no longer pending, remove it from the pending card state in redux
-      handlePaymentCardPendingCompletion && handlePaymentCardPendingCompletion()
+      handlePaymentCardStateChange && handlePaymentCardStateChange()
     }
-  }, [setTimerToCheckAgain, cardStatus, pendingState, loadingState, handlePaymentCardPendingCompletion])
+  }, [setTimerToCheckAgain, cardStatus, pendingState, loadingState, handlePaymentCardStateChange])
 
   useEffect(() => {
     if (!initialCardState && card) {
