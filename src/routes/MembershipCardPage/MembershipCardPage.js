@@ -71,7 +71,7 @@ const MembershipCardPage = () => {
     state => membershipCardsSelectors.newlyPendingPaymentCard(state),
   )
 
-  const { activeVouchers, redeemableVouchers, plan } = useMembershipCardStateById(id)
+  const { activeVouchers, redeemableVouchers } = useMembershipCardStateById(id)
 
   const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
 
