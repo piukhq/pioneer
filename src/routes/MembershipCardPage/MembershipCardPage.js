@@ -219,8 +219,8 @@ const MembershipCardPage = () => {
             {linkedPaymentCards.map(paymentCard => (
               <PaymentCard
                 id={paymentCard.id}
-                onDelete={handleDeletePaymentCard}
                 key={paymentCard.id}
+                onDelete={handleDeletePaymentCard}
               />
             ))
             }
@@ -228,7 +228,6 @@ const MembershipCardPage = () => {
                 <PaymentCard
                   id={newlyPendingPaymentCard.id}
                   onClick={handleClickOnPaymentCard}
-                  onDelete={handleDeletePaymentCard}
                   key={newlyPendingPaymentCard.id}
                   expired={isPaymentCardExpired(newlyPendingPaymentCard)}
                   activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
@@ -261,7 +260,6 @@ const MembershipCardPage = () => {
                     <PaymentCard
                       id={paymentCard.id}
                       onClick={handleClickOnPaymentCard}
-                      onDelete={handleDeletePaymentCard}
                       key={paymentCard.id}
                       expired={isPaymentCardExpired(paymentCard)}
                       activating={(paymentCard.status === 'pending' && !isPaymentCardExpired(paymentCard))}
