@@ -221,7 +221,6 @@ const MembershipCardPage = () => {
                 id={paymentCard.id}
                 key={paymentCard.id}
                 onDelete={handleDeletePaymentCard}
-                linked
               />
             ))
             }
