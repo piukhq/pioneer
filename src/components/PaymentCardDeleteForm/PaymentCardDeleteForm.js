@@ -64,7 +64,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
           ) }
           <Button
             disabled={loading || last4Digits !== userEnteredLast4Digits}
-            tertiary
+            primary
             className={styles.root__button}
             onClick={handleDelete}
           >Remove card</Button>

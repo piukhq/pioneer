@@ -135,11 +135,9 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         { !isAddForm && renderEnrolFormSection() }
 
         <Button
+          primary
           disabled={!entireFormValid || serviceLoading || submitLoading}
-          className={cx(
-            styles.root__submit,
-            isAddForm && styles['root__submit--add-only'],
-          )}
+          className={styles.root__submit}
         >
           { ((serviceLoading || submitLoading) && submittingCaption) || submitCaption || 'Add my card' }
         </Button>

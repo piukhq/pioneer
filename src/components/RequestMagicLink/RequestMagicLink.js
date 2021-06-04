@@ -80,14 +80,15 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
           <p className={styles.root__paragraph} key={index}>{paragraph}</p>
         ))}
       </div>
-      <TextInputGroup
-        className={styles['root__email-field']}
-        placeholder='Enter email address'
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
+      <div className={styles['root__form-ui']}>
+        <TextInputGroup
+          className={styles['root__email-field']}
+          placeholder='Enter email address'
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
-      <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
-
+        <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+      </div>
       { Config.magicLinkRequestFormFooterNotes.length > 0 && (
         <div className={styles.root__footerNotes}>
           {Config.magicLinkRequestFormFooterNotes.map((note, index) => (
@@ -106,13 +107,15 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
       <div className={styles.root__description}>
         <p className={styles.root__paragraph}>There was a problem, please try again</p>
       </div>
-      <TextInputGroup
-        className={styles['root__email-field']}
-        placeholder='Enter email address'
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
+      <div className={styles['root__form-ui']}>
+        <TextInputGroup
+          className={styles['root__email-field']}
+          placeholder='Enter email address'
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
-      <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+        <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+      </div>
     </form>
   </div>
 )
@@ -125,13 +128,15 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => (
         <p className={styles.root__paragraph}>Links are only valid for 10 minutes and this one has expired.</p>
         <p className={styles.root__paragraph}>Enter your email again and we will send you a new one.</p>
       </div>
-      <TextInputGroup
-        className={styles['root__email-field']}
-        placeholder='Enter email address'
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
-      </form>
+      <div className={styles['root__form-ui']}>
+        <TextInputGroup
+          className={styles['root__email-field']}
+          placeholder='Enter email address'
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+      </div>
+    </form>
   </div>
 )
