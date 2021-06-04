@@ -15,6 +15,11 @@
     align-items: center;
   }
 
+  &__form-ui {
+    max-width: 100%;
+    width: 480px;
+  }
+
   &__headline {
     @include heading-font-style;
   }
@@ -43,21 +48,12 @@
   }
 
   &__email-field {
-    max-width: 100%;
-    width: 480px;
-  }
-
-  &__button {
-    display: block;
-    max-width: 100%;
-    width: 480px;
-    margin: 0 auto;
+    width: 100%;
   }
 
   &__footerNotes {
     margin-top: 10px;
   }
-
   // todo: Check with Jack remove if icons no longer needed
   // &__icon {
   //   display: block;
