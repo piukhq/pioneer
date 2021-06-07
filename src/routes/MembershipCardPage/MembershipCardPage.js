@@ -202,7 +202,7 @@ const MembershipCardPage = () => {
           <AccountMenu />
           <Hero membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
           {shouldRenderVoucherSection()}
-          <section className={styles.root__section}>
+          <section className={styles.root}>
             <h2 className={styles.root__headline}>Payment cards</h2>
             {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
               <p className={styles.root__paragraph}>
@@ -246,7 +246,7 @@ const MembershipCardPage = () => {
             ) }
           </section>
           { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id).length > 0 && (
-            <section className={styles.root__section}>
+            <section className={styles.root}>
               <h2 className={styles.root__headline}>Unlinked payment cards</h2>
               <p className={styles.root__paragraph}>
                 These are payment cards that you have added but are not currently linked to your {planNameSuffix}.
