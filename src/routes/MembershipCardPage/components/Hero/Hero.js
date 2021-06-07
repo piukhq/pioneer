@@ -51,7 +51,7 @@ const Hero = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
   const [isTransactionsModalOpen, setTransactionsModalOpen] = useState(false)
 
   return (
-    <div className={cx(
+    <section className={cx(
       styles.root,
       styles[`root--${state}`],
     )}>
@@ -159,7 +159,7 @@ const Hero = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
           </div>
         </>
       ) }
-    </div>
+    </section>
   )
 }
 
