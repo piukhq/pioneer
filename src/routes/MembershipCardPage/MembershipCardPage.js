@@ -201,52 +201,52 @@ const MembershipCardPage = () => {
         <>
           <AccountMenu />
           <Hero membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
-
           {shouldRenderVoucherSection()}
-
-          <h2 className={styles.root__headline}>Payment cards</h2>
-          {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
-            <p className={styles.root__paragraph}>
-              The payment cards below are linked to your {planName} {planNameSuffix}. Simply pay with them to automatically collect {membershipCardCurrency}.
-            </p>
-          ) : (
-            <p className={styles.root__paragraph}>
-              You have yet to add any payment cards. By adding a payment card to your account,
-              you will unlock the ability to auto-collect {membershipCardCurrency} when you shop.
-            </p>
-          ) }
-          <PaymentCards>
-            {linkedPaymentCards.map(paymentCard => (
-              <PaymentCard
-                id={paymentCard.id}
-                key={paymentCard.id}
-                onDelete={handleDeletePaymentCard}
-              />
-            ))
-            }
-            { newlyPendingPaymentCard && unlinkedPaymentCards.filter(paymentCard => paymentCard.id === newlyPendingPaymentCard?.id).length > 0 && (
+          <section className={styles.root}>
+            <h2 className={styles.root__headline}>Payment cards</h2>
+            {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
+              <p className={styles.root__paragraph}>
+                The payment cards below are linked to your {planName} {planNameSuffix}. Simply pay with them to automatically collect {membershipCardCurrency}.
+              </p>
+            ) : (
+              <p className={styles.root__paragraph}>
+                You have yet to add any payment cards. By adding a payment card to your account,
+                you will unlock the ability to auto-collect {membershipCardCurrency} when you shop.
+              </p>
+            ) }
+            <PaymentCards>
+              {linkedPaymentCards.map(paymentCard => (
                 <PaymentCard
-                  id={newlyPendingPaymentCard.id}
-                  onClick={handleClickOnPaymentCard}
-                  key={newlyPendingPaymentCard.id}
-                  expired={isPaymentCardExpired(newlyPendingPaymentCard)}
-                  activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
+                  id={paymentCard.id}
+                  key={paymentCard.id}
+                  onDelete={handleDeletePaymentCard}
                 />
-            )}
+              ))
+              }
+              { newlyPendingPaymentCard && unlinkedPaymentCards.filter(paymentCard => paymentCard.id === newlyPendingPaymentCard?.id).length > 0 && (
+                  <PaymentCard
+                    id={newlyPendingPaymentCard.id}
+                    onClick={handleClickOnPaymentCard}
+                    key={newlyPendingPaymentCard.id}
+                    expired={isPaymentCardExpired(newlyPendingPaymentCard)}
+                    activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
+                  />
+              )}
 
-            {renderAddPaymentCardButton()}
-          </PaymentCards>
-          { paymentCardAddFormVisible && (
-            <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
-          )}
-          { deleteFormVisible && (
-            <PaymentCardDeleteForm
-              paymentCardId={cardIdToBeDeleted}
-              membershipCardId={id}
-              onClose={ handleCloseDeletePaymentCardForm } />
-          ) }
+              {renderAddPaymentCardButton()}
+            </PaymentCards>
+            { paymentCardAddFormVisible && (
+              <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
+            )}
+            { deleteFormVisible && (
+              <PaymentCardDeleteForm
+                paymentCardId={cardIdToBeDeleted}
+                membershipCardId={id}
+                onClose={ handleCloseDeletePaymentCardForm } />
+            ) }
+          </section>
           { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id).length > 0 && (
-            <>
+            <section className={styles.root}>
               <h2 className={styles.root__headline}>Unlinked payment cards</h2>
               <p className={styles.root__paragraph}>
                 These are payment cards that you have added but are not currently linked to your {planNameSuffix}.
@@ -258,16 +258,16 @@ const MembershipCardPage = () => {
                   .filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id)
                   .map(paymentCard => (
                     <PaymentCard
-                      id={paymentCard.id}
-                      onClick={handleClickOnPaymentCard}
-                      key={paymentCard.id}
-                      expired={isPaymentCardExpired(paymentCard)}
-                      activating={(paymentCard.status === 'pending' && !isPaymentCardExpired(paymentCard))}
+                    id={paymentCard.id}
+                    onClick={handleClickOnPaymentCard}
+                    key={paymentCard.id}
+                    expired={isPaymentCardExpired(paymentCard)}
+                    activating={(paymentCard.status === 'pending' && !isPaymentCardExpired(paymentCard))}
                     />
                   ))
                 }
               </PaymentCards>
-            </>
+            </section>
           ) }
           {/* todo: temporary for dev purposes only. It will display only in dev mode though */}
           <DevDeleteMembershipCard cardId={membershipCard.id} />

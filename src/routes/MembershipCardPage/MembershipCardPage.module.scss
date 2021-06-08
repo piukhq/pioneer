@@ -1,13 +1,7 @@
 @import "src/sass/mixins";
 
 .root {
-  &__headline {
-    @include headline-style;
-  }
-
-  &__paragraph {
-    @include paragraph-spacing-styling;
-  }
+  @include section-style;
 
   &__warning {
     // todo: consider usage of global definitions for theme colour pallettes
