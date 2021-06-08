@@ -1,6 +1,5 @@
 @mixin section-style {
   margin-bottom: 23px;
-  // background: rebeccapurple;
 
   &__headline {
     @include headline-style;
