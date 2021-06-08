@@ -1,15 +1,13 @@
 @mixin section-style {
-  margin-bottom: 38px;
+  margin-bottom: 23px;
 
   &__headline {
     @include headline-style;
 
-    line-height: 0;
+    margin-bottom: 0.1em;
   }
 
   &__paragraph {
-    @include paragraph-spacing-styling;
-
-    margin-bottom: 18px;
+    margin-bottom: 1.1em;
   }
 }

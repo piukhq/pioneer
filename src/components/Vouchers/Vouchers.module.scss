@@ -3,7 +3,7 @@
 .root {
   @include section-style;
 
-  margin-bottom: 23px; // overrides section-style mixin due to existing margin on vouchers.
+  margin-bottom: 5px; // overrides section-style mixin due to existing margin on vouchers.
 
   &__active-vouchers {
     display: grid;
