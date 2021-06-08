@@ -24,6 +24,7 @@ yarn-error.log*
 
 # IDEs
 /.idea
+.vscode/launch.json
 
 # Optional eslint cache
 .eslintcache

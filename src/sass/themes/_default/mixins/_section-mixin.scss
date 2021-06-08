@@ -1,0 +1,13 @@
+@mixin section-style {
+  margin-bottom: 23px;
+
+  &__headline {
+    @include headline-style;
+
+    margin: 0 0 0.1em;
+  }
+
+  &__paragraph {
+    margin-bottom: 1.1em;
+  }
+}

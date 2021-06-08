@@ -1,13 +1,9 @@
 @import "src/sass/mixins";
 
 .root {
-  &__headline {
-    @include headline-style;
-  }
+  @include section-style;
 
-  &__paragraph {
-    @include paragraph-spacing-styling;
-  }
+  margin-bottom: 10px; // overrides section-style mixin due to existing margin on vouchers.
 
   &__active-vouchers {
     display: grid;
