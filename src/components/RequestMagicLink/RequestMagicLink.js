@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 // todo: Check with Jack to Remove SVGs if no longer needed for MultiMerchant/future designs
 // import { ReactComponent as MagicLinkDefaultSvg } from 'images/magic-link-default.svg'
 // import { ReactComponent as MagicLinkErrorSvg } from 'images/magic-link-error.svg'
@@ -71,7 +71,14 @@ const MagicLinkRequestSuccess = ({ email }) => (
   </div>
 )
 
-const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
+const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
+  const [emailError, setEmailError] = useState(null)
+  const handleEmailBlur = useCallback(() => {
+    const errorMessage = isValidEmail(email) ? undefined : 'Invalid Email'
+    setEmailError(errorMessage)
+  }, [email])
+
+  return (
   <div className={styles.root}>
     <h1 className={styles.root__headline}>{Config.planTitlePrefix} {Config.planTitle}{Config.planTitleSuffix}</h1>
     <form onSubmit={handleSubmit} className={styles.root__form}>
@@ -86,6 +93,8 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
           placeholder='Enter email address'
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          onBlur={handleEmailBlur}
+          error={emailError}
         />
         <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
       </div>
@@ -98,7 +107,8 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => (
       )}
     </form>
   </div>
-)
+  )
+}
 
 const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }) => (
   <div className={styles.root}>
