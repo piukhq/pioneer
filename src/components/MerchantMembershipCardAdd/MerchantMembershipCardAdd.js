@@ -5,6 +5,7 @@ import { selectors as usersSelectors } from 'ducks/users'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 
 import useContactSupport from 'hooks/useContactSupport'
+import useLogout from 'hooks/useLogout'
 import Button from 'components/Button'
 import MembershipCardForm from 'components/MembershipCardForm'
 
@@ -14,6 +15,7 @@ const MerchantMembershipCardAdd = ({ planId }) => {
   const userId = useSelector(state => usersSelectors.accountUserId(state))
   const { plan } = useLoadMembershipPlans(planId)
   const { contactSupport } = useContactSupport()
+  const { logout } = useLogout()
   const fieldTypes = useRef(['add_fields']).current
   const linkingFeature = 'ADD'
 
@@ -31,6 +33,7 @@ const MerchantMembershipCardAdd = ({ planId }) => {
         submitCaption='Continue'
       />
       <Button secondary onClick={contactSupport} className={styles['root__contact-support']}>Forgotten your card number? Contact us</Button>
+      <Button secondary onClick={logout} className={styles.root__logout}>Logout</Button>
     </div>
   )
 }

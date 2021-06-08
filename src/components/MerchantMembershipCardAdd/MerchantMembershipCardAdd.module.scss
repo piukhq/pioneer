@@ -37,4 +37,13 @@
     max-width: 100%;
     margin: 0 auto;
   }
+
+  &__logout {
+    @include note-font-style;
+
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    min-height: 0;
+  }
 }
