@@ -215,4 +215,12 @@
       color: #999;
     }
   }
+
+  &__authorised-svg {
+    fill: $primary-color;
+
+    &--bink {
+      fill: url(#linearGradient-1);
+    }
+  }
 }
