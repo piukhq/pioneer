@@ -10,7 +10,7 @@ const useMembershipCardDetailsByParams = () => {
   )
   const planNameSuffix = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
-  )
+  )?.toLowerCase()
 
   return {
     planName,
