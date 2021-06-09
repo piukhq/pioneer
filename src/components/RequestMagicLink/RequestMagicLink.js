@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 // todo: Check with Jack to Remove SVGs if no longer needed for MultiMerchant/future designs
 // import { ReactComponent as MagicLinkDefaultSvg } from 'images/magic-link-default.svg'
 // import { ReactComponent as MagicLinkErrorSvg } from 'images/magic-link-error.svg'
@@ -73,10 +73,16 @@ const MagicLinkRequestSuccess = ({ email }) => (
 
 const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
   const [emailError, setEmailError] = useState(null)
-  const handleEmailBlur = useCallback(() => {
+
+  const handleBlur = useCallback(() => {
     const errorMessage = isValidEmail(email) ? undefined : 'Invalid Email'
     setEmailError(errorMessage)
   }, [email])
+
+  const handleChange = (e) => {
+    isValidEmail(e.target.value) && setEmailError(undefined)
+    setEmail(e.target.value)
+  }
 
   return (
   <div className={styles.root}>
@@ -92,8 +98,8 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           className={styles['root__email-field']}
           placeholder='Enter email address'
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          onBlur={handleEmailBlur}
+          onChange={handleChange}
+          onBlur={handleBlur}
           error={emailError}
         />
         <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
