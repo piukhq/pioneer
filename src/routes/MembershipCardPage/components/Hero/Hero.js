@@ -74,7 +74,7 @@ const Hero = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
             <>
               {/* todo: would there ever be an unhappy path ever where balance is missing? */}
               <div className={styles['root__transaction-history']} onClick={() => setTransactionsModalOpen(true)}>
-                <StateAuthorisedSvg />
+                <StateAuthorisedSvg className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
                 <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
                 <div className={styles.root__explainer}>View history</div>
               </div>
@@ -96,7 +96,7 @@ const Hero = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
           { nonActiveVouchers?.length > 0 ? (
             <>
               <div className={styles['root__voucher-history']} onClick={() => setNonActiveVouchersModalOpen(true)}>
-                <StateAuthorisedSvg />
+                <StateAuthorisedSvg className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
                 <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Rewards history</div>
                 <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
                 <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>See your past rewards</div>
