@@ -18,6 +18,11 @@
     width: 100%;
   }
 
+  &--primary:hover {
+    background-color: #33654f;
+    transition: 0.3s ease;
+  }
+
   &--secondary {
     color: $text-color;
     background-color: transparent;
@@ -28,9 +33,18 @@
     color: #fff;
   }
 
+  &--tertiary:hover {
+    background-color: #c94155;
+    transition: 0.3s ease;
+  }
+
   &--disabled {
     background-color: #d8d8d8;
     color: #fff;
+  }
+
+  &--disabled:hover {
+    background-color: #d8d8d8;
   }
 
   &:hover,
