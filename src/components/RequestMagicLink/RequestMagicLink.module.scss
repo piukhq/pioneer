@@ -49,7 +49,7 @@
 
   &__email-field {
     width: 100%;
-    min-height: 82px;
+    min-height: 82px; // reserves whitespace for blank error message
   }
 
   &__footerNotes {
