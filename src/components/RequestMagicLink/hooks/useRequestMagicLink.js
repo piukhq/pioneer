@@ -13,9 +13,9 @@ const useRequestMagicLink = () => {
     setEmailError(isValidEmail(email) ? undefined : ' ')
   }
 
-  const handleChange = (e) => {
+  const handleChange = (event) => {
     setEmailError(undefined)
-    setEmail(e.target.value)
+    setEmail(event.target.value)
   }
   const handleSubmit = useCallback((event) => {
     event.preventDefault()
@@ -23,15 +23,16 @@ const useRequestMagicLink = () => {
   }, [dispatch, email])
 
   return {
+    isValidEmail,
     email,
     setEmail,
     error,
     loading,
     success,
     emailError,
-    handleSubmit,
-    handleBlur,
     handleChange,
+    handleBlur,
+    handleSubmit,
   }
 }
 
