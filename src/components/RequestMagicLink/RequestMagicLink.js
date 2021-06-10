@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect } from 'react'
 // todo: Check with Jack to Remove SVGs if no longer needed for MultiMerchant/future designs
 // import { ReactComponent as MagicLinkDefaultSvg } from 'images/magic-link-default.svg'
 // import { ReactComponent as MagicLinkErrorSvg } from 'images/magic-link-error.svg'
@@ -71,47 +71,44 @@ const MagicLinkRequestSuccess = ({ email }) => (
   </div>
 )
 
-const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
-  const [emailError, setEmailError] = useState(null)
-
-  const handleBlur = useCallback(() => {
-    setEmailError(isValidEmail(email) ? undefined : ' ')
-  }, [email])
-
-  const handleChange = (e) => {
-    isValidEmail(e.target.value) && setEmailError(undefined)
-    setEmail(e.target.value)
-  }
+const MagicLinkRequestForm = () => {
+  const {
+    email,
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    emailError,
+  } = useRequestMagicLink()
 
   return (
-  <div className={styles.root}>
-    <h1 className={styles.root__headline}>{Config.planTitlePrefix} {Config.planTitle}{Config.planTitleSuffix}</h1>
-    <form onSubmit={handleSubmit} className={styles.root__form}>
-      <div className={styles.root__description}>
-        {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
-          <p className={styles.root__paragraph} key={index}>{paragraph}</p>
-        ))}
-      </div>
-      <div className={styles['root__form-ui']}>
-        <TextInputGroup
-          className={styles['root__email-field']}
-          placeholder='Enter email address'
-          value={email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={emailError}
-        />
-        <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
-      </div>
-      { Config.magicLinkRequestFormFooterNotes.length > 0 && (
-        <div className={styles.root__footerNotes}>
-          {Config.magicLinkRequestFormFooterNotes.map((note, index) => (
-            <p className={styles.root__note} key={index}>{note}</p>
+    <div className={styles.root}>
+      <h1 className={styles.root__headline}>{Config.planTitlePrefix} {Config.planTitle}{Config.planTitleSuffix}</h1>
+      <form onSubmit={handleSubmit} className={styles.root__form}>
+        <div className={styles.root__description}>
+          {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
+            <p className={styles.root__paragraph} key={index}>{paragraph}</p>
           ))}
         </div>
-      )}
-    </form>
-  </div>
+        <div className={styles['root__form-ui']}>
+          <TextInputGroup
+            className={styles['root__email-field']}
+            placeholder='Enter email address'
+            value={email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={emailError}
+          />
+          <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+        </div>
+        { Config.magicLinkRequestFormFooterNotes.length > 0 && (
+          <div className={styles.root__footerNotes}>
+            {Config.magicLinkRequestFormFooterNotes.map((note, index) => (
+              <p className={styles.root__note} key={index}>{note}</p>
+            ))}
+          </div>
+        )}
+      </form>
+    </div>
   )
 }
 
