@@ -2,6 +2,13 @@
 
 .root {
   @include modal;
+
+  &__close-button {
+    &--disabled {
+      cursor: default;
+      fill: #d8d8d8;
+    }
+  }
 }
 
 :global(html.modal--no-scroll),
