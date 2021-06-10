@@ -75,8 +75,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
   const [emailError, setEmailError] = useState(null)
 
   const handleBlur = useCallback(() => {
-    const errorMessage = isValidEmail(email) ? undefined : 'Invalid Email'
-    setEmailError(errorMessage)
+    setEmailError(isValidEmail(email) ? undefined : ' ')
   }, [email])
 
   const handleChange = (e) => {
