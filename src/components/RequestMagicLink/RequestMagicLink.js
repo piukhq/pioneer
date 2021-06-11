@@ -84,14 +84,14 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           ))}
         </div>
         <div className={styles['root__form-ui']}>
-        <TextInputGroup
-              className={styles['root__email-field']}
-              placeholder='Enter email address'
-              value={email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={emailError}
-            />
+          <TextInputGroup
+            className={styles['root__email-field']}
+            placeholder='Enter email address'
+            value={email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={emailError}
+          />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
         { Config.magicLinkRequestFormFooterNotes.length > 0 && (
@@ -117,14 +117,14 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
           <p className={styles.root__paragraph}>There was a problem, please try again</p>
         </div>
         <div className={styles['root__form-ui']}>
-        <TextInputGroup
-              className={styles['root__email-field']}
-              placeholder='Enter email address'
-              value={email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={emailError}
-            />
+          <TextInputGroup
+            className={styles['root__email-field']}
+            placeholder='Enter email address'
+            value={email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={emailError}
+          />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
       </form>
@@ -136,25 +136,25 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
   const { emailError, handleChange, handleBlur, isValidEmail } = useEmailErrorFormatting(email, setEmail)
 
   return (
-  <div className={styles.root}>
-    <h1 className={styles.root__headline}>Link expired</h1>
-    <form onSubmit={handleSubmit} className={styles.root__form}>
-      <div className={styles.root__description}>
-        <p className={styles.root__paragraph}>Links are only valid for 10 minutes and this one has expired.</p>
-        <p className={styles.root__paragraph}>Enter your email again and we will send you a new one.</p>
-      </div>
-      <div className={styles['root__form-ui']}>
-        <TextInputGroup
-          className={styles['root__email-field']}
-          placeholder='Enter email address'
-          value={email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={emailError}
-        />
-        <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
-      </div>
-    </form>
-  </div>
+    <div className={styles.root}>
+      <h1 className={styles.root__headline}>Link expired</h1>
+      <form onSubmit={handleSubmit} className={styles.root__form}>
+        <div className={styles.root__description}>
+          <p className={styles.root__paragraph}>Links are only valid for 10 minutes and this one has expired.</p>
+          <p className={styles.root__paragraph}>Enter your email again and we will send you a new one.</p>
+        </div>
+        <div className={styles['root__form-ui']}>
+          <TextInputGroup
+            className={styles['root__email-field']}
+            placeholder='Enter email address'
+            value={email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={emailError}
+          />
+          <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+        </div>
+      </form>
+    </div>
   )
 }
