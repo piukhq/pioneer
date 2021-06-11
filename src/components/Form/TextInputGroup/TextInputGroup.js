@@ -46,9 +46,11 @@ const TextInputGroup = ({
         disabled={disabled}
         {...rest}
       />
-      <div className={styles.root__error}>
-        { error || <>&nbsp;</> }
-      </div>
+      { error && (
+        <div className={styles.root__error}>
+          { error }
+        </div>
+      )}
     </div>
   )
 }
