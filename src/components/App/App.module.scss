@@ -3,13 +3,13 @@
 .root {
   @include app-style;
 
-  &__logo {
+  &__logo-container {
     display: flex;
     justify-content: center;
     padding: 35px;
   }
 
-  &__logoImage {
+  &__logo {
     width: 150px;
   }
 }

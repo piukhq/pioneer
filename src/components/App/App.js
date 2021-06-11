@@ -61,9 +61,9 @@ function App () {
           </Route>
         </Switch>
       </Router>
-      <section className={styles.root__logo}>
-        <a href="https://www.bink.com">
-          <img alt="Powered By Bink" src={logo} className={styles.root__logoImage} />
+      <section className={styles['root__logo-container']}>
+        <a href="https://www.bink.com" target="_blank" rel="noreferrer">
+          <img alt="Powered By Bink" src={logo} className={styles.root__logo} />
         </a>
       </section>
     </div>
