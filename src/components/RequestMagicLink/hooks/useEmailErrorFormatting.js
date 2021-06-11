@@ -9,7 +9,7 @@ const useEmailErrorFormatting = (email, setEmail) => {
   }
 
   const handleChange = (event) => {
-    setEmailError(undefined)
+    emailError !== undefined && setEmailError(undefined)
     setEmail(event.target.value)
   }
 
