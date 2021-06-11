@@ -2,4 +2,14 @@
 
 .root {
   @include app-style;
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    padding: 35px;
+  }
+
+  &__logoImage {
+    width: 150px;
+  }
 }

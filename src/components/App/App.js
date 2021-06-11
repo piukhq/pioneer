@@ -22,6 +22,7 @@ import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 
+import logo from 'images/footer-logo.png'
 import styles from './App.module.scss'
 
 function App () {
@@ -60,6 +61,11 @@ function App () {
           </Route>
         </Switch>
       </Router>
+      <section className={styles.root__logo}>
+        <a href="https://www.bink.com">
+          <img alt="Powered By Bink" src={logo} className={styles.root__logoImage} />
+        </a>
+      </section>
     </div>
   )
 }
