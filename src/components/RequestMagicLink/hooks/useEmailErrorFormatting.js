@@ -17,6 +17,7 @@ const useEmailErrorFormatting = (email, setEmail) => {
     emailError,
     handleChange,
     handleBlur,
+    isValidEmail,
   }
 }
 

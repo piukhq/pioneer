@@ -9,6 +9,7 @@ import TextInputGroup from 'components/Form/TextInputGroup'
 
 import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
+import useEmailErrorFormatting from './hooks/useEmailErrorFormatting'
 
 import styles from './RequestMagicLink.module.scss'
 
@@ -70,15 +71,8 @@ const MagicLinkRequestSuccess = ({ email }) => (
   </div>
 )
 
-const MagicLinkRequestForm = () => {
-  const {
-    email,
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    emailError,
-    isValidEmail,
-  } = useRequestMagicLink()
+const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
+  const { emailError, handleChange, handleBlur, isValidEmail } = useEmailErrorFormatting(email, setEmail)
 
   return (
     <div className={styles.root}>
@@ -90,14 +84,14 @@ const MagicLinkRequestForm = () => {
           ))}
         </div>
         <div className={styles['root__form-ui']}>
-          <TextInputGroup
-            className={styles['root__email-field']}
-            placeholder='Enter email address'
-            value={email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={emailError}
-          />
+        <TextInputGroup
+              className={styles['root__email-field']}
+              placeholder='Enter email address'
+              value={email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={emailError}
+            />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
         { Config.magicLinkRequestFormFooterNotes.length > 0 && (
@@ -112,15 +106,8 @@ const MagicLinkRequestForm = () => {
   )
 }
 
-const MagicLinkRequestOrAuthenticationError = () => {
-  const {
-    email,
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    emailError,
-    isValidEmail,
-  } = useRequestMagicLink()
+const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }) => {
+  const { emailError, handleChange, handleBlur, isValidEmail } = useEmailErrorFormatting(email, setEmail)
 
   return (
     <div className={styles.root}>
@@ -131,13 +118,13 @@ const MagicLinkRequestOrAuthenticationError = () => {
         </div>
         <div className={styles['root__form-ui']}>
         <TextInputGroup
-            className={styles['root__email-field']}
-            placeholder='Enter email address'
-            value={email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={emailError}
-          />
+              className={styles['root__email-field']}
+              placeholder='Enter email address'
+              value={email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={emailError}
+            />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
       </form>
@@ -145,15 +132,8 @@ const MagicLinkRequestOrAuthenticationError = () => {
   )
 }
 
-const MagicLinkAuthenticationExpired = () => {
-  const {
-    email,
-    handleSubmit,
-    handleBlur,
-    handleChange,
-    emailError,
-    isValidEmail,
-  } = useRequestMagicLink()
+const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
+  const { emailError, handleChange, handleBlur, isValidEmail } = useEmailErrorFormatting(email, setEmail)
 
   return (
   <div className={styles.root}>
