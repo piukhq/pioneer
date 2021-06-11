@@ -32,9 +32,11 @@ const PaymentCardInputGroup = ({ className, label, placeholder, error, onChange,
           length === 0 && error && styles['root__iframe-placeholder--error'],
         )} />
       </div>
-      <div className={styles.root__error}>
-        { error || <>&nbsp;</> }
-      </div>
+      { error && (
+        <div className={styles.root__error}>
+          { error }
+        </div>
+      )}
       <div className={styles.root__cvv}>
         <label>CVV</label>
         <div id='bink-spreedly-cvv' />

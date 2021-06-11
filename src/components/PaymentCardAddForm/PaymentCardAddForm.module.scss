@@ -10,11 +10,19 @@
     margin: 30px 0;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 30px;
+    gap: 13px;
     grid-template-rows: auto;
     grid-template-areas:
       "card-number card-expiry"
       "name-on-card name-on-card";
+
+    @media (max-width: 630px) {
+      grid-template-areas:
+        "card-number"
+        "card-expiry"
+        "name-on-card";
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   &__number-group {
