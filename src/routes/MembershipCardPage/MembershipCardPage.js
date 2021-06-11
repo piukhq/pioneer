@@ -27,6 +27,7 @@ import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
+import PaymentCardLimitModal from 'components/PaymentCardLimitModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
@@ -81,9 +82,11 @@ const MembershipCardPage = () => {
   }, [dispatch])
 
   const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
+  const [paymentCardLimitModalVisible, setPaymentCardLimitModalVisible] = useState(false)
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
   const [linkingSuccessModalVisible, setLinkingSuccessModalVisible] = useState(false)
+  const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = useState((false))
 
   const handleLinkingSuccess = useCallback(() => {
     setLinkingSuccessModalVisible(true)
@@ -141,6 +144,10 @@ const MembershipCardPage = () => {
     }
   }, [serviceLoading, serviceError, membershipCard?.status?.state])
 
+  useEffect(() => {
+    (linkedPaymentCards?.length > 4) ? setIsPaymentCardLimitReached(true) : setIsPaymentCardLimitReached(false)
+  }, [linkedPaymentCards, setIsPaymentCardLimitReached])
+
   if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing
   } else if (serviceLoading) {
@@ -160,11 +167,15 @@ const MembershipCardPage = () => {
     )
   }
 
+  const handleAddPaymentCardClick = () => {
+    isPaymentCardLimitReached ? setPaymentCardLimitModalVisible(true) : setPaymentCardAddFormVisible(true)
+  }
+
   const renderAddPaymentCardButton = () => {
     if (Config.theme === 'bink') {
-      return <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+      return <BinkPaymentCardAdd onClick={handleAddPaymentCardClick}/>
     }
-    return <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+    return <PaymentCardAdd onClick={handleAddPaymentCardClick} />
   }
 
   const shouldRenderVoucherSection = () => {
@@ -191,6 +202,9 @@ const MembershipCardPage = () => {
       )}
       { linkingSuccessModalVisible && (
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
+      )}
+      { paymentCardLimitModalVisible && (
+        <PaymentCardLimitModal onClose={() => setPaymentCardLimitModalVisible(false)} />
       )}
       <MembershipCardRefresher membershipCardId={id} />
 
