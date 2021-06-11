@@ -9,7 +9,7 @@ import TextInputGroup from 'components/Form/TextInputGroup'
 
 import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
-import useEmailErrorFormatting from './hooks/useEmailErrorFormatting'
+import useEmailErrorDisplay from './hooks/useEmailErrorDisplay'
 
 import styles from './RequestMagicLink.module.scss'
 
@@ -72,7 +72,7 @@ const MagicLinkRequestSuccess = ({ email }) => (
 )
 
 const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
-  const { emailError, handleChange, handleBlur, isValidEmail } = useEmailErrorFormatting(email, setEmail)
+  const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
     <div className={styles.root}>
@@ -90,7 +90,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
             value={email}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={emailError}
+            error={isErrorDisplayed}
           />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
@@ -107,7 +107,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
 }
 
 const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }) => {
-  const { emailError, handleChange, handleBlur, isValidEmail } = useEmailErrorFormatting(email, setEmail)
+  const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
     <div className={styles.root}>
@@ -123,7 +123,7 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
             value={email}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={emailError}
+            error={isErrorDisplayed}
           />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
@@ -133,7 +133,7 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
 }
 
 const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
-  const { emailError, handleChange, handleBlur, isValidEmail } = useEmailErrorFormatting(email, setEmail)
+  const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
     <div className={styles.root}>
@@ -150,7 +150,7 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
             value={email}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={emailError}
+            error={isErrorDisplayed}
           />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
