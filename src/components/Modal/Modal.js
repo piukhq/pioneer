@@ -5,7 +5,7 @@ import useScrollFader from './hooks/useScrollFader'
 import { ReactComponent as ModalCloseSvg } from 'images/modal-close.svg'
 import styles from './Modal.module.scss'
 
-const Modal = ({ children, onClose, className }) => {
+const Modal = ({ children, onClose, className, isLoading }) => {
   useModalSetup()
   const [opacity, scrollRef, scrollableRef] = useScrollFader()
 
@@ -13,7 +13,7 @@ const Modal = ({ children, onClose, className }) => {
     <>
       <div className={styles.root__overlay}></div>
       <div className={cx(styles.root__box, className)}>
-        {onClose && <Modal.CloseButton onClick={onClose} />}
+        {onClose && <Modal.CloseButton onClick={onClose} disabled={isLoading} />}
         <div className={styles.root__body} ref={scrollRef}>
           <div className={styles.root__scrollable} ref={scrollableRef}>
             {children}
@@ -27,8 +27,17 @@ const Modal = ({ children, onClose, className }) => {
 }
 
 Modal.Header = ({ children }) => <h2 className={styles.root__header}>{children}</h2>
-Modal.CloseButton = ({ onClick }) => <div onClick={onClick} className={styles['root__close-button']}>
-  <ModalCloseSvg className={styles['root__close-button-svg']} />
-</div>
+Modal.CloseButton = ({ onClick, disabled }) => (
+  <button
+    className={cx(
+      styles['root__close-button'],
+      disabled && styles['root__close-button--disabled'],
+    )}
+    onClick={onClick}
+    disabled={disabled}
+  >
+    <ModalCloseSvg className={styles['root__close-button-svg']} />
+  </button>
+)
 
 export default Modal
