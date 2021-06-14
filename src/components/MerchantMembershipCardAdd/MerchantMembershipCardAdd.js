@@ -16,7 +16,7 @@ const MerchantMembershipCardAdd = ({ planId }) => {
   const { plan } = useLoadMembershipPlans(planId)
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
-  const fieldTypes = useRef(['add_fields']).current
+  const fieldTypes = useRef(['add_fields', 'authorise_fields']).current
   const linkingFeature = 'ADD'
 
   return (
