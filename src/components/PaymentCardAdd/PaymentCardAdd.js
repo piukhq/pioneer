@@ -3,11 +3,9 @@ import { ReactComponent as PaymentAddSvg } from 'images/payment-add.svg'
 import styles from './PaymentCardAdd.module.scss'
 
 const PaymentCardAdd = ({ onClick }) => (
-  <div className={styles.root} onClick={onClick}>
-    <div className={styles.root__inner}>
-      <PaymentAddSvg className={styles['root__payment-add-svg']} />
-    </div>
-  </div>
+  <button className={styles.root} onClick={onClick}>
+    <PaymentAddSvg />
+  </button>
 )
 
 export default PaymentCardAdd

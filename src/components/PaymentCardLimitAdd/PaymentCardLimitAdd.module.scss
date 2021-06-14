@@ -2,17 +2,12 @@
 
 .root {
   cursor: pointer;
-
-  &__inner {
-    height: 120px;
-    border: 4px dashed $add-payment-card-color-limited;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &__payment-add-svg {
-    fill: $add-payment-card-color-limited;
-  }
+  height: 120px;
+  background: transparent;
+  border: 4px dashed $add-payment-card-color-limited;
+  fill: $add-payment-card-color-limited;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
