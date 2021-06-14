@@ -18,6 +18,7 @@ import useLoadService from 'hooks/useLoadService'
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
 import PaymentCardAdd from 'components/PaymentCardAdd'
+import PaymentCardLimitAdd from 'components/PaymentCardLimitAdd'
 import BinkPaymentCardAdd from 'components/BinkPaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
@@ -167,15 +168,14 @@ const MembershipCardPage = () => {
     )
   }
 
-  const handleAddPaymentCardClick = () => {
-    isPaymentCardLimitReached ? setPaymentCardLimitModalVisible(true) : setPaymentCardAddFormVisible(true)
-  }
-
   const renderAddPaymentCardButton = () => {
-    if (Config.theme === 'bink') {
-      return <BinkPaymentCardAdd onClick={handleAddPaymentCardClick}/>
+    if (isPaymentCardLimitReached) {
+      return <PaymentCardLimitAdd onClick={() => setPaymentCardLimitModalVisible(true)} />
     }
-    return <PaymentCardAdd onClick={handleAddPaymentCardClick} />
+    if (Config.theme === 'bink') {
+      return <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+    }
+    return <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
   }
 
   const shouldRenderVoucherSection = () => {
