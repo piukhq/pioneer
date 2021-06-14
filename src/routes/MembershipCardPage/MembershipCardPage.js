@@ -87,7 +87,7 @@ const MembershipCardPage = () => {
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
   const [linkingSuccessModalVisible, setLinkingSuccessModalVisible] = useState(false)
-  const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = useState((false))
+  const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = useState(false)
 
   const handleLinkingSuccess = useCallback(() => {
     setLinkingSuccessModalVisible(true)
@@ -147,7 +147,8 @@ const MembershipCardPage = () => {
 
   // Check to see if the payment card limit is reached
   useEffect(() => {
-    (linkedPaymentCards?.length > 4) ? setIsPaymentCardLimitReached(true) : setIsPaymentCardLimitReached(false)
+    const paymentCardLimitReached = linkedPaymentCards?.length > 4
+    setIsPaymentCardLimitReached(paymentCardLimitReached)
   }, [linkedPaymentCards, setIsPaymentCardLimitReached])
 
   if (serviceSuccess || postServiceSuccess) {
