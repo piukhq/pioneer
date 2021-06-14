@@ -1,0 +1,18 @@
+@import "src/sass/variables.scss";
+
+.root {
+  cursor: pointer;
+
+  &__inner {
+    height: 120px;
+    border: 4px dashed $add-payment-card-color-limited;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__payment-add-svg {
+    fill: $add-payment-card-color-limited;
+  }
+}
