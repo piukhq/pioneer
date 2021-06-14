@@ -13,9 +13,10 @@
   min-height: 56px;
 
   &--primary {
-    background-color: #143d30;
+    background-color: #054127;
     color: #fff;
     width: 100%;
+    transition: 0.3s ease;
   }
 
   &--primary:hover {
@@ -31,6 +32,7 @@
   &--tertiary {
     background-color: #a30f27;
     color: #fff;
+    transition: 0.3s ease;
   }
 
   &--tertiary:hover {
