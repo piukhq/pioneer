@@ -1,11 +1,11 @@
 import React from 'react'
 import { ReactComponent as PaymentAddSvg } from 'images/payment-add.svg'
-import styles from './PaymentCardAdd.module.scss'
+import styles from './PaymentCardLimitAdd.module.scss'
 
-const PaymentCardAdd = ({ onClick }) => (
+const PaymentCardLimitAdd = ({ onClick }) => (
   <button className={styles.root} onClick={onClick}>
-    <PaymentAddSvg />
+      <PaymentAddSvg />
   </button>
 )
 
-export default PaymentCardAdd
+export default PaymentCardLimitAdd

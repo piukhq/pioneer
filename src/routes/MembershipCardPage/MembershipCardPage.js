@@ -18,6 +18,7 @@ import useLoadService from 'hooks/useLoadService'
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
 import PaymentCardAdd from 'components/PaymentCardAdd'
+import PaymentCardLimitAdd from 'components/PaymentCardLimitAdd'
 import BinkPaymentCardAdd from 'components/BinkPaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
@@ -27,6 +28,7 @@ import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
+import PaymentCardLimitModal from 'components/PaymentCardLimitModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
@@ -81,9 +83,11 @@ const MembershipCardPage = () => {
   }, [dispatch])
 
   const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
+  const [paymentCardLimitModalVisible, setPaymentCardLimitModalVisible] = useState(false)
   const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
   const [linkingSuccessModalVisible, setLinkingSuccessModalVisible] = useState(false)
+  const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = useState(false)
 
   const handleLinkingSuccess = useCallback(() => {
     setLinkingSuccessModalVisible(true)
@@ -141,6 +145,12 @@ const MembershipCardPage = () => {
     }
   }, [serviceLoading, serviceError, membershipCard?.status?.state])
 
+  // Check to see if the payment card limit is reached
+  useEffect(() => {
+    const paymentCardLimitReached = linkedPaymentCards?.length > 4
+    setIsPaymentCardLimitReached(paymentCardLimitReached)
+  }, [linkedPaymentCards, setIsPaymentCardLimitReached])
+
   if (serviceSuccess || postServiceSuccess) {
     // prevent next elseifs executing
   } else if (serviceLoading) {
@@ -161,6 +171,9 @@ const MembershipCardPage = () => {
   }
 
   const renderAddPaymentCardButton = () => {
+    if (isPaymentCardLimitReached) {
+      return <PaymentCardLimitAdd onClick={() => setPaymentCardLimitModalVisible(true)} />
+    }
     if (Config.theme === 'bink') {
       return <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
     }
@@ -191,6 +204,9 @@ const MembershipCardPage = () => {
       )}
       { linkingSuccessModalVisible && (
         <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
+      )}
+      { paymentCardLimitModalVisible && (
+        <PaymentCardLimitModal onClose={() => setPaymentCardLimitModalVisible(false)} />
       )}
       <MembershipCardRefresher membershipCardId={id} />
 
