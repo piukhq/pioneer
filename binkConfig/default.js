@@ -43,7 +43,7 @@ module.exports = {
   urls: (() => {
     switch (process.env.THEME) {
       case 'bink': return {
-        support: 'https://bink.com', // todo: Add bink support url when known
+        support: 'https://bink.com/frequently-asked-questions/', // todo: Liable to possibly change
       }
       case 'wasabi': return { // todo: consider addition to plan documents on api?
         support: 'https://www.wasabi.uk.com/contact-us/',
@@ -136,6 +136,7 @@ module.exports = {
     }
   })(),
   supportDebugLogin: true,
+  spreedlyEnvironmentKey: 'Yc7xn3gDP73PPOQLEB2BYpv31EV',
   spreedlyCardNumberStyle: (() => {
     switch (process.env.THEME) {
       case 'bink':
