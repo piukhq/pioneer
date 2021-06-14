@@ -145,6 +145,7 @@ const MembershipCardPage = () => {
     }
   }, [serviceLoading, serviceError, membershipCard?.status?.state])
 
+  // Check to see if the payment card limit is reached
   useEffect(() => {
     (linkedPaymentCards?.length > 4) ? setIsPaymentCardLimitReached(true) : setIsPaymentCardLimitReached(false)
   }, [linkedPaymentCards, setIsPaymentCardLimitReached])
