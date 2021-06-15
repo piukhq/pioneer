@@ -56,6 +56,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
             value={userEnteredLast4Digits}
             maxLength={4}
             onChange={(event) => { setUserEnteredLast4Digits(event.target.value) }}
+            className={styles.root__input}
           />
           { error && (
             <div className={styles.root__error}>
