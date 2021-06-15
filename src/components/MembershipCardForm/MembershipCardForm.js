@@ -118,6 +118,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
             <DynamicInputGroup
               className={cx(
                 styles.root__group,
+                styles['root__group--dynamic-field'],
                 fieldDescription.type === 3 && styles['root__group--full-width'], // span checkboxes across 2 columns
               )}
               key={fieldDescription.column}

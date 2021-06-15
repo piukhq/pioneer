@@ -20,6 +20,12 @@
   }
 
   &__group {
+    margin: 6px 0;
+
+    &--dynamic-field {
+      margin: 0;
+    }
+
     &--full-width {
       @media (min-width: 630px) {
         grid-column: span 2;
