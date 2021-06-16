@@ -13,4 +13,5 @@ module.exports = {
     }
   })(),
   supportDebugLogin: false,
+  spreedlyEnvironmentKey: '1Lf7DiKgkcx5Anw7QxWdDxaKtTa',
 }

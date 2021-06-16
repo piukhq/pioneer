@@ -23,7 +23,7 @@ const MerchantMembershipCards = () => {
         <p className={styles.root__body}>Please contact us so we can help resolve this as quickly as possible.</p>
         {/* todo: consider replacing button with link tag to match its functionality */}
         <Button onClick={contactSupport} className={styles.root__button}>Get in Touch</Button>
-        <button className={styles.root__logout} onClick={logout}>Logout</button>
+        <Button onClick={logout} className={styles.root__button} secondary>Logout</Button>
         {/* used for development */}
         { process.env.NODE_ENV === 'development' && (
           <div className="dev-only">
