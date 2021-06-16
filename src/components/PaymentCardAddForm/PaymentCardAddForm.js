@@ -15,6 +15,7 @@ const PaymentCardAddForm = ({ onClose }) => {
   const {
     fullName,
     fullNameError,
+    expiryError,
     handleExpiryChange,
     handleNameChange,
     handleNameBlur,
@@ -50,6 +51,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             onChange={handleExpiryChange}
             name='payment-card-expiry'
             label='Expiry'
+            error={expiryError}
           />
 
           <TextInputGroup

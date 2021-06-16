@@ -10,8 +10,11 @@ const isValidName = (fullName) => {
 }
 
 const isValidExpiry = (expiry) => {
-  // Spreedly API handles expiry date validation
-  return expiry.MM !== undefined && expiry.YY !== undefined
+  const { MM: month, YY: year } = expiry
+  if (month !== undefined && year !== undefined) {
+    return !checkIsPaymentCardExpired(month, `20${year}`)
+  }
+  return false
 }
 
 const checkIsPaymentCardExpired = (expiryMonth, expiryYear) => {
