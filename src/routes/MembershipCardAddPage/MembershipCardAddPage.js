@@ -30,7 +30,7 @@ const MEMBERSHIP_CARD_IMAGE_TYPES = {
   ALTERNATIVE: 9,
 }
 
-//todo: refactor in similar manner to MembershipCardPage
+// todo: refactor in similar manner to MembershipCardPage
 
 const MembershipCardAddPage = () => {
   useLoadMembershipPlans()
