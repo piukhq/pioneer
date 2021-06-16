@@ -166,7 +166,7 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
         ({ column }) => ({ column, value: values[fieldType][column] }),
       )
     })
-    if (isAddForm) { // inject authorise_fields into account Data
+    if (isAddForm) { // add initial email value to request payload
       const emailValue = initialValues.authorise_fields.Email
       accountData.authorise_fields = Array({ column: 'Email', value: emailValue })
     }
