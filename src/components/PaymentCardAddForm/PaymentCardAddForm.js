@@ -2,22 +2,20 @@ import React from 'react'
 import Modal from 'components/Modal'
 import cx from 'classnames'
 import Button from 'components/Button'
+import SelectboxGroup from 'components/Form/SelectboxGroup'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import usePaymentCardAddForm from './hooks/usePaymentCardAddForm'
 import Loading3 from 'components/Loading3'
 import PaymentCardInputGroup from 'components/Form/PaymentCardInputGroup'
-
+import { getExpiryDates } from 'utils/dates'
 import styles from './PaymentCardAddForm.module.scss'
 
 // todo: to rename this component to PaymentCardAddModal
 const PaymentCardAddForm = ({ onClose }) => {
   const {
     fullName,
-    expiry,
     fullNameError,
-    expiryError,
     handleExpiryChange,
-    handleExpiryBlur,
     handleNameChange,
     handleNameBlur,
     cardNumberError,
@@ -46,16 +44,12 @@ const PaymentCardAddForm = ({ onClose }) => {
             onBlur={handlePaymentCardBlur}
           />
 
-          <TextInputGroup
-            className={cx(styles.root__group, styles['root__expiry-group'])}
-            label='Expiry'
-            placeholder='MM/YY'
-            value={expiry}
-            name='payment-card-expiry'
+          <SelectboxGroup
+            className={styles['root__expiry-group']}
+            values={getExpiryDates()}
             onChange={handleExpiryChange}
-            onBlur={handleExpiryBlur}
-            error={expiryError}
-            maxLength={5}
+            name='payment-card-expiry'
+            label='Expiry'
           />
 
           <TextInputGroup

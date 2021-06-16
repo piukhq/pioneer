@@ -1,38 +1,60 @@
 import React from 'react'
-
+import cx from 'classnames'
 import styles from './SelectGroup.module.scss'
 
 const SelectboxGroup = ({
   className,
-  value,
   values,
-  onChange,
-  onBlur,
+  onChange = () => {},
+  onBlur = () => {},
   name,
   label,
   error,
 }) => {
   return (
-    <div className={className}>
+    <div className={cx(
+      styles.root,
+      className,
+      error && styles['root--error'],
+    )}>
       <label
-        className={styles.root__label}
+        className={cx(
+          styles.root__label,
+          error && styles['root__label--error'],
+        )}
         htmlFor={`bink-form-field-${name}`}
       >{label}</label>
-      <select
-        className={styles.root__select}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        name={name}
-        id={`bink-form-field-${name}`}
-      >
-        {values.map(option => (
-          <option key={option} value={option}>{option}</option>
-        ))}
-      </select>
-      <div className={styles.root__error}>
-        { error }
+
+      <div className={styles['root__select-container']}>
+        {Object.keys(values).map(selectBoxKey => {
+          return (
+            <select
+              className={cx(
+                styles.root__input,
+                error && styles['root__input--error'],
+              )}
+              onChange={(event) => onChange(selectBoxKey, event)}
+              onBlur={(event) => onBlur(selectBoxKey, event)}
+              name={selectBoxKey}
+              key={selectBoxKey}
+              defaultValue=""
+              id={`bink-form-field-${name}-${selectBoxKey}`}
+            >
+              <option value="" hidden></option>
+              <option disabled>{selectBoxKey}</option>
+              {values[selectBoxKey].map(option => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
+          )
+        })}
       </div>
+
+      {error && (
+        <div className={styles.root__error}>
+          { error }
+        </div>
+      )}
     </div>
   )
 }

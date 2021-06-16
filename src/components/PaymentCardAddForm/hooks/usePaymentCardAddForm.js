@@ -5,7 +5,7 @@ import { isValidName, isValidExpiry } from 'utils/validation'
 
 const usePaymentCardAddForm = (onClose) => {
   const [fullName, setFullName] = useState('')
-  const [expiry, setExpiry] = useState('')
+  const [expiry, setExpiry] = useState({ MM: undefined, YY: undefined })
   const [fullNameError, setFullNameError] = useState(undefined)
   const [expiryError, setExpiryError] = useState(undefined)
   const [isLoading, setIsLoading] = useState(false)
@@ -95,19 +95,18 @@ const usePaymentCardAddForm = (onClose) => {
     }
   }, [dispatch, onClose])
 
-  const handleExpiryChange = (event) => {
-    setExpiry(event.target.value)
+  const handleExpiryChange = (selector, event) => {
+    setExpiry({
+      ...expiry,
+      [selector]: event.target.value,
+    })
     setExpiryError(undefined)
   }
+
   const handleNameChange = (event) => {
     setFullName(event.target.value)
     setFullNameError(undefined)
   }
-
-  const handleExpiryBlur = useCallback(() => {
-    const errorMessage = isValidExpiry(expiry) ? undefined : 'Invalid date'
-    setExpiryError(errorMessage)
-  }, [expiry])
 
   const handleNameBlur = useCallback(() => {
     const errorMessage = isValidName(fullName) ? undefined : 'Invalid name'
@@ -132,11 +131,11 @@ const usePaymentCardAddForm = (onClose) => {
     setIsLoading(true)
 
     const Spreedly = window.Spreedly
-    const [, month, year] = expiry.match(/^(\d\d)\/(\d\d)$/) || []
+    const { MM, YY } = expiry
 
     Spreedly.tokenizeCreditCard({
-      month,
-      year: `20${year}`,
+      month: MM,
+      year: `20${YY}`,
       full_name: fullName,
     })
     return false
@@ -153,7 +152,6 @@ const usePaymentCardAddForm = (onClose) => {
     fullNameError,
     expiryError,
     handleExpiryChange,
-    handleExpiryBlur,
     handleNameChange,
     handleNameBlur,
     cardNumberError,
