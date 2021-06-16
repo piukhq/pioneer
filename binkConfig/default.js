@@ -43,7 +43,7 @@ module.exports = {
   urls: (() => {
     switch (process.env.THEME) {
       case 'bink': return {
-        support: 'https://bink.com/frequently-asked-questions/', // todo: Liable to possibly change
+        support: 'https://bink.com/frequently-asked-questions/#shoppers',
       }
       case 'wasabi': return { // todo: consider addition to plan documents on api?
         support: 'https://www.wasabi.uk.com/contact-us/',
