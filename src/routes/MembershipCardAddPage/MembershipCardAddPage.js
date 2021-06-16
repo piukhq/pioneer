@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
+import { useMembershipCardsState } from 'hooks/membershipCards'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
 import { useMembershipPlansState } from 'hooks/membershipPlans'
@@ -29,8 +30,11 @@ const MEMBERSHIP_CARD_IMAGE_TYPES = {
   ALTERNATIVE: 9,
 }
 
+//todo: refactor in similar manner to MembershipCardPage
+
 const MembershipCardAddPage = () => {
   useLoadMembershipPlans()
+  const { loading: newMembershipCardLoading } = useMembershipCardsState().add
 
   const {
     isAddMembershipCardModalOpen,
@@ -43,7 +47,7 @@ const MembershipCardAddPage = () => {
   } = useEnrolMembershipCard()
   const { planId } = useParams()
 
-  const { loading, membershipPlanById: plan } = useMembershipPlansState(planId)
+  const { plansLoading, membershipPlanById: plan } = useMembershipPlansState(planId)
   const imgUrl = plan?.images?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.HERO)?.[0]?.url
 
   const canAdd = plan?.feature_set?.linking_support?.includes('ADD')
@@ -53,16 +57,15 @@ const MembershipCardAddPage = () => {
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [loading, isReaddRequired])
+  }, [plansLoading, newMembershipCardLoading, isReaddRequired])
 
   if (Config.isMerchantChannel && isReaddRequired) {
     return <MerchantMembershipCardAdd planId={planId} />
   }
-
   return (
     <>
-      { loading ? <HangTight /> : null }
-      { plan && (
+      { plansLoading || newMembershipCardLoading ? <HangTight /> : null }
+      { plan && !plansLoading && !newMembershipCardLoading && (
         <>
           <div className={styles.root}>
             { Config.isMerchantChannel ? (
