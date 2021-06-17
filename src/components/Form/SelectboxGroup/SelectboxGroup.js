@@ -40,9 +40,7 @@ const SelectboxGroup = ({
               defaultValue=""
               id={`bink-form-field-${name}-${selectBoxKey}`}
             >
-              {/* This first option refers to the defaultValue and is needed in order to display an initially blank field  */}
-              <option value="" hidden></option>
-              <option disabled>{selectBoxKey}</option>
+              <option value="" disabled>{selectBoxKey}</option>
               {values[selectBoxKey].map(option => (
                 <option key={option} value={option}>{option}</option>
               ))}

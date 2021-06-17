@@ -59,7 +59,7 @@
     }
 
     &--error,
-    &--error:focus, {
+    &--error:focus {
       color: $text-input-text-color--error;
       background-color: $text-input-background-color--error;
       border-color: $text-input-border-color--error;
