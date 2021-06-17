@@ -162,7 +162,7 @@ build-prod:
     expire_in: 3 weeks
   when: manual
   only:
-    - tag
+    - tags
 
 deploy-prod:
   stage: prod-deploy
@@ -178,4 +178,4 @@ deploy-prod:
     - tar -C fatface -xf build-fatface.tar.gz
     - copy --prod --sync fatface /fatface/
   only:
-    - tag
+    - tags
