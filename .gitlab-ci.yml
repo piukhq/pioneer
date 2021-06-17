@@ -3,6 +3,8 @@ stages:
   - dev
   - staging
   - staging-deploy
+  - prod
+  - prod-deploy
 
 build:
   stage: build
@@ -136,3 +138,44 @@ deploy-staging:
     - copy --sandbox --sync sandbox /wasabi/
   only:
     - develop
+
+build-prod:
+  stage: prod
+  allow_failure: false
+  image: node:14
+  script:
+    - npm ci
+    - npm run lint-js
+    - npm run lint-css
+    # build wasabi theme
+    - NODE_CONFIG_ENV=production PUBLIC_URL=/wasabi THEME=wasabi npm run build
+    - tar -C build -zcvf build-wasabi.tar.gz .
+    - rm -rf build
+
+    # build fatface theme
+    - NODE_CONFIG_ENV=production PUBLIC_URL=/fatface THEME=fatface npm run build
+    - tar -C build -zcvf build-fatface.tar.gz .
+    - rm -rf build
+  artifacts:
+    paths:
+      - build*.tar.gz
+    expire_in: 3 weeks
+  when: manual
+  only:
+    - tag
+
+deploy-prod:
+  stage: prod-deploy
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
+    # deploy wasabi theme
+    - mkdir wasabi
+    - tar -C wasabi -xf build-wasabi.tar.gz
+    - copy --prod --sync wasabi /wasabi/
+
+    # deploy fatface theme
+    - mkdir fatface
+    - tar -C fatface -xf build-fatface.tar.gz
+    - copy --prod --sync fatface /fatface/
+  only:
+    - tag
