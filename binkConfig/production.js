@@ -12,6 +12,13 @@ module.exports = {
       }
     }
   })(),
+  clientId: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return '0Jv6NOJEqcYV961QQ3fuEWhTykDlfoZlHQfu0VfFhiqKv4BYND'
+      case 'fatface': return null
+    }
+  })(),
   supportDebugLogin: false,
   spreedlyEnvironmentKey: '1Lf7DiKgkcx5Anw7QxWdDxaKtTa',
 }
