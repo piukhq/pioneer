@@ -15,6 +15,7 @@ const PaymentCardAddForm = ({ onClose }) => {
   const {
     fullName,
     fullNameError,
+    expiry,
     expiryError,
     handleExpiryChange,
     handleNameChange,
@@ -47,6 +48,7 @@ const PaymentCardAddForm = ({ onClose }) => {
 
           <SelectboxGroup
             className={styles['root__expiry-group']}
+            selectedValues={expiry}
             values={getExpiryDates()}
             onChange={handleExpiryChange}
             name='payment-card-expiry'

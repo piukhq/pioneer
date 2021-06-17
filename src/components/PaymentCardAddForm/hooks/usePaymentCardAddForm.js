@@ -95,10 +95,10 @@ const usePaymentCardAddForm = (onClose) => {
     }
   }, [dispatch, onClose])
 
-  const handleExpiryChange = (selector, event) => {
+  const handleExpiryChange = (key, event) => {
     const newExpiry = {
       ...expiry,
-      [selector]: event.target.value,
+      [key]: event.target.value,
     }
     setExpiry(newExpiry)
 
