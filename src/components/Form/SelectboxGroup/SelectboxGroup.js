@@ -34,7 +34,7 @@ const SelectboxGroup = ({
           return (
             <div className={styles['root__select-container']} key={key}>
               {/* This will render on top of the select element and display our own styled placeholder and arrow icon */}
-              <div className={cx(styles.root__input, styles['root__absolutely-positioned-element-container'])}>
+              <div className={cx(styles.root__input, styles['root__overlay-container'])}>
                 {selectedValues[key] === undefined && (
                   <p className={cx(
                     styles.root__placeholder,
