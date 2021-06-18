@@ -166,13 +166,17 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
         ({ column }) => ({ column, value: values[fieldType][column] }),
       )
     })
+    if (isAddForm) { // add initial email value to request payload
+      const emailValue = initialValues.authorise_fields.Email
+      accountData.authorise_fields = Array({ column: 'Email', value: emailValue })
+    }
     if (Config.isMerchantChannel) {
       addMembershipCardOnMerchantChannel(accountData, planId)
       // once a card has been added the useRedirectToNewMembershipCard hook will deal with the redirect
     } else {
       addMembershipCard(accountData, planId)
     }
-  }, [plan, values, addMembershipCard, addMembershipCardOnMerchantChannel, planId, fieldTypes])
+  }, [plan, values, addMembershipCard, addMembershipCardOnMerchantChannel, planId, fieldTypes, isAddForm, initialValues])
 
   const serviceError = useSelector(state => state.service.post.error)
   const submitError = useSelector(state => state.membershipCards.add.error)

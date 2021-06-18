@@ -17,6 +17,7 @@ const MerchantMembershipCardAdd = ({ planId }) => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
   const fieldTypes = useRef(['add_fields']).current
+  const initialValues = useRef({ authorise_fields: { Email: userId } }).current
   const linkingFeature = 'ADD'
 
   return (
@@ -29,6 +30,7 @@ const MerchantMembershipCardAdd = ({ planId }) => {
         plan={plan}
         planId={planId}
         fieldTypes={fieldTypes}
+        initialValues={initialValues}
         linkingFeature={linkingFeature}
         submitCaption='Continue'
       />
