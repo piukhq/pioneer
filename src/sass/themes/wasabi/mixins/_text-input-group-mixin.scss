@@ -59,7 +59,7 @@
     }
 
     &--error,
-    &--error:focus, {
+    &--error:focus {
       color: $text-input-text-color--error;
       background-color: $text-input-background-color--error;
       border-color: $text-input-border-color--error;
@@ -83,5 +83,21 @@
   &__error {
     font-weight: 400;
     color: $text-input-error-color;
+  }
+
+  &__placeholder {
+    color: $text-input-placeholder-color--default;
+
+    &--error {
+      color: $text-input-placeholder-color--error;
+    }
+  }
+
+  &__down-arrow {
+    fill: $text-input-text-color--default;
+
+    &--error {
+      fill: $text-input-text-color--error;
+    }
   }
 }
