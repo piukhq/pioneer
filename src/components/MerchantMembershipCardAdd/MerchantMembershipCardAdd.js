@@ -29,7 +29,6 @@ const MerchantMembershipCardAdd = ({ planId }) => {
         className={styles.root__form}
         plan={plan}
         planId={planId}
-        email={userId}
         fieldTypes={fieldTypes}
         initialValues={initialValues}
         linkingFeature={linkingFeature}
