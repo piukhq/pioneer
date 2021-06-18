@@ -6,10 +6,7 @@ module.exports = {
     switch (process.env.THEME) {
       case 'bink': return null
       case 'wasabi': return 215
-      case 'fatface': {
-        // todo: replace with a `return <number>` once we have the plan id in production
-        throw new Error('Config is missing memebershipPlanId for production environment')
-      }
+      case 'fatface': return 212
     }
   })(),
   clientId: (() => {
