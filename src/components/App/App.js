@@ -22,7 +22,7 @@ import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 
-import logo from 'images/footer-logo.png'
+import { ReactComponent as BinkLogoSvg } from 'images/logo-bink.svg'
 import styles from './App.module.scss'
 
 function App () {
@@ -63,7 +63,7 @@ function App () {
       </Router>
       <section className={styles['root__logo-container']}>
         <a href="https://www.bink.com" target="_blank" rel="noreferrer">
-          <img alt="Powered By Bink" src={logo} className={styles.root__logo} />
+          <BinkLogoSvg className={styles.root__logo}/>
         </a>
       </section>
     </div>
