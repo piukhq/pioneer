@@ -69,8 +69,8 @@ const PaymentCardAddForm = ({ onClose }) => {
         </div>
 
         <div className={styles['root__privacy-and-terms']}>
-          <a className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Privacy and security</a>
-          <a className={styles.root__url} href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Terms and conditions</a>
+          <a className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink Privacy and Security</a>
+          <a className={styles.root__url} href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Bink Terms and Conditions</a>
         </div>
 
         { (genericSpreedlyError || genericBinkError) && (
