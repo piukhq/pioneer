@@ -98,16 +98,19 @@ build-staging:
     - npm run lint-css
     # build wasabi theme
     - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/wasabi THEME=wasabi npm run build
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > build/version.json'
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
 
     # build fatface theme
     - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/fatface THEME=fatface npm run build
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > build/version.json'
     - tar -C build -zcvf build-fatface.tar.gz .
     - rm -rf build
 
     # build wasabi theme for sandbox
     - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/wasabi THEME=wasabi npm run build
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > build/version.json'
     - tar -C build -zcvf build-wasabi-sandbox.tar.gz .
     - rm -rf build
   artifacts:
@@ -151,6 +154,7 @@ build-prod:
     - NODE_CONFIG_ENV=production PUBLIC_URL=/wasabi THEME=wasabi npm run build
     - rm -rf build/themes
     - rm build/*.*
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > build/version.json'
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
 
@@ -158,6 +162,7 @@ build-prod:
     - NODE_CONFIG_ENV=production PUBLIC_URL=/fatface THEME=fatface npm run build
     - rm -rf build/themes
     - rm build/*.*
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > build/version.json'
     - tar -C build -zcvf build-fatface.tar.gz .
     - rm -rf build
   artifacts:
