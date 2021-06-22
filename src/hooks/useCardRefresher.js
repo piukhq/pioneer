@@ -27,7 +27,7 @@ const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingSta
         updateCard()
         setTimeoutId(null)
         setLastUpdateTime(new Date().toString())
-      }, retryIntervals[retryIndex] * 1000)
+      }, retryIntervals[retryIndex] * 10000)
 
       setRetryIndex(retryIndex + 1)
 
