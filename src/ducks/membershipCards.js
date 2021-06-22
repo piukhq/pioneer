@@ -215,7 +215,7 @@ export const selectors = {
     membershipCardsListSelector,
     (membershipCardsArray) => {
       const membershipCardReasonCode = membershipCardsArray?.[0]?.status?.reason_codes?.[0]
-      const reenrolCodes = ['X201']
+      const reenrolCodes = ['X101', 'X201']
       return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
     },
   ),
@@ -223,7 +223,7 @@ export const selectors = {
     membershipCardsListSelector,
     (membershipCardsArray) => {
       const membershipCardReasonCode = membershipCardsArray?.[0]?.status?.reason_codes?.[0]
-      const readdCodes = ['X101', 'X102', 'X104', 'X202', 'X302', 'X303', 'X304']
+      const readdCodes = ['X102', 'X104', 'X202', 'X302', 'X303', 'X304']
       return (readdCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
     },
   ),
