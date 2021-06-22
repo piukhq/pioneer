@@ -60,7 +60,7 @@ function App () {
           </Route>
         </Switch>
       </Router>
-      <Footer />
+      {Config.isMerchantChannel && <Footer />}
     </div>
   )
 }
