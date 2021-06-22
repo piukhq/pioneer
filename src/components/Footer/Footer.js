@@ -5,11 +5,11 @@ import styles from './Footer.module.scss'
 
 const Footer = () => {
   return (
-    <section className={styles.root}>
+    <div className={styles.root}>
       <a href="https://www.bink.com" target="_blank" rel="noreferrer">
         <BinkLogoSvg className={styles.root__logo}/>
       </a>
-    </section>
+    </div>
   )
 }
 
