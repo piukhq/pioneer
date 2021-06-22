@@ -149,11 +149,15 @@ build-prod:
     - npm run lint-css
     # build wasabi theme
     - NODE_CONFIG_ENV=production PUBLIC_URL=/wasabi THEME=wasabi npm run build
+    - rm -rf build/themes
+    - rm build/*.*
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
 
     # build fatface theme
     - NODE_CONFIG_ENV=production PUBLIC_URL=/fatface THEME=fatface npm run build
+    - rm -rf build/themes
+    - rm build/*.*
     - tar -C build -zcvf build-fatface.tar.gz .
     - rm -rf build
   artifacts:
