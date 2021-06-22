@@ -1,0 +1,11 @@
+@import "src/sass/mixins";
+
+.root {
+  display: flex;
+  justify-content: center;
+  padding: 35px;
+
+  &__logo {
+    width: 137px;
+  }
+}
