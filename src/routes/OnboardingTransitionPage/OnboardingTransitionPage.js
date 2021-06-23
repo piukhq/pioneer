@@ -10,13 +10,13 @@ import PreparingYourCard from 'components/PreparingYourCard'
 import useRedirectLogic from './hooks/useRedirectLogic'
 
 const OnboardingTransitionPage = () => {
-  useRedirectLogic()
+  const { shouldDisplayWeFoundYou } = useRedirectLogic()
   const { id: membershipCardId } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[membershipCardId])
 
-  const { error: serviceError } = useSelector(state => state.service)
+  // const { error: serviceError } = useSelector(state => state.service)
 
-  if (serviceError) return <WeFoundYou />
+  if (shouldDisplayWeFoundYou) return <WeFoundYou />
 
   if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
     return (

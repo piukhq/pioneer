@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { isTokenUsed } from 'utils/magicLink'
@@ -19,7 +19,9 @@ const useRedirectLogic = () => {
   const isReenrolRequired = useSelector(state => membershipCardsSelectors.isReenrolRequired(state))
   const isReaddRequired = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
   const membershipCardList = useSelector(state => membershipCardsSelectors.cardsList(state))
-  const { success: serviceSuccess, loading: serviceLoading, post: { success: postServiceSuccess } } = useSelector(state => state.service)
+  const { success: serviceSuccess, error: serviceError, loading: serviceLoading, post: { success: postServiceSuccess } } = useSelector(state => state.service)
+
+  const [shouldDisplayWeFoundYou, setShouldDisplayWeFoundYou] = useState(false)
 
   useEffect(() => {
     if (magicLinkAuthenticationError) {
@@ -39,6 +41,9 @@ const useRedirectLogic = () => {
 
   useEffect(() => {
     if (membershipCardList.length > 0) {
+      if (serviceError) {
+        setShouldDisplayWeFoundYou(true)
+      }
       // Navigate to join/enrol journey
       if ((isReenrolRequired || isReaddRequired) && Config.isMerchantChannel) {
         history.replace(`/membership-card/add/${Config.membershipPlanId}`)
@@ -47,7 +52,9 @@ const useRedirectLogic = () => {
         history.replace('/')
       }
     }
-  }, [isReenrolRequired, isReaddRequired, history, membershipCardList, serviceSuccess, postServiceSuccess])
+  }, [isReenrolRequired, isReaddRequired, history, membershipCardList, serviceSuccess, postServiceSuccess, serviceError])
+
+  return { shouldDisplayWeFoundYou }
 }
 
 export default useRedirectLogic
