@@ -40,7 +40,7 @@ import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
   // todo: refactor to reduce overall complexity and size of this component.
-  useLoadService()
+  // useLoadService()
 
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
   // to further attempt optimizing the process
@@ -132,11 +132,11 @@ const MembershipCardPage = () => {
   }, [])
 
   // membership reenrol/readd path
-  useEffect(() => {
-    if ((isReenrolRequired || isReaddRequired) && Config.isMerchantChannel) {
-      history.replace(`/membership-card/add/${Config.membershipPlanId}`)
-    }
-  }, [isReenrolRequired, isReaddRequired, history])
+  // useEffect(() => {
+  //   if ((isReenrolRequired || isReaddRequired) && Config.isMerchantChannel) {
+  //     history.replace(`/membership-card/add/${Config.membershipPlanId}`)
+  //   }
+  // }, [isReenrolRequired, isReaddRequired, history])
 
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
@@ -151,33 +151,31 @@ const MembershipCardPage = () => {
     setIsPaymentCardLimitReached(paymentCardLimitReached)
   }, [linkedPaymentCards, setIsPaymentCardLimitReached])
 
-  if (serviceSuccess || postServiceSuccess) {
-    // prevent next elseifs executing
-  } else if (serviceLoading) {
-    return <HangTight />
-  } else if (serviceError) {
-    // Displayed when service error occurs, signifying T&Cs have not yet been accepted
-    return <WeFoundYou />
-  }
+  // if (serviceSuccess || postServiceSuccess) {
+  //   // prevent next elseifs executing
+  // } else if (serviceLoading) {
+  //   return <HangTight />
+  // } else if (serviceError) {
+  //   // Displayed when service error occurs, signifying T&Cs have not yet been accepted
+  //   return <WeFoundYou />
+  // }
 
-  // Membership card pending path
-  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
-    return (
-      <>
-        <MembershipCardRefresher membershipCardId={id} />
-        <PreparingYourCard />
-      </>
-    )
-  }
+  // // Membership card pending path
+  // if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
+  //   return (
+  //     <>
+  //       <MembershipCardRefresher membershipCardId={id} />
+  //       <PreparingYourCard />
+  //     </>
+  //   )
+  // }
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
       return <PaymentCardLimitAdd onClick={() => setPaymentCardLimitModalVisible(true)} />
     }
-    if (Config.theme === 'bink') {
-      return <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
-    }
-    return <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+
+    return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} /> : <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
   }
 
   const shouldRenderVoucherSection = () => {
@@ -196,7 +194,7 @@ const MembershipCardPage = () => {
 
   // Membership card active path
   return (
-    <div>
+    <>
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal
           paymentCardId={cardIdToBeDeleted}
@@ -303,7 +301,7 @@ const MembershipCardPage = () => {
           Something is wrong.
         </>
       )}
-    </div>
+    </>
   )
 }
 
