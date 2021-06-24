@@ -14,7 +14,6 @@ const useRedirectToNewMembershipCard = () => {
   const history = useHistory()
   useEffect(() => {
     if (addSuccess && newMembershipCardId) {
-      // history.replace(`/membership-card/${newMembershipCardId}`)
       history.replace('/')
     }
   }, [addSuccess, newMembershipCardId, history])
