@@ -66,6 +66,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
       ) }
       { plan?.account?.plan_documents
         ?.filter(document => document?.display?.includes(linkingFeature))
+        // Sort by checkbox-using documents first and then by alphabetical order of name
         ?.sort((a, b) => b.checkbox - a.checkbox || a.name.localeCompare(b.name))
         ?.map(document => (
           document.checkbox ? (
