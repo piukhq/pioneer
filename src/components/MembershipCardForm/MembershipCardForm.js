@@ -66,6 +66,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
       ) }
       { plan?.account?.plan_documents
         ?.filter(document => document?.display?.includes(linkingFeature))
+        ?.sort((a, b) => b.checkbox - a.checkbox || b.name - a.name)
         ?.map(document => (
           document.checkbox ? (
             <CheckboxGroup
