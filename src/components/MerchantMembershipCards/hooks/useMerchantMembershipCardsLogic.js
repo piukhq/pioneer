@@ -37,9 +37,7 @@ const useMerchantMembershipCardsLogic = () => {
         case 1:
           if (serviceError) {
             setShouldDisplayWeFoundYou(true)
-          }
-
-          if (isReenrolRequired || isReaddRequired) {
+          } else if (isReenrolRequired || isReaddRequired) {
             history.replace(`/membership-card/add/${Config.membershipPlanId}`)
           } else if ((serviceSuccess || postServiceSuccess) && !isMembershipCardPending) {
             history.replace(`/membership-card/${membershipCards[0].id}`)

@@ -18,8 +18,7 @@ import MembershipCardPage from 'routes/MembershipCardPage'
 import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
 import MembershipCardAddPage from 'routes/MembershipCardAddPage'
-
-import OnboardingTransitionPage from 'routes/OnboardingTransitionPage'
+import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 
 import styles from './App.module.scss'
@@ -41,7 +40,7 @@ function App () {
             <PaymentCardsPage />
           </Route>
           <Route path="/magic-link/:magicLinkToken">
-            <OnboardingTransitionPage />
+            <MagicLinkPage />
           </Route>
           <Route path="/membership-cards">
             <MembershipCardsPage />

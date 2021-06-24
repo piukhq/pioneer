@@ -13,7 +13,6 @@ import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLinkPaymentCard from './hooks/useLinkPaymentCard'
 import useMembershipCardDetailsByParams from 'hooks/useMembershipCardDetailsByParams'
-import useLoadService from 'hooks/useLoadService'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
@@ -22,8 +21,6 @@ import PaymentCardLimitAdd from 'components/PaymentCardLimitAdd'
 import BinkPaymentCardAdd from 'components/BinkPaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
-import PreparingYourCard from 'components/PreparingYourCard'
-// import Loading from 'components/Loading'
 import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
@@ -32,8 +29,6 @@ import PaymentCardLimitModal from 'components/PaymentCardLimitModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
-import WeFoundYou from 'components/WeFoundYou'
-import HangTight from 'components/HangTight'
 import Hero from './components/Hero'
 
 import styles from './MembershipCardPage.module.scss'
@@ -41,10 +36,6 @@ import styles from './MembershipCardPage.module.scss'
 const MembershipCardPage = () => {
   const history = useHistory()
 
-  // todo: refactor to reduce overall complexity and size of this component.
-  // useLoadService()
-
-  // TODO: Check if account status is active
   const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
 
@@ -64,12 +55,10 @@ const MembershipCardPage = () => {
 
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
-  const isReenrolRequired = useSelector(state => membershipCardsSelectors.isReenrolRequired(state))
-  const isReaddRequired = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const { success: serviceSuccess, loading: serviceLoading, error: serviceError, post: { success: postServiceSuccess } } = useSelector(state => state.service)
+  const { loading: serviceLoading, error: serviceError } = useSelector(state => state.service)
 
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
@@ -142,13 +131,6 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  // membership reenrol/readd path
-  // useEffect(() => {
-  //   if ((isReenrolRequired || isReaddRequired) && Config.isMerchantChannel) {
-  //     history.replace(`/membership-card/add/${Config.membershipPlanId}`)
-  //   }
-  // }, [isReenrolRequired, isReaddRequired, history])
-
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
     if (serviceLoading || serviceError || membershipCard?.status?.state === 'pending') {
@@ -161,25 +143,6 @@ const MembershipCardPage = () => {
     const paymentCardLimitReached = linkedPaymentCards?.length > 4
     setIsPaymentCardLimitReached(paymentCardLimitReached)
   }, [linkedPaymentCards, setIsPaymentCardLimitReached])
-
-  // if (serviceSuccess || postServiceSuccess) {
-  //   // prevent next elseifs executing
-  // } else if (serviceLoading) {
-  //   return <HangTight />
-  // } else if (serviceError) {
-  //   // Displayed when service error occurs, signifying T&Cs have not yet been accepted
-  //   return <WeFoundYou />
-  // }
-
-  // // Membership card pending path
-  // if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
-  //   return (
-  //     <>
-  //       <MembershipCardRefresher membershipCardId={id} />
-  //       <PreparingYourCard />
-  //     </>
-  //   )
-  // }
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
