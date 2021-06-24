@@ -17,7 +17,7 @@ const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
 
-  const { tooManyCardsError, shouldDisplayWeFoundYou, membershipCard, isPending } = useMerchantMembershipCardsLogic()
+  const { tooManyCardsError, shouldDisplayWeFoundYou, membershipCard, isMembershipCardPending } = useMerchantMembershipCardsLogic()
 
   if (tooManyCardsError) {
     return (
@@ -40,7 +40,7 @@ const MerchantMembershipCards = () => {
 
   if (shouldDisplayWeFoundYou) return <WeFoundYou />
 
-  if (isPending) {
+  if (isMembershipCardPending) {
     return (
       <>
         <MembershipCardRefresher membershipCardId={membershipCard.id} />
