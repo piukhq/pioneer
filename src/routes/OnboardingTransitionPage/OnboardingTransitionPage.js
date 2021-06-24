@@ -11,21 +11,19 @@ import useRedirectLogic from './hooks/useRedirectLogic'
 
 const OnboardingTransitionPage = () => {
   const { shouldDisplayWeFoundYou } = useRedirectLogic()
-  const { id: membershipCardId } = useParams()
-  const membershipCard = useSelector(state => state.membershipCards.cards[membershipCardId])
+  // const { id: membershipCardId } = useParams()
+  // const membershipCard = useSelector(state => state.membershipCards.cards[membershipCardId])
 
-  // const { error: serviceError } = useSelector(state => state.service)
+  // if (shouldDisplayWeFoundYou) return <WeFoundYou />
 
-  if (shouldDisplayWeFoundYou) return <WeFoundYou />
-
-  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
-    return (
-      <>
-        <MembershipCardRefresher membershipCardId={membershipCardId} />
-        <PreparingYourCard />
-      </>
-    )
-  }
+  // if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
+  //   return (
+  //     <>
+  //       <MembershipCardRefresher membershipCardId={membershipCardId} />
+  //       <PreparingYourCard />
+  //     </>
+  //   )
+  // }
 
   return <HangTight />
 }

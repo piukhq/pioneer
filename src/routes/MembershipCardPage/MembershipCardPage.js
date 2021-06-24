@@ -36,11 +36,28 @@ import WeFoundYou from 'components/WeFoundYou'
 import HangTight from 'components/HangTight'
 import Hero from './components/Hero'
 
+import useLogout from 'hooks/useLogout'
+
 import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
+  const history = useHistory()
+  const { logout } = useLogout()
+
   // todo: refactor to reduce overall complexity and size of this component.
   // useLoadService()
+
+  // TODO: Check if account status is active
+  const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
+  const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
+
+  // Log user out if account is no longer active
+  useEffect(() => {
+    if (reasonCode && !isAccountActive) {
+      console.log('HERE Redirecting')
+      logout()
+    }
+  }, [reasonCode, isAccountActive, logout])
 
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
   // to further attempt optimizing the process
@@ -48,8 +65,6 @@ const MembershipCardPage = () => {
   useEffect(() => {
     getMembershipPlans()
   }, [getMembershipPlans])
-
-  const history = useHistory()
 
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])

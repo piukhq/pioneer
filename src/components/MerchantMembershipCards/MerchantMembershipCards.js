@@ -7,16 +7,20 @@ import MultichannelMembershipCards from '../MultichannelMembershipCards'
 import Button from 'components/Button'
 import HangTight from 'components/HangTight'
 
+import WeFoundYou from 'components/WeFoundYou'
+import MembershipCardRefresher from 'components/MembershipCardRefresher'
+import PreparingYourCard from 'components/PreparingYourCard'
+
 import styles from './MerchantMembershipCards.module.scss'
 
 const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
 
-  const { tooManyCardsError } = useMerchantMembershipCardsLogic()
+  const { tooManyCardsError, shouldDisplayWeFoundYou, membershipCard, isPending } = useMerchantMembershipCardsLogic()
 
-  return (
-    tooManyCardsError ? (
+  if (tooManyCardsError) {
+    return (
       <div className={styles.root}>
         <h1 className={cx(styles.root__heading)}>There is a problem</h1>
         <p className={styles.root__body}>It looks like there is a problem with your account.</p>
@@ -31,10 +35,21 @@ const MerchantMembershipCards = () => {
           </div>
         ) }
       </div>
-    ) : (
-      <HangTight />
     )
-  )
+  }
+
+  if (shouldDisplayWeFoundYou) return <WeFoundYou />
+
+  if (isPending) {
+    return (
+      <>
+        <MembershipCardRefresher membershipCardId={membershipCard.id} />
+        <PreparingYourCard />
+      </>
+    )
+  }
+
+  return <HangTight />
 }
 
 export default MerchantMembershipCards
