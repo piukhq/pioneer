@@ -47,7 +47,6 @@ deploy-dev:
   only:
     - develop
 
-
 # Could get fancy here and just use the "build" stage but this is slightly cleaner
 build-mr:
   stage: build
@@ -122,11 +121,10 @@ build-staging:
     paths:
       - build*.tar.gz
     expire_in: 3 weeks
-  when: manual
   only:
     - develop
 
-deploy-staging:
+deploy-staging-wasabi:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
@@ -135,15 +133,23 @@ deploy-staging:
     - tar -C wasabi -xf build-wasabi-staging.tar.gz
     - copy --staging --sync wasabi /staging/wasabi/
 
-    # deploy fatface theme
-    - mkdir fatface
-    - tar -C fatface -xf build-fatface-staging.tar.gz
-    - copy --staging --sync fatface /staging/fatface/
-
     # deploy wasabi theme for sandbox
     - mkdir sandbox
     - tar -C sandbox -xf build-wasabi-sandbox.tar.gz
     - copy --sandbox --sync sandbox /wasabi/
+  when: manual
+  only:
+    - develop
+
+deploy-staging-fatface:
+  stage: staging-deploy
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
+    # deploy fatface theme
+    - mkdir fatface
+    - tar -C fatface -xf build-fatface-staging.tar.gz
+    - copy --staging --sync fatface /staging/fatface/
+  when: manual
   only:
     - develop
 
@@ -175,11 +181,10 @@ build-prod:
     paths:
       - build*.tar.gz
     expire_in: 3 weeks
-  when: manual
   only:
     - tags
 
-deploy-prod:
+deploy-prod-wasabi:
   stage: prod-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
@@ -187,10 +192,18 @@ deploy-prod:
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi-prod.tar.gz
     - copy --prod --sync wasabi /wasabi/
+  when: manual
+  only:
+    - tags
 
+deploy-prod-fatface:
+  stage: prod-deploy
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
     # deploy fatface theme
     - mkdir fatface
     - tar -C fatface -xf build-fatface-prod.tar.gz
     - copy --prod --sync fatface /fatface/
+  when: manual
   only:
     - tags
