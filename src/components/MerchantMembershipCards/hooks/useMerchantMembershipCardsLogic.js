@@ -6,7 +6,7 @@ import { actions as serviceActions } from 'ducks/service'
 
 import { useMembershipCardsState } from 'hooks/membershipCards'
 
-const useMerchantMembershipCardsLogic = () => {
+export const useMerchantMembershipCardsLogic = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -57,5 +57,3 @@ const useMerchantMembershipCardsLogic = () => {
     isMembershipCardPending,
   }
 }
-
-export default useMerchantMembershipCardsLogic
