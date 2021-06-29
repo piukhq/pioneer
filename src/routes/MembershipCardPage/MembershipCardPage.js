@@ -266,7 +266,7 @@ const MembershipCardPage = () => {
               <h2 className={styles.root__headline}>Unlinked payment cards</h2>
               <p className={styles.root__paragraph}>
                 These are payment cards that you have added but are not currently linked to your {planNameSuffix}.
-                Making purchases with one of these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
+                Making purchases with one of these cards <span className={styles.root__warning}>will not collect {membershipCardCurrency}</span>.
                 Select the card to see how this can be resolved.
               </p>
               <PaymentCards>
