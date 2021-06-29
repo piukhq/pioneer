@@ -1,16 +1,1 @@
-@import "src/sass/variables";
-
-@mixin base-styling {
-  .bink-app,
-  .bink-app * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  .bink-app {
-    max-width: 970px;
-    margin: 0 auto;
-    padding: 10px 10px 64px;
-  }
-}
+@import "src/sass/themes/_default/mixins/_base-mixin";

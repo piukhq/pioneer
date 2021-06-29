@@ -20,6 +20,7 @@ import LoginPage from 'routes/LoginPage'
 import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
+import Footer from 'components/Footer'
 
 import styles from './App.module.scss'
 
@@ -59,6 +60,7 @@ function App () {
           </Route>
         </Switch>
       </Router>
+      {Config.isMerchantChannel && <Footer />}
     </div>
   )
 }

@@ -10,11 +10,13 @@ build:
   stage: build
   image: node:14
   script:
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
     - npm ci
     - npm run lint-js
     - npm run lint-css
     # build wasabi theme
     - NODE_CONFIG_ENV=development PUBLIC_URL=/develop/wasabi THEME=wasabi npm run build
+    - cp version.json build/
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
 
@@ -45,17 +47,18 @@ deploy-dev:
   only:
     - develop
 
-
 # Could get fancy here and just use the "build" stage but this is slightly cleaner
 build-mr:
   stage: build
   image: node:14
   script:
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
     - npm ci
     - npm run lint-js
     - npm run lint-css
     # build wasabi theme
     - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/wasabi THEME=wasabi npm run build
+    - cp version.json build/
     - tar -C build -zcvf build-wasabi.tar.gz .
     - rm -rf build
 
@@ -93,49 +96,60 @@ build-staging:
   allow_failure: false
   image: node:14
   script:
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
     - npm ci
     - npm run lint-js
     - npm run lint-css
     # build wasabi theme
     - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/wasabi THEME=wasabi npm run build
-    - tar -C build -zcvf build-wasabi.tar.gz .
+    - cp version.json build/
+    - tar -C build -zcvf build-wasabi-staging.tar.gz .
     - rm -rf build
 
     # build fatface theme
     - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/fatface THEME=fatface npm run build
-    - tar -C build -zcvf build-fatface.tar.gz .
+    - cp version.json build/
+    - tar -C build -zcvf build-fatface-staging.tar.gz .
     - rm -rf build
 
     # build wasabi theme for sandbox
     - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/wasabi THEME=wasabi npm run build
+    - cp version.json build/
     - tar -C build -zcvf build-wasabi-sandbox.tar.gz .
     - rm -rf build
   artifacts:
     paths:
       - build*.tar.gz
     expire_in: 3 weeks
-  when: manual
   only:
     - develop
 
-deploy-staging:
+deploy-staging-wasabi:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
     # deploy wasabi theme
     - mkdir wasabi
-    - tar -C wasabi -xf build-wasabi.tar.gz
+    - tar -C wasabi -xf build-wasabi-staging.tar.gz
     - copy --staging --sync wasabi /staging/wasabi/
-
-    # deploy fatface theme
-    - mkdir fatface
-    - tar -C fatface -xf build-fatface.tar.gz
-    - copy --staging --sync fatface /staging/fatface/
 
     # deploy wasabi theme for sandbox
     - mkdir sandbox
     - tar -C sandbox -xf build-wasabi-sandbox.tar.gz
     - copy --sandbox --sync sandbox /wasabi/
+  when: manual
+  only:
+    - develop
+
+deploy-staging-fatface:
+  stage: staging-deploy
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
+    # deploy fatface theme
+    - mkdir fatface
+    - tar -C fatface -xf build-fatface-staging.tar.gz
+    - copy --staging --sync fatface /staging/fatface/
+  when: manual
   only:
     - develop
 
@@ -144,38 +158,52 @@ build-prod:
   allow_failure: false
   image: node:14
   script:
+    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
     - npm ci
     - npm run lint-js
     - npm run lint-css
     # build wasabi theme
     - NODE_CONFIG_ENV=production PUBLIC_URL=/wasabi THEME=wasabi npm run build
-    - tar -C build -zcvf build-wasabi.tar.gz .
+    - rm -rf build/themes
+    - rm build/*.*
+    - cp version.json build/
+    - tar -C build -zcvf build-wasabi-prod.tar.gz .
     - rm -rf build
 
     # build fatface theme
     - NODE_CONFIG_ENV=production PUBLIC_URL=/fatface THEME=fatface npm run build
-    - tar -C build -zcvf build-fatface.tar.gz .
+    - rm -rf build/themes
+    - rm build/*.*
+    - cp version.json build/
+    - tar -C build -zcvf build-fatface-prod.tar.gz .
     - rm -rf build
   artifacts:
     paths:
       - build*.tar.gz
     expire_in: 3 weeks
-  when: manual
   only:
     - tags
 
-deploy-prod:
+deploy-prod-wasabi:
   stage: prod-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
     # deploy wasabi theme
     - mkdir wasabi
-    - tar -C wasabi -xf build-wasabi.tar.gz
+    - tar -C wasabi -xf build-wasabi-prod.tar.gz
     - copy --prod --sync wasabi /wasabi/
+  when: manual
+  only:
+    - tags
 
+deploy-prod-fatface:
+  stage: prod-deploy
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
     # deploy fatface theme
     - mkdir fatface
-    - tar -C fatface -xf build-fatface.tar.gz
+    - tar -C fatface -xf build-fatface-prod.tar.gz
     - copy --prod --sync fatface /fatface/
+  when: manual
   only:
     - tags
