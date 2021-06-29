@@ -37,16 +37,6 @@
     grid-area: name-on-card;
   }
 
-  &__privacy-and-terms {
-    margin: 30px 0;
-    display: flex;
-    justify-content: space-between;
-
-    @media (max-width: 500px) {
-      flex-direction: column;
-    }
-  }
-
   &__generic-error {
     text-align: center;
     color: #a30f27;
@@ -66,5 +56,9 @@
 
   &__url {
     @include link;
+
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
   }
 }
