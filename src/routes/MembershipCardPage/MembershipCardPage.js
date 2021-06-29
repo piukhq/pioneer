@@ -227,7 +227,7 @@ const MembershipCardPage = () => {
             ) : (
               <p className={styles.root__paragraph}>
                 You have yet to add any payment cards. By adding a payment card to your account,
-                you will unlock the ability to auto-collect {membershipCardCurrency} when you shop.
+                you will auto-collect {membershipCardCurrency} when you shop.
               </p>
             ) }
             <PaymentCards>

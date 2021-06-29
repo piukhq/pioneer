@@ -126,7 +126,7 @@ const Hero = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
         <StateFailedSvg />
         <div className={styles.root__subtitle}>Add a payment card</div>
         <div className={styles.root__explainer}>
-          <p className={styles['root__explainer-paragraph']}>To automatically collect rewards you need to add a payment card to your { planName } { planNameSuffix }.</p>
+          <p className={styles['root__explainer-paragraph']}>To collect rewards you need to add a payment card to your { planName } { planNameSuffix }.</p>
           <p className={styles['root__explainer-paragraph']}>Click here to get started.</p>
         </div>
       </div>

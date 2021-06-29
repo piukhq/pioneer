@@ -18,7 +18,7 @@ const WeFoundYou = () => {
       <h1 className={styles.root__heading}>We found you</h1>
       <div className={styles.root__description}>
         <p className={styles.root__paragraph}>You already have a {planName} {planNameSuffix}.</p>
-        <p className={styles.root__paragraph}>To view your card details you need to accept the <a className={styles.root__url} href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Bink Terms & Conditions.</a> You only need to do this once.</p>
+        <p className={styles.root__paragraph}>To view your card details here you need to accept the <a className={styles.root__url} href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Bink Terms & Conditions.</a> You only need to do this once.</p>
         <p className={styles.root__paragraph}>Please also read the <a className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink Privacy Policy</a> for further details on how your data will be processed.</p>
       </div>
       <div className={styles.root__buttons}>
@@ -26,13 +26,13 @@ const WeFoundYou = () => {
           primary
           className={styles.root__button}
           onClick={acceptTerms}
-        >I agree</Button>
+        >Continue</Button>
 
         <Button
           secondary
           className={styles.root__button}
           onClick={logout}
-        >I disagree</Button>
+        >Cancel</Button>
 
         {postError && <p className={styles['root__paragraph--error-message']}>Something went wrong. Please try again.</p>}
       </div>
