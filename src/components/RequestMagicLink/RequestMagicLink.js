@@ -94,11 +94,10 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
-        { Config.magicLinkRequestFormFooterNotes.length > 0 && (
+        { Config.magicLinkRequestFormFooterNote && (
           <div className={styles.root__footerNotes}>
-            {Config.magicLinkRequestFormFooterNotes.map((note, index) => (
-              <p className={styles.root__note} key={index}>{note}</p>
-            ))}
+            <span className={styles.root__note}>{Config.magicLinkRequestFormFooterNote}</span>
+            <a className={styles.root__note} href={Config.urls.termsAndConditions}>{Config.magicLinkRequestFormFooterLink}</a>
           </div>
         )}
       </form>

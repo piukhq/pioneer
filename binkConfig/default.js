@@ -98,10 +98,11 @@ module.exports = {
       case 'bink': return ['Get a link sent to your inbox so you can register or login instantly!']
       case 'wasabi': {
         return [
-          'Receive a £7 Off Meal Voucher when you collect 7 stamps!',
-          'Bink is technology that makes loyalty simpler. By connecting your loyalty account to the payment card of your choice, you earn rewards every time you shop. By entering your email address you authorise Bink to check if you already have a loyalty account.',
-          'Current members just need to log in.',
-          'New members can join the club by entering your email address.',
+          'Receive a £7 Off Meal Voucher when you collect 7 stamps!*',
+          'Bink is technology that makes loyalty simpler. By connecting your loyalty account to the payment card of your choice, you earn rewards every time you shop.',
+          'Once you enter your email address Bink will check if you already have an account.',
+          'If you already have a Wasabi Club card please enter your email address.',
+          'If you are not a Wasabi Club member please enter your email address.',
         ]
       }
       case 'fatface': {
@@ -113,20 +114,21 @@ module.exports = {
       }
     }
   })(),
-  magicLinkRequestFormFooterNotes: (() => {
+  magicLinkRequestFormFooterNote: (() => {
     switch (process.env.THEME) {
-      case 'bink': return []
-      case 'wasabi': {
-        return [
-          'Terms and Conditions* apply.',
-          '*One stamp can be earned per transaction when you spend £7 or more in a participating Wasabi store.',
-        ]
-      }
-      case 'fatface': {
-        return []
-      }
+      case 'bink': return ''
+      case 'wasabi': return '*One stamp can be earned per transaction when you spend £7 or more in a participating Wasabi store. '
+      case 'fatface': return ''
     }
   })(),
+  magicLinkRequestFormFooterLink: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return 'Terms and Conditions apply'
+      case 'fatface': return null
+    }
+  })(),
+
   // used for development
   devDefaultUser: (() => {
     switch (process.env.THEME) {
