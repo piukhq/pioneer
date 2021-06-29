@@ -49,7 +49,7 @@ const MerchantMembershipCards = () => {
   if (isMembershipCardPending) {
     return (
       <div data-testid='preparing-your-card'>
-        <MembershipCardRefresher membershipCardId={membershipCard.id} />
+        <MembershipCardRefresher membershipCardId={membershipCard?.id} />
         <PreparingYourCard />
       </div>
     )
