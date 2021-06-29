@@ -95,7 +95,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
         { Config.magicLinkRequestFormFooterNote && (
-          <div className={styles.root__footerNotes}>
+          <div className={styles.root__footerNote}>
             <span className={styles.root__note}>{Config.magicLinkRequestFormFooterNote}</span>
             <a className={styles.root__note} href={Config.urls.termsAndConditions}>{Config.magicLinkRequestFormFooterLink}</a>
           </div>
