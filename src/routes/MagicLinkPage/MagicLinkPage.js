@@ -1,13 +1,11 @@
 import React from 'react'
-import useRedirectLogic from './hooks/useRedirectLogic'
 import HangTight from 'components/HangTight'
+import useRedirectLogic from './hooks/useRedirectLogic'
 
 const MagicLinkPage = () => {
   useRedirectLogic()
 
-  return (
-    <HangTight />
-  )
+  return <HangTight />
 }
 
 export default MagicLinkPage
