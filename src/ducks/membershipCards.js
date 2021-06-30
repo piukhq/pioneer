@@ -205,26 +205,33 @@ const membershipCardSelector = (state, id) => state.membershipCards.cards[id]
 const membershipPlansSelector = state => state.membershipPlans.plans
 const paymentCardsListSelector = state => paymentCardsSelectors.cardsList(state)
 const newlyAddedCardIdSelector = state => state.paymentCards?.add?.card?.id
+const membershipCardReasonCodeSelector = state => selectors.reasonCode(state)
 
 export const selectors = {
   cardsList: createSelector(
     membershipCardsSelector,
     cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
   ),
-  isReenrolRequired: createSelector(
+  reasonCode: createSelector(
     membershipCardsListSelector,
-    (membershipCardsArray) => {
-      const membershipCardReasonCode = membershipCardsArray?.[0]?.status?.reason_codes?.[0]
+    (membershipCardsArray) => membershipCardsArray?.[0]?.status?.reason_codes?.[0],
+  ),
+  isAccountActive: createSelector(
+    membershipCardReasonCodeSelector,
+    (membershipCardReasonCode) => membershipCardReasonCode === 'X300',
+  ),
+  isReenrolRequired: createSelector(
+    membershipCardReasonCodeSelector,
+    (membershipCardReasonCode) => {
       const reenrolCodes = ['X101', 'X201']
       return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
     },
   ),
   isReaddRequired: createSelector(
-    membershipCardsListSelector,
-    (membershipCardsArray) => {
-      const membershipCardReasonCode = membershipCardsArray?.[0]?.status?.reason_codes?.[0]
+    membershipCardReasonCodeSelector,
+    (membershipCardReasonCodes) => {
       const readdCodes = ['X102', 'X104', 'X202', 'X302', 'X303', 'X304']
-      return (readdCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
+      return (readdCodes.includes(membershipCardReasonCodes) && Config.isMerchantChannel)
     },
   ),
 
