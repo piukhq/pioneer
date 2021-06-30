@@ -8,21 +8,20 @@ const useRedirectLogic = () => {
   const { magicLinkToken } = useParams()
   const history = useHistory()
   const dispatch = useDispatch()
-  const { loading, error, success } = useSelector(state => state.users.magicLinkAuthentication)
+  const {
+    error: magicLinkAuthenticationError,
+    success: magicLinkAuthenticationSuccess,
+  } = useSelector(state => state.users.magicLinkAuthentication)
 
   useEffect(() => {
-    if (error) {
+    if (magicLinkAuthenticationError) {
       history.replace('/login')
-    } else if (success) {
-      history.replace('/')
-    } else if (isTokenUsed(magicLinkToken)) {
+    } else if (magicLinkAuthenticationSuccess || isTokenUsed(magicLinkToken)) {
       history.replace('/')
     } else if (!isTokenUsed(magicLinkToken)) {
       dispatch(usersActions.magicLinkAuthentication(magicLinkToken))
     }
-  }, [magicLinkToken, success, error, history, dispatch])
-
-  return { loading }
+  }, [magicLinkToken, magicLinkAuthenticationSuccess, magicLinkAuthenticationError, history, dispatch])
 }
 
 export default useRedirectLogic

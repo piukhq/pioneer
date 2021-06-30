@@ -160,6 +160,9 @@
     ]
   },
   "jest": {
+    "globals": {
+      "Config": "<rootDir>/binkConfig/default$1"
+    },
     "roots": [
       "<rootDir>/src"
     ],

@@ -13,7 +13,6 @@ import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLinkPaymentCard from './hooks/useLinkPaymentCard'
 import useMembershipCardDetailsByParams from 'hooks/useMembershipCardDetailsByParams'
-import useLoadService from 'hooks/useLoadService'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
@@ -22,8 +21,6 @@ import PaymentCardLimitAdd from 'components/PaymentCardLimitAdd'
 import BinkPaymentCardAdd from 'components/BinkPaymentCardAdd'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
-import PreparingYourCard from 'components/PreparingYourCard'
-// import Loading from 'components/Loading'
 import AccountMenu from 'components/AccountMenu'
 import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
@@ -32,15 +29,22 @@ import PaymentCardLimitModal from 'components/PaymentCardLimitModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
-import WeFoundYou from 'components/WeFoundYou'
-import HangTight from 'components/HangTight'
 import MembershipCardRewardsHistory from 'components/MembershipCardRewardsHistory'
 
 import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
-  // todo: refactor to reduce overall complexity and size of this component.
-  useLoadService()
+  const history = useHistory()
+
+  const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
+  const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
+
+  // Log user out if account is no longer active
+  useEffect(() => {
+    if (reasonCode && !isAccountActive) {
+      history.replace('/')
+    }
+  }, [history, reasonCode, isAccountActive])
 
   // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
   // to further attempt optimizing the process
@@ -49,16 +53,12 @@ const MembershipCardPage = () => {
     getMembershipPlans()
   }, [getMembershipPlans])
 
-  const history = useHistory()
-
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
-  const isReenrolRequired = useSelector(state => membershipCardsSelectors.isReenrolRequired(state))
-  const isReaddRequired = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
 
-  const { success: serviceSuccess, loading: serviceLoading, error: serviceError, post: { success: postServiceSuccess } } = useSelector(state => state.service)
+  const { loading: serviceLoading, error: serviceError } = useSelector(state => state.service)
 
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, id),
@@ -131,13 +131,6 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
   }, [])
 
-  // membership reenrol/readd path
-  useEffect(() => {
-    if ((isReenrolRequired || isReaddRequired) && Config.isMerchantChannel) {
-      history.replace(`/membership-card/add/${Config.membershipPlanId}`)
-    }
-  }, [isReenrolRequired, isReaddRequired, history])
-
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
     if (serviceLoading || serviceError || membershipCard?.status?.state === 'pending') {
@@ -151,33 +144,12 @@ const MembershipCardPage = () => {
     setIsPaymentCardLimitReached(paymentCardLimitReached)
   }, [linkedPaymentCards, setIsPaymentCardLimitReached])
 
-  if (serviceSuccess || postServiceSuccess) {
-    // prevent next elseifs executing
-  } else if (serviceLoading) {
-    return <HangTight />
-  } else if (serviceError) {
-    // Displayed when service error occurs, signifying T&Cs have not yet been accepted
-    return <WeFoundYou />
-  }
-
-  // Membership card pending path
-  if (membershipCard?.status?.state === 'pending' && Config.isMerchantChannel) {
-    return (
-      <>
-        <MembershipCardRefresher membershipCardId={id} />
-        <PreparingYourCard />
-      </>
-    )
-  }
-
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
       return <PaymentCardLimitAdd onClick={() => setPaymentCardLimitModalVisible(true)} />
     }
-    if (Config.theme === 'bink') {
-      return <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
-    }
-    return <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+
+    return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} /> : <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
   }
 
   const shouldRenderVoucherSection = () => {
@@ -196,7 +168,7 @@ const MembershipCardPage = () => {
 
   // Membership card active path
   return (
-    <div>
+    <>
       { linkingErrorModalVisible && (
         <LinkCardsErrorModal
           paymentCardId={cardIdToBeDeleted}
@@ -268,7 +240,7 @@ const MembershipCardPage = () => {
               <h2 className={styles.root__headline}>Unlinked payment cards</h2>
               <p className={styles.root__paragraph}>
                 These are payment cards that you have added but are not currently linked to your {planNameSuffix}.
-                Making purchases with one of these cards <span className={styles.root__warning}>will not collect you {membershipCardCurrency}</span>.
+                Making purchases with one of these cards <span className={styles.root__warning}>will not collect {membershipCardCurrency}</span>.
                 Select the card to see how this can be resolved.
               </p>
               <PaymentCards>
@@ -305,7 +277,7 @@ const MembershipCardPage = () => {
           Something is wrong.
         </>
       )}
-    </div>
+    </>
   )
 }
 

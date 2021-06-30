@@ -1,23 +1,27 @@
 import React from 'react'
 import cx from 'classnames'
 import useLogout from 'hooks/useLogout'
+// import useContactSupport from 'hooks/useContactSupport'
 import useContactSupport from 'hooks/useContactSupport'
-import useMerchantMembershipCardsLogic from './hooks/useMerchantMembershipCardsLogic'
-import MultichannelMembershipCards from '../MultichannelMembershipCards'
+import { useMerchantMembershipCardsLogic } from './hooks/useMerchantMembershipCardsLogic'
+import MultichannelMembershipCards from 'components/MultichannelMembershipCards'
 import Button from 'components/Button'
 import HangTight from 'components/HangTight'
 
+import WeFoundYou from 'components/WeFoundYou'
+import MembershipCardRefresher from 'components/MembershipCardRefresher'
+import PreparingYourCard from 'components/PreparingYourCard'
 import styles from './MerchantMembershipCards.module.scss'
 
 const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
 
-  const { tooManyCardsError } = useMerchantMembershipCardsLogic()
+  const { tooManyCardsError, shouldDisplayWeFoundYou, membershipCard, isMembershipCardPending } = useMerchantMembershipCardsLogic()
 
-  return (
-    tooManyCardsError ? (
-      <div className={styles.root}>
+  if (tooManyCardsError) {
+    return (
+      <div className={styles.root} data-testid='too-many-cards-error'>
         <h1 className={cx(styles.root__heading)}>There is a problem</h1>
         <p className={styles.root__body}>It looks like there is a problem with your account.</p>
         <p className={styles.root__body}>Please contact us so we can help resolve this as quickly as possible.</p>
@@ -31,9 +35,30 @@ const MerchantMembershipCards = () => {
           </div>
         ) }
       </div>
-    ) : (
-      <HangTight />
     )
+  }
+
+  if (shouldDisplayWeFoundYou) {
+    return (
+      <div data-testid='we-found-you'>
+        <WeFoundYou />
+      </div>
+    )
+  }
+
+  if (isMembershipCardPending) {
+    return (
+      <div data-testid='preparing-your-card'>
+        <MembershipCardRefresher membershipCardId={membershipCard?.id} />
+        <PreparingYourCard />
+      </div>
+    )
+  }
+
+  return (
+    <div data-testid='hang-tight'>
+      <HangTight />
+    </div>
   )
 }
 
