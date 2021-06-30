@@ -4,7 +4,7 @@ import useLogout from 'hooks/useLogout'
 // import useContactSupport from 'hooks/useContactSupport'
 import useContactSupport from 'hooks/useContactSupport'
 import { useMerchantMembershipCardsLogic } from './hooks/useMerchantMembershipCardsLogic'
-import MultichannelMembershipCards from '../MultichannelMembershipCards'
+import MultichannelMembershipCards from 'components/MultichannelMembershipCards'
 import Button from 'components/Button'
 import HangTight from 'components/HangTight'
 

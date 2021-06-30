@@ -19,7 +19,7 @@ jest.mock('components/Loading2', () => () => null)
 jest.mock('components/WeFoundYou', () => () => null)
 jest.mock('components/MembershipCardRefresher', () => () => null)
 jest.mock('components/PreparingYourCard', () => () => null)
-jest.mock('../MultichannelMembershipCards', () => () => null)
+jest.mock('components/MultichannelMembershipCards', () => () => null)
 
 describe('Test MerchantMembershipCards', () => {
   beforeEach(() => {
