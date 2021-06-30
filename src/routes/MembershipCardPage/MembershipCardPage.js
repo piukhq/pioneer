@@ -34,7 +34,7 @@ import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
 import WeFoundYou from 'components/WeFoundYou'
 import HangTight from 'components/HangTight'
-import Hero from './components/Hero'
+import MembershipCardRewardsHistory from 'components/MembershipCardRewardsHistory'
 
 import styles from './MembershipCardPage.module.scss'
 
@@ -216,7 +216,9 @@ const MembershipCardPage = () => {
       { membershipCard && (
         <>
           <AccountMenu />
-          <Hero membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
+
+          <MembershipCardRewardsHistory membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
+
           {shouldRenderVoucherSection()}
           <section className={styles.root}>
             <h2 className={styles.root__headline}>Payment cards</h2>
