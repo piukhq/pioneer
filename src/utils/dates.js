@@ -6,7 +6,7 @@ const dayShortMonthYear = (unformattedDate) => { // returns formatted string e.g
 }
 
 const getExpiryDates = () => {
-  // Get the last 2 digits of the surrent year
+  // Get the last 2 digits of the current year
   const currentYear = parseInt(new Date().getFullYear().toString().substr(-2))
 
   // Length of 21 allows for current year plus 20 years into the future
