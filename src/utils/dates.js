@@ -1,7 +1,5 @@
-const getDateFromUnixTimestamp = (timestamp) => { // converts UNIX timestamps used in API to JS dates
-  return new Date(timestamp * 1000)
-}
-const dayShortMonthYear = (unformattedDate) => { // returns formatted string e.g. 19 Jan 1977
+const shortDateFromTimestamp = (timestamp) => { // single method to convert UNIX timestamp to a JS date and format it as e.g. 1 Apr 2024
+  const unformattedDate = new Date(timestamp * 1000)
   return `${unformattedDate.getDate()} ${unformattedDate.toLocaleString('en-uk', { month: 'short' })} ${unformattedDate.getFullYear()}`
 }
 
@@ -22,4 +20,4 @@ const getExpiryDates = () => {
   }
 }
 
-export { dayShortMonthYear, getExpiryDates, getDateFromUnixTimestamp }
+export { getExpiryDates, shortDateFromTimestamp }
