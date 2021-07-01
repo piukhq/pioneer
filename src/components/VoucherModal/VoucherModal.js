@@ -10,8 +10,8 @@ const VoucherModal = ({ onClose, voucher, plan }) => {
   const { code = '', burn = {}, earn = {}, date_issued = null, expiry_date = null } = voucher
   const { prefix: burnPrefix = null, value: burnValue = null, suffix: burnSuffix = null } = burn
   const { prefix: earnPrefix = null, target_value: earnTargetValue = null, suffix: earnSuffix = null } = earn
-  const formattedIssueDate = dayShortMonthYear(new Date(date_issued))
-  const formattedExpiryDate = dayShortMonthYear(new Date(expiry_date))
+  const formattedIssueDate = dayShortMonthYear(new Date(date_issued * 1000))
+  const formattedExpiryDate = dayShortMonthYear(new Date(expiry_date * 1000))
 
   const imgUrl = plan?.images?.filter(image => image.type === 9)[0].url
   const issuedDetail = plan?.content?.filter(content => content.column === 'Voucher_Issued_Detail')[0].value
@@ -27,7 +27,7 @@ const VoucherModal = ({ onClose, voucher, plan }) => {
         <p className={styles.root__information__date}>Added {formattedIssueDate}</p>
         <p className={styles.root__information__date}>Expires {formattedExpiryDate}</p>
       </div>
-      <a className={styles.root__link} href={Config.urls.termsAndConditions}>Terms & Conditions</a>
+      <a className={styles.root__link} href={Config.urls.termsAndConditions} target="_blank" rel="noreferrer">Terms & Conditions</a>
     </Modal>
   )
 }
