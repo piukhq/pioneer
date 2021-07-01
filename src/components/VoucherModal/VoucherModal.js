@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Modal from 'components/Modal'
-import { dayShortMonthYear } from 'utils/dates'
+import { dayShortMonthYear, getDateFromUnixTimestamp } from 'utils/dates'
 
 import styles from './VoucherModal.module.scss'
 
@@ -10,8 +10,8 @@ const VoucherModal = ({ onClose, voucher, plan }) => {
   const { code = '', burn = {}, earn = {}, date_issued = null, expiry_date = null } = voucher
   const { prefix: burnPrefix = null, value: burnValue = null, suffix: burnSuffix = null } = burn
   const { prefix: earnPrefix = null, target_value: earnTargetValue = null, suffix: earnSuffix = null } = earn
-  const formattedIssueDate = dayShortMonthYear(new Date(date_issued * 1000))
-  const formattedExpiryDate = dayShortMonthYear(new Date(expiry_date * 1000))
+  const formattedIssueDate = dayShortMonthYear(getDateFromUnixTimestamp(date_issued))
+  const formattedExpiryDate = dayShortMonthYear(getDateFromUnixTimestamp(expiry_date))
 
   const imgUrl = plan?.images?.filter(image => image.type === 9)[0].url
   const issuedDetail = plan?.content?.filter(content => content.column === 'Voucher_Issued_Detail')[0].value
