@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'components/Button'
 import useBinkTermsAndConditions from './hooks/useBinkTermsAndConditions'
-import useMembershipCardDetailsByParams from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
 import useLogout from 'hooks/useLogout'
 import styles from './WeFoundYou.module.scss'
 

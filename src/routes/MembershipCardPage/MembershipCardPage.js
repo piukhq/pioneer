@@ -12,7 +12,7 @@ import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLinkPaymentCard from './hooks/useLinkPaymentCard'
-import useMembershipCardDetailsByParams from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
