@@ -9,14 +9,12 @@ const MembershipCardRewardsHistory = ({ membershipCard, addPaymentCardClickHandl
   const { payment_cards: paymentCards = [] } = membershipCard
 
   // possible states: authorised, failed, pending, suggested, unauthorised
-  // let state = membershipCard?.status?.state
-  // if (state === 'suggested' || state === 'unauthorised') {
-  //   state = 'failed'
-  // } else if (paymentCards.length === 0) {
-  //   state = 'no-payment-cards'
-  // }
-
-  const state = 'pending'
+  let state = membershipCard?.status?.state
+  if (state === 'suggested' || state === 'unauthorised') {
+    state = 'failed'
+  } else if (paymentCards.length === 0) {
+    state = 'no-payment-cards'
+  }
 
   return (
     <section data-testid='membership-card-rewards-history-section' className={cx(
