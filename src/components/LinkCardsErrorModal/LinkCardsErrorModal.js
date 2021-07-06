@@ -1,6 +1,6 @@
 import useContactSupport from 'hooks/useContactSupport'
 import usePaymentCardDelete from './hooks/usePaymentCardDelete'
-import useMembershipCardDetailsByParams from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
 import Modal from 'components/Modal'
 import Button from 'components/Button'
 

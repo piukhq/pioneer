@@ -14,21 +14,9 @@ import HangTight from 'components/HangTight'
 import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol'
 import MerchantMembershipCardAdd from 'components/MerchantMembershipCardAdd'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
 
 import styles from './MembershipCardAddPage.module.scss'
-
-const MEMBERSHIP_CARD_IMAGE_TYPES = {
-  HERO: 0,
-  BANNER: 1,
-  OFFER: 2,
-  ICON: 3,
-  ASSET: 4,
-  REFERENCE: 5,
-  PERSONAL_OFFERS: 6,
-  PROMOTIONS: 7,
-  TIER: 8,
-  ALTERNATIVE: 9,
-}
 
 // todo: refactor in similar manner to MembershipCardPage
 

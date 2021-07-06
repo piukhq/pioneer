@@ -199,7 +199,9 @@
       "^ducks(.*)$": "<rootDir>/src/ducks$1",
       "^routes(.*)$": "<rootDir>/src/routes$1",
       "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^utils(.*)$": "<rootDir>/src/utils$1",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "\\.svg": "<rootDir>/src/__mocks__/svgrMock.js"
     },
     "moduleFileExtensions": [
       "web.js",

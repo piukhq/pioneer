@@ -12,7 +12,7 @@ import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLinkPaymentCard from './hooks/useLinkPaymentCard'
-import useMembershipCardDetailsByParams from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
@@ -29,7 +29,7 @@ import PaymentCardLimitModal from 'components/PaymentCardLimitModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
-import Hero from './components/Hero'
+import MembershipCardContainer from 'components/MembershipCardContainer'
 
 import styles from './MembershipCardPage.module.scss'
 
@@ -188,7 +188,9 @@ const MembershipCardPage = () => {
       { membershipCard && (
         <>
           <AccountMenu />
-          <Hero membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
+
+          <MembershipCardContainer membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
+
           {shouldRenderVoucherSection()}
           <section className={styles.root}>
             <h2 className={styles.root__headline}>Payment cards</h2>
