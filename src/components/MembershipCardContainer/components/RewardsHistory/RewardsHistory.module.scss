@@ -1,0 +1,121 @@
+@import "src/sass/mixins";
+
+.root {
+  &__subtitle {
+    margin-top: 5px;
+    font-size: 18px;
+    line-height: 1.2em;
+    font-weight: 800;
+
+    @media (max-width: 799px) {
+      &--desktop-only {
+        display: none;
+      }
+    }
+
+    @media (min-width: 800px) {
+      &--mobile-only {
+        display: none;
+      }
+    }
+  }
+
+  &__explainer {
+    font-size: 18px;
+    line-height: 1.2em;
+
+    &-paragraph {
+      margin: 0 0 1em;
+    }
+
+    @media (max-width: 799px) {
+      &--desktop-only {
+        display: none;
+      }
+    }
+
+    @media (min-width: 800px) {
+      &--mobile-only {
+        display: none;
+      }
+    }
+  }
+
+  @mixin state-box {
+    padding: 20px 20px 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &__no-payment-card-state {
+    cursor: pointer;
+    grid-area: no-payment-card-state;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin: 10px 0;
+    }
+  }
+
+  &__failed-state {
+    grid-area: failed-state;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin: 10px 0;
+    }
+  }
+
+  &__pending-state {
+    grid-area: pending-state;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin: 10px 0;
+    }
+  }
+
+  &__transaction-history {
+    cursor: pointer;
+    grid-area: transaction-history;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin-top: 10px;
+    }
+
+    &--disabled {
+      cursor: auto;
+      color: #999;
+    }
+  }
+
+  &__voucher-history {
+    cursor: pointer;
+    grid-area: voucher-history;
+
+    @include state-box;
+
+    @media (min-width: 800px) {
+      margin-bottom: 10px;
+    }
+
+    &--disabled {
+      cursor: auto;
+      color: #999;
+    }
+  }
+
+  &__authorised-svg {
+    fill: $primary-color;
+
+    &--bink {
+      fill: url(#linearGradient-1);
+    }
+  }
+}
