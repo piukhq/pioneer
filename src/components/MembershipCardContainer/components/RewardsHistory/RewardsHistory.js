@@ -16,7 +16,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
   const balance = membershipCard?.balances?.[0]
 
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
-  const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
+  const { planName } = useMembershipCardDetailsByParams()
 
   const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = React.useState(false)
   const [isTransactionsModalOpen, setTransactionsModalOpen] = React.useState(false)
