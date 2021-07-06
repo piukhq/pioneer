@@ -3,9 +3,9 @@ import cx from 'classnames'
 import MembershipCardHeroImage from './components/MembershipCardHeroImage'
 import RewardsHistory from './components/RewardsHistory'
 
-import styles from './MembershipCardRewardsHistory.module.scss'
+import styles from './MembershipCardContainer.module.scss'
 
-const MembershipCardRewardsHistory = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
+const MembershipCardContainer = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
   const { payment_cards: paymentCards = [] } = membershipCard
 
   // possible states: authorised, failed, pending, suggested, unauthorised
@@ -27,4 +27,4 @@ const MembershipCardRewardsHistory = ({ membershipCard, addPaymentCardClickHandl
   )
 }
 
-export default MembershipCardRewardsHistory
+export default MembershipCardContainer

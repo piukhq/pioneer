@@ -29,7 +29,7 @@ import PaymentCardLimitModal from 'components/PaymentCardLimitModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import Vouchers from 'components/Vouchers'
-import MembershipCardRewardsHistory from 'components/MembershipCardRewardsHistory'
+import MembershipCardContainer from 'components/MembershipCardContainer'
 
 import styles from './MembershipCardPage.module.scss'
 
@@ -189,7 +189,7 @@ const MembershipCardPage = () => {
         <>
           <AccountMenu />
 
-          <MembershipCardRewardsHistory membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
+          <MembershipCardContainer membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
 
           {shouldRenderVoucherSection()}
           <section className={styles.root}>
