@@ -16,7 +16,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
   const balance = membershipCard?.balances?.[0]
 
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
-  const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
+  const { planName } = useMembershipCardDetailsByParams()
 
   const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = React.useState(false)
   const [isTransactionsModalOpen, setTransactionsModalOpen] = React.useState(false)
@@ -86,7 +86,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
           <StateFailedSvg />
           <p className={styles.root__subtitle}>Add a payment card</p>
           <div className={styles.root__explainer}>
-            <p className={styles['root__explainer-paragraph']}>To collect rewards you need to add a payment card to your { planName } { planNameSuffix }.</p>
+            <p className={styles['root__explainer-paragraph']}>To collect rewards you need to add a payment card to { planName }.</p>
             <p className={styles['root__explainer-paragraph']}>Click here to get started.</p>
           </div>
         </div>

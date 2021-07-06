@@ -46,7 +46,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
           Any {membershipCardCurrency} that have not yet been awarded will be lost. If you have recently transacted, make sure any {membershipCardCurrency} have been received before deleting this card.
           </p>
           { isLastPaymentCard && (
-            <p className={styles.root__paragraph}>You are about to delete your only active payment card. Doing so will mean you will not collect {membershipPlanName} {membershipCardCurrency}.</p>
+            <p className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {membershipPlanName} {membershipCardCurrency}.</p>
           )}
           <p className={styles.root__paragraph}>Enter the last four digits of the card to confirm.</p>
           <TextInputGroup
