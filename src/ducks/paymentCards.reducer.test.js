@@ -4,7 +4,18 @@ it('should return the initial state', () => {
   expect(reducer(undefined, {})).toEqual({
     loading: false,
     error: false,
-    cards: null,
+    cards: {},
+    add: {
+      loading: false,
+      error: false,
+      success: false,
+      card: null,
+    },
+    delete: {
+      loading: false,
+      error: false,
+      success: false,
+    },
   })
 })
 
@@ -36,7 +47,7 @@ it('should handle PAYMENT_CARDS_FAILURE', () => {
   ).toEqual({
     loading: false,
     error: true,
-    cards: null,
+    cards: {},
   })
 })
 
@@ -45,14 +56,14 @@ it('should handle PAYMENT_CARDS_SUCCESS', () => {
     reducer({
       loading: true,
       error: true,
-      cards: ['dummy value'],
+      cards: { 'dummy id 1': { id: 'dummy id 1' } },
     }, {
       type: types.PAYMENT_CARDS_SUCCESS,
-      payload: ['dummy value 2', 'dummy value 3'],
+      payload: [{ id: 'dummy id 1' }, { id: 'dummy id 2' }],
     }),
   ).toEqual({
     loading: false,
     error: false,
-    cards: ['dummy value 2', 'dummy value 3'],
+    cards: { 'dummy id 1': { id: 'dummy id 1' }, 'dummy id 2': { id: 'dummy id 2' } },
   })
 })
