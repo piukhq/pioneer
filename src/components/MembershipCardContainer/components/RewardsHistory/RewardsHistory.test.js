@@ -22,7 +22,6 @@ describe('Test RewardsHistory', () => {
   const mockBalanceSuffix = 'mock_balance_suffix'
 
   const mockPlanName = 'mock_plan_name'
-  const mockPlanNameSuffix = 'mock_plan_name_suffix'
 
   const mockMembershipCard = {
     id: 'mock_membership_card_id',
@@ -41,7 +40,6 @@ describe('Test RewardsHistory', () => {
 
     useMembershipCardDetailsByParams.mockImplementation(() => ({
       planName: mockPlanName,
-      planNameSuffix: mockPlanNameSuffix,
     }))
   })
 
@@ -139,7 +137,7 @@ describe('Test RewardsHistory', () => {
       const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='no-payment-cards' addPaymentCardClickHandler={mockClickHandler} />)
       expect(queryByTestId('no-payment-cards')).toBeInTheDocument()
       expect(getByText('Add a payment card')).toBeInTheDocument()
-      expect(getByText(`To collect rewards you need to add a payment card to your ${mockPlanName} ${mockPlanNameSuffix}.`)).toBeInTheDocument()
+      expect(getByText(`To collect rewards you need to add a payment card to ${mockPlanName}.`)).toBeInTheDocument()
       expect(getByText('Click here to get started.')).toBeInTheDocument()
     })
   })
