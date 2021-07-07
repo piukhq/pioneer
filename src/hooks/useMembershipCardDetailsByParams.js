@@ -1,15 +1,17 @@
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+import { useMembershipCardsState } from 'hooks/membershipCards'
 
 export const useMembershipCardDetailsByParams = () => {
-  const { id } = useParams()
+  const { membershipCards } = useMembershipCardsState()
+
+  const membershipCardId = membershipCards?.[0]?.id
 
   const planName = useSelector(
-    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name,
+    state => membershipCardsSelectors.plan(state, membershipCardId)?.account?.plan_name,
   )
   const planNameSuffix = useSelector(
-    state => membershipCardsSelectors.plan(state, id)?.account?.plan_name_card,
+    state => membershipCardsSelectors.plan(state, membershipCardId)?.account?.plan_name_card,
   )?.toLowerCase()
 
   return {
