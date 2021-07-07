@@ -5,14 +5,17 @@ import { selectors as membershipCardsSelectors, actions as membershipCardsAction
 import { actions as serviceActions } from 'ducks/service'
 
 import { useMembershipCardsState } from 'hooks/membershipCards'
+import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
 export const useMerchantMembershipCardsLogic = () => {
   const dispatch = useDispatch()
+  const { getMembershipPlans } = useMembershipPlansDispatch()
 
   useEffect(() => {
     dispatch(membershipCardsActions.getMembershipCards())
+    getMembershipPlans()
     dispatch(serviceActions.getService())
-  }, [dispatch])
+  }, [dispatch, getMembershipPlans])
 
   const { membershipCards } = useMembershipCardsState()
   const membershipCard = membershipCards?.[0]
@@ -28,6 +31,7 @@ export const useMerchantMembershipCardsLogic = () => {
 
   const history = useHistory()
   const { success } = useSelector(state => state.membershipCards)
+
   useEffect(() => {
     if (success) {
       switch (membershipCards.length) {
@@ -35,12 +39,12 @@ export const useMerchantMembershipCardsLogic = () => {
           history.replace(`/membership-card/add/${Config.membershipPlanId}`)
           break
         case 1:
-          if (serviceError) {
-            setShouldDisplayWeFoundYou(true)
-          } else if (isReenrolRequired || isReaddRequired) {
+          if (isReenrolRequired || isReaddRequired) {
             history.replace(`/membership-card/add/${Config.membershipPlanId}`)
           } else if ((serviceSuccess || postServiceSuccess) && !isMembershipCardPending) {
             history.replace(`/membership-card/${membershipCards[0].id}`)
+          } else if (serviceError) {
+            setShouldDisplayWeFoundYou(true)
           }
           // otherwise do nothing. Means that the `service` endpoint is still pending
           break

@@ -3,7 +3,7 @@ import cx from 'classnames'
 import NonActiveVouchersModal from 'components/NonActiveVouchersModal'
 import TransactionsModal from 'components/TransactionsModal'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
-import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
 import { ReactComponent as StateAuthorisedGreySvg } from 'images/state-authorised-grey.svg'
 import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
@@ -16,7 +16,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
   const balance = membershipCard?.balances?.[0]
 
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
-  const { planName } = useMembershipCardDetailsByParams()
+  const { planName } = useMembershipCardDetailsByCardId()
 
   const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = React.useState(false)
   const [isTransactionsModalOpen, setTransactionsModalOpen] = React.useState(false)
