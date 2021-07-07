@@ -1,8 +1,4 @@
-@import "src/sass/mixins";
-
 .root {
-  @include section-style;
-
   &__warning {
     // todo: consider usage of global definitions for theme colour pallettes
     color: red;
