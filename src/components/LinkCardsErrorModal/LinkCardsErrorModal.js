@@ -1,6 +1,6 @@
 import useContactSupport from 'hooks/useContactSupport'
 import usePaymentCardDelete from './hooks/usePaymentCardDelete'
-import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import Modal from 'components/Modal'
 import Button from 'components/Button'
 
@@ -8,7 +8,7 @@ import styles from './LinkedCardsErrorModal.module.scss'
 
 const LinkCardsErrorModal = ({ onClose, paymentCardId }) => {
   const { contactSupport } = useContactSupport()
-  const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
   const {
     error,

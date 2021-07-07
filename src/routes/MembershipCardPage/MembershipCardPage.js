@@ -10,9 +10,8 @@ import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
-import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import useLinkPaymentCard from './hooks/useLinkPaymentCard'
-import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
@@ -46,13 +45,6 @@ const MembershipCardPage = () => {
     }
   }, [history, reasonCode, isAccountActive])
 
-  // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
-  // to further attempt optimizing the process
-  const { getMembershipPlans } = useMembershipPlansDispatch()
-  useEffect(() => {
-    getMembershipPlans()
-  }, [getMembershipPlans])
-
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
@@ -75,7 +67,7 @@ const MembershipCardPage = () => {
 
   const { activeVouchers, redeemableVouchers } = useMembershipCardStateById(id)
 
-  const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
   const dispatch = useDispatch()
   useEffect(() => {
