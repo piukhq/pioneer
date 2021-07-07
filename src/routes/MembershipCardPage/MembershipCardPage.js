@@ -11,7 +11,7 @@ import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import useLinkPaymentCard from './hooks/useLinkPaymentCard'
-import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 
 import PaymentCard from 'components/PaymentCard'
 import PaymentCards from 'components/PaymentCards'
@@ -67,7 +67,7 @@ const MembershipCardPage = () => {
 
   const { activeVouchers, redeemableVouchers } = useMembershipCardStateById(id)
 
-  const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
   const dispatch = useDispatch()
   useEffect(() => {

@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 
-export const useMembershipCardDetailsByParams = () => {
+export const useMembershipCardDetailsByCardId = () => {
   const { membershipCards } = useMembershipCardsState()
 
   const membershipCardId = membershipCards?.[0]?.id
