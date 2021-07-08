@@ -3,7 +3,7 @@
 .root {
   @include section-style;
 
-  &__cards {
+  &__payment-cards {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 10px;

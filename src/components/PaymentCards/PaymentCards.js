@@ -84,7 +84,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
           </p>
         ) }
 
-        <div className={styles.root__cards}>
+        <div className={styles['root__payment-cards']}>
           {linkedPaymentCards.map(paymentCard => (
             <PaymentCard
               id={paymentCard.id}
@@ -115,7 +115,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
             Making purchases with one of these cards <span className={styles.root__warning}>will not collect {membershipCardCurrency}</span>.
             Select the card to see how this can be resolved.
           </p>
-          <div className={styles.root__cards}>
+          <div className={styles['root__payment-cards']}>
             { unlinkedPaymentCards
               .filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id)
               .map(paymentCard => (
