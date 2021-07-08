@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import PaymentCard from 'components/PaymentCard'
-import PaymentCardAddForm from 'components/PaymentCardAddForm'
-import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
 import PaymentCardAdd from 'components/PaymentCardAdd'
 import PaymentCardLimitAdd from 'components/PaymentCardLimitAdd'
 import BinkPaymentCardAdd from 'components/BinkPaymentCardAdd'
@@ -19,44 +17,24 @@ import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 
 import styles from './PaymentCards.module.scss'
 
-const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCardLimitModalVisible }) => {
+const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCardLimitModalVisible, handleAddPaymentCard, handleDeletePaymentCard }) => {
   const { id: membershipCardId } = useParams()
 
   const membershipCard = useSelector(state => state.membershipCards.cards[membershipCardId])
-
   const linkedPaymentCards = useSelector(
     state => membershipCardsSelectors.linkedPaymentCards(state, membershipCardId),
   )
   const unlinkedPaymentCards = useSelector(
     state => membershipCardsSelectors.unlinkedPaymentCards(state, membershipCardId),
   )
-
   const membershipCardCurrency = useSelector(
     state => membershipCardsSelectors.currency(state, membershipCardId),
   )
-
   const newlyPendingPaymentCard = useSelector(
     state => membershipCardsSelectors.newlyPendingPaymentCard(state),
   )
 
-  const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
-  const [deleteFormVisible, setDeleteFormVisible] = useState(false)
-  const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
   const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = useState(false)
-
-  const handleCloseAddPaymentCardForm = useCallback(() => {
-    setPaymentCardAddFormVisible(false)
-  }, [setPaymentCardAddFormVisible])
-
-  const handleDeletePaymentCard = useCallback(async (card) => {
-    setCardIdToBeDeleted(card.id)
-    setDeleteFormVisible(true)
-  }, [setCardIdToBeDeleted, setDeleteFormVisible])
-
-  const handleCloseDeletePaymentCardForm = useCallback(() => {
-    setDeleteFormVisible(false)
-    setCardIdToBeDeleted(null)
-  }, [])
 
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
   const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
@@ -70,24 +48,22 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
   const handleClickOnPaymentCard = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
       if (isPaymentCardExpired(card)) {
-      // card is not liked but is expired
-        setCardIdToBeDeleted(card.id)
-        setDeleteFormVisible(true)
+        // card is not liked but is expired
+        handleDeletePaymentCard(card)
       } else {
-      // card is not linked as is not expired
+        // card is not linked as is not expired
         linkCard(card)
       }
     } else {
     // card is linked. should do nothing if clicked
     }
-  }, [membershipCard, linkCard])
+  }, [membershipCard, linkCard, handleDeletePaymentCard])
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
       return <PaymentCardLimitAdd onClick={() => setPaymentCardLimitModalVisible(true)} />
     }
-
-    return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} /> : <PaymentCardAdd onClick={() => setPaymentCardAddFormVisible(true)} />
+    return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={handleAddPaymentCard} /> : <PaymentCardAdd onClick={handleAddPaymentCard} />
   }
 
   return (
@@ -113,32 +89,24 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
             <PaymentCard
               id={paymentCard.id}
               key={paymentCard.id}
-              onDelete={handleDeletePaymentCard}
+              onDelete={() => handleDeletePaymentCard(paymentCard)}
             />
-          ))
-          }
+          ))}
+
           { newlyPendingPaymentCard && unlinkedPaymentCards.filter(paymentCard => paymentCard.id === newlyPendingPaymentCard?.id).length > 0 && (
-              <PaymentCard
-                id={newlyPendingPaymentCard.id}
-                onClick={handleClickOnPaymentCard}
-                key={newlyPendingPaymentCard.id}
-                expired={isPaymentCardExpired(newlyPendingPaymentCard)}
-                activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
-              />
+            <PaymentCard
+              id={newlyPendingPaymentCard.id}
+              onClick={handleClickOnPaymentCard}
+              key={newlyPendingPaymentCard.id}
+              expired={isPaymentCardExpired(newlyPendingPaymentCard)}
+              activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
+            />
           )}
 
           {renderAddPaymentCardButton()}
         </div>
-        { paymentCardAddFormVisible && (
-          <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
-        )}
-        { deleteFormVisible && (
-          <PaymentCardDeleteForm
-            paymentCardId={cardIdToBeDeleted}
-            membershipCardId={membershipCardId}
-            onClose={ handleCloseDeletePaymentCardForm } />
-        ) }
       </section>
+
       { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id).length > 0 && (
         <section className={styles.root}>
           <h2 className={styles.root__headline}>Unlinked payment cards</h2>
@@ -162,7 +130,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
             }
           </div>
         </section>
-      ) }
+      )}
     </>
   )
 }
