@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -11,7 +11,7 @@ import PaymentCardRefresher from 'components/PaymentCardRefresher'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
-import useLinkPaymentCard from './hooks/useLinkPaymentCard'
+import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
 
 import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 
@@ -34,7 +34,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     state => membershipCardsSelectors.newlyPendingPaymentCard(state),
   )
 
-  const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = useState(false)
+  const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = React.useState(false)
 
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
   const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
@@ -71,7 +71,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
       {/* Only mount component if there is a newly added payment card in a pending state */}
       { newlyPendingPaymentCard && <PaymentCardRefresher paymentCardId={newlyPendingPaymentCard.id} /> }
 
-      <section className={styles.root}>
+      <section className={styles.root} data-testid='linked-payment-cards-section' >
         <h2 className={styles.root__headline}>Payment cards</h2>
         {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
           <p className={styles.root__paragraph}>
@@ -86,21 +86,24 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
 
         <div className={styles['root__payment-cards']}>
           {linkedPaymentCards.map(paymentCard => (
-            <PaymentCard
-              id={paymentCard.id}
-              key={paymentCard.id}
-              onDelete={() => handleDeletePaymentCard(paymentCard)}
-            />
+            <div data-testid='linked-payment-card' key={paymentCard.id}>
+              <PaymentCard
+                id={paymentCard.id}
+                onDelete={() => handleDeletePaymentCard(paymentCard)}
+              />
+            </div>
           ))}
 
           { newlyPendingPaymentCard && unlinkedPaymentCards.filter(paymentCard => paymentCard.id === newlyPendingPaymentCard?.id).length > 0 && (
-            <PaymentCard
-              id={newlyPendingPaymentCard.id}
-              onClick={handleClickOnPaymentCard}
-              key={newlyPendingPaymentCard.id}
-              expired={isPaymentCardExpired(newlyPendingPaymentCard)}
-              activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
-            />
+            <div data-testid={`newly-pending-payment-card-${newlyPendingPaymentCard.id}`}>
+              <PaymentCard
+                id={newlyPendingPaymentCard.id}
+                onClick={handleClickOnPaymentCard}
+                key={newlyPendingPaymentCard.id}
+                expired={isPaymentCardExpired(newlyPendingPaymentCard)}
+                activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
+              />
+            </div>
           )}
 
           {renderAddPaymentCardButton()}
@@ -108,7 +111,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
       </section>
 
       { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id).length > 0 && (
-        <section className={styles.root}>
+        <section className={styles.root} data-testid='unlinked-payment-cards-section'>
           <h2 className={styles.root__headline}>Unlinked payment cards</h2>
           <p className={styles.root__paragraph}>
             These are payment cards that you have added but are not currently linked to your {planNameSuffix}.
@@ -119,13 +122,15 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
             { unlinkedPaymentCards
               .filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id)
               .map(paymentCard => (
-                <PaymentCard
-                id={paymentCard.id}
-                onClick={handleClickOnPaymentCard}
-                key={paymentCard.id}
-                expired={isPaymentCardExpired(paymentCard)}
-                activating={(paymentCard.status === 'pending' && !isPaymentCardExpired(paymentCard))}
-                />
+                <div data-testid='unlinked-payment-card' key={paymentCard.id}>
+                  <PaymentCard
+                    id={paymentCard.id}
+                    onClick={handleClickOnPaymentCard}
+                    key={paymentCard.id}
+                    expired={isPaymentCardExpired(paymentCard)}
+                    activating={(paymentCard.status === 'pending' && !isPaymentCardExpired(paymentCard))}
+                  />
+                </div>
               ))
             }
           </div>
