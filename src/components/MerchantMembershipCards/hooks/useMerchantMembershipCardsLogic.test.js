@@ -58,7 +58,7 @@ describe('Test useMerchantMembershipCardsLogic', () => {
     const dummyDispatch = jest.fn()
     useDispatchMock.mockReturnValue(dummyDispatch)
     renderHook(() => useMerchantMembershipCardsLogic())
-    expect(dummyDispatch).toBeCalledTimes(2)
+    expect(dummyDispatch).toBeCalledTimes(3)
   })
 
   it('should call correct route if no membership cards are found', () => {
@@ -71,13 +71,20 @@ describe('Test useMerchantMembershipCardsLogic', () => {
   })
 
   it('should set state if service error has occured', () => {
-    useSelectorMock.mockReturnValue({
-      success: true,
-      error: true,
-      post: {
+    useSelectorMock
+      .mockReturnValueOnce({
         success: false,
-      },
-    })
+        error: true,
+        post: {
+          success: false,
+        },
+      })
+      // isReenrolRequired
+      .mockReturnValueOnce(false)
+      // isReaddRequired
+      .mockReturnValueOnce(false)
+      // State membershipCards slice
+      .mockReturnValueOnce({ success: true })
 
     renderHook(() => useMerchantMembershipCardsLogic())
     expect(mockSetState).toBeCalled()

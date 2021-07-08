@@ -2,6 +2,14 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+import {
+  actions as allActions,
+  selectors as allSelectors,
+} from 'ducks/all'
+import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+
+import { useMembershipCardStateById } from 'hooks/membershipCards'
+
 import PaymentCards from 'components/PaymentCards'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
@@ -13,15 +21,6 @@ import PaymentCardLimitModal from 'components/PaymentCardLimitModal'
 import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import Vouchers from 'components/Vouchers'
 import MembershipCardContainer from 'components/MembershipCardContainer'
-
-import {
-  actions as allActions,
-  selectors as allSelectors,
-} from 'ducks/all'
-import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
-
-import { useMembershipCardStateById } from 'hooks/membershipCards'
-import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
 const MembershipCardPage = () => {
   const history = useHistory()
@@ -35,13 +34,6 @@ const MembershipCardPage = () => {
       history.replace('/')
     }
   }, [history, reasonCode, isAccountActive])
-
-  // todo: this is to speed up the rate at which vouchers are displayed if the user lands straight on this page
-  // to further attempt optimizing the process
-  const { getMembershipPlans } = useMembershipPlansDispatch()
-  useEffect(() => {
-    getMembershipPlans()
-  }, [getMembershipPlans])
 
   const { id } = useParams()
   const membershipCard = useSelector(state => state.membershipCards.cards[id])

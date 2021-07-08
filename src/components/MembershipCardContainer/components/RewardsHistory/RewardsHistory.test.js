@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
-import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 
 import RewardsHistory from './RewardsHistory'
 
@@ -12,8 +12,8 @@ jest.mock('hooks/membershipCards', () => ({
   useMembershipCardStateById: jest.fn(),
 }))
 
-jest.mock('hooks/useMembershipCardDetailsByParams', () => ({
-  useMembershipCardDetailsByParams: jest.fn(),
+jest.mock('hooks/useMembershipCardDetailsByCardId', () => ({
+  useMembershipCardDetailsByCardId: jest.fn(),
 }))
 
 describe('Test RewardsHistory', () => {
@@ -38,7 +38,7 @@ describe('Test RewardsHistory', () => {
       nonActiveVouchers: [],
     }))
 
-    useMembershipCardDetailsByParams.mockImplementation(() => ({
+    useMembershipCardDetailsByCardId.mockImplementation(() => ({
       planName: mockPlanName,
     }))
   })

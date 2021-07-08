@@ -10,7 +10,7 @@ import PaymentCardRefresher from 'components/PaymentCardRefresher'
 
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
-import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
 
 import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
@@ -37,7 +37,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
   const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = React.useState(false)
 
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
-  const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
   // Check to see if the payment card limit is reached
   useEffect(() => {

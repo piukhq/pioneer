@@ -2,7 +2,7 @@ import React from 'react'
 import * as reactRedux from 'react-redux'
 import { render } from '@testing-library/react'
 
-import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
 
 import PaymentCards from './PaymentCards'
@@ -14,8 +14,8 @@ jest.mock('react-router-dom', () => ({
   }),
 }))
 
-jest.mock('hooks/useMembershipCardDetailsByParams', () => ({
-  useMembershipCardDetailsByParams: jest.fn(),
+jest.mock('hooks/useMembershipCardDetailsByCardId', () => ({
+  useMembershipCardDetailsByCardId: jest.fn(),
 }))
 jest.mock('./hooks/useLinkPaymentCard', () => ({
   useLinkPaymentCard: jest.fn(),
@@ -68,7 +68,7 @@ describe('Test PaymentCards', () => {
       linkCard: jest.fn(),
     }))
 
-    useMembershipCardDetailsByParams.mockImplementation(() => ({
+    useMembershipCardDetailsByCardId.mockImplementation(() => ({
       planName: mockPlanName,
       planNameSuffix: mockPlanNameSuffix,
     }))

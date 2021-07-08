@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'components/Button'
 import useBinkTermsAndConditions from './hooks/useBinkTermsAndConditions'
-import { useMembershipCardDetailsByParams } from 'hooks/useMembershipCardDetailsByParams'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import useLogout from 'hooks/useLogout'
 import styles from './WeFoundYou.module.scss'
 
@@ -9,7 +9,7 @@ import styles from './WeFoundYou.module.scss'
 // or using a library to determine string variations
 const WeFoundYou = () => {
   const { acceptTerms, postError } = useBinkTermsAndConditions()
-  const { planName, planNameSuffix } = useMembershipCardDetailsByParams()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
   const { logout } = useLogout()
 
   // TODO: Consolidate error message into generic Button error
