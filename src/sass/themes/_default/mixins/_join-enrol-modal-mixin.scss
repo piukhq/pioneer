@@ -1,4 +1,6 @@
 @mixin join-enrol-modal-styling {
+  text-align: left;
+
   &__header {
     @include heading-font-style;
 

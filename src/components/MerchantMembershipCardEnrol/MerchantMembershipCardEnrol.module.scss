@@ -3,8 +3,6 @@
 .root {
   @include join-enrol-modal-styling;
 
-  text-align: left;
-
   &__summary {
     max-width: 480px;
   }
