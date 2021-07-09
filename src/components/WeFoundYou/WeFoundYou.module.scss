@@ -2,23 +2,9 @@
 @import "src/sass/mixins";
 
 .root {
-  text-align: center;
-  margin-top: 54px;
-
-  &__heading {
-    @include heading-font-style;
-  }
-
-  &__description {
-    @include body-font-style;
-
-    max-width: 580px;
-    margin: 0 auto;
-  }
+  @include onboarding-screens-styling;
 
   &__paragraph {
-    @include paragraph-spacing-styling;
-
     &--error-message {
       color: #a30f27;
     }
