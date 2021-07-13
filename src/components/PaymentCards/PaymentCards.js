@@ -56,6 +56,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
       console.log(paymentCard)
       linkPaymentCard(paymentCard.id, membershipCard.id)
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [membershipCard.id, newlyPendingPaymentCard?.id, unlinkedPaymentCards])
 
   const handleClickOnPaymentCard = useCallback(async (card) => {
