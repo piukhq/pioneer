@@ -1,50 +1,181 @@
-
 import React from 'react'
+import * as reactRedux from 'react-redux'
 import { render } from '@testing-library/react'
+
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
+import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
 
 import PaymentCards from './PaymentCards'
 
-// TODO: Fix skipped tests
-describe.skip('PaymentCards', () => {
-  it('calls the getPaymentCards prop', () => {
-    const paymentCards = null
-    const getPaymentCards = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
+    id: 'mock_membershipcard-id',
+  }),
+}))
 
-    render(
-      <PaymentCards
-        paymentCards={paymentCards}
-        getPaymentCards={getPaymentCards}
-      />,
-    )
+jest.mock('hooks/useMembershipCardDetailsByCardId', () => ({
+  useMembershipCardDetailsByCardId: jest.fn(),
+}))
+jest.mock('./hooks/useLinkPaymentCard', () => ({
+  useLinkPaymentCard: jest.fn(),
+}))
 
-    expect(getPaymentCards).toHaveBeenCalled()
+jest.mock('components/PaymentCardRefresher', () => () => null)
+jest.mock('components/PaymentCard', () => () => null)
+
+describe('Test PaymentCards', () => {
+  const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
+  const mockSetState = jest.fn()
+
+  const mockHandleLinkingSuccess = jest.fn()
+  const mockHandleLinkingError = jest.fn()
+  const mockSetPaymentCardLimitModalVisible = jest.fn()
+  const mockHandleAddPaymentCard = jest.fn()
+  const mockHandleDeletePaymentCard = jest.fn()
+
+  const paymentCardsComponent = (
+    <PaymentCards
+      handleLinkingSuccess={mockHandleLinkingSuccess}
+      handleLinkingError={mockHandleLinkingError}
+      setPaymentCardLimitModalVisible={mockSetPaymentCardLimitModalVisible}
+      handleAddPaymentCard={mockHandleAddPaymentCard}
+      handleDeletePaymentCard={mockHandleDeletePaymentCard}
+    />
+  )
+
+  const mockMembershipCard = {}
+  const mockMembershipCardCurrency = 'mock_currency'
+  const mockPlanName = 'mock_plan_name'
+  const mockPlanNameSuffix = 'mock_plan_name_suffix'
+
+  const mockPaymentCards = [
+    {
+      id: 'mock_id_1',
+    },
+    {
+      id: 'mock_id_2',
+    },
+  ]
+
+  const mockPendingPaymentCardId = 'mock_pending_payment_card_id'
+  const mockPendingPaymentCard = { id: mockPendingPaymentCardId }
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+
+    useLinkPaymentCard.mockImplementation(() => ({
+      linkCard: jest.fn(),
+    }))
+
+    useMembershipCardDetailsByCardId.mockImplementation(() => ({
+      planName: mockPlanName,
+      planNameSuffix: mockPlanNameSuffix,
+    }))
+
+    React.useState = jest.fn().mockReturnValue([false, mockSetState])
   })
 
-  it('doesn\'t render any payment cards when paymentCards prop is null', () => {
-    const paymentCards = null
-    const getPaymentCards = jest.fn()
-
-    const { queryByTestId } = render(
-      <PaymentCards
-        paymentCards={paymentCards}
-        getPaymentCards={getPaymentCards}
-      />,
-    )
-
-    expect(queryByTestId('payment-card')).toBeNull()
+  afterEach(() => {
+    useSelectorMock.mockClear()
   })
 
-  it('renders the correct amount of payment cards', () => {
-    const paymentCards = [] // [{"id":35408,"membership_cards":[{"id":33420,"active_link":true}],"status":"active","card":{"first_six_digits":"545454","last_four_digits":"5454","month":2,"year":2022,"country":"UK","currency_code":"GBP","name_on_card":"TEST JACK","provider":"Mastercard","type":"debit"},"images":[{"id":6,"url":"https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Mastercard-Payment_1goHQYv.png","type":0,"encoding":"png","description":"Mastercard Card Image"}],"account":{"verification_in_progress":false,"status":1,"consents":[{"type":0,"latitude":51.405372,"longitude":-0.678357,"timestamp":1606836025}]}},{"id":35305,"membership_cards":[],"status":"pending","card":{"first_six_digits":"675900","last_four_digits":"0005","month":2,"year":2022,"country":"UK","currency_code":"GBP","name_on_card":"JJ","provider":"Visa","type":"debit"},"images":[],"account":{"verification_in_progress":false,"status":1,"consents":[{"type":0,"latitude":51.405372,"longitude":-0.678357,"timestamp":1606321816}]}},{"id":35304,"membership_cards":[],"status":"pending","card":{"first_six_digits":"679999","last_four_digits":"0019","month":1,"year":2022,"country":"UK","currency_code":"GBP","name_on_card":"JJ","provider":"Visa","type":"debit"},"images":[],"account":{"verification_in_progress":false,"status":1,"consents":[{"type":0,"latitude":51.405372,"longitude":-0.678357,"timestamp":1606321178}]}},{"id":35303,"membership_cards":[{"id":33420,"active_link":true}],"status":"active","card":{"first_six_digits":"555555","last_four_digits":"4444","month":1,"year":2022,"country":"UK","currency_code":"GBP","name_on_card":"J J","provider":"Mastercard","type":"debit"},"images":[{"id":6,"url":"https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Mastercard-Payment_1goHQYv.png","type":0,"encoding":"png","description":"Mastercard Card Image"}],"account":{"verification_in_progress":false,"status":1,"consents":[{"type":0,"latitude":51.405372,"longitude":-0.678357,"timestamp":1606308591}]}},{"id":35299,"membership_cards":[{"id":33420,"active_link":true}],"status":"active","card":{"first_six_digits":"510510","last_four_digits":"5100","month":2,"year":2021,"country":"GB","currency_code":"GBP","name_on_card":"J","provider":"Mastercard","type":"debit"},"images":[{"id":6,"url":"https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Mastercard-Payment_1goHQYv.png","type":0,"encoding":"png","description":"Mastercard Card Image"}],"account":{"verification_in_progress":false,"status":1,"consents":[{"type":0,"latitude":51.405372,"longitude":-0.678357,"timestamp":1517549941}]}},{"id":35209,"membership_cards":[],"status":"active","card":{"first_six_digits":"442544","last_four_digits":"8308","month":11,"year":2022,"country":"UK","currency_code":"GBP","name_on_card":"Bink Web User","provider":"Visa","type":"debit"},"images":[{"id":7,"url":"https://api.dev.gb.bink.com/content/dev-media/hermes/schemes/Visa-Payment_DWQzhta.png","type":0,"encoding":"png","description":"Visa Card Image"}],"account":{"verification_in_progress":false,"status":1,"consents":[{"type":1,"latitude":0,"longitude":0,"timestamp":1605474168}]}}]
-    const getPaymentCards = jest.fn()
+  describe('Test linked payment cards', () => {
+    beforeEach(() => {
+      useSelectorMock
+        // membershipCard
+        .mockReturnValueOnce(mockMembershipCard)
+        // linkedPaymentCards
+        .mockReturnValueOnce(mockPaymentCards)
+        // unlinkedPaymentCards
+        .mockReturnValueOnce([])
+        // membershipCardCurrency
+        .mockReturnValueOnce(mockMembershipCardCurrency)
+        // newlyPendingPaymentCard
+        .mockReturnValueOnce(undefined)
+    })
 
-    const { getAllByTestId } = render(
-      <PaymentCards
-        paymentCards={paymentCards}
-        getPaymentCards={getPaymentCards}
-      />,
-    )
+    it('should render linked payment cards section and relevant text', () => {
+      const { queryByTestId, getByText } = render(paymentCardsComponent)
 
-    expect(getAllByTestId('payment-card')).toHaveLength(6)
+      expect(queryByTestId('linked-payment-cards-section')).toBeInTheDocument()
+      expect(getByText('Payment cards')).toBeInTheDocument()
+    })
+
+    it('should render relevant text if linked payment cards are available', () => {
+      const { getByText } = render(paymentCardsComponent)
+      expect(getByText(`The payment cards below are linked to your ${mockPlanName} ${mockPlanNameSuffix}. Simply pay with them to automatically collect ${mockMembershipCardCurrency}.`)).toBeInTheDocument()
+    })
+
+    it('should render relevant text if no linked payment cards are available', () => {
+      useSelectorMock.mockReset()
+
+      useSelectorMock
+        // membershipCard
+        .mockReturnValueOnce(mockMembershipCard)
+        // linkedPaymentCards
+        .mockReturnValueOnce([])
+        // unlinkedPaymentCards
+        .mockReturnValueOnce([])
+        // membershipCardCurrency
+        .mockReturnValueOnce(mockMembershipCardCurrency)
+        // newlyPendingPaymentCard
+        .mockReturnValueOnce(undefined)
+
+      const { getByText } = render(paymentCardsComponent)
+      expect(getByText(`You have yet to add any payment cards. By adding a payment card to your account, you will auto-collect ${mockMembershipCardCurrency} when you shop.`)).toBeInTheDocument()
+    })
+
+    it('should render correct number of linked payment cards', () => {
+      const { getAllByTestId } = render(paymentCardsComponent)
+      const linkedPaymentCards = getAllByTestId('linked-payment-card')
+      expect(linkedPaymentCards.length).toBe(mockPaymentCards.length)
+    })
+
+    it('should render newly pending payment card', () => {
+      useSelectorMock.mockReset()
+
+      useSelectorMock
+        // membershipCard
+        .mockReturnValueOnce(mockMembershipCard)
+        // linkedPaymentCards
+        .mockReturnValueOnce([])
+        // unlinkedPaymentCards
+        .mockReturnValueOnce([mockPendingPaymentCard])
+        // membershipCardCurrency
+        .mockReturnValueOnce(mockMembershipCardCurrency)
+        // newlyPendingPaymentCard
+        .mockReturnValueOnce(mockPendingPaymentCard)
+
+      const { queryByTestId } = render(paymentCardsComponent)
+      expect(queryByTestId(`newly-pending-payment-card-${mockPendingPaymentCardId}`)).toBeInTheDocument()
+    })
+  })
+
+  describe('Test unlinked payment cards', () => {
+    beforeEach(() => {
+      useSelectorMock
+        // membershipCard
+        .mockReturnValueOnce(mockMembershipCard)
+        // linkedPaymentCards
+        .mockReturnValueOnce([])
+        // unlinkedPaymentCards
+        .mockReturnValueOnce(mockPaymentCards)
+        // membershipCardCurrency
+        .mockReturnValueOnce(mockMembershipCardCurrency)
+        // newlyPendingPaymentCard
+        .mockReturnValueOnce(undefined)
+    })
+
+    it('should render unlinked payment cards section', () => {
+      const { queryByTestId } = render(paymentCardsComponent)
+      expect(queryByTestId('unlinked-payment-cards-section')).toBeInTheDocument()
+    })
+
+    it('should render the correct number of unlinked payment cards', () => {
+      const { getAllByTestId } = render(paymentCardsComponent)
+      const unlinkedPaymentCards = getAllByTestId('unlinked-payment-card')
+      expect(unlinkedPaymentCards.length).toBe(mockPaymentCards.length)
+    })
   })
 })

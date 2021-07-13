@@ -1,7 +1,7 @@
 import { useMembershipCardsDispatch, useMembershipCardsState } from 'hooks/membershipCards'
 import { useCallback, useEffect, useState } from 'react'
 
-const useLinkPaymentCard = (membershipCard, onSuccess, onError) => {
+export const useLinkPaymentCard = (membershipCard, onSuccess, onError) => {
   const { linkPaymentCard } = useMembershipCardsDispatch()
   const [justFinishedLinkingPaymentCard, setJustFinishedLinkingPaymentCard] = useState(false)
   const [paymentCardToLink, setPaymentCardToLink] = useState(null)
@@ -35,4 +35,4 @@ const useLinkPaymentCard = (membershipCard, onSuccess, onError) => {
   }
 }
 
-export default useLinkPaymentCard
+// export default useLinkPaymentCard
