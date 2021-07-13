@@ -1,22 +1,9 @@
 @import "src/sass/mixins";
 
 .root {
-  text-align: left;
+  @include join-enrol-form-styling;
+
   margin-top: 54px;
-
-  &__header {
-    @include heading-font-style;
-
-    text-align: center;
-  }
-
-  &__summary {
-    @include body-font-style;
-
-    text-align: center;
-    max-width: 500px;
-    margin: 25px auto;
-  }
 
   &__form {
     @include body-font-style;
@@ -29,13 +16,6 @@
 
   &__userId {
     font-weight: bold;
-  }
-
-  &__contact-support {
-    display: block;
-    width: 380px;
-    max-width: 100%;
-    margin: 0 auto;
   }
 
   &__logout {
