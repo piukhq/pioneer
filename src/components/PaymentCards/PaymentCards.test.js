@@ -95,19 +95,19 @@ describe('Test PaymentCards', () => {
         .mockReturnValueOnce(undefined)
     })
 
-    it('should render linked payment cards section and relavent text', () => {
+    it('should render linked payment cards section and relevant text', () => {
       const { queryByTestId, getByText } = render(paymentCardsComponent)
 
       expect(queryByTestId('linked-payment-cards-section')).toBeInTheDocument()
       expect(getByText('Payment cards')).toBeInTheDocument()
     })
 
-    it('should render relavent text if linked payment cards are available', () => {
+    it('should render relevant text if linked payment cards are available', () => {
       const { getByText } = render(paymentCardsComponent)
       expect(getByText(`The payment cards below are linked to your ${mockPlanName} ${mockPlanNameSuffix}. Simply pay with them to automatically collect ${mockMembershipCardCurrency}.`)).toBeInTheDocument()
     })
 
-    it('should render relavent text if no linked payment cards are available', () => {
+    it('should render relevant text if no linked payment cards are available', () => {
       useSelectorMock.mockReset()
 
       useSelectorMock
