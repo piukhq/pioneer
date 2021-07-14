@@ -38,6 +38,10 @@
   &__note {
     @include note-font-style;
 
+    &a {
+      text-decoration: rebeccapurple underline;
+    }
+
     &--bold {
       font-weight: bold;
     }
