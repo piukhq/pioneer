@@ -1,5 +1,6 @@
 import { actions as membershipCardsActions } from './membershipCards'
 import { actions as paymentCardsActions } from './paymentCards'
+import { actions as membershipPlansActions } from 'ducks/membershipPlans'
 import { createSelector } from 'reselect'
 
 const membershipCardsLoadingSelector = state => state.membershipCards.loading
@@ -21,6 +22,7 @@ export const selectors = {
 
 export const actions = {
   fullRefresh: () => dispatch => {
+    dispatch(membershipPlansActions.getMembershipPlans())
     dispatch(membershipCardsActions.getMembershipCards())
     dispatch(paymentCardsActions.getPaymentCards())
   },
