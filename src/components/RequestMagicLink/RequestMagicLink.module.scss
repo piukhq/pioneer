@@ -38,6 +38,22 @@
   &__note {
     @include note-font-style;
 
+    &a {
+      text-decoration: rebeccapurple underline;
+      background: slategray;
+    }
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
+  &__notelink {
+    @include note-font-style;
+
+    text-decoration: rebeccapurple underline;
+    background: lightcyan;
+
     &--bold {
       font-weight: bold;
     }

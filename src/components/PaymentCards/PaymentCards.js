@@ -12,6 +12,7 @@ import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
+import { useMembershipCardsDispatch } from 'hooks/membershipCards'
 
 import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
 
@@ -19,6 +20,8 @@ import styles from './PaymentCards.module.scss'
 
 const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCardLimitModalVisible, handleAddPaymentCard, handleDeletePaymentCard }) => {
   const { id: membershipCardId } = useParams()
+
+  const { linkPaymentCard } = useMembershipCardsDispatch()
 
   const membershipCard = useSelector(state => state.membershipCards.cards[membershipCardId])
   const linkedPaymentCards = useSelector(
@@ -44,6 +47,17 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     const paymentCardLimitReached = linkedPaymentCards?.length > 4
     setIsPaymentCardLimitReached(paymentCardLimitReached)
   }, [linkedPaymentCards, setIsPaymentCardLimitReached])
+
+  // Attempt linking of existing unlinked payment cards
+  useEffect(() => {
+    const oldUnlinkedCards = unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id)
+    console.log('useEffect' + oldUnlinkedCards.length)
+    oldUnlinkedCards.forEach(paymentCard => {
+      console.log(paymentCard)
+      linkPaymentCard(paymentCard.id, membershipCard.id)
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [membershipCard.id, newlyPendingPaymentCard?.id, unlinkedPaymentCards])
 
   const handleClickOnPaymentCard = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
