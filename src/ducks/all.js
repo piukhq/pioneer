@@ -1,6 +1,6 @@
 import { actions as membershipCardsActions } from './membershipCards'
 import { actions as paymentCardsActions } from './paymentCards'
-import { actions as membershipPlansActions } from 'ducks/membershipPlans'
+import { actions as membershipPlansActions } from './membershipPlans'
 import { createSelector } from 'reselect'
 
 const membershipCardsLoadingSelector = state => state.membershipCards.loading
