@@ -30,7 +30,7 @@ const LinkCardsErrorModal = ({ onClose, paymentCardId }) => {
         There was an error, please try again
       </div>
     )}
-    <Button onClick={contactSupport} secondary className={styles.root__button}>Contact Support</Button>
+    <Button onClick={contactSupport} secondary className={styles.root__button}>Contact support</Button>
   </Modal>
   )
 }
