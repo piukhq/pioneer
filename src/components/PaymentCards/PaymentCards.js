@@ -66,6 +66,8 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={handleAddPaymentCard} /> : <PaymentCardAdd onClick={handleAddPaymentCard} />
   }
 
+  const isActivating = (card) => isPaymentCardPending(card) && !isPaymentCardExpired(card)
+
   return (
     <>
       {/* Only mount component if there is a newly added payment card in a pending state */}
@@ -101,7 +103,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
                 onClick={handleClickOnPaymentCard}
                 key={newlyPendingPaymentCard.id}
                 expired={isPaymentCardExpired(newlyPendingPaymentCard)}
-                activating={(isPaymentCardPending(newlyPendingPaymentCard) && !isPaymentCardExpired(newlyPendingPaymentCard))}
+                activating={isActivating(newlyPendingPaymentCard)}
               />
             </div>
           )}
@@ -128,7 +130,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
                     onClick={handleClickOnPaymentCard}
                     key={paymentCard.id}
                     expired={isPaymentCardExpired(paymentCard)}
-                    activating={(isPaymentCardPending(paymentCard) && !isPaymentCardExpired(paymentCard))}
+                    activating={isActivating(paymentCard)}
                   />
                 </div>
               ))
