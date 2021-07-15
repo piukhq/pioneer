@@ -58,7 +58,7 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
         submittingCaption='Registering'
       />
       {reenrolFormVisible ? (
-        <Button secondary onClick={contactSupport} className={styles['root__contact-support']}>Contact Support</Button>
+        <Button secondary onClick={contactSupport} className={styles['root__contact-support']}>Contact support</Button>
       ) : (
         <Button secondary onClick={logout} className={styles.root__cancel}>Cancel</Button>
       ) }

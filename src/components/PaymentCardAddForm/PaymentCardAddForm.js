@@ -81,7 +81,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             onClick={submitForm}
             disabled={!isPaymentFormValid() || isLoading}
           >
-            {isLoading ? <Loading3 /> : 'Add Payment Card'}
+            {isLoading ? <Loading3 /> : 'Add payment card'}
           </Button>
         </div>
         <a className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink Privacy and Security</a>

@@ -38,7 +38,7 @@ describe('Test MerchantMembershipCards', () => {
       expect(getByText('There is a problem')).toBeInTheDocument()
       expect(getByText('It looks like there is a problem with your account.')).toBeInTheDocument()
       expect(getByText('Please contact us so we can help resolve this as quickly as possible.')).toBeInTheDocument()
-      expect(getByText('Get in Touch')).toBeInTheDocument()
+      expect(getByText('Get in touch')).toBeInTheDocument()
       expect(getByText('Logout')).toBeInTheDocument()
     })
 
