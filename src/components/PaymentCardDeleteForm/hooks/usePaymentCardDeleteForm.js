@@ -2,13 +2,14 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
-import { isPaymentCardExpired } from 'utils/paymentCards'
+import { isPaymentCardExpired, isPaymentCardPending } from 'utils/paymentCards'
 
 const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
   const card = useSelector(state => state.paymentCards.cards[paymentCardId])
   const last4Digits = card?.card?.last_four_digits
 
   const isCardExpired = isPaymentCardExpired(card)
+  const isCardPending = isPaymentCardPending(card)
 
   const [userEnteredLast4Digits, setUserEnteredLast4Digits] = useState('')
 
@@ -41,6 +42,7 @@ const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
 
   return {
     isCardExpired,
+    isCardPending,
     error,
     loading,
     last4Digits,

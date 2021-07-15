@@ -13,7 +13,7 @@ import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
 
-import { isPaymentCardExpired, areCardsLinked } from 'utils/paymentCards'
+import { isPaymentCardExpired, isPaymentCardPending, areCardsLinked } from 'utils/paymentCards'
 
 import styles from './PaymentCards.module.scss'
 
@@ -66,6 +66,8 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={handleAddPaymentCard} /> : <PaymentCardAdd onClick={handleAddPaymentCard} />
   }
 
+  const isActivating = (card) => isPaymentCardPending(card) && !isPaymentCardExpired(card)
+
   return (
     <>
       {/* Only mount component if there is a newly added payment card in a pending state */}
@@ -101,7 +103,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
                 onClick={handleClickOnPaymentCard}
                 key={newlyPendingPaymentCard.id}
                 expired={isPaymentCardExpired(newlyPendingPaymentCard)}
-                activating={(newlyPendingPaymentCard.status === 'pending' && !isPaymentCardExpired(newlyPendingPaymentCard))}
+                activating={isActivating(newlyPendingPaymentCard)}
               />
             </div>
           )}
@@ -128,7 +130,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
                     onClick={handleClickOnPaymentCard}
                     key={paymentCard.id}
                     expired={isPaymentCardExpired(paymentCard)}
-                    activating={(paymentCard.status === 'pending' && !isPaymentCardExpired(paymentCard))}
+                    activating={isActivating(paymentCard)}
                   />
                 </div>
               ))
