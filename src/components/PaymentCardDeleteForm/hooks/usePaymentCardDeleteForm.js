@@ -8,8 +8,8 @@ const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
   const card = useSelector(state => state.paymentCards.cards[paymentCardId])
   const last4Digits = card?.card?.last_four_digits
 
-  const isCardExpired = isPaymentCardExpired(card)
-  const isCardPending = isPaymentCardPending(card)
+  const isPaymentCardExpired = isPaymentCardExpired(card)
+  const isPaymentCardPending = isPaymentCardPending(card)
 
   const [userEnteredLast4Digits, setUserEnteredLast4Digits] = useState('')
 
@@ -41,8 +41,8 @@ const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
   }, [success, dispatch, onClose])
 
   return {
-    isCardExpired,
-    isCardPending,
+    isPaymentCardExpired,
+    isPaymentCardPending,
     error,
     loading,
     last4Digits,
