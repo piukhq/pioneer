@@ -9,6 +9,7 @@ import styles from './PaymentCardDeleteForm.module.scss'
 const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => {
   const {
     isCardExpired,
+    isCardPending,
     error,
     loading,
     last4Digits,
@@ -42,9 +43,13 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
           <p className={styles.root__paragraph}>
             Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
           </p>
+          {isCardPending ? (
+            <p>We are currently processing your payment card to automatically collect {membershipCardCurrency}.</p>
+          ) : (
           <p className={styles.root__paragraph}>
           Any {membershipCardCurrency} that have not yet been awarded will be lost. If you have recently transacted, make sure any {membershipCardCurrency} have been received before deleting this card.
           </p>
+          )}
           { isLastPaymentCard && (
             <p className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {membershipPlanName} {membershipCardCurrency}.</p>
           )}
