@@ -35,7 +35,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
               There was an error
             </div>
           ) }
-          <Button disabled={loading} primary className={styles.root__button} onClick={handleDelete}>Remove card</Button>
+          <Button data-testid='expired-card-submit-button' disabled={loading} primary className={styles.root__button} onClick={handleDelete}>Remove card</Button>
         </>
       ) : (
         <>
