@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'components/Modal'
 import Button from 'components/Button'
 import TextInputGroup from 'components/Form/TextInputGroup'
-import usePaymentCardDeleteForm from './hooks/usePaymentCardDeleteForm'
+import { usePaymentCardDeleteForm } from './hooks/usePaymentCardDeleteForm'
 
 import styles from './PaymentCardDeleteForm.module.scss'
 
