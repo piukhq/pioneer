@@ -18,9 +18,10 @@ import DevDeleteMembershipCard from 'components/DevDeleteMembershipCard'
 import LinkCardsErrorModal from 'components/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/LinkCardsSuccessModal'
 import PaymentCardLimitModal from 'components/PaymentCardLimitModal'
-import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import Vouchers from 'components/Vouchers'
 import MembershipCardContainer from 'components/MembershipCardContainer'
+
+import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
 
 const MembershipCardPage = () => {
   const history = useHistory()
@@ -36,6 +37,9 @@ const MembershipCardPage = () => {
   }, [history, reasonCode, isAccountActive])
 
   const { id } = useParams()
+
+  useMembershipCardRefresher(id)
+
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
@@ -128,9 +132,6 @@ const MembershipCardPage = () => {
     <>
       { membershipCard && (
         <>
-          {/* TODO: Refresher component to be refactored */}
-          <MembershipCardRefresher membershipCardId={id} />
-
           {/* Render the various overlay modals  */}
           {shouldRenderModalOverlay()}
 

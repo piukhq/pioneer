@@ -1,5 +1,4 @@
-// import React from 'react'
-import useCardRefresher from 'hooks/useCardRefresher'
+import useCardRefresher from './useCardRefresher'
 import { useMembershipCardsDispatch, useMembershipCardStateById } from 'hooks/membershipCards'
 
 const useMembershipCardRefresher = (membershipCardId) => {
