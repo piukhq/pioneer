@@ -1,6 +1,6 @@
 import usePaymentCardRefresher from './hooks/usePaymentCardRefresher'
 
-// TODO: should be refactored into hook as a component is not appropriate here
+// Note: This must be a component in order to side step the 'no if statements areound hooks' caveat
 const PaymentCardRefresher = ({ paymentCardId }) => {
   usePaymentCardRefresher(paymentCardId)
 

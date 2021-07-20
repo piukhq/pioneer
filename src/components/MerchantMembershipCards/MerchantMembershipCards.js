@@ -8,7 +8,6 @@ import Button from 'components/Button'
 import HangTight from 'components/HangTight'
 
 import WeFoundYou from 'components/WeFoundYou'
-import MembershipCardRefresher from 'components/MembershipCardRefresher'
 import PreparingYourCard from 'components/PreparingYourCard'
 import styles from './MerchantMembershipCards.module.scss'
 
@@ -48,8 +47,7 @@ const MerchantMembershipCards = () => {
   if (isMembershipCardPending) {
     return (
       <div data-testid='preparing-your-card'>
-        <MembershipCardRefresher membershipCardId={membershipCard?.id} />
-        <PreparingYourCard />
+        <PreparingYourCard membershipCardId={membershipCard?.id} />
       </div>
     )
   }
