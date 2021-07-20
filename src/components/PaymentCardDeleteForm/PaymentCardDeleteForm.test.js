@@ -28,7 +28,6 @@ const paymentCardDeleteFormComponent = (
   />
 )
 
-
 describe('Test PaymentCardDeleteForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
