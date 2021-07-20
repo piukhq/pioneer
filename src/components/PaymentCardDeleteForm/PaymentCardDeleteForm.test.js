@@ -14,7 +14,11 @@ const mockMembershipCardCurrency = 'mock_currency'
 const mockMembershipPlanName = 'mock_plan'
 const mockLast4Digits = 'mock_last_4_digits'
 
-const defaultHookValues = {
+const defaultValues = {
+  isCardExpired: false,
+  isCardPending: false,
+  isLastPaymentCard: false,
+  loading: false,
   last4Digits: mockLast4Digits,
   membershipCardCurrency: mockMembershipCardCurrency,
   membershipPlanName: mockMembershipPlanName,
@@ -35,6 +39,7 @@ describe('Test PaymentCardDeleteForm', () => {
   describe('Test Expired Card Scenario', () => {
     it('should render correct copy for an expired payment card regardless of any other status', () => {
       usePaymentCardDeleteForm.mockImplementation(() => ({
+        ...defaultValues,
         isCardExpired: true,
         isCardPending: true,
         isLastPaymentCard: true,
@@ -46,6 +51,7 @@ describe('Test PaymentCardDeleteForm', () => {
     })
     it('should disable the expired card submit button when loading', () => {
       usePaymentCardDeleteForm.mockImplementation(() => ({
+        ...defaultValues,
         isCardExpired: true,
         loading: true,
       }))
@@ -54,6 +60,7 @@ describe('Test PaymentCardDeleteForm', () => {
     })
     it('should display the correct error message when an error is flagged', () => {
       usePaymentCardDeleteForm.mockImplementation(() => ({
+        ...defaultValues,
         error: true,
       }))
       const { getByText } = render(paymentCardDeleteFormComponent)
@@ -65,8 +72,7 @@ describe('Test PaymentCardDeleteForm', () => {
     describe('Test Non-expired card common elements', () => {
       it('should render correct copy for non-expired cards', () => {
         usePaymentCardDeleteForm.mockImplementation(() => ({
-          ...defaultHookValues,
-          isCardExpired: false,
+          ...defaultValues,
         }))
         const { getByText, queryByTestId } = render(paymentCardDeleteFormComponent)
         expect(getByText('Delete this card')).toBeInTheDocument()
@@ -76,6 +82,7 @@ describe('Test PaymentCardDeleteForm', () => {
       })
       it('should display the correct error message when an error is flagged', () => {
         usePaymentCardDeleteForm.mockImplementation(() => ({
+          ...defaultValues,
           error: true,
         }))
         const { getByText } = render(paymentCardDeleteFormComponent)
@@ -85,7 +92,7 @@ describe('Test PaymentCardDeleteForm', () => {
     describe('Test Pending Card', () => {
       it('should render correct copy for an pending payment card even if its the last payment card', () => {
         usePaymentCardDeleteForm.mockImplementation(() => ({
-          ...defaultHookValues,
+          ...defaultValues,
           isCardPending: true,
           isLastPaymentCard: true,
         }))
@@ -97,7 +104,7 @@ describe('Test PaymentCardDeleteForm', () => {
     describe('Test Multiple Active Cards', () => {
       it('should render correct copy for multiple active payment cards', () => {
         usePaymentCardDeleteForm.mockImplementation(() => ({
-          ...defaultHookValues,
+          ...defaultValues,
           isLastPaymentCard: false,
         }))
         const { getByText, queryByText } = render(paymentCardDeleteFormComponent)
@@ -108,7 +115,7 @@ describe('Test PaymentCardDeleteForm', () => {
     describe('Test Last Active Card', () => {
       it('should render correct copy for last active payment card', () => {
         usePaymentCardDeleteForm.mockImplementation(() => ({
-          ...defaultHookValues,
+          ...defaultValues,
           isLastPaymentCard: true,
         }))
         const { getByText } = render(paymentCardDeleteFormComponent)
@@ -118,8 +125,7 @@ describe('Test PaymentCardDeleteForm', () => {
     describe('Test Submit Button', () => {
       it('should be disabled when loading', () => {
         usePaymentCardDeleteForm.mockImplementation(() => ({
-          ...defaultHookValues,
-          userEnteredLast4Digits: mockLast4Digits,
+          ...defaultValues,
           loading: true,
         }))
         const { queryByTestId } = render(paymentCardDeleteFormComponent)
@@ -127,16 +133,15 @@ describe('Test PaymentCardDeleteForm', () => {
       })
       it('should be disabled when last four digits do not match', () => {
         usePaymentCardDeleteForm.mockImplementation(() => ({
-          ...defaultHookValues,
+          ...defaultValues,
           userEnteredLast4Digits: '',
-          loading: false,
         }))
         const { queryByTestId } = render(paymentCardDeleteFormComponent)
         expect(queryByTestId('submit-button')).toHaveAttribute('disabled')
       })
       it('should be enabled when last four digits match', () => {
         usePaymentCardDeleteForm.mockImplementation(() => ({
-          ...defaultHookValues,
+          ...defaultValues,
           userEnteredLast4Digits: mockLast4Digits,
           loading: false,
         }))
