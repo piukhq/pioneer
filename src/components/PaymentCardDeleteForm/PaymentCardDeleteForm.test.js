@@ -91,4 +91,16 @@ describe('Test PaymentCardDeleteForm', () => {
       expect(getByText(`You are about to delete your only active payment card. This will mean you will not collect ${mockMembershipPlanName} ${mockMembershipCardCurrency}.`)).toBeInTheDocument()
     })
   })
+
+  describe('button', () => {
+    it('button correct', () => {
+      usePaymentCardDeleteForm.mockImplementation(() => ({
+        last4Digits: 'digits',
+        userEnteredLast4Digits: 'digits',
+        loading: false,
+      }))
+      const { queryByTestId } = render(paymentCardDeleteFormComponent)
+      expect(queryByTestId('submit-button')).not.toHaveAttribute('disabled')
+    })
+  })
 })

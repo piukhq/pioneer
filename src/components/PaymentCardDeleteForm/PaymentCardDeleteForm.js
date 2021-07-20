@@ -69,6 +69,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
             </div>
           ) }
           <Button
+            data-testid='submit-button'
             disabled={loading || last4Digits !== userEnteredLast4Digits}
             tertiary
             className={styles.root__button}
