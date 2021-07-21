@@ -1,60 +1,143 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-
+import { fireEvent, render, screen} from '@testing-library/react'
+import { usePaymentCardById } from 'hooks/paymentCards'
 import PaymentCard from './PaymentCard'
 
-// TODO: Fix skipped tests
-describe.skip('PaymentCard', () => {
-  it('should render the name on card', () => {
-    const { getByText } = render(
-      <PaymentCard
-        nameOnCard='John Smith'
-        provider='American Express'
-        last4Digits='1234'
-        className='dummy-class-1 dummy-class-2'
-      />,
-    )
+// mock Payment Card Props
+const mockId = 'mock_id'
+const mockClassName = 'mock_className'
+const mockOnDelete = jest.fn()
+const mockOnClick = jest.fn()
+const mockExpired = false
+const mockActivating = false
 
-    expect(getByText('John Smith')).toBeInTheDocument()
+const PaymentCardComponent = (
+  <PaymentCard
+    id = {mockId}
+    className = {mockClassName}
+    onClick = {mockOnClick}
+    onDelete = {mockOnDelete}
+    expired = {mockExpired}
+    activating = {mockActivating}
+  />
+)
+// mock usePaymentCardById Hook
+jest.mock('hooks/paymentCards', () => ({
+  usePaymentCardById: jest.fn(),
+}))
+const mockNameOnCard = 'mock_name_on_card'
+const mockProvider = 'mock_provider'
+const mockLast4Digits = 'mock_last_4_digits'
+
+const defaultValues = {
+  card: {
+    card: {
+      id: mockId,
+      provider: mockProvider,
+      name_on_card: mockNameOnCard,
+      last_four_digits: mockLast4Digits,
+    },
+  },
+}
+
+describe('Test PaymentCard', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 
-  it('should render the last 4 digits', () => {
-    const { getByText } = render(
-      <PaymentCard
-        nameOnCard='John Smith'
-        provider='American Express'
-        last4Digits='1234'
-        className='dummy-class-1 dummy-class-2'
-      />,
-    )
-
-    expect(getByText('1234')).toBeInTheDocument()
+  it('should render a payment card', () => {
+    usePaymentCardById.mockImplementation(() => ({
+      ...defaultValues,
+    }))
+    const { queryByTestId } = render(PaymentCardComponent)
+    expect(queryByTestId('payment-card')).toBeInTheDocument()
   })
 
-  it('should style the card based on the provider (amex, visa or mastercard)', () => {
-    const { container } = render(
-      <PaymentCard
-        nameOnCard='John Smith'
-        provider='American Express'
-        last4Digits='1234'
-        className='dummy-class-1 dummy-class-2'
-      />,
-    )
-
-    expect(container.firstChild).toHaveClass('payment-card--provider-american-express')
+  it('should render the card name', () => {
+    usePaymentCardById.mockImplementation(() => ({
+      ...defaultValues,
+    }))
+    const { getByText } = render(PaymentCardComponent)
+    expect(getByText(mockNameOnCard)).toBeInTheDocument()
   })
 
-  it('should accept and preserve a className prop', () => {
-    const { container } = render(
-      <PaymentCard
-        nameOnCard='John Smith'
-        provider='American Express'
-        last4Digits='1234'
-        className='dummy-class-1 dummy-class-2'
-      />,
-    )
+  it('should render the last 4 digits with preceding dots', () => {
+    usePaymentCardById.mockImplementation(() => ({
+      ...defaultValues,
+    }))
+    const { queryByTestId } = render(PaymentCardComponent)
+    expect(queryByTestId('card-number')).toBeInTheDocument()
+    expect(queryByTestId('card-number')).toHaveTextContent(`•••• ${mockLast4Digits}`)
+  })
 
-    expect(container.firstChild).toHaveClass('dummy-class-1')
-    expect(container.firstChild).toHaveClass('dummy-class-2')
+  describe('Test Payment Card Provider', () => {
+    it('should apply American Express styling', () => {
+      usePaymentCardById.mockImplementation(() => ({
+        card: {
+          card: {
+            provider: 'American Express',
+          },
+        },
+      }))
+      const { queryByTestId } = render(PaymentCardComponent)
+      expect(queryByTestId('payment-card')).toHaveClass(`mock_className root root--provider-american-express`)
+    })
+    it('should apply Visa styling', () => {
+      usePaymentCardById.mockImplementation(() => ({
+        card: {
+          card: {
+            provider: 'Visa',
+          },
+        },
+      }))
+      const { queryByTestId } = render(PaymentCardComponent)
+      expect(queryByTestId('payment-card')).toHaveClass(`mock_className root root--provider-visa`)
+    })
+    it('should apply Mastercard styling', () => {
+      usePaymentCardById.mockImplementation(() => ({
+        card: {
+          card: {
+            provider: 'Mastercard',
+          },
+        },
+      }))
+      const { queryByTestId } = render(PaymentCardComponent)
+      expect(queryByTestId('payment-card')).toHaveClass(`mock_className root root--provider-mastercard`)
+    })
+  })
+  describe('Test Payment Card Actions', () => {
+    it('should indicate when payment card is expired', () => {
+      usePaymentCardById.mockImplementation(() => ({
+        ...defaultValues,
+      }))
+      const { getByText, queryByTestId } = render(<PaymentCard expired/>)
+      expect(getByText('Expired')).toBeInTheDocument()
+      expect(queryByTestId('delete-icon')).not.toBeInTheDocument()
+    })
+    it('should indicate when payment card is activating', () => {
+      usePaymentCardById.mockImplementation(() => ({
+        ...defaultValues,
+      }))
+      const { getByText, queryByTestId } = render(<PaymentCard activating/>)
+      expect(getByText('Activating')).toBeInTheDocument()
+      expect(queryByTestId('delete-icon')).not.toBeInTheDocument()
+    })
+    it('should render delete icon when active', () => {
+      usePaymentCardById.mockImplementation(() => ({
+        ...defaultValues,
+      }))
+      const { queryByText, queryByTestId } = render(PaymentCardComponent)
+      expect(queryByTestId('delete-icon')).toBeInTheDocument()
+      expect(queryByText('Activating')).not.toBeInTheDocument()
+      expect(queryByText('Expired')).not.toBeInTheDocument()
+    })
+    it('should run delete function when delete icon is clicked', () => {
+      usePaymentCardById.mockImplementation(() => ({
+        ...defaultValues,
+      }))
+      const { getByTestId } = render(PaymentCardComponent)
+      fireEvent.click(getByTestId('delete-icon'))
+      expect(mockOnDelete).toHaveBeenCalled()
+    })
   })
 })
