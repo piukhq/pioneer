@@ -71,6 +71,7 @@ describe('Test PaymentCard', () => {
   })
 
   describe('Test Payment Card Provider', () => {
+    const classPrefix = `${mockClassName} root root--provider-`
     it('should apply American Express styling', () => {
       usePaymentCardById.mockImplementation(() => ({
         card: {
@@ -80,7 +81,7 @@ describe('Test PaymentCard', () => {
         },
       }))
       const { queryByTestId } = render(PaymentCardComponent)
-      expect(queryByTestId('payment-card')).toHaveClass(`mock_className root root--provider-american-express`)
+      expect(queryByTestId('payment-card')).toHaveClass(`${classPrefix}american-express`)
     })
     it('should apply Visa styling', () => {
       usePaymentCardById.mockImplementation(() => ({
@@ -91,7 +92,7 @@ describe('Test PaymentCard', () => {
         },
       }))
       const { queryByTestId } = render(PaymentCardComponent)
-      expect(queryByTestId('payment-card')).toHaveClass(`mock_className root root--provider-visa`)
+      expect(queryByTestId('payment-card')).toHaveClass(`${classPrefix}visa`)
     })
     it('should apply Mastercard styling', () => {
       usePaymentCardById.mockImplementation(() => ({
@@ -102,7 +103,7 @@ describe('Test PaymentCard', () => {
         },
       }))
       const { queryByTestId } = render(PaymentCardComponent)
-      expect(queryByTestId('payment-card')).toHaveClass(`mock_className root root--provider-mastercard`)
+      expect(queryByTestId('payment-card')).toHaveClass(`${classPrefix}mastercard`)
     })
   })
   describe('Test Payment Card Actions', () => {
