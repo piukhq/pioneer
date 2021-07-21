@@ -33,6 +33,7 @@ const PaymentCard = ({ id, className, onClick, onDelete, expired, activating }) 
           <BinIconSvg
             onClick={(event) => { event.stopPropagation(); onDelete(card) }}
             className={ styles.root__delete }
+            data-testid='delete-icon'
           />
         ) }
         { expired && (
@@ -47,7 +48,7 @@ const PaymentCard = ({ id, className, onClick, onDelete, expired, activating }) 
         ) }
       </div>
       <div className={ styles.root__name }>{nameOnCard}</div>
-      <div className={ styles.root__number }>
+      <div className={ styles.root__number} data-testid='card-number'>
         <span className={ styles['root__number-redacted'] }>••••</span>{' '}
         <span className={ styles['root__number-digits'] }>{last4Digits}</span>
       </div>
