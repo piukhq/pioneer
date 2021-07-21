@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, screen} from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { usePaymentCardById } from 'hooks/paymentCards'
 import PaymentCard from './PaymentCard'
 
