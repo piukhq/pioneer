@@ -45,28 +45,13 @@ describe('Test PaymentCard', () => {
     jest.clearAllMocks()
   })
 
-  it('should render a payment card', () => {
+  it('should render a payment card with correct information', () => {
     usePaymentCardById.mockImplementation(() => ({
       ...defaultValues,
     }))
-    const { queryByTestId } = render(PaymentCardComponent)
+    const { getByText, queryByTestId } = render(PaymentCardComponent)
     expect(queryByTestId('payment-card')).toBeInTheDocument()
-  })
-
-  it('should render the card name', () => {
-    usePaymentCardById.mockImplementation(() => ({
-      ...defaultValues,
-    }))
-    const { getByText } = render(PaymentCardComponent)
     expect(getByText(mockNameOnCard)).toBeInTheDocument()
-  })
-
-  it('should render the last 4 digits with preceding dots', () => {
-    usePaymentCardById.mockImplementation(() => ({
-      ...defaultValues,
-    }))
-    const { queryByTestId } = render(PaymentCardComponent)
-    expect(queryByTestId('card-number')).toBeInTheDocument()
     expect(queryByTestId('card-number')).toHaveTextContent(`•••• ${mockLast4Digits}`)
   })
 
