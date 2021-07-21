@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'components/Modal'
 import Button from 'components/Button'
 import TextInputGroup from 'components/Form/TextInputGroup'
-import usePaymentCardDeleteForm from './hooks/usePaymentCardDeleteForm'
+import { usePaymentCardDeleteForm } from './hooks/usePaymentCardDeleteForm'
 
 import styles from './PaymentCardDeleteForm.module.scss'
 
@@ -35,7 +35,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
               There was an error
             </div>
           ) }
-          <Button disabled={loading} primary className={styles.root__button} onClick={handleDelete}>Remove card</Button>
+          <Button data-testid='expired-card-submit-button' disabled={loading} primary className={styles.root__button} onClick={handleDelete}>Remove card</Button>
         </>
       ) : (
         <>
@@ -69,6 +69,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
             </div>
           ) }
           <Button
+            data-testid='submit-button'
             disabled={loading || last4Digits !== userEnteredLast4Digits}
             tertiary
             className={styles.root__button}

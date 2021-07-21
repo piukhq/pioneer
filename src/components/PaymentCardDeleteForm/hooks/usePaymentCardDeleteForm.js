@@ -4,7 +4,7 @@ import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { isPaymentCardExpired, isPaymentCardPending } from 'utils/paymentCards'
 
-const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
+export const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
   const card = useSelector(state => state.paymentCards.cards[paymentCardId])
   const last4Digits = card?.card?.last_four_digits
 
@@ -54,5 +54,3 @@ const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
     isLastPaymentCard,
   }
 }
-
-export default usePaymentCardDeleteForm
