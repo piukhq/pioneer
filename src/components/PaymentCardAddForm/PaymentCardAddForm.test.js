@@ -3,6 +3,14 @@ import { render } from '@testing-library/react'
 import { usePaymentCardAddForm } from './hooks/usePaymentCardAddForm'
 
 import PaymentCardAddForm from './PaymentCardAddForm'
+import Modal from 'components/Modal'
+import cx from 'classnames'
+import Button from 'components/Button'
+import SelectboxGroup from 'components/Form/SelectboxGroup'
+import TextInputGroup from 'components/Form/TextInputGroup'
+import Loading3 from 'components/Loading3'
+import PaymentCardInputGroup from 'components/Form/PaymentCardInputGroup'
+import { getExpiryDates } from 'utils/dates'
 
 const PaymentCardAddFormComponent = <PaymentCardAddForm onClose = {jest.fn()} />
 
@@ -23,7 +31,7 @@ const mockHandleNameChange = jest.fn()
 const mockHandleNameBlur = false
 const mockCardNumberError = false
 const mockHandlePaymentCardChange = jest.fn()
-const mockHandlePaymentCardBlur = false
+const mockHandlePaymentCardBlur = jest.fn()
 const mockGenericSpreedlyError = false
 const mockGenericBinkError = false
 const mockIsPaymentFormValid = jest.fn()
@@ -57,13 +65,13 @@ describe('Test PaymentCardAddForm', () => {
   it('placeholder Test', ()=>{
     expect(true).toBeTruthy()
   })
-  // it('should render the Modal', () => {
-  //   usePaymentCardAddForm.mockImplementation((mockOnClose) => ({
-  //     ...defaultHookValues,
-  //   }))
-  //   const { getByText } = render(PaymentCardAddFormComponent)
-  //   expect(getByText('Add payment card')).toBeInTheDocument()
-  // })
+  it('should render the Modal', () => {
+    usePaymentCardAddForm.mockImplementation((mockOnClose) => ({
+      ...defaultHookValues,
+    }))
+    const { getByText } = render(PaymentCardAddFormComponent)
+    expect(getByText('Add payment card')).toBeInTheDocument()
+  })
 })
 
 // import React from 'react'
