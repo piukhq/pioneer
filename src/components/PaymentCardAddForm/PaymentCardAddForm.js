@@ -37,14 +37,14 @@ const PaymentCardAddForm = ({ onClose }) => {
 
       <form className={styles.root}>
         <div className={styles.root__groups}>
-          <PaymentCardInputGroup
+          {/* <PaymentCardInputGroup
             className={styles['root__number-group']}
             label='Card number'
             placeholder='Card number'
             error={cardNumberError}
             onChange={handlePaymentCardChange}
             onBlur={handlePaymentCardBlur}
-          />
+          /> */}
 
           <SelectboxGroup
             className={styles['root__expiry-group']}
@@ -84,7 +84,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             {isLoading ? <Loading3 /> : 'Add payment card'}
           </Button>
         </div>
-        <a className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink Privacy and Security</a>
+        <a data-testid='bink-privacy-and-security' className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer' >Bink Privacy and Security</a>
       </form>
     </Modal>
   )
