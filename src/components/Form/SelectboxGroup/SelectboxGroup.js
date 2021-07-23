@@ -55,6 +55,7 @@ const SelectboxGroup = ({
                 onChange={(event) => onChange(key, event)}
                 onBlur={(event) => onBlur(key, event)}
                 name={key}
+                title={key}
                 key={key}
                 defaultValue=""
                 id={`bink-form-field-${name}-${key}`}
