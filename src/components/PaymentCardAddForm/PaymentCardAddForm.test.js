@@ -1,19 +1,13 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { toHaveTextContent } from '@testing-library/jest-dom/extend-expect'
+import userEvent from '@testing-library/user-event'
 import { usePaymentCardAddForm } from './hooks/usePaymentCardAddForm'
 
 import PaymentCardAddForm from './PaymentCardAddForm'
-import Modal from 'components/Modal'
-import cx from 'classnames'
-import Button from 'components/Button'
-import SelectboxGroup from 'components/Form/SelectboxGroup'
-import TextInputGroup from 'components/Form/TextInputGroup'
-import Loading3 from 'components/Loading3'
 import PaymentCardInputGroup from 'components/Form/PaymentCardInputGroup'
-import { getExpiryDates } from 'utils/dates'
 
 const PaymentCardAddFormComponent = <PaymentCardAddForm onClose = {jest.fn()} />
+// const PaymentCardInputGroupComponent = <PaymentCardInputGroup />
 
 // mock components
 
@@ -22,6 +16,7 @@ const PaymentCardAddFormComponent = <PaymentCardAddForm onClose = {jest.fn()} />
 jest.mock('./hooks/usePaymentCardAddForm', () => ({
   usePaymentCardAddForm: jest.fn(),
 }))
+jest.mock('components/Form/PaymentCardInputGroup', () => () => null)
 
 const mockFullName = 'mock_full_name'
 const mockFullNameError = false
@@ -29,7 +24,7 @@ const mockExpiry = 'mock_expiry'
 const mockExpiryError = false
 const mockHandleExpiryChange = jest.fn()
 const mockHandleNameChange = jest.fn()
-const mockHandleNameBlur = false
+const mockHandleNameBlur = jest.fn()
 const mockCardNumberError = false
 const mockHandlePaymentCardChange = jest.fn()
 const mockHandlePaymentCardBlur = jest.fn()
@@ -56,18 +51,15 @@ const defaultHookValues = {
   isLoading: mockIsLoading,
   submitForm: mockSubmitForm,
 }
+
 // unit Tests
 describe('Test PaymentCardAddForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('placeholder Test', ()=> {
-    expect(true).toBeTruthy()
-  })
-
   describe('Test PaymentCardAddForm', () => {
-    describe('Test non-form elements', () => {
+    describe('Test static non-form elements', () => {
       it('should display the correct modal header', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
@@ -88,25 +80,66 @@ describe('Test PaymentCardAddForm', () => {
         expect(privacyLink).toHaveAttribute('target', '_blank')
       })
     })
+    describe('Test Form Elements', () => {
+      // it('should render the Card number field with correct label and placeholder', () => {
+      //   usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
+      //   render(PaymentCardAddFormComponent)
+      //   screen.debug()
+      //   const cardNumberField = screen.getByLabelText('Card number')
+      //   expect(cardNumberField).toBeInTheDocument()
+      //   expect(cardNumberField).toHaveAttribute('placeholder', 'Card number')
+      // })
+      it('should render the expiry date fields in the correct order', () => {
+        usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
+        render(PaymentCardAddFormComponent)
+        const monthField = screen.getByTitle('MM')
+        const yearField = screen.getByTitle('YY')
+        userEvent.click(monthField)
+        expect(monthField).toHaveFocus()
+        userEvent.tab()
+        expect(yearField).toHaveFocus()
+      })
+      it('should render correct number of expiry date options', () => {
+        usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
+        render(PaymentCardAddFormComponent)
+        expect(screen.getAllByRole('option')).toHaveLength(35)
+      })
+      it('should render the name on card field with correct label and placeholder', () => {
+        usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
+        render(PaymentCardAddFormComponent)
+        const nameOnCardField = screen.getByLabelText('Name on card')
+        expect(nameOnCardField).toBeInTheDocument()
+        expect(nameOnCardField).toHaveAttribute('placeholder', 'Name on card')
+        userEvent.type(nameOnCardField, mockFullName)
+        expect(nameOnCardField).toHaveValue(mockFullName)
+        expect(screen.queryByText('Invalid Name')).not.toBeInTheDocument()
+      })
+      it('should render the submit button with correct text and be disabled by default', () => {
+        usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
+        render(PaymentCardAddFormComponent)
+        const submitButton = screen.getByTestId('submit-button')
+        expect(submitButton).toBeInTheDocument()
+        expect(submitButton).toHaveTextContent('Add payment card')
+        expect(submitButton).toBeDisabled()
+      })
+    })
 
-    describe('Test card number field', () => { // placeholder
-      it('placeholder Test', () => {
-        expect(true).toBeTruthy()
+    describe('Test Form States', () => {
+      it('should render the correct error message for each field', () => {
+        usePaymentCardAddForm.mockImplementation(() => ({
+          ...defaultHookValues,
+          cardNumberError: 'Invalid card number',
+          expiryError: 'Invalid date',
+          fullNameError: 'Invalid name',
+        }))
+        render(PaymentCardAddFormComponent)
+        // expect(screen.getByText('Invalid card number')).toBeInTheDocument()
+        expect(screen.getByText('Invalid date')).toBeInTheDocument()
+        expect(screen.getByText('Invalid name')).toBeInTheDocument()
       })
-    })
-    describe('Test card expiry fields', () => { // placeholder
-      it('placeholder Test', () => {
-        expect(true).toBeTruthy()
-      })
-    })
-    describe('Test name on card field', () => { // placeholder
-      it('placeholder Test', () => {
-        expect(true).toBeTruthy()
-      })
-    })
-    describe('Test submit button', () => { // placeholder
-      it('placeholder Test', () => {
-        expect(true).toBeTruthy()
+      it('should enable the submit button when valid values are entered for each field', () => {
+        usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
+        render(PaymentCardAddFormComponent)
       })
     })
   })
