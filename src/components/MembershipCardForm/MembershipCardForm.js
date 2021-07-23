@@ -27,9 +27,10 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     submitLoading,
   } = useForm(plan, planId, fieldTypes, linkingFeature, initialValues)
 
+  const errorMessage = (serviceError || submitError) ? 'There was an error. Please try again.' : null
+
   const isAddForm = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
 
-  // todo: Adopt the following render<Name> naming convention across the app for other functions that return JSX
   const renderDocumentText = document => (
     <>
       {document.description}{' '}
@@ -141,12 +142,10 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
           primary
           disabled={!entireFormValid || serviceLoading || submitLoading}
           className={styles.root__submit}
+          error={errorMessage}
         >
           { ((serviceLoading || submitLoading) && submittingCaption) || submitCaption || 'Add my card' }
         </Button>
-        { (serviceError || submitError) && (
-          <div className={styles.root__error}>There was an error. Please try again.</div>
-        ) }
       </form>
     ) : null
   )
