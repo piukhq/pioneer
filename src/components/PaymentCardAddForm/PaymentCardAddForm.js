@@ -37,16 +37,17 @@ const PaymentCardAddForm = ({ onClose }) => {
 
       <form className={styles.root}>
         <div className={styles.root__groups}>
-          {/* <PaymentCardInputGroup
+          <PaymentCardInputGroup
             className={styles['root__number-group']}
             label='Card number'
             placeholder='Card number'
             error={cardNumberError}
             onChange={handlePaymentCardChange}
             onBlur={handlePaymentCardBlur}
-          /> */}
+          />
 
           <SelectboxGroup
+            data-testId='expiry-field'
             className={styles['root__expiry-group']}
             selectedValues={expiry}
             values={getExpiryDates()}
@@ -76,6 +77,7 @@ const PaymentCardAddForm = ({ onClose }) => {
 
         <div className={styles['root__button-container']}>
           <Button
+            data-testid='submit-button'
             primary
             className={styles.root__button}
             onClick={submitForm}
