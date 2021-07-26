@@ -9,4 +9,13 @@
   &--disabled {
     cursor: default;
   }
+
+  &__error {
+    text-align: center;
+    color: #a30f27;
+
+    @media (min-width: 630px) {
+      grid-column: span 2;
+    }
+  }
 }

@@ -21,6 +21,8 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
     isLastPaymentCard,
   } = usePaymentCardDeleteForm(paymentCardId, onClose, membershipCardId)
 
+  const errorMessage = error ? 'There was an error' : null
+
   return (
     <Modal onClose={onClose}>
       { isCardExpired ? (
@@ -29,13 +31,15 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
           <p className={styles.root__paragraph}>
             This payment card has expired and can no longer be used to auto-collect points and rewards.
           </p>
-          {/* todo: Check with Jack refine handling of error */}
-          { error && (
-            <div className={styles.root__error}>
-              There was an error
-            </div>
-          ) }
-          <Button data-testid='expired-card-submit-button' disabled={loading} primary className={styles.root__button} onClick={handleDelete}>Remove card</Button>
+
+          <Button
+            data-testid='expired-card-submit-button'
+            disabled={loading}
+            primary
+            className={styles.root__button}
+            onClick={handleDelete}
+            error={errorMessage}
+          >Remove card</Button>
         </>
       ) : (
         <>
@@ -74,6 +78,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
             tertiary
             className={styles.root__button}
             onClick={handleDelete}
+            error={errorMessage}
           >Remove card</Button>
         </>
       ) }

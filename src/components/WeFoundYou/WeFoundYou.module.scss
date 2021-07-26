@@ -4,12 +4,6 @@
 .root {
   @include onboarding-screens-styling;
 
-  &__paragraph {
-    &--error-message {
-      color: #a30f27;
-    }
-  }
-
   &__url {
     @include link;
   }

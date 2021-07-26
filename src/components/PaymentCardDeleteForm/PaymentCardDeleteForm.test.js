@@ -58,14 +58,6 @@ describe('Test PaymentCardDeleteForm', () => {
       const { queryByTestId } = render(paymentCardDeleteFormComponent)
       expect(queryByTestId('expired-card-submit-button')).toHaveAttribute('disabled')
     })
-    it('should display the correct error message when an error is flagged', () => {
-      usePaymentCardDeleteForm.mockImplementation(() => ({
-        ...defaultValues,
-        error: true,
-      }))
-      const { getByText } = render(paymentCardDeleteFormComponent)
-      expect(getByText('There was an error')).toBeInTheDocument()
-    })
   })
 
   describe('Test Non-Expired Card Scenarios', () => {
@@ -79,14 +71,6 @@ describe('Test PaymentCardDeleteForm', () => {
         expect(getByText(`Are you sure you want to delete the card ending in ${mockLast4Digits}? This cannot be undone.`)).toBeInTheDocument()
         expect(getByText('Enter the last four digits of the card to confirm.')).toBeInTheDocument()
         expect(queryByTestId('submit-button')).toBeInTheDocument()
-      })
-      it('should display the correct error message when an error is flagged', () => {
-        usePaymentCardDeleteForm.mockImplementation(() => ({
-          ...defaultValues,
-          error: true,
-        }))
-        const { getByText } = render(paymentCardDeleteFormComponent)
-        expect(getByText('There was an error')).toBeInTheDocument()
       })
     })
     describe('Test Pending Card', () => {

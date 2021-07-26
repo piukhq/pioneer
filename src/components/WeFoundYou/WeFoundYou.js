@@ -12,7 +12,8 @@ const WeFoundYou = () => {
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
   const { logout } = useLogout()
 
-  // TODO: Consolidate error message into generic Button error
+  const errorMessage = postError ? 'Something went wrong. Please try again.' : null
+
   return (
     <div className={styles.root}>
       <h1 className={styles.root__heading}>We found you</h1>
@@ -26,6 +27,7 @@ const WeFoundYou = () => {
           primary
           className={styles.root__button}
           onClick={acceptTerms}
+          error={errorMessage}
         >Continue</Button>
 
         <Button
@@ -33,8 +35,6 @@ const WeFoundYou = () => {
           className={styles.root__button}
           onClick={logout}
         >Cancel</Button>
-
-        {postError && <p className={styles['root__paragraph--error-message']}>Something went wrong. Please try again.</p>}
       </div>
     </div>
   )
