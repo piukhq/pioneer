@@ -15,6 +15,7 @@ const LoginForm = () => {
 
   return (
     <form className={styles.root} onSubmit={handleSubmit}>
+      <p>Debug login uses localStorage for persistent sessions</p>
       <label className={styles.root__label}>
         Email
         <input className={styles.root__field} type='text' value={email} onChange={event => setEmail(event.target.value)} />
