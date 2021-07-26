@@ -15,13 +15,14 @@ const Button = ({ primary, secondary, tertiary, className, disabled, error, chil
           disabled && styles['root--disabled'],
         )}
         disabled={disabled}
+        data-testid='button'
         {...props}
       >
         {children}
       </button>
 
       { error && (
-        <p className={styles.root__error}>
+        <p className={styles.root__error} data-testid='error'>
           { error }
         </p>
       )}
