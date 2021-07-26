@@ -106,7 +106,6 @@ describe('Test PaymentCardAddForm', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
         expect(screen.getAllByRole('option')).toHaveLength(35)
-        screen.debug()
       })
       it('should render the name on card field with correct label and placeholder', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
