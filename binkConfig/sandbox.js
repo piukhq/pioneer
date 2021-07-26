@@ -15,4 +15,5 @@ module.exports = {
       case 'fatface': return null
     }
   })(),
+  disabledLocalStorage: true, // TODO: Temporary measure for web-464
 }

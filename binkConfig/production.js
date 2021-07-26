@@ -18,4 +18,5 @@ module.exports = {
   })(),
   supportDebugLogin: false,
   spreedlyEnvironmentKey: '1Lf7DiKgkcx5Anw7QxWdDxaKtTa',
+  disabledLocalStorage: true, // TODO: Temporary measure for web-464
 }
