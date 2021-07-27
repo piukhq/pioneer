@@ -28,10 +28,10 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
     // If theme specific config values are defined then use them, else default to API driven copy
     if (Config.planSummary.length > 0) {
       return Config.planSummary.map((summaryText, index) => (
-        <p className={styles.root__summary} key={index}>{summaryText}</p>
+        <div className={styles.root__summary} key={index}>{summaryText}</div>
       ))
     }
-    return <p className={styles.root__summary}>{plan?.account?.plan_summary}</p>
+    return <div className={styles.root__summary}>{plan?.account?.plan_summary}</div>
   }
 
   return (
