@@ -8,4 +8,5 @@ module.exports = {
       case 'fatface': return 'xD1k2LTwUlSgwY4NF6TrqmQHoMzkZjlzJhb9d2bAFRcSykDvHm'
     }
   })(),
+  disabledPersistentSessions: true,
 }
