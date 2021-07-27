@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
@@ -15,12 +15,21 @@ import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol'
 import MerchantMembershipCardAdd from 'components/MerchantMembershipCardAdd'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
+import { getAuthToken } from 'utils/storage'
 
 import styles from './MembershipCardAddPage.module.scss'
 
 // todo: refactor in similar manner to MembershipCardPage
 
 const MembershipCardAddPage = () => {
+  // TODO: Temporary redirect for Web-464
+  const history = useHistory()
+  useEffect(() => {
+    if (!getAuthToken()) {
+      history.replace('/')
+    }
+  }, [history])
+
   useLoadMembershipPlans()
   const { loading: newMembershipCardLoading } = useMembershipCardsState().add
 

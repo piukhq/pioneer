@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from 'components/Button'
 import useBinkTermsAndConditions from './hooks/useBinkTermsAndConditions'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import useLogout from 'hooks/useLogout'
 import styles from './WeFoundYou.module.scss'
+import { getAuthToken } from 'utils/storage'
+import { useHistory } from 'react-router-dom'
 
 // TODO: Check with Jack determine whether to display 'a' or 'an' either as a result from the API
 // or using a library to determine string variations
@@ -11,6 +13,13 @@ const WeFoundYou = () => {
   const { acceptTerms, postError } = useBinkTermsAndConditions()
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
   const { logout } = useLogout()
+  // TODO: Temporary redirect for Web-464
+  const history = useHistory()
+  useEffect(() => {
+    if (!getAuthToken()) {
+      history.replace('/')
+    }
+  }, [history])
 
   // TODO: Consolidate error message into generic Button error
   return (
