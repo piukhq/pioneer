@@ -1,4 +1,4 @@
-// TODO: Temporary measure for Web-464
+// TODO: Temporary measure for Web-464, in future, storage location function could be adapted to change based on 'remember me' input
 
 const storageLocation = () => {
   return Config.disabledLocalStorage ? sessionStorage : localStorage

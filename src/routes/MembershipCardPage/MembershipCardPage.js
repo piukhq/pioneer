@@ -30,7 +30,7 @@ const MembershipCardPage = () => {
   const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
 
-  // Log user out if account is no longer active
+  // Log user out if account is no longer active or no auth token
   useEffect(() => {
     if ((reasonCode && !isAccountActive) || !getAuthToken()) {
       history.replace('/')
