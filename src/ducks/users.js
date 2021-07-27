@@ -3,7 +3,7 @@ import { serializeError } from 'serialize-error'
 import { setTokenAsUsed } from 'utils/magicLink'
 import { createSelector } from 'reselect'
 import { getUserIdFromApiKey } from 'utils/users'
-import { getAuthTokenString } from '../utils/storage' // TODO: Temporary measure for Web-464
+import { getAuthToken } from '../utils/storage' // TODO: Temporary measure for Web-464
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
@@ -24,7 +24,7 @@ const getInitialState = () => ({
   authentication: {
     loading: false,
     error: false,
-    api_key: getAuthTokenString(),
+    api_key: getAuthToken(),
   },
   magicLinkRequest: {
     loading: false,
