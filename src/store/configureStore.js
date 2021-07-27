@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import * as Sentry from '@sentry/react'
-import syncApiKeyToLocalStorage from 'middleware/syncApiKeyToLocalStorage'
+import syncApiKeyToStorage from 'middleware/syncApiKeyToStorage'
 import rootReducer from './reducers'
 
 export default function configureAppStore (preloadedState) {
@@ -9,7 +9,7 @@ export default function configureAppStore (preloadedState) {
 
   const store = configureStore({
     reducer: rootReducer,
-    middleware: [syncApiKeyToLocalStorage, ...getDefaultMiddleware()],
+    middleware: [syncApiKeyToStorage, ...getDefaultMiddleware()],
     preloadedState,
     enhancers: [sentryReduxEnhancer],
   })

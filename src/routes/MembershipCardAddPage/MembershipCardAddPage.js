@@ -6,6 +6,7 @@ import { useMembershipCardsState } from 'hooks/membershipCards'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
 import { useMembershipPlansState } from 'hooks/membershipPlans'
+import useCheckSessionEnded from 'hooks/useCheckSessionEnded'
 import Button from 'components/Button'
 import AccountMenu from 'components/AccountMenu'
 import MembershipCardAddModal from 'components/MembershipCardAddModal'
@@ -21,6 +22,8 @@ import styles from './MembershipCardAddPage.module.scss'
 // todo: refactor in similar manner to MembershipCardPage
 
 const MembershipCardAddPage = () => {
+  useCheckSessionEnded() // TODO: Temporary redirect for Web-464
+
   useLoadMembershipPlans()
   const { loading: newMembershipCardLoading } = useMembershipCardsState().add
 
