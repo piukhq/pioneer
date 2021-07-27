@@ -20,7 +20,7 @@ const Vouchers = ({ membershipCardId, displayRedeemableOnly = false }) => {
   return (
     <section className={styles.root}>
       <h2 className={styles.root__headline}>Vouchers</h2>
-      <p className={styles.root__paragraph}>{plan?.account?.plan_summary}</p>
+      <div className={styles.root__paragraph}>{plan?.account?.plan_summary}</div>
       <div className={styles['root__active-vouchers']}>
         {renderVouchers()}
       </div>
