@@ -3,11 +3,14 @@ import Button from 'components/Button'
 import useBinkTermsAndConditions from './hooks/useBinkTermsAndConditions'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import useLogout from 'hooks/useLogout'
+import useCheckSessionEnded from 'hooks/useCheckSessionEnded'
 import styles from './WeFoundYou.module.scss'
 
 // TODO: Check with Jack determine whether to display 'a' or 'an' either as a result from the API
 // or using a library to determine string variations
 const WeFoundYou = () => {
+  useCheckSessionEnded() // TODO: Temporary redirect for Web-464
+
   const { acceptTerms, postError } = useBinkTermsAndConditions()
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
   const { logout } = useLogout()

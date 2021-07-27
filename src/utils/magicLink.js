@@ -1,12 +1,13 @@
 import jwtDecode from 'jwt-decode'
+import { storageLocation } from './storage'
 
 export const isTokenUsed = token => {
-  const usedMagicLinkTokens = JSON.parse(localStorage.getItem('usedMLTokens') || '{}')
+  const usedMagicLinkTokens = JSON.parse(storageLocation().getItem('usedMLTokens') || '{}')
   return usedMagicLinkTokens[token]
 }
 
 export const setTokenAsUsed = token => {
-  const usedMagicLinkTokens = JSON.parse(localStorage.getItem('usedMLTokens') || '{}')
+  const usedMagicLinkTokens = JSON.parse(storageLocation().getItem('usedMLTokens') || '{}')
 
   // delete tokens that expired more that 3 days ago
   Object.keys(usedMagicLinkTokens).forEach(storedToken => {
@@ -21,5 +22,5 @@ export const setTokenAsUsed = token => {
     }
   })
   usedMagicLinkTokens[token] = true
-  localStorage.setItem('usedMLTokens', JSON.stringify(usedMagicLinkTokens))
+  storageLocation().setItem('usedMLTokens', JSON.stringify(usedMagicLinkTokens))
 }

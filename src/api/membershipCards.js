@@ -1,11 +1,12 @@
 import axios from 'axios'
+import { getAuthTokenString } from 'utils/storage' // TODO: Temporary measure for Web-464
 
 export const getMembershipCards = () => (
   axios.get(
     `${Config.apiUrl}/ubiquity/membership_cards`,
     {
       headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },
@@ -17,7 +18,7 @@ export const deleteMembershipCard = (id) => (
     `${Config.apiUrl}/ubiquity/membership_card/${id}`,
     {
       headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },
@@ -33,7 +34,7 @@ export const addMembershipCard = (accountData, planId) => (
     },
     {
       headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },
@@ -46,7 +47,7 @@ export const linkPaymentCard = (paymentCardId, membershipCardId) => (
     null,
     {
       headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },
@@ -59,7 +60,7 @@ export const unLinkPaymentCard = (paymentCardId, membershipCardId) => (
     `${Config.apiUrl}/ubiquity/membership_card/${membershipCardId}/payment_card/${paymentCardId}`,
     {
       headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },

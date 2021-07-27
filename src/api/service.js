@@ -1,11 +1,12 @@
 import axios from 'axios'
+import { getAuthTokenString } from '../utils/storage' // TODO: Temporary measure for Web-464
 
 export const getService = () => (
   axios.get(
     `${Config.apiUrl}/ubiquity/service`,
     {
       headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },
@@ -26,7 +27,7 @@ export const postService = (email) => (
     },
     {
       headers: {
-        Authorization: `Token ${localStorage.getItem('token')}`,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },
