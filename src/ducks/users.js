@@ -19,11 +19,13 @@ const types = {
   RESET_MAGIC_LINK_AUTHENTICATION: 'users/RESET_MAGIC_LINK_AUTHENTICATION',
 }
 
+const authToken = Config.disabledLocalStorage ? `Token ${sessionStorage.getItem('token')}` : `Token ${localStorage.getItem('token')}` // TODO: Temporary measure for Web-464
+
 const getInitialState = () => ({
   authentication: {
     loading: false,
     error: false,
-    api_key: localStorage.getItem('token'),
+    api_key: authToken,
   },
   magicLinkRequest: {
     loading: false,
