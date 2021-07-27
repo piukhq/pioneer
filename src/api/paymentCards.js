@@ -1,13 +1,12 @@
 import axios from 'axios'
-
-const authToken = Config.disabledLocalStorage ? `Token ${sessionStorage.getItem('token')}` : `Token ${localStorage.getItem('token')}` // TODO: Temporary measure for Web-464
+import { getAuthTokenString } from '../utils/storage' // TODO: Temporary measure for Web-464
 
 export const getPaymentCards = () => (
   axios.get(
     `${Config.apiUrl}/ubiquity/payment_cards`,
     {
       headers: {
-        Authorization: authToken,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },
@@ -19,7 +18,7 @@ export const deletePaymentCard = (id) => (
     `${Config.apiUrl}/ubiquity/payment_card/${id}`,
     {
       headers: {
-        Authorization: authToken,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },
@@ -70,7 +69,7 @@ export const addPaymentCard = (
     },
     {
       headers: {
-        Authorization: authToken,
+        Authorization: getAuthTokenString(),
         'Content-Type': 'application/json;v=1.3',
       },
     },

@@ -3,6 +3,7 @@ import { serializeError } from 'serialize-error'
 import { setTokenAsUsed } from 'utils/magicLink'
 import { createSelector } from 'reselect'
 import { getUserIdFromApiKey } from 'utils/users'
+import { getAuthTokenString } from '../utils/storage' // TODO: Temporary measure for Web-464
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
@@ -19,13 +20,11 @@ const types = {
   RESET_MAGIC_LINK_AUTHENTICATION: 'users/RESET_MAGIC_LINK_AUTHENTICATION',
 }
 
-const authToken = Config.disabledLocalStorage ? `Token ${sessionStorage.getItem('token')}` : `Token ${localStorage.getItem('token')}` // TODO: Temporary measure for Web-464
-
 const getInitialState = () => ({
   authentication: {
     loading: false,
     error: false,
-    api_key: authToken,
+    api_key: getAuthTokenString(),
   },
   magicLinkRequest: {
     loading: false,
