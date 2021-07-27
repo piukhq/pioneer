@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getAuthTokenString } from '../utils/storage' // TODO: Temporary measure for Web-464
+import { getAuthTokenString } from 'utils/storage' // TODO: Temporary measure for Web-464
 
 export const getPaymentCards = () => (
   axios.get(
