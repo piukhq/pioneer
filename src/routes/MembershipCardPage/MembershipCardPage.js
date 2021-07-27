@@ -22,17 +22,18 @@ import Vouchers from 'components/Vouchers'
 import MembershipCardContainer from 'components/MembershipCardContainer'
 
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
-import { getAuthToken } from 'utils/storage' // TODO: Temporary measure for Web-464
+import useCheckSessionEnded from 'hooks/useCheckSessionEnded'
 
 const MembershipCardPage = () => {
+  useCheckSessionEnded() // TODO: Temporary redirect for Web-464
   const history = useHistory()
 
   const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
 
-  // Log user out if account is no longer active or no auth token
+  // Log user out if account is no longer active
   useEffect(() => {
-    if ((reasonCode && !isAccountActive) || !getAuthToken()) {
+    if ((reasonCode && !isAccountActive)) {
       history.replace('/')
     }
   }, [history, reasonCode, isAccountActive])

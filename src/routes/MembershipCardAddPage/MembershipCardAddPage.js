@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
 import { useMembershipPlansState } from 'hooks/membershipPlans'
+import useCheckSessionEnded from 'hooks/useCheckSessionEnded'
 import Button from 'components/Button'
 import AccountMenu from 'components/AccountMenu'
 import MembershipCardAddModal from 'components/MembershipCardAddModal'
@@ -15,20 +16,13 @@ import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol'
 import MerchantMembershipCardAdd from 'components/MerchantMembershipCardAdd'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
-import { getAuthToken } from 'utils/storage'
 
 import styles from './MembershipCardAddPage.module.scss'
 
 // todo: refactor in similar manner to MembershipCardPage
 
 const MembershipCardAddPage = () => {
-  // TODO: Temporary redirect for Web-464
-  const history = useHistory()
-  useEffect(() => {
-    if (!getAuthToken()) {
-      history.replace('/')
-    }
-  }, [history])
+  useCheckSessionEnded() // TODO: Temporary redirect for Web-464
 
   useLoadMembershipPlans()
   const { loading: newMembershipCardLoading } = useMembershipCardsState().add
