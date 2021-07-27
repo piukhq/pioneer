@@ -13,8 +13,8 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
       { imageUrl && <img className={styles.root__image} src={imageUrl} alt='' data-testid='membership-card-image' /> }
       { membershipId && (
         <div className={styles['root__card-number']}>
-          <p className={styles['root__card-number-label']}>Card number</p>
-          <p>{membershipId}</p>
+          <div className={styles['root__card-number-label']}>Card number</div>
+          <div>{membershipId}</div>
         </div>
       )}
     </div>
