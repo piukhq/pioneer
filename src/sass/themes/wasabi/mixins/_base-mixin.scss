@@ -14,4 +14,8 @@
     margin: 0 auto;
     padding: 10px 15px 14px;
   }
+
+  p + p {
+    margin-top: 0;
+  }
 }
