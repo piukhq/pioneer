@@ -28,9 +28,9 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
       { isCardExpired ? (
         <>
           <Modal.Header>Card Expired</Modal.Header>
-          <p className={styles.root__paragraph}>
+          <div className={styles.root__paragraph}>
             This payment card has expired and can no longer be used to auto-collect points and rewards.
-          </p>
+          </div>
 
           <Button
             data-testid='expired-card-submit-button'
@@ -44,20 +44,20 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
       ) : (
         <>
           <Modal.Header>Delete this card</Modal.Header>
-          <p className={styles.root__paragraph}>
+          <div className={styles.root__paragraph}>
             Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
-          </p>
+          </div>
           {isCardPending ? (
-            <p>We are currently processing your payment card to automatically collect {membershipCardCurrency}.</p>
+            <div>We are currently processing your payment card to automatically collect {membershipCardCurrency}.</div>
           ) : (
-          <p className={styles.root__paragraph}>
+          <div className={styles.root__paragraph}>
           Any {membershipCardCurrency} that have not yet been awarded will be lost. If you have recently transacted, make sure any {membershipCardCurrency} have been received before deleting this card.
-          </p>
+          </div>
           )}
           { isLastPaymentCard && !isCardPending && (
-            <p className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {membershipPlanName} {membershipCardCurrency}.</p>
+            <div className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {membershipPlanName} {membershipCardCurrency}.</div>
           )}
-          <p className={styles.root__paragraph}>Enter the last four digits of the card to confirm.</p>
+          <div className={styles.root__paragraph}>Enter the last four digits of the card to confirm.</div>
           <TextInputGroup
             label='Last four digits'
             placeholder='Last four digits'

@@ -7,9 +7,9 @@ import styles from './PaymentCardLimitModal.module.scss'
 const PaymentCardLimitModal = ({ onClose }) => (
   <Modal onClose={onClose}>
     <Modal.Header>Limit reached</Modal.Header>
-    <p className={styles.root__paragraph}>
+    <div className={styles.root__paragraph}>
       You have reached your limit of 5 linked credit/debit cards. Please delete one before attempting to add another.
-    </p>
+    </div>
     <Button className={styles.root__button} onClick={onClose}>Dismiss</Button>
   </Modal>
 )

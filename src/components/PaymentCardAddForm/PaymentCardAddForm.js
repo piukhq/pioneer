@@ -33,7 +33,7 @@ const PaymentCardAddForm = ({ onClose }) => {
   return (
     <Modal onClose={onClose} isLoading={isLoading}>
       <Modal.Header>Add payment card</Modal.Header>
-      <p className={styles.root__paragraph}>Enter details below to add your payment card.</p>
+      <div className={styles.root__paragraph}>Enter details below to add your payment card.</div>
 
       <form className={styles.root}>
         <div className={styles.root__groups}>
