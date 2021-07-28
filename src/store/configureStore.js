@@ -5,7 +5,28 @@ import rootReducer from './reducers'
 
 export default function configureAppStore (preloadedState) {
   // Possible to add additional controllers to dictate what aspects of the redux store is recorded in Sentry
-  const sentryReduxEnhancer = Sentry.createReduxEnhancer()
+  const sentryReduxEnhancer = Sentry.createReduxEnhancer({
+    stateTransformer: state => {
+      if (state.service.consent) {
+        return null
+      }
+      const transformedState = {
+        ...state,
+        service: {
+          ...state.service,
+          data: {
+            ...state.service.data,
+            consent: 'Data filtered due to PII',
+          },
+        },
+        paymentCards: {
+          ...state.paymentCards,
+          cards: 'Data filtered due to PII',
+        },
+      }
+      return transformedState
+    },
+  })
 
   const store = configureStore({
     reducer: rootReducer,
