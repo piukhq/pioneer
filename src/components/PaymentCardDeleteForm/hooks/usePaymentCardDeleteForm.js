@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
-import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { isPaymentCardExpired, isPaymentCardPending } from 'utils/paymentCards'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 
 export const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
