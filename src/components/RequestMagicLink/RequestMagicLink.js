@@ -11,6 +11,8 @@ import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
 import useEmailErrorDisplay from './hooks/useEmailErrorDisplay'
 
+import { getCookiePolicyUrl } from 'utils/urls'
+
 import styles from './RequestMagicLink.module.scss'
 
 const RequestMagicLink = () => {
@@ -95,10 +97,19 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
         { Config.magicLinkRequestFormFooterNote && (
-          <div className={styles.root__footerNote}>
-            <span className={styles.root__note}>{Config.magicLinkRequestFormFooterNote}</span>
-            <a className={styles.root__note} href={Config.urls.termsAndConditions} target="_blank" rel="noreferrer">{Config.magicLinkRequestFormFooterLink}</a>
-          </div>
+          <>
+            <div className={styles.root__footerNote}>
+              <span className={styles.root__note}>{Config.magicLinkRequestFormFooterNote}</span>
+              <a className={styles.root__note} href={Config.urls.termsAndConditions} target="_blank" rel="noreferrer">{Config.magicLinkRequestFormFooterLink}</a>
+            </div>
+
+            <div className={styles.root__footerNote}>
+              <span className={styles.root__note}>✝︎Bink is technology that makes loyalty simpler.
+                By connecting your loyalty account to your payment card you can earn rewards every time you shop.
+                Find out more about how our site works and how we put you in control by viewing </span>
+              <a className={styles.root__note} href={getCookiePolicyUrl()} target="_blank" rel="noreferrer">Bink's Cookies Policy.</a>
+            </div>
+          </>
         )}
       </form>
     </div>

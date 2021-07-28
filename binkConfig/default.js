@@ -99,9 +99,8 @@ module.exports = {
       case 'wasabi': {
         return [
           'Receive a £7 Off Meal Voucher when you collect 7 stamps!*',
-          'Bink is technology that makes loyalty simpler. By connecting your loyalty account to your payment card you can earn rewards every time you shop.',
-          'Once you enter your email address Bink will check if you already have an account.',
           'If you would like to register/login to the Wasabi Club please enter your email address.',
+          'Once you enter your email address Bink will check if you already have an account.✝︎',
         ]
       }
       case 'fatface': {

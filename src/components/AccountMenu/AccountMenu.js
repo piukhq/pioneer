@@ -7,6 +7,8 @@ import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
 
 import useLogout from './hooks/useLogout'
 
+import { getCookiePolicyUrl } from 'utils/urls'
+
 import styles from './AccountMenu.module.scss'
 
 const AccountMenu = () => {
@@ -51,6 +53,7 @@ const AccountMenuModal = ({ onClose }) => {
         )}
         <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
         <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
+        <AccountMenuModalItem label="Bink Cookies Policy" link={getCookiePolicyUrl()} />
         <Button className={styles['root__modal-button']} onClick={logout}>Logout</Button>
       </div>
     </Modal>
