@@ -61,12 +61,12 @@ const MagicLinkRequestSuccess = ({ email }) => (
   <div className={styles.root}>
     <h1 className={styles.root__headline}>Check your inbox</h1>
     <div className={styles.root__description}>
-      <p className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></p>
-      <p className={styles.root__paragraph}>Click the link and you’ll be signed in.</p>
-      <p className={styles.root__note}>
+      <div className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></div>
+      <div className={styles.root__paragraph}>Click the link and you’ll be signed in.</div>
+      <div className={styles.root__note}>
         <span className={styles['root__note--bold']}>Note: </span>
         The device you open the link on will be the device you are signed in on.
-      </p>
+      </div>
     </div>
   </div>
 )
@@ -80,7 +80,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
       <form onSubmit={handleSubmit} className={styles.root__form}>
         <div className={styles.root__description}>
           {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
-            <p className={styles.root__paragraph} key={index}>{paragraph}</p>
+            <div className={styles.root__paragraph} key={index}>{paragraph}</div>
           ))}
         </div>
         <div className={styles['root__form-ui']}>
@@ -113,7 +113,7 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
       <h1 className={styles.root__headline}>Something went wrong</h1>
       <form onSubmit={handleSubmit} className={styles.root__form}>
         <div className={styles.root__description}>
-          <p className={styles.root__paragraph}>There was a problem, please try again</p>
+          <div className={styles.root__paragraph}>There was a problem, please try again</div>
         </div>
         <div className={styles['root__form-ui']}>
           <TextInputGroup
@@ -139,8 +139,8 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
       <h1 className={styles.root__headline}>Link expired</h1>
       <form onSubmit={handleSubmit} className={styles.root__form}>
         <div className={styles.root__description}>
-          <p className={styles.root__paragraph}>Links are only valid for 10 minutes and this one has expired.</p>
-          <p className={styles.root__paragraph}>Enter your email again and we will send you a new one.</p>
+          <div className={styles.root__paragraph}>Links are only valid for 10 minutes and this one has expired.</div>
+          <div className={styles.root__paragraph}>Enter your email again and we will send you a new one.</div>
         </div>
         <div className={styles['root__form-ui']}>
           <TextInputGroup

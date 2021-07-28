@@ -19,7 +19,7 @@ const MembershipCardEnrolModal = ({ onClose, planId }) => {
     <Modal onClose={onClose}>
       { (loading || addLoading) && <Loading /> }
       <Modal.Header>Sign up for { plan?.account?.plan_name }</Modal.Header>
-      <p className={styles.root__paragraph}>{ plan?.account?.plan_summary }</p>
+      <div className={styles.root__paragraph}>{ plan?.account?.plan_summary }</div>
       <MembershipCardForm
         plan={plan}
         planId={planId}

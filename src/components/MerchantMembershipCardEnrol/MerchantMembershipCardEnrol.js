@@ -39,7 +39,7 @@ const MerchantMembershipCardEnrol = ({ planId }) => {
       {reenrolFormVisible ? (
         <>
           <h1 className={styles.root__header}>Let's try again</h1>
-          <p className={styles.root__summary}>There was a problem getting your card set up. Please try again. Remember, we are always here to help if you would rather us help resolve this.</p>
+          <div className={styles.root__summary}>There was a problem getting your card set up. Please try again. Remember, we are always here to help if you would rather us help resolve this.</div>
         </>
       ) : (
         <>
