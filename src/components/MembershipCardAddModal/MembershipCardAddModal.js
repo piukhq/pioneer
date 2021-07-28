@@ -19,7 +19,7 @@ const MembershipCardAddModal = ({ onClose, planId }) => {
     <Modal onClose={onClose}>
       { (loading || addLoading) && <Loading /> }
       <Modal.Header>Add your card</Modal.Header>
-      <p className={styles.root__paragraph}>Please enter the following information to add your existing card to your account.</p>
+      <div className={styles.root__paragraph}>Please enter the following information to add your existing card to your account.</div>
       <MembershipCardForm
         plan={plan}
         planId={planId}

@@ -22,9 +22,9 @@ const Button = ({ primary, secondary, tertiary, className, disabled, error, chil
       </button>
 
       { error && (
-        <p className={styles.root__error} data-testid='error'>
+        <div className={styles.root__error} data-testid='error'>
           { error }
-        </p>
+        </div>
       )}
     </>
   )

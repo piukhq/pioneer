@@ -36,10 +36,10 @@ const SelectboxGroup = ({
               {/* This will render on top of the select element and display our own styled placeholder and arrow icon */}
               <div className={cx(styles.root__input, styles['root__overlay-container'])}>
                 {selectedValues[key] === undefined && (
-                  <p className={cx(
+                  <div className={cx(
                     styles.root__placeholder,
                     error && styles['root__placeholder--error'],
-                  )}>{key}</p>
+                  )}>{key}</div>
                 )}
                 <DownIconSvg className={cx(
                   styles['root__down-arrow'],

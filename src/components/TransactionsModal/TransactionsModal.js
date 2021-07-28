@@ -14,9 +14,9 @@ const TransactionsModal = ({ membershipCardId, onClose }) => {
       <Modal.Header>Transaction history</Modal.Header>
       { transactions?.length > 0 ? (
         <>
-          <p className={styles.root__description}>
+          <div className={styles.root__description}>
             Your recent transaction history
-          </p>
+          </div>
           { transactions.map(transaction => {
             const id = transaction?.id
             const value = transaction?.amounts?.[0]?.value
@@ -50,9 +50,9 @@ const TransactionsModal = ({ membershipCardId, onClose }) => {
           }) }
         </>
       ) : (
-        <p className={styles.root__description}>
+        <div className={styles.root__description}>
           You don't have any transactions yet.
-        </p>
+        </div>
       ) }
     </Modal>
   )

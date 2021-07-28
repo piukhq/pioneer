@@ -11,7 +11,7 @@ const NonActiveVouchersModal = ({ membershipCardId, onClose }) => {
   return (
     <Modal onClose={onClose} className={styles.root}>
       <Modal.Header>Rewards history</Modal.Header>
-      <p className={styles.root__description}>Your past rewards</p>
+      <div className={styles.root__description}>Your past rewards</div>
       { nonActiveVouchers?.length > 0 ? (
         <div className={styles.root__vouchers}>
           { nonActiveVouchers?.map((voucher, index) => (
