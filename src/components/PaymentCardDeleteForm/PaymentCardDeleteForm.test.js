@@ -95,10 +95,6 @@ describe('Test PaymentCardDeleteForm', () => {
         }))
         const { getByText, queryByText } = render(paymentCardDeleteFormComponent)
         expect(getByText(`Any ${mockCurrency} that have not yet been awarded will be lost. If you have recently made a purchase using this card, make sure any ${mockCurrency} have been added to your ${mockPlanName} ${mockPlanNameSuffix} before deleting.`)).toBeInTheDocument()
-
-
-
-
         expect(queryByText(`You are about to delete your only active payment card. This will mean you will not collect ${mockPlanName} ${mockCurrency}.`)).not.toBeInTheDocument()
       })
     })
