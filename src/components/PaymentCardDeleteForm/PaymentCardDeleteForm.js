@@ -49,14 +49,14 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
             Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
           </div>
           {isCardPending ? (
-            <p>We are currently processing your payment card to automatically collect {currency}.</p>
+            <div>We are currently processing your payment card to automatically collect {currency}.</div>
           ) : (
-          <p className={styles.root__paragraph}>
+          <div className={styles.root__paragraph}>
           Any {currency} that have not yet been awarded will be lost. If you have recently made a purchase using this card, make sure any {currency} have been added to your {planName} {planNameSuffix} before deleting.
-          </p>
+          </div>
           )}
           { isLastPaymentCard && !isCardPending && (
-            <p className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {planName} {currency}.</p>
+            <div className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {planName} {currency}.</div>
           )}
           <div className={styles.root__paragraph}>Enter the last four digits of the card to confirm.</div>
           <TextInputGroup
