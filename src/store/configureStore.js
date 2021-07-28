@@ -14,7 +14,14 @@ export default function configureAppStore (preloadedState) {
         ...state,
         service: {
           ...state.service,
-          consent: null,
+          data: {
+            ...state.service.data,
+            consent: 'Data filtered due to PII',
+          },
+        },
+        paymentCards: {
+          ...state.paymentCards,
+          cards: 'Data filtered due to PII',
         },
       }
       return transformedState
