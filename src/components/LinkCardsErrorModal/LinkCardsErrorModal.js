@@ -21,9 +21,9 @@ const LinkCardsErrorModal = ({ onClose, paymentCardId }) => {
   return (
   <Modal onClose={onClose}>
     <Modal.Header>Card cannot be linked</Modal.Header>
-    <p className={styles.root__paragraph}>
+    <div className={styles.root__paragraph}>
       Your credit/debit card cannot be linked to your {planName} {planNameSuffix}. This usually happens when you have already linked it to a different {planName} {planNameSuffix}.
-    </p>
+    </div>
     {/* todo: consider replacing button with link tag to match its functionality. currently matching implementations elsewhere */}
     <Button
       onClick={handleDelete}
