@@ -10,8 +10,9 @@ jest.mock('./hooks/usePaymentCardDeleteForm', () => ({
 const mockPaymentCardId = 'mock_payment_card_id'
 const mockMembershipCardId = 'mock_membership_card_id'
 const mockOnClose = jest.fn()
-const mockMembershipCardCurrency = 'mock_currency'
-const mockMembershipPlanName = 'mock_plan'
+const mockCurrency = 'mock_currency'
+const mockPlanName = 'mock_plan_name'
+const mockPlanNameSuffix = 'mock_plan_name_suffix'
 const mockLast4Digits = 'mock_last_4_digits'
 
 const defaultValues = {
@@ -20,8 +21,9 @@ const defaultValues = {
   isLastPaymentCard: false,
   loading: false,
   last4Digits: mockLast4Digits,
-  membershipCardCurrency: mockMembershipCardCurrency,
-  membershipPlanName: mockMembershipPlanName,
+  currency: mockCurrency,
+  planName: mockPlanName,
+  planNameSuffix: mockPlanNameSuffix,
 }
 
 const paymentCardDeleteFormComponent = (
@@ -81,8 +83,8 @@ describe('Test PaymentCardDeleteForm', () => {
           isLastPaymentCard: true,
         }))
         const { getByText, queryByText } = render(paymentCardDeleteFormComponent)
-        expect(getByText(`We are currently processing your payment card to automatically collect ${mockMembershipCardCurrency}.`)).toBeInTheDocument()
-        expect(queryByText(`Any ${mockMembershipCardCurrency} that have not yet been awarded will be lost. If you have recently transacted, make sure any ${mockMembershipCardCurrency} have been received before deleting this card.`)).not.toBeInTheDocument()
+        expect(getByText(`We are currently processing your payment card to automatically collect ${mockCurrency}.`)).toBeInTheDocument()
+        expect(queryByText(`Any ${mockCurrency} that have not yet been awarded will be lost. If you have recently made a purchase using this card, make sure any ${mockCurrency} have been added to your ${mockPlanName} ${mockPlanNameSuffix} before deleting.`)).not.toBeInTheDocument()
       })
     })
     describe('Test Multiple Active Cards', () => {
@@ -92,8 +94,12 @@ describe('Test PaymentCardDeleteForm', () => {
           isLastPaymentCard: false,
         }))
         const { getByText, queryByText } = render(paymentCardDeleteFormComponent)
-        expect(getByText(`Any ${mockMembershipCardCurrency} that have not yet been awarded will be lost. If you have recently transacted, make sure any ${mockMembershipCardCurrency} have been received before deleting this card.`)).toBeInTheDocument()
-        expect(queryByText(`You are about to delete your only active payment card. This will mean you will not collect ${mockMembershipPlanName} ${mockMembershipCardCurrency}.`)).not.toBeInTheDocument()
+        expect(getByText(`Any ${mockCurrency} that have not yet been awarded will be lost. If you have recently made a purchase using this card, make sure any ${mockCurrency} have been added to your ${mockPlanName} ${mockPlanNameSuffix} before deleting.`)).toBeInTheDocument()
+
+
+
+
+        expect(queryByText(`You are about to delete your only active payment card. This will mean you will not collect ${mockPlanName} ${mockCurrency}.`)).not.toBeInTheDocument()
       })
     })
     describe('Test Last Active Card', () => {
@@ -103,7 +109,7 @@ describe('Test PaymentCardDeleteForm', () => {
           isLastPaymentCard: true,
         }))
         const { getByText } = render(paymentCardDeleteFormComponent)
-        expect(getByText(`You are about to delete your only active payment card. This will mean you will not collect ${mockMembershipPlanName} ${mockMembershipCardCurrency}.`)).toBeInTheDocument()
+        expect(getByText(`You are about to delete your only active payment card. This will mean you will not collect ${mockPlanName} ${mockCurrency}.`)).toBeInTheDocument()
       })
     })
     describe('Test Submit Button', () => {
