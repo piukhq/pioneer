@@ -23,7 +23,7 @@ const MerchantMembershipCardAdd = ({ planId }) => {
   return (
     <div className={styles.root}>
       <h1 className={styles.root__header}>We found you</h1>
-      <div className={styles.root__summary}>You already have a {plan?.account?.plan_name} {plan?.account?.plan_name_card?.toLowerCase()} registered to <span className={styles.root__userId}>{userId}</span>.</div>
+      <div className={styles.root__summary}>You’re already a member of the {plan?.account?.plan_name}! Your account is registered to <span className={styles.root__userId}>{userId}</span>.</div>
       <div className={styles.root__summary}>Please enter your details below to view your balance and voucher information. You can find your number in your Welcome email.</div>
       <MembershipCardForm
         className={styles.root__form}
