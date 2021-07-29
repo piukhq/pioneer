@@ -9,9 +9,10 @@ const Vouchers = ({ membershipCardId, displayRedeemableOnly = false }) => {
   const { activeVouchers, redeemableVouchers, plan } = useMembershipCardStateById(membershipCardId)
   useLoadMembershipPlans()
 
+  const renderVoucherPlanSummary = () => Config.voucherPlanSummary || plan?.account?.plan_summary
+
   const renderVouchers = () => {
     const vouchersToDisplay = displayRedeemableOnly ? redeemableVouchers : activeVouchers
-
     return vouchersToDisplay.map?.((voucher, index) => (
       <Voucher key={index} voucher={voucher} plan={plan} />
     ))
@@ -20,7 +21,7 @@ const Vouchers = ({ membershipCardId, displayRedeemableOnly = false }) => {
   return (
     <section className={styles.root}>
       <h2 className={styles.root__headline}>Vouchers</h2>
-      <div className={styles.root__paragraph}>{plan?.account?.plan_summary}</div>
+      <div className={styles.root__paragraph}>{renderVoucherPlanSummary()}</div>
       <div className={styles['root__active-vouchers']}>
         {renderVouchers()}
       </div>
