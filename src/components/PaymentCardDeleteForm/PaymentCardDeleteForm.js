@@ -5,6 +5,7 @@ import TextInputGroup from 'components/Form/TextInputGroup'
 import { usePaymentCardDeleteForm } from './hooks/usePaymentCardDeleteForm'
 
 import styles from './PaymentCardDeleteForm.module.scss'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 
 const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => {
   const {
@@ -16,12 +17,12 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
     userEnteredLast4Digits,
     setUserEnteredLast4Digits,
     handleDelete,
-    membershipCardCurrency,
-    membershipPlanName,
+    currency,
     isLastPaymentCard,
   } = usePaymentCardDeleteForm(paymentCardId, onClose, membershipCardId)
 
   const errorMessage = error ? 'There was an error' : null
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
   return (
     <Modal onClose={onClose}>
@@ -48,14 +49,14 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
             Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
           </div>
           {isCardPending ? (
-            <div>We are currently processing your payment card to automatically collect {membershipCardCurrency}.</div>
+            <div>We are currently processing your payment card to automatically collect {currency}.</div>
           ) : (
           <div className={styles.root__paragraph}>
-          Any {membershipCardCurrency} that have not yet been awarded will be lost. If you have recently transacted, make sure any {membershipCardCurrency} have been received before deleting this card.
+          Any {currency} that have not yet been awarded will be lost. If you have recently made a purchase using this card, make sure any {currency} have been added to your {planName} {planNameSuffix} before deleting.
           </div>
           )}
           { isLastPaymentCard && !isCardPending && (
-            <div className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {membershipPlanName} {membershipCardCurrency}.</div>
+            <div className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {planName} {currency}.</div>
           )}
           <div className={styles.root__paragraph}>Enter the last four digits of the card to confirm.</div>
           <TextInputGroup

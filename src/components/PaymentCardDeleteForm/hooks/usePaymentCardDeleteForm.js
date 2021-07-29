@@ -18,11 +18,8 @@ export const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardI
   const error = useSelector(state => state.paymentCards.delete.error)
   const success = useSelector(state => state.paymentCards.delete.success)
 
-  const membershipCardCurrency = useSelector(
+  const currency = useSelector(
     state => membershipCardsSelectors.currency(state, membershipCardId),
-  )
-  const membershipPlanName = useSelector(
-    state => membershipCardsSelectors.plan(state, membershipCardId)?.account?.plan_name,
   )
   const linkedPaymentCards = useSelector(
     state => membershipCardsSelectors.linkedPaymentCards(state, membershipCardId),
@@ -49,8 +46,7 @@ export const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardI
     userEnteredLast4Digits,
     setUserEnteredLast4Digits,
     handleDelete,
-    membershipCardCurrency,
-    membershipPlanName,
+    currency,
     isLastPaymentCard,
   }
 }
