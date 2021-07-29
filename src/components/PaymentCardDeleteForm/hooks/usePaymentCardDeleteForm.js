@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { isPaymentCardExpired, isPaymentCardPending } from 'utils/paymentCards'
-import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 
 export const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardId) => {
-  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
   const card = useSelector(state => state.paymentCards.cards[paymentCardId])
   const last4Digits = card?.card?.last_four_digits
 
@@ -49,8 +47,6 @@ export const usePaymentCardDeleteForm = (paymentCardId, onClose, membershipCardI
     setUserEnteredLast4Digits,
     handleDelete,
     currency,
-    planName,
-    planNameSuffix,
     isLastPaymentCard,
   }
 }

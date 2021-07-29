@@ -5,6 +5,7 @@ import TextInputGroup from 'components/Form/TextInputGroup'
 import { usePaymentCardDeleteForm } from './hooks/usePaymentCardDeleteForm'
 
 import styles from './PaymentCardDeleteForm.module.scss'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 
 const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => {
   const {
@@ -17,12 +18,11 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
     setUserEnteredLast4Digits,
     handleDelete,
     currency,
-    planName,
-    planNameSuffix,
     isLastPaymentCard,
   } = usePaymentCardDeleteForm(paymentCardId, onClose, membershipCardId)
 
   const errorMessage = error ? 'There was an error' : null
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
   return (
     <Modal onClose={onClose}>
