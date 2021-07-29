@@ -93,6 +93,13 @@ module.exports = {
       case 'fatface': return []
     }
   })(),
+  voucherPlanSummary: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return 'Spend £7 or more to get a new stamp on each order. Once you collect 7 stamps, you will get a £7 off Meal Voucher!'
+      case 'fatface': return null
+    }
+  })(),
   magicLinkRequestFormDescription: (() => {
     switch (process.env.THEME) {
       case 'bink': return ['Get a link sent to your inbox so you can register or login instantly!']
