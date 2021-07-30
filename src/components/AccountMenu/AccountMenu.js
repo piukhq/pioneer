@@ -53,7 +53,7 @@ const AccountMenuModal = ({ onClose }) => {
         )}
         <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
         <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
-        <NavLink className={styles['root__modal-item']} to="/cookie-policy" target="_blank" rel="noreferrer">Bink Cookies Policy<RightChevronSvg /></NavLink>
+        <NavLink className={styles['root__modal-item']} to="/bink-cookie-policy" target="_blank" rel="noreferrer">Bink Cookies Policy<RightChevronSvg /></NavLink>
         <Button className={styles['root__modal-button']} onClick={logout}>Logout</Button>
       </div>
     </Modal>
