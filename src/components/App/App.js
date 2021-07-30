@@ -59,7 +59,7 @@ function App () {
           <Route path="/typography">
             <TypographyPage />
           </Route>
-          <Route path="/cookie-policy">
+          <Route path="/bink-cookie-policy">
             <CookiePolicyPage />
           </Route>
         </Switch>
