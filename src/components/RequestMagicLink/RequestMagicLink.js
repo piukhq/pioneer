@@ -106,7 +106,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
               <span className={styles.root__note}>✝︎Bink is technology that makes loyalty simpler.
                 By connecting your loyalty account to your payment card you can earn rewards every time you shop.
                 Find out more about how our site works and how we put you in control by viewing </span>
-              <NavLink className={styles.root__note} to="/cookie-policy" target="_blank" rel="noreferrer">Bink's Cookies Policy.</NavLink>
+              <NavLink className={styles.root__note} to="/bink-cookie-policy" target="_blank" rel="noreferrer">Bink's Cookies Policy.</NavLink>
             </div>
           </>
         )}
