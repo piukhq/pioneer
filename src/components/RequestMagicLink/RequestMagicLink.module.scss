@@ -43,6 +43,14 @@
     }
   }
 
+  &__link {
+    @include link;
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
   &__email {
     font-weight: bold;
   }

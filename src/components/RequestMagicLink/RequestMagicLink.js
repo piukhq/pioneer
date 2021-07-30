@@ -11,6 +11,9 @@ import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
 import useEmailErrorDisplay from './hooks/useEmailErrorDisplay'
 
+import { getCookiePolicyUrl } from 'utils/urls'
+
+import cx from 'classnames'
 import styles from './RequestMagicLink.module.scss'
 
 const RequestMagicLink = () => {
@@ -98,7 +101,10 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           <>
             <div className={styles.root__footerNote}>
               <span className={styles.root__note}>{Config.magicLinkRequestFormFooterNote}</span>
-              <a className={styles.root__note} href={Config.urls.termsAndConditions} target="_blank" rel="noreferrer">{Config.magicLinkRequestFormFooterLink}.</a>
+              <a className={cx(
+                styles.root__note,
+                styles.root__link,
+              )} href={Config.urls.termsAndConditions} target="_blank" rel="noreferrer">{Config.magicLinkRequestFormFooterLink}.</a>
             </div>
 
             <div className={styles.root__footerNote}>
