@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { within, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { usePaymentCardAddForm } from './hooks/usePaymentCardAddForm'
 
@@ -105,7 +105,9 @@ describe('Test PaymentCardAddForm', () => {
       it('should render correct number of expiry date options', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
-        expect(screen.getAllByRole('option')).toHaveLength(35)
+        const [monthOptions, yearOptions] = screen.getAllByRole('combobox')
+        expect(monthOptions).toHaveLength(14)
+        expect(yearOptions).toHaveLength(23)
       })
       it('should render the name on card field with correct label and placeholder', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
