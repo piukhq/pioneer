@@ -7,8 +7,6 @@ import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
 
 import useLogout from './hooks/useLogout'
 
-import { NavLink } from 'react-router-dom'
-
 import styles from './AccountMenu.module.scss'
 
 const AccountMenu = () => {
@@ -53,7 +51,8 @@ const AccountMenuModal = ({ onClose }) => {
         )}
         <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
         <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
-        <NavLink className={styles['root__modal-item']} to="/bink-cookie-policy" target="_blank" rel="noreferrer">Bink Cookies Policy<RightChevronSvg /></NavLink>
+        {/* TODO: Should be merchant specific url? */}
+        <AccountMenuModalItem label="Bink Cookies Policy" link="https://policies.gb.bink.com/web/wasabi-cp.html" />
         <Button className={styles['root__modal-button']} onClick={logout}>Logout</Button>
       </div>
     </Modal>

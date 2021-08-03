@@ -20,7 +20,6 @@ import LoginPage from 'routes/LoginPage'
 import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
-import CookiePolicyPage from 'routes/CookiePolicyPage'
 import Footer from 'components/Footer'
 
 import styles from './App.module.scss'
@@ -58,9 +57,6 @@ function App () {
           </Route>
           <Route path="/typography">
             <TypographyPage />
-          </Route>
-          <Route path="/bink-cookie-policy">
-            <CookiePolicyPage />
           </Route>
         </Switch>
       </Router>
