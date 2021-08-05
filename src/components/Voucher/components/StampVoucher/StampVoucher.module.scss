@@ -1,0 +1,46 @@
+@import "src/sass/variables";
+@import "src/sass/mixins";
+
+.root {
+  @include voucher-style;
+
+  &__progress-step {
+    border: 7px solid black;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    border-radius: 50%;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &--filled {
+      &-inprogress {
+        border-color: #f5a623;
+      }
+
+      &-issued {
+        border-color: #00c176;
+      }
+
+      &-redeemed {
+        border-color: $primary-color;
+      }
+
+      &-expired,
+      &-cancelled {
+        border-color: #b1c2cb;
+      }
+    }
+
+    &--empty {
+      border-color: rgba(0, 0, 0, 0.15);
+
+      &-expired,
+      &-cancelled {
+        border-color: #b1c2cb;
+      }
+    }
+  }
+}

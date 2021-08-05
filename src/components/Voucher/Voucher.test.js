@@ -3,216 +3,43 @@ import { render } from '@testing-library/react'
 
 import Voucher from './Voucher'
 
+jest.mock('components/VoucherModal', () => () => null)
+
 describe('Test Voucher', () => {
-  const prefix = 'mock_prefix'
-  const value = 2
-  const suffix = 'mock_suffix'
-  const target_value = 3
-  const mockVoucher = {
-    burn: {
-      prefix,
-      value,
-      suffix,
-    },
-    earn: {
-      prefix,
-      value,
-      suffix,
-      target_value,
-    },
-  }
-
-  it('should render voucher title', () => {
-    // mockTitle: "mock_prefix2 mock_suffix"
-    const mockTitle = prefix + value + ' ' + suffix
-    const { getByText } = render(
+  it('should render voucher container', () => {
+    const { queryByTestId } = render(
       <Voucher
-        voucher={mockVoucher}
+        voucher={{}}
       />,
     )
-    expect(getByText(mockTitle)).toBeInTheDocument()
+    expect(queryByTestId('voucher-container')).toBeInTheDocument()
   })
 
-  it('should render voucher description', () => {
-    // mockDescription: "for collecting mock_prefix3 mock_suffix"
-    const mockDescription = 'for collecting ' + prefix + target_value + ' ' + suffix
-    const { getByText } = render(
-      <Voucher
-        voucher={mockVoucher}
-      />,
-    )
-    expect(getByText(mockDescription)).toBeInTheDocument()
-  })
+  describe('Test Voucher Modal render', () => {
+    const mockSetVoucherModalVisible = jest.fn()
 
-  describe('Test voucher headline', () => {
-    it('should render issued text', () => {
-      const { getByText } = render(
-        <Voucher
-          voucher={{ ...mockVoucher, state: 'issued' }}
-        />,
-      )
-      expect(getByText('Earned')).toBeInTheDocument()
+    beforeEach(() => {
+      jest.clearAllMocks()
     })
 
-    it('should render inprogress text', () => {
-      const mockStamps = target_value - value
-      const { getByText } = render(
-        <Voucher
-          voucher={{ ...mockVoucher, state: 'inprogress' }}
-        />,
-      )
-      expect(getByText(`${mockStamps} stamp to go`)).toBeInTheDocument()
-    })
-
-    it('should render deafult state text', () => {
-      const mockState = 'mock_state'
-      const { getByText } = render(
-        <Voucher
-          voucher={{ ...mockVoucher, state: mockState }}
-        />,
-      )
-      expect(getByText(mockState)).toBeInTheDocument()
-    })
-  })
-
-  describe('Test voucher progress steps', () => {
-    it('should render the correct number of filled progress steps', () => {
+    it('should render voucher modal', () => {
+      React.useState = jest.fn().mockReturnValue([true, mockSetVoucherModalVisible])
       const { queryByTestId } = render(
         <Voucher
-          voucher={mockVoucher}
+          voucher={{}}
         />,
       )
-      const mockFilledProgressStep1 = 'filled progress-step 0'
-      const mockFilledProgressStep2 = 'filled progress-step 1'
-      const mockFilledProgressStep3 = 'filled progress-step 2'
-
-      expect(queryByTestId(mockFilledProgressStep1)).toBeInTheDocument()
-      expect(queryByTestId(mockFilledProgressStep2)).toBeInTheDocument()
-      expect(queryByTestId(mockFilledProgressStep3)).not.toBeInTheDocument()
+      expect(queryByTestId('voucher-modal')).toBeInTheDocument()
     })
 
-    it('should render the correct number of empty progress steps', () => {
+    it('should not render voucher modal', () => {
+      React.useState = jest.fn().mockReturnValue([false, mockSetVoucherModalVisible])
       const { queryByTestId } = render(
         <Voucher
-          voucher={mockVoucher}
+          voucher={{}}
         />,
       )
-      const mockEmptyProgressStep1 = 'empty progress-step 0'
-      const mockEmptyProgressStep2 = 'empty progress-step 1'
-      const mockEmptyProgressStep3 = 'empty progress-step 2'
-
-      expect(queryByTestId(mockEmptyProgressStep1)).not.toBeInTheDocument()
-      expect(queryByTestId(mockEmptyProgressStep2)).not.toBeInTheDocument()
-      expect(queryByTestId(mockEmptyProgressStep3)).toBeInTheDocument()
-    })
-  })
-
-  describe('Test voucher footer', () => {
-    describe('Test inprogress/earned footer', () => {
-    // inProgressEarnedText: "mock_prefix2/mock_prefix3 mock_suffix"
-      const inProgressEarnedText = `${prefix}${value}/${prefix}${target_value} ${suffix}`
-      it("should render correct footer if voucher state is 'inprogress'", () => {
-        const { getByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'inprogress' }}
-          />,
-        )
-        expect(getByText('Collected:')).toBeInTheDocument()
-        expect(getByText(inProgressEarnedText)).toBeInTheDocument()
-      })
-
-      it("should render correct footer if voucher state is 'earned'", () => {
-        const { getByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'earned' }}
-          />,
-        )
-        expect(getByText('Collected:')).toBeInTheDocument()
-        expect(getByText(inProgressEarnedText)).toBeInTheDocument()
-      })
-
-      it("should not render 'inprogress' or 'earned' footer", () => {
-        const { queryByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'mock_state' }}
-          />,
-        )
-        expect(queryByText('Collected:')).not.toBeInTheDocument()
-        expect(queryByText(inProgressEarnedText)).not.toBeInTheDocument()
-      })
-    })
-
-    describe('Test redeemed footer', () => {
-      const expectedText = 'on 01 Jan 2000'
-      const date = new Date(2000, 0, 1)
-      const mockRedeemedDate = date.getTime() / 1000
-      it("should render redeemed footer if state is 'redeemed' and date_redeemed is not undefined", () => {
-        const { getByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'redeemed', date_redeemed: mockRedeemedDate }}
-          />,
-        )
-        expect(getByText(expectedText)).toBeInTheDocument()
-      })
-
-      it("should not render redeemed footer if state is not 'redeemed'", () => {
-        const { queryByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'mock_state', date_redeemed: mockRedeemedDate }}
-          />,
-        )
-        expect(queryByText(expectedText)).not.toBeInTheDocument()
-      })
-
-      it('should not render redeemed footer if date_redeemed is undefined', () => {
-        const { queryByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'redeemed' }}
-          />,
-        )
-        expect(queryByText(expectedText)).not.toBeInTheDocument()
-      })
-    })
-
-    describe('Test expired/cancelled footer', () => {
-      const expectedText = 'on 01 Jan 2000'
-      const date = new Date(2000, 0, 1)
-      const mockExpiredDate = date.getTime() / 1000
-      it("should render footer if state is 'expired' and expiry_date is not undefined", () => {
-        const { getByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'expired', expiry_date: mockExpiredDate }}
-          />,
-        )
-        expect(getByText(expectedText)).toBeInTheDocument()
-      })
-
-      it("should render footer if state is 'cancelled' and expiry_date is not undefined", () => {
-        const { getByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'cancelled', expiry_date: mockExpiredDate }}
-          />,
-        )
-        expect(getByText(expectedText)).toBeInTheDocument()
-      })
-
-      it("should not render redeemed footer if state is not 'expired' or 'cancelled'", () => {
-        const { queryByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'mock_state', expiry_date: mockExpiredDate }}
-          />,
-        )
-        expect(queryByText(expectedText)).not.toBeInTheDocument()
-      })
-
-      it('should not render redeemed footer if expiry_date is undefined', () => {
-        const { queryByText } = render(
-          <Voucher
-            voucher={{ ...mockVoucher, state: 'cancelled' }}
-          />,
-        )
-        expect(queryByText(expectedText)).not.toBeInTheDocument()
-      })
+      expect(queryByTestId('voucher-modal')).not.toBeInTheDocument()
     })
   })
 })
