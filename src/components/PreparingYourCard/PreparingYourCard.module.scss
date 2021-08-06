@@ -23,6 +23,7 @@
 
     &--link {
       @include body-font-style;
+      @include link;
     }
   }
 }
