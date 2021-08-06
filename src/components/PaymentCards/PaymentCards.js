@@ -41,15 +41,19 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
 
   // Check to see if the payment card limit is reached
   useEffect(() => {
-    const paymentCardLimitReached = linkedPaymentCards?.length > 4
+    // If a payment card is pending, consider it as linked for the prupose of halting the user from adding too many cards
+    const paymentCardLimitReached = newlyPendingPaymentCard ? linkedPaymentCards?.length > 3 : linkedPaymentCards?.length > 4
     setIsPaymentCardLimitReached(paymentCardLimitReached)
-  }, [linkedPaymentCards, setIsPaymentCardLimitReached])
+  }, [linkedPaymentCards, newlyPendingPaymentCard, setIsPaymentCardLimitReached])
 
   const handleClickOnPaymentCard = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
       if (isPaymentCardExpired(card)) {
         // card is not liked but is expired
         handleDeletePaymentCard(card)
+      } else if (isPaymentCardLimitReached) {
+        // card can be linked but too many cards are already linked
+        setPaymentCardLimitModalVisible(true)
       } else {
         // card is not linked as is not expired
         linkCard(card)
@@ -57,7 +61,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     } else {
     // card is linked. should do nothing if clicked
     }
-  }, [membershipCard, linkCard, handleDeletePaymentCard])
+  }, [membershipCard, linkCard, handleDeletePaymentCard, isPaymentCardLimitReached, setPaymentCardLimitModalVisible])
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
