@@ -9,6 +9,41 @@ const StampVoucher = ({ voucher }) => {
   const { prefix: burnPrefix = null, value: burnValue = null, suffix: burnSuffix = null } = burn
   const { prefix: earnPrefix = null, value: earnValue = null, target_value: earnTargetValue = null, suffix: earnSuffix = null } = earn
 
+  const shouldRenderFooter = () => {
+    switch (state) {
+      case 'inprogress':
+      case 'issued':
+        return (
+          <div className={styles.root__footer}>
+            Collected:
+            <span className={styles['root__progress-value']}>
+              {earnPrefix}{earnValue}/{earnPrefix}{earnTargetValue} {earnSuffix}
+            </span>
+          </div>
+        )
+      case 'redeemed':
+        if (dateRedeemed) {
+          return (
+            <div className={styles.root__footer}>
+              on {dayjs(dateRedeemed * 1000).format('DD MMM YYYY')}
+            </div>
+          )
+        }
+        return null
+      case 'expired':
+      case 'cancelled':
+        if (expiryDate) {
+          return (
+            <div className={styles.root__footer}>
+              on {dayjs(expiryDate * 1000).format('DD MMM YYYY')}
+            </div>
+          )
+        }
+        return null
+      default: return null
+    }
+  }
+
   return (
     <>
       <div className={styles.root__title}>
@@ -52,26 +87,8 @@ const StampVoucher = ({ voucher }) => {
           )
         )) }
       </div>
-      { (state === 'inprogress' || state === 'issued') && (
-        <div className={styles.root__footer}>
-          Collected:
-          <span className={styles['root__progress-value']}>
-            {earnPrefix}{earnValue}/{earnPrefix}{earnTargetValue} {earnSuffix}
-          </span>
-        </div>
-      ) }
-      {/* TODO: Check with Jack to understand: to check when we have the data from the API */}
-      { state === 'redeemed' && dateRedeemed && (
-        <div className={styles.root__footer}>
-          on {dayjs(dateRedeemed * 1000).format('DD MMM YYYY')}
-        </div>
-      ) }
-      {/* TODO:  Check with Jack to understand: to check the state=cancelled scenario when we have the data from the API */}
-      { (state === 'expired' || state === 'cancelled') && expiryDate && (
-        <div className={styles.root__footer}>
-          on {dayjs(expiryDate * 1000).format('DD MMM YYYY')}
-        </div>
-      ) }
+
+      {shouldRenderFooter()}
     </>
   )
 }

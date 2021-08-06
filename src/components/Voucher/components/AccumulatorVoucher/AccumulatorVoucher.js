@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import dayjs from 'dayjs'
+import { formatValueToDecimalPlace } from 'utils/format'
 
 import styles from './AccumulatorVoucher.module.scss'
 
@@ -9,8 +10,54 @@ const AccumulatorVoucher = ({ voucher }) => {
   const { prefix: burnPrefix = null, value: burnValue = null, type: burnType = null } = burn
   const { prefix: earnPrefix = null, value: earnValue = null, target_value: earnTargetValue = null } = earn
 
-  const amountToGo = earnTargetValue - earnValue
-  const percentageEarned = (earnValue / earnTargetValue) * 100
+  const [formattedEarnValue, formattedEarnTargetValue] = [earnValue, earnTargetValue].map(value => formatValueToDecimalPlace(value, 2))
+
+  const amountToGo = formatValueToDecimalPlace(formattedEarnTargetValue - formattedEarnValue, 2)
+  const percentageEarned = (formattedEarnValue / formattedEarnTargetValue) * 100
+
+  const shouldRenderFooter = () => {
+    switch (state) {
+      case 'inprogress':
+      case 'issued':
+        return (
+          <div className={styles['root__progress-text']}>
+            <div className={styles.root__footer}>
+              Spent:
+              <span className={styles['root__progress-value']}>
+                {earnPrefix}{formattedEarnValue}
+              </span>
+            </div>
+
+            <div className={styles.root__footer}>
+              Goal:
+              <span className={styles['root__progress-value']}>
+                {earnPrefix}{formattedEarnTargetValue}
+              </span>
+            </div>
+          </div>
+        )
+      case 'redeemed':
+        if (dateRedeemed) {
+          return (
+            <div className={styles.root__footer}>
+              on {dayjs(dateRedeemed * 1000).format('DD MMM YYYY')}
+            </div>
+          )
+        }
+        return null
+      case 'expired':
+      case 'cancelled':
+        if (expiryDate) {
+          return (
+            <div className={styles.root__footer}>
+              on {dayjs(expiryDate * 1000).format('DD MMM YYYY')}
+            </div>
+          )
+        }
+        return null
+      default: return null
+    }
+  }
 
   return (
     <>
@@ -35,35 +82,7 @@ const AccumulatorVoucher = ({ voucher }) => {
         </div>
       </div>
 
-      { (state === 'inprogress' || state === 'issued') && (
-        <div className={styles['root__progress-text']}>
-          <div className={styles.root__footer}>
-            Spent:
-            <span className={styles['root__progress-value']}>
-              {earnPrefix}{earnValue}
-            </span>
-          </div>
-
-          <div className={styles.root__footer}>
-            Goal:
-            <span className={styles['root__progress-value']}>
-              {earnPrefix}{earnTargetValue}
-            </span>
-          </div>
-        </div>
-      ) }
-      {/* TODO: Check with Jack to understand: to check when we have the data from the API */}
-      { state === 'redeemed' && dateRedeemed && (
-        <div className={styles.root__footer}>
-          on {dayjs(dateRedeemed * 1000).format('DD MMM YYYY')}
-        </div>
-      ) }
-      {/* TODO:  Check with Jack to understand: to check the state=cancelled scenario when we have the data from the API */}
-      { (state === 'expired' || state === 'cancelled') && expiryDate && (
-        <div className={styles.root__footer}>
-          on {dayjs(expiryDate * 1000).format('DD MMM YYYY')}
-        </div>
-      ) }
+      {shouldRenderFooter()}
     </>
   )
 }

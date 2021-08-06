@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { formatValueToDecimalPlace } from 'utils/format'
 
 import AccumulatorVoucher from './AccumulatorVoucher'
 
@@ -54,7 +55,7 @@ describe('Test AccumulatorVoucher', () => {
     })
 
     it('should render inprogress text', () => {
-      const mockAmountToGo = target_value - value
+      const mockAmountToGo = formatValueToDecimalPlace(target_value - value, 2)
       const { getByText } = render(
         <AccumulatorVoucher
           voucher={{ ...mockVoucher, state: 'inprogress' }}
@@ -91,8 +92,8 @@ describe('Test AccumulatorVoucher', () => {
 
   describe('Test voucher footer', () => {
     describe('Test inprogress/issued footer', () => {
-      const spentText = `${prefix}${value}`
-      const goalText = `${prefix}${target_value}`
+      const spentText = `${prefix}${formatValueToDecimalPlace(value, 2)}`
+      const goalText = `${prefix}${formatValueToDecimalPlace(target_value, 2)}`
       it("should render correct footer if voucher state is 'inprogress'", () => {
         const { getByText } = render(
           <AccumulatorVoucher
@@ -117,7 +118,7 @@ describe('Test AccumulatorVoucher', () => {
         expect(getByText(goalText)).toBeInTheDocument()
       })
 
-      it("should not render 'inprogress' or 'issued' footer", () => {
+      it("should not render 'inprogress' or 'issued' footer if not in either state", () => {
         const { queryByText } = render(
           <AccumulatorVoucher
             voucher={{ ...mockVoucher, state: 'mock_state' }}
