@@ -1,5 +1,5 @@
 import React from 'react'
-import { within, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { usePaymentCardAddForm } from './hooks/usePaymentCardAddForm'
 
@@ -95,12 +95,11 @@ describe('Test PaymentCardAddForm', () => {
       it('should render the expiry date fields in the correct order', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
-        const monthField = screen.getByTitle('MM')
-        const yearField = screen.getByTitle('YY')
-        userEvent.click(monthField)
-        expect(monthField).toHaveFocus()
+        const [monthOptions, yearOptions] = screen.getAllByRole('combobox')
+        userEvent.click(monthOptions)
+        expect(monthOptions).toHaveFocus()
         userEvent.tab()
-        expect(yearField).toHaveFocus()
+        expect(yearOptions).toHaveFocus()
       })
       it('should render correct number of expiry date options', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
