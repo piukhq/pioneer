@@ -110,7 +110,10 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
                 By connecting your loyalty account to your payment card you can earn rewards every time you shop.
                 Find out more about how our site works and how we put you in control by viewing </span>
               {/* TODO: Should be merchant specific url? */}
-              <a className={styles.root__note} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.</a>
+              <a className={cx(
+                styles.root__note,
+                styles.root__link,
+              )} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.</a>
             </div>
           </>
         )}
