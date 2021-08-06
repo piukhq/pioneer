@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { isValidName, isValidExpiry } from 'utils/validation'
 
-const usePaymentCardAddForm = (onClose) => {
+export const usePaymentCardAddForm = (onClose) => {
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState({ MM: undefined, YY: undefined })
   const [fullNameError, setFullNameError] = useState(undefined)
@@ -169,5 +169,3 @@ const usePaymentCardAddForm = (onClose) => {
     submitForm,
   }
 }
-
-export default usePaymentCardAddForm

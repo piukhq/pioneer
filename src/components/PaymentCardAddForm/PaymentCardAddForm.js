@@ -4,7 +4,7 @@ import cx from 'classnames'
 import Button from 'components/Button'
 import SelectboxGroup from 'components/Form/SelectboxGroup'
 import TextInputGroup from 'components/Form/TextInputGroup'
-import usePaymentCardAddForm from './hooks/usePaymentCardAddForm'
+import { usePaymentCardAddForm } from './hooks/usePaymentCardAddForm'
 import Loading3 from 'components/Loading3'
 import PaymentCardInputGroup from 'components/Form/PaymentCardInputGroup'
 import { getExpiryDates } from 'utils/dates'
@@ -47,6 +47,7 @@ const PaymentCardAddForm = ({ onClose }) => {
           />
 
           <SelectboxGroup
+            data-testId='expiry-field'
             className={styles['root__expiry-group']}
             selectedValues={expiry}
             values={getExpiryDates()}
@@ -76,6 +77,7 @@ const PaymentCardAddForm = ({ onClose }) => {
 
         <div className={styles['root__button-container']}>
           <Button
+            data-testid='submit-button'
             primary
             className={styles.root__button}
             onClick={submitForm}
@@ -84,7 +86,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             {isLoading ? <Loading3 /> : 'Add payment card'}
           </Button>
         </div>
-        <a className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink Privacy and Security</a>
+        <a data-testid='bink-privacy-and-security' className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer' >Bink Privacy and Security</a>
       </form>
     </Modal>
   )
