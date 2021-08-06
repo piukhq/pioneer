@@ -29,7 +29,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             <>
               {/* todo: would there ever be an unhappy path ever where balance is missing? */}
               <div data-testid='transaction-history' className={styles['root__transaction-history']} onClick={() => setTransactionsModalOpen(true)}>
-                <StateAuthorisedSvg className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
+                <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
                 <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
                 <div className={styles.root__explainer}>View history</div>
               </div>
@@ -45,7 +45,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             </>
           ) : (
             <div data-testid='no-transaction-history' className={cx(styles['root__transaction-history'], styles['root__transaction-history--disabled'])}>
-              <StateAuthorisedGreySvg />
+              <StateAuthorisedGreySvg key={state} />
               <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
               <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>No transactions to show</div>
               <div className={cx(styles.root__explainer, styles['root__explainer--mobile-only'])}>Not available</div>
@@ -54,7 +54,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
           { nonActiveVouchers?.length > 0 ? (
             <>
               <div data-testid='non-active-vouchers' className={styles['root__voucher-history']} onClick={() => setNonActiveVouchersModalOpen(true)}>
-                <StateAuthorisedSvg className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
+                <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
                 <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Rewards history</div>
                 <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
                 <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>See your past rewards</div>
@@ -72,7 +72,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
 
           ) : (
             <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])}>
-              <StateAuthorisedGreySvg />
+              <StateAuthorisedGreySvg key={state} />
               <div className={cx(styles.root__subtitle, styles['root__subtitle--desktop-only'])}>Rewards history</div>
               <div className={cx(styles.root__subtitle, styles['root__subtitle--mobile-only'])}>History</div>
               <div className={cx(styles.root__explainer, styles['root__explainer--desktop-only'])}>No vouchers to show</div>
@@ -83,7 +83,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
       ) }
       { state === 'no-payment-cards' && (
         <div data-testid='no-payment-cards' className={styles['root__no-payment-card-state']} onClick={addPaymentCardClickHandler}>
-          <StateFailedSvg />
+          <StateFailedSvg key={state} />
           <div className={styles.root__subtitle}>Add a payment card</div>
           <div className={styles.root__explainer}>
             <div className={styles['root__explainer-paragraph']}>To collect rewards you need to add a payment card to { planName }.</div>
@@ -93,7 +93,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
       ) }
       { state === 'failed' && (
           <div data-testid='failed-state' className={styles['root__failed-state']}>
-            <StateFailedSvg />
+            <StateFailedSvg key={state} />
             <div className={styles.root__subtitle}>Something's not right</div>
             <div className={styles.root__explainer}>
               <div className={styles['root__explainer-paragraph']}>There was a problem setting up your account.</div>
@@ -104,7 +104,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
       ) }
       { state === 'pending' && (
           <div data-testid='pending-state' className={styles['root__pending-state']}>
-            <StatePendingSvg />
+            <StatePendingSvg key={state} />
             <div className={styles.root__subtitle}>Pending</div>
             <div className={styles.root__explainer}>
               <div className={styles['root__explainer-paragraph']}>We are getting everything ready for you.</div>
