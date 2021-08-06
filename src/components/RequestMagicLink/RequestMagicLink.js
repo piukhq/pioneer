@@ -11,8 +11,6 @@ import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
 import useEmailErrorDisplay from './hooks/useEmailErrorDisplay'
 
-import { getCookiePolicyUrl } from 'utils/urls'
-
 import cx from 'classnames'
 import styles from './RequestMagicLink.module.scss'
 
