@@ -41,10 +41,11 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
 
   // Check to see if the payment card limit is reached
   useEffect(() => {
-    // If a payment card is pending, consider it as linked for the prupose of halting the user from adding too many cards
-    const paymentCardLimitReached = newlyPendingPaymentCard ? linkedPaymentCards?.length > 3 : linkedPaymentCards?.length > 4
+    const totalCards = newlyPendingPaymentCard ? (unlinkedPaymentCards?.length + linkedPaymentCards?.length) + 1 : unlinkedPaymentCards?.length + linkedPaymentCards?.length
+    // The user can have no more than 5 payment cards, regardless of the card's state
+    const paymentCardLimitReached = totalCards >= 5
     setIsPaymentCardLimitReached(paymentCardLimitReached)
-  }, [linkedPaymentCards, newlyPendingPaymentCard, setIsPaymentCardLimitReached])
+  }, [linkedPaymentCards, unlinkedPaymentCards, newlyPendingPaymentCard, setIsPaymentCardLimitReached])
 
   const handleClickOnPaymentCard = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
