@@ -29,10 +29,10 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
 
   useEffect(() => {
     const onSpreedlyInput = (event) => {
-      const { numberLength, validNumber } = event.detail
+      const { numberLength, validNumber, cardType } = event.detail
       setLength(numberLength)
-
-      onChange && onChange({ valid: validNumber })
+      const correctType = (cardType === 'visa' || cardType === 'master' || cardType === 'american_express')
+      onChange && onChange({ valid: validNumber, correctType })
     }
     window.addEventListener('bink.spreedly.input', onSpreedlyInput)
     return () => window.removeEventListener('bink.spreedly.input', onSpreedlyInput)

@@ -10,6 +10,7 @@ export const usePaymentCardAddForm = (onClose) => {
   const [expiryError, setExpiryError] = useState(undefined)
   const [isLoading, setIsLoading] = useState(false)
   const [cardNumberValid, setCardNumberValid] = useState(false)
+  const [cardNumberCorrectType, setCardNumberCorrectType] = useState(false)
   const [cardNumberError, setCardNumberError] = useState(false)
   const [genericSpreedlyError, setGenericSpreedlyError] = useState(false)
 
@@ -18,14 +19,17 @@ export const usePaymentCardAddForm = (onClose) => {
   const handlePaymentCardBlur = useCallback(() => {
     if (!cardNumberValid) {
       setCardNumberError('Invalid card number')
+    } else if (!cardNumberCorrectType) {
+      setCardNumberError('You can only add Visa, Mastercard or American Express cards')
     } else {
       setCardNumberError(false)
     }
-  }, [cardNumberValid, setCardNumberError])
+  }, [cardNumberValid, cardNumberCorrectType, setCardNumberError])
 
-  const handlePaymentCardChange = useCallback(({ valid }) => {
+  const handlePaymentCardChange = useCallback(({ valid, correctType }) => {
     setCardNumberError(false)
     setCardNumberValid(valid)
+    setCardNumberCorrectType(correctType)
   }, [setCardNumberError])
 
   useEffect(() => {
@@ -119,8 +123,8 @@ export const usePaymentCardAddForm = (onClose) => {
   }, [fullName])
 
   const isPaymentFormValid = useCallback(
-    () => isValidName(fullName) && isValidExpiry(expiry) && cardNumberValid,
-    [fullName, expiry, cardNumberValid],
+    () => isValidName(fullName) && isValidExpiry(expiry) && cardNumberValid && cardNumberCorrectType,
+    [fullName, expiry, cardNumberValid, cardNumberCorrectType],
   )
 
   const submitForm = (event) => {
