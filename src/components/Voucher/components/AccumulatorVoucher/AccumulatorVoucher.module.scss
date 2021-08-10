@@ -1,0 +1,36 @@
+@import "src/sass/variables";
+@import "src/sass/mixins";
+
+.root {
+  @include voucher-style;
+
+  &__accumulator {
+    position: inherit;
+    height: 14px;
+    width: inherit;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+
+    &--inprogress {
+      background-color: #f5a623;
+    }
+
+    &--issued {
+      background-color: #00c176;
+    }
+
+    &--redeemed {
+      background-color: $primary-color;
+    }
+
+    &--expired,
+    &--cancelled {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &__progress-text {
+    display: flex;
+    justify-content: space-between;
+  }
+}
