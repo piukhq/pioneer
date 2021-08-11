@@ -63,7 +63,6 @@ const defaultHookValues = {
   submitForm: mockSubmitForm,
 }
 
-// unit Tests
 describe('Test PaymentCardAddForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
