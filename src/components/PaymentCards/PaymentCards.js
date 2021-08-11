@@ -39,20 +39,22 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
+  const numberOfCardsInLinkedSection = newlyPendingPaymentCard ? linkedPaymentCards?.length + 1 : linkedPaymentCards?.length
+
   // Check to see if the payment card limit is reached
   useEffect(() => {
-    const totalCards = newlyPendingPaymentCard ? (unlinkedPaymentCards?.length + linkedPaymentCards?.length) + 1 : unlinkedPaymentCards?.length + linkedPaymentCards?.length
     // The user can have no more than 5 payment cards, regardless of the card's state
+    const totalCards = numberOfCardsInLinkedSection + unlinkedPaymentCards?.length
     const paymentCardLimitReached = totalCards >= 5
     setIsPaymentCardLimitReached(paymentCardLimitReached)
-  }, [linkedPaymentCards, unlinkedPaymentCards, newlyPendingPaymentCard, setIsPaymentCardLimitReached])
+  }, [numberOfCardsInLinkedSection, unlinkedPaymentCards, newlyPendingPaymentCard, setIsPaymentCardLimitReached])
 
   const handleClickOnPaymentCard = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
       if (isPaymentCardExpired(card)) {
         // card is not liked but is expired
         handleDeletePaymentCard(card)
-      } else if (isPaymentCardLimitReached) {
+      } else if (numberOfCardsInLinkedSection >= 5) {
         // card can be linked but too many cards are already linked
         setPaymentCardLimitModalVisible(true)
       } else {
@@ -62,7 +64,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     } else {
     // card is linked. should do nothing if clicked
     }
-  }, [membershipCard, linkCard, handleDeletePaymentCard, isPaymentCardLimitReached, setPaymentCardLimitModalVisible])
+  }, [membershipCard, linkCard, handleDeletePaymentCard, numberOfCardsInLinkedSection, setPaymentCardLimitModalVisible])
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
