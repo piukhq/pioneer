@@ -5,6 +5,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
   const [length, setLength] = useState(0)
   const [focus, setFocus] = useState(false)
   const [isIframeReady, setIframeReady] = useState(false)
+  const validCardTypes = ['visa', 'master', 'american_express']
 
   useEffect(() => {
     const Spreedly = window.Spreedly
@@ -31,12 +32,12 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady) =>
     const onSpreedlyInput = (event) => {
       const { numberLength, validNumber, cardType } = event.detail
       setLength(numberLength)
-      const correctType = (cardType === 'visa' || cardType === 'master' || cardType === 'american_express')
-      onChange && onChange({ valid: validNumber, correctType })
+      const isCardTypeValid = validCardTypes.includes(cardType)
+      onChange && onChange({ isCardNumberValid: validNumber, isCardTypeValid })
     }
     window.addEventListener('bink.spreedly.input', onSpreedlyInput)
     return () => window.removeEventListener('bink.spreedly.input', onSpreedlyInput)
-  }, [onChange])
+  }, [onChange, validCardTypes])
 
   const handleLabelClick = () => {
     Spreedly.transferFocus('number')
