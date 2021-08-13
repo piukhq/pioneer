@@ -6,23 +6,27 @@ stages:
   - prod
   - prod-deploy
 
-build:
+build: &build
   stage: build
   image: node:14
+  before_script:
+    - export NODE_CONFIG_ENV=development
+    - export URL_PREFIX=/develop
   script:
     - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
     - npm ci
     - npm run lint-js
     - npm run lint-css
     # build wasabi theme
-    - NODE_CONFIG_ENV=development PUBLIC_URL=/develop/wasabi THEME=wasabi npm run build
+    - PUBLIC_URL=$URL_PREFIX/wasabi THEME=wasabi npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-wasabi.tar.gz .
+    - tar -C build -zcvf build-wasabi-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
 
     # build fatface theme
-    - NODE_CONFIG_ENV=development PUBLIC_URL=/develop/fatface THEME=fatface npm run build
-    - tar -C build -zcvf build-fatface.tar.gz .
+    - PUBLIC_URL=$URL_PREFIX/fatface THEME=fatface npm run build
+    - cp version.json build/
+    - tar -C build -zcvf build-fatface-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
   artifacts:
     paths:
@@ -37,35 +41,22 @@ deploy-dev:
   script:
     # deploy wasabi theme
     - mkdir wasabi
-    - tar -C wasabi -xf build-wasabi.tar.gz
+    - tar -C wasabi -xf build-wasabi-development.tar.gz
     - copy --sync wasabi /develop/wasabi/
 
     # deploy fatface theme
     - mkdir fatface
-    - tar -C fatface -xf build-fatface.tar.gz
+    - tar -C fatface -xf build-fatface-development.tar.gz
     - copy --sync fatface /develop/fatface/
   only:
     - develop
 
 # Could get fancy here and just use the "build" stage but this is slightly cleaner
 build-mr:
-  stage: build
-  image: node:14
-  script:
-    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
-    - npm ci
-    - npm run lint-js
-    - npm run lint-css
-    # build wasabi theme
-    - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/wasabi THEME=wasabi npm run build
-    - cp version.json build/
-    - tar -C build -zcvf build-wasabi.tar.gz .
-    - rm -rf build
-
-    # build fatface theme
-    - NODE_CONFIG_ENV=development PUBLIC_URL=/mr-$CI_MERGE_REQUEST_IID/fatface THEME=fatface npm run build
-    - tar -C build -zcvf build-fatface.tar.gz .
-    - rm -rf build
+  <<: *build
+  before_script:
+    - export NODE_CONFIG_ENV=development
+    - export URL_PREFIX=/mr-$CI_MERGE_REQUEST_IID
   artifacts:
     paths:
       - build*.tar.gz
@@ -79,12 +70,12 @@ deploy-mr:
   script:
     # deploy wasabi theme
     - mkdir wasabi
-    - tar -C wasabi -xf build-wasabi.tar.gz
+    - tar -C wasabi -xf build-wasabi-development.tar.gz
     - copy --sync wasabi /mr-$CI_MERGE_REQUEST_IID/wasabi/
 
     # deploy fatface theme
     - mkdir fatface
-    - tar -C fatface -xf build-fatface.tar.gz
+    - tar -C fatface -xf build-fatface-development.tar.gz
     - copy --sync fatface /mr-$CI_MERGE_REQUEST_IID/fatface/
 
     - python .ci-scripts/comment-deployment-url.py
@@ -92,26 +83,13 @@ deploy-mr:
     - merge_requests
 
 build-staging:
+  <<: *build
   stage: staging
   allow_failure: false
-  image: node:14
-  script:
-    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
-    - npm ci
-    - npm run lint-js
-    - npm run lint-css
-    # build wasabi theme
-    - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/wasabi THEME=wasabi npm run build
-    - cp version.json build/
-    - tar -C build -zcvf build-wasabi-staging.tar.gz .
-    - rm -rf build
-
-    # build fatface theme
-    - NODE_CONFIG_ENV=staging PUBLIC_URL=/staging/fatface THEME=fatface npm run build
-    - cp version.json build/
-    - tar -C build -zcvf build-fatface-staging.tar.gz .
-    - rm -rf build
-
+  before_script:
+    - export NODE_CONFIG_ENV=staging
+    - export URL_PREFIX=/staging
+  after_script:
     # build wasabi theme for sandbox
     - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/wasabi THEME=wasabi npm run build
     - cp version.json build/
@@ -154,29 +132,12 @@ deploy-staging-fatface:
     - develop
 
 build-prod:
+  <<: *build
   stage: prod
   allow_failure: false
-  image: node:14
-  script:
-    - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
-    - npm ci
-    - npm run lint-js
-    - npm run lint-css
-    # build wasabi theme
-    - NODE_CONFIG_ENV=production PUBLIC_URL=/wasabi THEME=wasabi npm run build
-    - rm -rf build/themes
-    - rm build/*.*
-    - cp version.json build/
-    - tar -C build -zcvf build-wasabi-prod.tar.gz .
-    - rm -rf build
-
-    # build fatface theme
-    - NODE_CONFIG_ENV=production PUBLIC_URL=/fatface THEME=fatface npm run build
-    - rm -rf build/themes
-    - rm build/*.*
-    - cp version.json build/
-    - tar -C build -zcvf build-fatface-prod.tar.gz .
-    - rm -rf build
+  before_script:
+    - export NODE_CONFIG_ENV=production
+    - export URL_PREFIX=
   artifacts:
     paths:
       - build*.tar.gz
@@ -190,7 +151,9 @@ deploy-prod-wasabi:
   script:
     # deploy wasabi theme
     - mkdir wasabi
-    - tar -C wasabi -xf build-wasabi-prod.tar.gz
+    - tar -C wasabi -xf build-wasabi-production.tar.gz
+    - rm -rf wasabi/themes
+    - rm `ls wasabi/*.* | grep -v "^wasabi\/version\.json$"`
     - copy --prod --sync wasabi /wasabi/
   when: manual
   only:
@@ -202,7 +165,9 @@ deploy-prod-fatface:
   script:
     # deploy fatface theme
     - mkdir fatface
-    - tar -C fatface -xf build-fatface-prod.tar.gz
+    - tar -C fatface -xf build-fatface-production.tar.gz
+    - rm -rf fatface/themes
+    - rm `ls fatface/*.* | grep -v "^fatface\/version\.json$"`
     - copy --prod --sync fatface /fatface/
   when: manual
   only:
