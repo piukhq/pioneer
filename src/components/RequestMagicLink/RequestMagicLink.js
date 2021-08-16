@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 // import { ReactComponent as MagicLinkErrorSvg } from 'images/magic-link-error.svg'
 // import { ReactComponent as MagicLinkWarningSvg } from 'images/magic-link-warning.svg'
 import Button from 'components/Button'
-import Loading from 'components/Loading'
+import LoadingIndicator from 'components/LoadingIndicator'
 import TextInputGroup from 'components/Form/TextInputGroup'
 
 import useRequestMagicLink from './hooks/useRequestMagicLink'
@@ -38,7 +38,7 @@ const RequestMagicLink = () => {
 
   return (
     <>
-      { requestLoading && <Loading /> }
+      { requestLoading && <LoadingIndicator /> }
       { requestSuccess ? (
         <MagicLinkRequestSuccess email={email} />
       ) : (

@@ -6,7 +6,7 @@ import ButtonExample from './ButtonExample'
 import ModalExample from './ModalExample'
 import TextInputGroupExample from 'routes/TypographyPage/TextInputGroupExample'
 import SelectboxGroupExample from 'routes/TypographyPage/SelectboxGroupExample'
-import Loading2 from 'components/Loading2'
+import PageTransitionLoadingIndicator from 'components/PageTransitionLoadingIndicator'
 import PaymentCardInputGroupExample from 'routes/TypographyPage/PaymentCardInputGroupExample'
 
 const TypographyPage = () => (
@@ -14,7 +14,7 @@ const TypographyPage = () => (
     <Heading />
     <BodyExample />
     <NoteExample />
-    <Loading2 />
+    <PageTransitionLoadingIndicator />
     <ButtonExample />
     <PaymentCardInputGroupExample />
     <TextInputGroupExample />

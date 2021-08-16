@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Loading2 from 'components/Loading2'
+import PageTransitionLoadingIndicator from 'components/PageTransitionLoadingIndicator'
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
 
 import styles from './PreparingYourCard.module.scss'
@@ -16,7 +16,7 @@ const PreparingYourCard = ({ membershipCardId }) => {
         <div className={styles['root__description-paragraph']}>This won't take long and we will redirect you automatically when this is done.</div>
       </div>
       <div className={styles.root__loading}>
-        <Loading2/>
+        <PageTransitionLoadingIndicator/>
       </div>
       <div className={styles.root__support}>If this is taking longer than you expect, <a className={styles['root__support--link']} href={Config.urls.support} target="_blank" rel="noreferrer">reach out to us</a> and we can help.</div>
     </div>

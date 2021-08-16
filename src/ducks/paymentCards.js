@@ -158,7 +158,7 @@ export const selectors = {
   cardsList: createSelector(
     paymentCardsSelector,
     // todo: cardsObject is always going to be an object. The `|| {}` seems redundant
-    cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
+    cardsObject => Object.keys(cardsObject).map(cardId => cardsObject[cardId]),
   ),
 }
 
