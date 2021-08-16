@@ -39,7 +39,7 @@ const RequestMagicLink = () => {
   return (
     <>
       { requestLoading && <Loading /> }
-      { requestSuccess ? (
+      { requestSuccess && email ? (
         <MagicLinkRequestSuccess email={email} />
       ) : (
         (requestError || authenticationError) ? (
