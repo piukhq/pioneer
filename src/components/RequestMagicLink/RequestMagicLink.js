@@ -49,7 +49,7 @@ const RequestMagicLink = () => {
             <MagicLinkRequestOrAuthenticationError handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
           )
         ) : (
-          <MagicLinkRequestForm handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
+          <MagicLinkRequestForm handleSubmit={ handleSubmit } email={ email || '' } setEmail={ setEmail } />
         )
       ) }
     </>
