@@ -106,7 +106,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
             </div>
 
             <div className={styles.root__footerNote}>
-              <span className={styles.root__note}>✝︎Bink is technology that makes loyalty simpler.
+              <span className={styles.root__note}>**Bink is technology that makes loyalty simpler.
                 By connecting your loyalty account to your payment card you can earn rewards every time you shop.
                 Find out more about how our site works and how we put you in control by viewing </span>
               {/* TODO: Should be merchant specific url? */}
