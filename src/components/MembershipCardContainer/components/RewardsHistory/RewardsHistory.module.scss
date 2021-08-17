@@ -44,7 +44,7 @@
   @mixin state-box {
     padding: 20px 20px 15px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
   }
 
@@ -85,10 +85,6 @@
 
     @include state-box;
 
-    @media (min-width: 800px) {
-      margin-top: 10px;
-    }
-
     &--disabled {
       cursor: auto;
       color: #999;
@@ -100,10 +96,6 @@
     grid-area: voucher-history;
 
     @include state-box;
-
-    @media (min-width: 800px) {
-      margin-bottom: 10px;
-    }
 
     &--disabled {
       cursor: auto;

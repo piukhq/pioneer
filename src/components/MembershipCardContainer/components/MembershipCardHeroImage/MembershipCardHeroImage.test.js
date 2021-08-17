@@ -11,6 +11,7 @@ jest.mock('utils/enums', () => ({
 }))
 
 describe('Test MembershipCardHeroImage', () => {
+  const mockMembershipId = 'mock_membership_id'
   const mockMembershipCard = {
     images: [
       {
@@ -19,7 +20,7 @@ describe('Test MembershipCardHeroImage', () => {
       },
     ],
     card: {
-      membership_id: 'mock_membership_id',
+      membership_id: mockMembershipId,
     },
   }
 
@@ -38,14 +39,12 @@ describe('Test MembershipCardHeroImage', () => {
   describe('Test membership card metadata', () => {
     it('should render the membership card metadata', () => {
       const { getByText } = render(<MembershipCardHeroImage membershipCard={mockMembershipCard} />)
-      expect(getByText('Card number')).toBeInTheDocument()
-      expect(getByText('mock_membership_id')).toBeInTheDocument()
+      expect(getByText(`Card number: ${mockMembershipId}`)).toBeInTheDocument()
     })
 
     it('should not render the membership card metadata', () => {
       const { queryByText } = render(<MembershipCardHeroImage />)
-      expect(queryByText('Card number')).not.toBeInTheDocument()
-      expect(queryByText('mock_membership_id')).not.toBeInTheDocument()
+      expect(queryByText(`Card number: ${mockMembershipId}`)).not.toBeInTheDocument()
     })
   })
 })

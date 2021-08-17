@@ -17,13 +17,12 @@
       "transaction-history voucher-history";
 
     @media (min-width: 800px) {
-      grid-template-columns: auto 250px;
-      grid-template-rows: 1fr 1fr;
-      row-gap: 25px;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      row-gap: 20px;
       column-gap: 20px;
       grid-template-areas:
-        "image transaction-history"
-        "image voucher-history";
+        "image image transaction-history voucher-history"
+        "image image . .";
     }
   }
 
