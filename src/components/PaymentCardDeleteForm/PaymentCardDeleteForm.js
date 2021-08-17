@@ -36,7 +36,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
           <Button
             data-testid='expired-card-submit-button'
             disabled={loading}
-            primary
+            tertiary
             className={styles.root__button}
             onClick={handleDelete}
             error={errorMessage}
