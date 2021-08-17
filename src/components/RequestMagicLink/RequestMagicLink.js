@@ -39,7 +39,7 @@ const RequestMagicLink = () => {
   return (
     <>
       { requestLoading && <Loading /> }
-      { requestSuccess ? (
+      { requestSuccess && email ? (
         <MagicLinkRequestSuccess email={email} />
       ) : (
         (requestError || authenticationError) ? (
@@ -49,7 +49,7 @@ const RequestMagicLink = () => {
             <MagicLinkRequestOrAuthenticationError handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
           )
         ) : (
-          <MagicLinkRequestForm handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
+          <MagicLinkRequestForm handleSubmit={ handleSubmit } email={ email || '' } setEmail={ setEmail } />
         )
       ) }
     </>
