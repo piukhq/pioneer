@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import cx from 'classnames'
-import Loading from 'components/Loading'
+import LoadingIndicator from 'components/LoadingIndicator'
 import AccountMenu from 'components/AccountMenu'
 import styles from './MultichannelMembershipCards.module.scss'
 
@@ -30,7 +30,7 @@ const MultichannelMembershipCards = () => {
       <Link to={'/payment-cards'}>Payment Cards</Link>
       <br />
       <Link to={'/membership-plans'}>Membership Plans</Link>
-      { loading && <Loading /> }
+      { loading && <LoadingIndicator /> }
     </div>
   )
 }

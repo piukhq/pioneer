@@ -5,7 +5,6 @@ import Button from 'components/Button'
 import SelectboxGroup from 'components/Form/SelectboxGroup'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import { usePaymentCardAddForm } from './hooks/usePaymentCardAddForm'
-import Loading3 from 'components/Loading3'
 import PaymentCardInputGroup from 'components/Form/PaymentCardInputGroup'
 import { getExpiryDates } from 'utils/dates'
 import styles from './PaymentCardAddForm.module.scss'
@@ -82,8 +81,9 @@ const PaymentCardAddForm = ({ onClose }) => {
             className={styles.root__button}
             onClick={submitForm}
             disabled={!isPaymentFormValid() || isLoading}
+            loading={isLoading}
           >
-            {isLoading ? <Loading3 /> : 'Add payment card'}
+            Add payment card
           </Button>
         </div>
         <a data-testid='bink-privacy-and-security' className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer' >Bink Privacy and Security</a>

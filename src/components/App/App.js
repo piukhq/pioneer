@@ -15,7 +15,6 @@ import HomePage from 'routes/HomePage'
 import MembershipPlansPage from 'routes/MembershipPlansPage'
 import MembershipCardsPage from 'routes/MembershipCardsPage'
 import MembershipCardPage from 'routes/MembershipCardPage'
-import PaymentCardsPage from 'routes/PaymentCardsPage'
 import LoginPage from 'routes/LoginPage'
 import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
@@ -36,9 +35,6 @@ function App () {
           </Route>
           <Route path="/login">
             <LoginPage />
-          </Route>
-          <Route path="/payment-cards">
-            <PaymentCardsPage />
           </Route>
           <Route path="/magic-link/:magicLinkToken">
             <MagicLinkPage />

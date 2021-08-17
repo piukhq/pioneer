@@ -1,8 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
+import { ReactComponent as LoadingSpinnerSvg } from 'images/loading-spinner.svg'
 import styles from './Button.module.scss'
 
-const Button = ({ primary, secondary, tertiary, className, disabled, error, children, ...props }) => {
+const Button = ({ primary, secondary, tertiary, className, disabled, error, loading, children, ...props }) => {
   return (
     <>
       <button
@@ -18,7 +19,7 @@ const Button = ({ primary, secondary, tertiary, className, disabled, error, chil
         data-testid='button'
         {...props}
       >
-        {children}
+        {loading ? <LoadingSpinnerSvg className={styles['root__loading-spinner']} /> : children}
       </button>
 
       { error && (

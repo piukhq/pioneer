@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import Modal from 'components/Modal'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 import useCloseModalOnSuccess from './hooks/useCloseModalOnSuccess'
-import Loading from 'components/Loading'
+import LoadingIndicator from 'components/LoadingIndicator'
 import MembershipCardForm from 'components/MembershipCardForm'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 
@@ -17,7 +17,7 @@ const MembershipCardAddModal = ({ onClose, planId }) => {
 
   return (
     <Modal onClose={onClose}>
-      { (loading || addLoading) && <Loading /> }
+      { (loading || addLoading) && <LoadingIndicator /> }
       <Modal.Header>Add your card</Modal.Header>
       <div className={styles.root__paragraph}>Please enter the following information to add your existing card to your account.</div>
       <MembershipCardForm
