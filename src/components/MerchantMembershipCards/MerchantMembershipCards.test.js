@@ -15,7 +15,6 @@ jest.mock('./hooks/useMerchantMembershipCardsLogic', () => ({
   useMerchantMembershipCardsLogic: jest.fn(),
 }))
 
-jest.mock('components/Loading2', () => () => null)
 jest.mock('components/WeFoundYou', () => () => null)
 jest.mock('components/PreparingYourCard', () => () => null)
 jest.mock('components/MultichannelMembershipCards', () => () => null)
