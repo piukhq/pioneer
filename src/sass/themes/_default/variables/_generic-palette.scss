@@ -1,17 +1,33 @@
-// Generic Colors
-$semi-transparent:rgba(#000, 0.5);
-$highly-transparent:rgba(#000, 0.1);
+// Generic Colors found on all themes
+$transparent-50-percent:rgba(#000, 0.5);
 $transparent-85-percent:rgba(#000, 0.15);
-$off-white: #eee;
+$transparent-90-percent:rgba(#000, 0.1);
+
 $white: #fff;
+$off-white: #eee;
 $black: #000;
+
+$grey-12-percent: #d8d8d8;
+$grey-45-percent: #999;
+$grey-62-percent: #666;
+$grey-75-percent: #444;
+
+$bright-green: #00c176;
+$bright-orange: #f5a623;
 $blue-grey: #b1c2cb;
 
 // Generic Intents
-$account-menu-font-color: #444;
-$payment-card-activating-background-color: #666;
-$positive: #00c176;
-$in-progress: #f5a623;
-$disabled-color: #d8d8d8;
-$disabled-color-dark: #999;
+$positive: $bright-green;
+$in-progress: $bright-orange;
+$disabled-color: $grey-12-percent;
+$disabled-color-dark: $grey-45-percent;
+$payment-card-activating-background-color: $grey-62-percent;
+$account-menu-font-color: $grey-75-percent;
+
+// Theme Specific Intents
+$text-color: $primary-color;
+$inverse-text-color: $background-color;
+$page-background-color: $background-color;
+$page-background-color-light-transparency: $background-color-light-transparency;
+$error-color: $tertiary-color-highlight2;
 $list-divider-color: $off-white;
