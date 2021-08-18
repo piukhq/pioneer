@@ -1,28 +1,28 @@
 // input text field colors
 
-$text-input-title-color--default: #054127;
-//$text-input-title-color--focused: #054127;
-$text-input-title-color--error: #a30f27;
-$text-input-title-color--disabled: #cdd9d4;
+$text-input-title-color--default: $primary-color;
+//$text-input-title-color--focused: $primary-color;
+$text-input-title-color--error: $tertiary-color;
+$text-input-title-color--disabled: $primary-color-background1;
 
-$text-input-border-color--default: #cdd9d4;
-$text-input-border-color--focused: #054127;
-$text-input-border-color--error: #a30f3c;
-//$text-input-border-color--disabled: #cdd9d4;
+$text-input-border-color--default: $primary-color-background1;
+$text-input-border-color--focused: $primary-color;
+$text-input-border-color--error: $tertiary-color-highlight2;
+//$text-input-border-color--disabled: $primary-color-background1;
 
-$text-input-background-color--default: #f1f5f4;
-//$text-input-background-color--focused: #f1f5f4;
-$text-input-background-color--error: #f6e9ed;
-//$text-input-background-color--disabled: #f1f5f4;
+$text-input-background-color--default: $primary-color-background2;
+//$text-input-background-color--focused: $primary-color-background2;
+$text-input-background-color--error: $tertiary-color-background;
+//$text-input-background-color--disabled: $primary-color-background2;
 
-$text-input-text-color--default: #054127;
-//$text-input-text-color--focused: #054127;
-$text-input-text-color--error: #a30f27;
-$text-input-text-color--disabled: #cdd9d4;
+$text-input-text-color--default: $primary-color;
+//$text-input-text-color--focused: $primary-color;
+$text-input-text-color--error: $tertiary-color;
+$text-input-text-color--disabled: $primary-color-background1;
 
-$text-input-placeholder-color--default: #cdd9d4;
-//$text-input-placeholder-color--focused: #cdd9d4;
-$text-input-placeholder-color--error: rgba(#a30f3c, 0.5);
-//$text-input-placeholder-color--disabled: #cdd9d4;
+$text-input-placeholder-color--default: $primary-color-background1;
+//$text-input-placeholder-color--focused: $primary-color-background1;
+$text-input-placeholder-color--error: $tertiary-color-highlight2-semi-transparent;
+//$text-input-placeholder-color--disabled: $primary-color-background1;
 
-$text-input-error-color: #a30f27;
+$text-input-error-color: $tertiary-color;

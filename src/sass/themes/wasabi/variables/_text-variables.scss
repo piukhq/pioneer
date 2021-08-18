@@ -1,0 +1,24 @@
+$theme-font-family: inherit;
+$default-font-weight: 300;
+
+// body font
+$body-font-size: 18px;
+$body-font-color: $text-color;
+
+// heading font
+$heading-font-size: 56px;
+$heading-font-weight: bold;
+$heading-font-color: $text-color;
+$heading-line-height: 1.1em;
+$heading-margin-bottom: 0.2em;
+
+// heading font changes for smaller viewports
+$heading-font-size-small: 36px;
+$heading-line-height-small: 1.08em;
+
+// note font
+$note-font-size: 14px;
+$note-font-color: $text-color;
+
+//link font
+$link-color: $text-color;
