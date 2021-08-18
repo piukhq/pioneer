@@ -23,7 +23,7 @@
     padding: 0;
     cursor: pointer;
     background-color: transparent;
-    color: #444;
+    color: $account-menu-font-color;
     font-weight: $default-font-weight;
   }
 
@@ -50,6 +50,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 16px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $list-divider-color;
   }
 }

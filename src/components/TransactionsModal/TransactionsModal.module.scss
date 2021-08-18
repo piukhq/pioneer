@@ -1,3 +1,5 @@
+@import "src/sass/variables";
+
 .root {
   width: 420px;
 
@@ -8,7 +10,7 @@
 
   &__transaction {
     padding: 15px 0;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid $list-divider-color;
 
     &--positive {
       background: url("/images/transaction-positive.png") 100% 50% no-repeat;
@@ -34,7 +36,7 @@
     font-weight: 800;
 
     &--positive {
-      color: #00c176;
+      color: $positive;
     }
   }
 

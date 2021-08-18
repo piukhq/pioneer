@@ -2,7 +2,7 @@
 
 .root {
   &__error {
-    color: #a30f27;
+    color: $error-color;
     margin: 20px 0;
   }
 
