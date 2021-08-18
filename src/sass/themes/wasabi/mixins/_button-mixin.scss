@@ -30,13 +30,13 @@
   }
 
   &--tertiary {
-    background-color: $tertiary-color; // change from #a30f27
+    background-color: $error-red;
     color: $inverse-text-color;
     transition: 0.3s ease;
   }
 
   &--tertiary:hover {
-    background-color: $tertiary-color-highlight1;
+    background-color: $tertiary-color-highlight;
     transition: 0.3s ease;
   }
 
