@@ -1,0 +1,24 @@
+// Theme palette
+$primary-color: #054127;
+$primary-color-highlight: #33654f;
+$primary-color-background1: #cdd9d4;
+$primary-color-background2: #f1f5f4;
+
+$secondary-color: transparent;
+$secondary-color-highlight: transparent;
+
+$tertiary-color: #930f27;
+$tertiary-color-highlight1: #c94155;
+$tertiary-color-highlight2: #a30f3c;
+$tertiary-color-highlight2-semi-transparent: rgba(#a30f3c, 0.5);
+$tertiary-color-background: #f6e9ed;
+
+$background-color: #fff;
+$background-color-light-transparency: rgba(#fff, 0.8);
+
+//Common Intents
+$text-color: $primary-color;
+$inverse-text-color: $background-color;
+$page-background-color: $background-color;
+$page-background-color-light-transparency: $background-color-light-transparency;
+$error-color: $tertiary-color-highlight2;
