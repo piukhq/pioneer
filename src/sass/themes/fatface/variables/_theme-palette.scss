@@ -1,0 +1,43 @@
+// Theme palette
+$primary-color: #57595b;
+$primary-color-highlight: #707375;
+$primary-color-alternative1: #646668;
+$primary-color-alternative2: #48494b;
+$primary-color-alternative3: #c9c9c9;
+$primary-color-alternative4: #949494;
+
+$secondary-color: transparent;
+$secondary-color-highlight: #252627;
+
+$tertiary-color: #a30f27;
+
+$error-red: #e6230a;
+
+$disabled-button-color: #f0f0f0;
+$disabled-button-text-color: #bebfc1;
+
+$background-color: #fff;
+$background-color-light-transparency: rgba(#fff, 0.8);
+
+// Theme Form Intents
+$text-input-title-color--default: $primary-color;
+$text-input-title-color--error: $primary-color;
+$text-input-title-color--disabled: $primary-color;
+
+$text-input-border-color--default: $primary-color-alternative4;
+$text-input-border-color--focused: $primary-color;
+$text-input-border-color--error: $error-red;
+$text-input-border-color--disabled: $primary-color;
+
+$text-input-background-color--default: $background-color;
+$text-input-background-color--error: $background-color;
+
+$text-input-text-color--default: $primary-color;
+$text-input-text-color--error:  $primary-color;
+$text-input-text-color--disabled:  $primary-color;
+
+$text-input-placeholder-color--default: $primary-color-alternative3;
+$text-input-placeholder-color--focused: $primary-color-alternative3;
+$text-input-placeholder-color--error: $primary-color-alternative3;
+
+$text-input-error-color: $error-red;

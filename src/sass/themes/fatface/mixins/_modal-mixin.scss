@@ -16,7 +16,7 @@
     top: 0;
     bottom: 0;
     z-index: 1999999999;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $transparent-50-percent;
     backdrop-filter: blur(4px);
   }
 

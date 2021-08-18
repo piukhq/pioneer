@@ -1,0 +1,28 @@
+$theme-font-family: inherit;
+$default-font-weight: 400;
+$font-scotch: "ScotchText", "Times New Roman", "Times", "FreeSerif", "Nimbus Roman No9 L", serif;
+$font-giorgio: "GiorgioSans", "Maven", "Trebuchet MS", "Arial", "FreeSans", sans-serif;
+$font-maven: "Maven", "Trebuchet MS", "Arial", "FreeSans", sans-serif;
+
+// body font
+$body-font-size: 16px;
+
+//heading font
+$heading-font-size: 48px;
+$heading-font-weight: bold;
+$heading-line-height: 1em;
+$heading-margin-bottom: 0.2em;
+
+// heading font changes for smaller viewports
+$heading-font-size-small: 48px;
+$heading-line-height-small: 1em;
+// note font
+$note-font-size: 14px;
+
+// modal styling
+$modal-border-radius: 0;
+$modal-title-font-size: 20px;
+$modal-title-font-weight: bold;
+
+// todo: consider removing as this is just regular body font style after implementing font family like wasabi.uk.com
+$modal-body-font-size: 16px;
