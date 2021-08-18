@@ -11,13 +11,23 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     row-gap: 15px;
-    column-gap: 12px;
+    column-gap: 20px;
     grid-template-areas:
       "image image"
       "transaction-history voucher-history";
 
-    @media (min-width: 800px) {
+    @media (min-width: 730px) {
+      grid-template-columns: 1fr 1fr 1fr;
+      row-gap: 20px;
+      column-gap: 20px;
+      grid-template-areas:
+        "image image transaction-history"
+        "image image voucher-history";
+    }
+
+    @media (min-width: 910px) {
       grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 2fr 1fr;
       row-gap: 20px;
       column-gap: 20px;
       grid-template-areas:
@@ -34,35 +44,49 @@
       "image image"
       "no-payment-card-state no-payment-card-state";
 
-    @media (min-width: 800px) {
-      grid-template-columns: auto 250px;
-      grid-template-rows: auto;
+    @media (min-width: 730px) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr;
       column-gap: 20px;
-      grid-template-areas: "image no-payment-card-state";
+      grid-template-areas:
+        "image no-payment-card-state"
+        "image .";
     }
   }
 
   &--failed {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    row-gap: 15px;
     grid-template-areas:
       "image image"
       "failed-state failed-state";
 
-    @media (min-width: 800px) {
+    @media (min-width: 730px) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr;
+      column-gap: 20px;
       grid-template-areas:
         "image failed-state"
-        "image failed-state";
+        "image .";
     }
   }
 
   &--pending {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    row-gap: 15px;
     grid-template-areas:
       "image image"
       "pending-state pending-state";
 
-    @media (min-width: 800px) {
+    @media (min-width: 730px) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr;
+      column-gap: 20px;
       grid-template-areas:
         "image pending-state"
-        "image pending-state";
+        "image .";
     }
   }
 }
