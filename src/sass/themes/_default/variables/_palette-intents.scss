@@ -1,3 +1,4 @@
+//Intents link colour variables defined for an element with an actual colour.
 
 // Global Intents
 $positive: $bright-green;
@@ -6,13 +7,13 @@ $disabled-color: $grey-12-percent;
 $disabled-color-dark: $grey-45-percent;
 $account-menu-font-color: $grey-75-percent;
 
-// Theme Specific Intents
+// Theme General Intents
 $page-background-color: $background-color;
 $page-background-color-light-transparency: $background-color-light-transparency;
 $error-color: $tertiary-color-highlight2;
 $list-divider-color: $off-white;
 
-// Theme Typography Intents
+// Theme Layout Intents
 $text-color: $primary-color;
 $inverse-text-color: $background-color;
 $body-font-color: $text-color;
@@ -24,28 +25,22 @@ $modal-body-font-color: $text-color;
 
 // Theme Form Intents
 $text-input-title-color--default: $primary-color;
-//$text-input-title-color--focused: $primary-color;
 $text-input-title-color--error: $tertiary-color;
 $text-input-title-color--disabled: $primary-color-background1;
 
 $text-input-border-color--default: $primary-color-background1;
 $text-input-border-color--focused: $primary-color;
 $text-input-border-color--error: $tertiary-color-highlight2;
-//$text-input-border-color--disabled: $primary-color-background1;
 
 $text-input-background-color--default: $primary-color-background2;
-//$text-input-background-color--focused: $primary-color-background2;
 $text-input-background-color--error: $tertiary-color-background;
-//$text-input-background-color--disabled: $primary-color-background2;
+
 
 $text-input-text-color--default: $primary-color;
-//$text-input-text-color--focused: $primary-color;
 $text-input-text-color--error: $tertiary-color;
 $text-input-text-color--disabled: $primary-color-background1;
 
 $text-input-placeholder-color--default: $primary-color-background1;
-//$text-input-placeholder-color--focused: $primary-color-background1;
 $text-input-placeholder-color--error: $tertiary-color-highlight2-transparent-50-percent;
-//$text-input-placeholder-color--disabled: $primary-color-background1;
 
 $text-input-error-color: $tertiary-color;

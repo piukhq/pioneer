@@ -1,3 +1,5 @@
+//Palette for Payment Cards
+
 $generic-gradient-left: #222;
 $generic-gradient-right: #444;
 $generic-gradient-fallback: #333;
@@ -20,5 +22,5 @@ $add-card-background-fallback: #6255bf;
 
 $payment-card-activating-background-color: #333;
 
-$add-payment-card-color: $primary-color;
+$add-payment-card-color: $primary-color; // theme-specific
 $add-payment-card-color-limited: $disabled-color;
