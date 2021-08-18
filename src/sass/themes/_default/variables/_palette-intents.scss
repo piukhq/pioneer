@@ -1,5 +1,28 @@
-// input text field colors
 
+// Global Intents
+$positive: $bright-green;
+$in-progress: $bright-orange;
+$disabled-color: $grey-12-percent;
+$disabled-color-dark: $grey-45-percent;
+$account-menu-font-color: $grey-75-percent;
+
+// Theme Specific Intents
+$page-background-color: $background-color;
+$page-background-color-light-transparency: $background-color-light-transparency;
+$error-color: $tertiary-color-highlight2;
+$list-divider-color: $off-white;
+
+// Theme Typography Intents
+$text-color: $primary-color;
+$inverse-text-color: $background-color;
+$body-font-color: $text-color;
+$heading-font-color: $text-color;
+$note-font-color: $text-color;
+$link-color: $text-color;
+$modal-title-font-color: $text-color;
+$modal-body-font-color: $text-color;
+
+// Theme Form Intents
 $text-input-title-color--default: $primary-color;
 //$text-input-title-color--focused: $primary-color;
 $text-input-title-color--error: $tertiary-color;
