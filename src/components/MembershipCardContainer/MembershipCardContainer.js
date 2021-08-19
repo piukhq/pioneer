@@ -27,4 +27,4 @@ const MembershipCardContainer = ({ membershipCard, addPaymentCardClickHandler = 
   )
 }
 
-export default MembershipCardContainer
+export default React.memo(MembershipCardContainer)

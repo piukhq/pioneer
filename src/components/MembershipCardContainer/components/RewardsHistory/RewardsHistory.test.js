@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
+import { useCalculateWindowDimensions } from './hooks/useCalculateWindowDimensions'
 
 import RewardsHistory from './RewardsHistory'
 
@@ -14,6 +15,10 @@ jest.mock('hooks/membershipCards', () => ({
 
 jest.mock('hooks/useMembershipCardDetailsByCardId', () => ({
   useMembershipCardDetailsByCardId: jest.fn(),
+}))
+
+jest.mock('./hooks/useCalculateWindowDimensions', () => ({
+  useCalculateWindowDimensions: jest.fn(),
 }))
 
 describe('Test RewardsHistory', () => {
@@ -40,6 +45,10 @@ describe('Test RewardsHistory', () => {
 
     useMembershipCardDetailsByCardId.mockImplementation(() => ({
       planName: mockPlanName,
+    }))
+
+    useCalculateWindowDimensions.mockImplementation(() => ({
+      shouldRenderDesktopText: true,
     }))
   })
 
@@ -72,17 +81,30 @@ describe('Test RewardsHistory', () => {
 
     describe('Test no transactions found', () => {
       it('should render the no-transaction-history container and relevant text', () => {
-        React.useState = jest.fn().mockReturnValue([false, jest.fn()])
+        const { queryByTestId } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        expect(queryByTestId('no-transaction-history')).toBeInTheDocument()
+      })
 
-        useMembershipCardStateById.mockImplementation(() => ({
-          transactions: [],
-          nonActiveVouchers: [{}],
+      it('should render desktop text', () => {
+        useCalculateWindowDimensions.mockImplementation(() => ({
+          shouldRenderDesktopText: true,
         }))
 
-        const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
-        expect(queryByTestId('no-transaction-history')).toBeInTheDocument()
+        const { getByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
         expect(getByText('No transactions to show')).toBeInTheDocument()
-        expect(getByText('Not available')).toBeInTheDocument()
+        expect(queryByText('Not available')).not.toBeInTheDocument()
+      })
+
+      it('should render mobile text', () => {
+        useCalculateWindowDimensions.mockImplementation(() => ({
+          shouldRenderDesktopText: false,
+        }))
+
+        const { getAllByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+
+        expect(queryByText('No transactions to show')).not.toBeInTheDocument()
+        const notAvailableTextArray = getAllByText('Not available')
+        expect(notAvailableTextArray.length).toBeGreaterThan(0)
       })
     })
 
@@ -97,11 +119,32 @@ describe('Test RewardsHistory', () => {
       it('should render the non-active-vouchers container and relevant text', () => {
         React.useState = jest.fn().mockReturnValue([false, jest.fn()])
 
-        const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { queryByTestId } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
         expect(queryByTestId('non-active-vouchers')).toBeInTheDocument()
+      })
+
+      it('should render desktop text', () => {
+        useCalculateWindowDimensions.mockImplementation(() => ({
+          shouldRenderDesktopText: true,
+        }))
+
+        const { getByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
         expect(getByText('Rewards history')).toBeInTheDocument()
-        expect(getByText('History')).toBeInTheDocument()
+        expect(queryByText('History')).not.toBeInTheDocument()
         expect(getByText('See your past rewards')).toBeInTheDocument()
+        expect(queryByText('Past rewards')).not.toBeInTheDocument()
+      })
+
+      it('should render mobile text', () => {
+        useCalculateWindowDimensions.mockImplementation(() => ({
+          shouldRenderDesktopText: false,
+        }))
+
+        const { getByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+
+        expect(queryByText('Rewards history')).not.toBeInTheDocument()
+        expect(getByText('History')).toBeInTheDocument()
+        expect(queryByText('See your past rewards')).not.toBeInTheDocument()
         expect(getByText('Past rewards')).toBeInTheDocument()
       })
 
@@ -114,7 +157,7 @@ describe('Test RewardsHistory', () => {
     })
 
     describe('Test no non active vouchers found', () => {
-      it('should render the no-non-active-vouchers container and relevant text', () => {
+      it('should render the no-non-active-vouchers container', () => {
         React.useState = jest.fn().mockReturnValue([false, jest.fn()])
 
         useMembershipCardStateById.mockImplementation(() => ({
@@ -122,12 +165,34 @@ describe('Test RewardsHistory', () => {
           nonActiveVouchers: [],
         }))
 
-        const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { queryByTestId } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
         expect(queryByTestId('no-non-active-vouchers')).toBeInTheDocument()
+      })
+
+      it('should render desktop text', () => {
+        useCalculateWindowDimensions.mockImplementation(() => ({
+          shouldRenderDesktopText: true,
+        }))
+
+        const { getByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
         expect(getByText('Rewards history')).toBeInTheDocument()
-        expect(getByText('History')).toBeInTheDocument()
+        expect(queryByText('History')).not.toBeInTheDocument()
         expect(getByText('No vouchers to show')).toBeInTheDocument()
-        expect(getByText('Not available')).toBeInTheDocument()
+        expect(queryByText('Not available')).not.toBeInTheDocument()
+      })
+
+      it('should render mobile text', () => {
+        useCalculateWindowDimensions.mockImplementation(() => ({
+          shouldRenderDesktopText: false,
+        }))
+
+        const { getByText, getAllByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+
+        expect(queryByText('Rewards history')).not.toBeInTheDocument()
+        expect(getByText('History')).toBeInTheDocument()
+        expect(queryByText('No vouchers to show')).not.toBeInTheDocument()
+        const notAvailableTextArray = getAllByText('Not available')
+        expect(notAvailableTextArray.length).toBeGreaterThan(0)
       })
     })
   })
