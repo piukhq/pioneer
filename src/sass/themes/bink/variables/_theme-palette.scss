@@ -1,6 +1,8 @@
 // Theme palette
 $primary-color: #009;
-$primary-color-alternative: #000;
+$primary-color-alternative1: #000;
+$primary-color-alternative2: #ccc;
+$primary-color-alternative3: #666;
 
 $secondary-color: transparent;
 $tertiary-color: #a30f27;
@@ -12,7 +14,7 @@ $page-background-color: $background-color;
 $page-background-color-light-transparency: $background-color-light-transparency;
 
 // Theme Layout Intents
-$text-color: $primary-color-alternative;
+$text-color: $primary-color-alternative1;
 $text-color-inverse: $background-color;
 $body-font-color: $text-color;
 $heading-font-color: $text-color;
@@ -22,14 +24,14 @@ $modal-title-font-color: $text-color;
 $modal-body-font-color: $text-color;
 $error-color: $error-red;
 
-// Theme Form Intents - placeholder as form styles not defined
+// Theme Form Intents - commented out mostly as form styles not defined fully for Bink Profile
 
 // $text-input-title-color--default: $primary-color;
 // $text-input-title-color--error: $primary-color;
 // $text-input-title-color--disabled: $primary-color;
 
-// $text-input-border-color--default: $primary-color;
-// $text-input-border-color--focused: $primary-color;
+$text-input-border-color--default: $primary-color-alternative2;
+$text-input-border-color--focused: $primary-color-alternative3;
 // $text-input-border-color--error: $error-red;
 // $text-input-border-color--disabled: $primary-color;
 

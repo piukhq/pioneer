@@ -50,7 +50,7 @@
   &__close-button {
     cursor: pointer;
     position: absolute;
-    background-color: rgba(#fff, 0.8);
+    background-color: $page-background-color-light-transparency;
     border: none;
     padding: 2px;
     right: 20px - 2px;
@@ -67,7 +67,7 @@
   }
 
   &__top-fade {
-    $top-fade-color: #fff;
+    $top-fade-color: $page-background-color;
 
     pointer-events: none;
     position: absolute;
@@ -85,7 +85,7 @@
   }
 
   &__bottom-fade {
-    $bottom-fade-color: #fff;
+    $bottom-fade-color: $page-background-color;
 
     pointer-events: none;
     position: absolute;
