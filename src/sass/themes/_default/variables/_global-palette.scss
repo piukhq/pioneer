@@ -4,6 +4,7 @@ $transparent-85-percent:rgba(#000, 0.15);
 $transparent-90-percent:rgba(#000, 0.1);
 
 $white: #fff;
+$white-20-percent-transparency: rgba(#fff, 0.8);
 $off-white: #eee;
 $black: #000;
 
@@ -15,6 +16,8 @@ $bright-green: #00c176;
 $bright-orange: #f5a623;
 $blue-grey: #b1c2cb;
 
+$error-red: #a30f3c;
+
 // Global Intents
 $positive: $bright-green;
 $in-progress: $bright-orange;
@@ -22,20 +25,3 @@ $disabled-color: $grey-12-percent;
 $disabled-color-dark: $grey-45-percent;
 $account-menu-font-color: $grey-75-percent;
 $list-divider-color: $off-white;
-
-//Currently these are identical across our themes but has a high chance of not being the case in future
-
-// Theme General Intents
-$page-background-color: $background-color;
-$page-background-color-light-transparency: $background-color-light-transparency;
-$error-color: $error-red;
-
-// Theme Layout Intents
-$text-color: $primary-color;
-$inverse-text-color: $background-color;
-$body-font-color: $text-color;
-$heading-font-color: $text-color;
-$note-font-color: $text-color;
-$link-color: $text-color;
-$modal-title-font-color: $text-color;
-$modal-body-font-color: $text-color;

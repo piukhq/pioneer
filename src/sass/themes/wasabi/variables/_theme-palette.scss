@@ -10,12 +10,25 @@ $secondary-color-highlight: transparent;
 $tertiary-color: #930f27;
 $tertiary-color-highlight: #c94155;
 
-$error-red: #a30f3c;
 $error-red-transparent-50-percent: rgba(#a30f3c, 0.5);
 $tertiary-color-background: #f6e9ed;
 
-$background-color: #fff;
-$background-color-light-transparency: rgba(#fff, 0.8);
+// Theme General Intents
+$background-color: $white;
+$background-color-light-transparency: $white-20-percent-transparency;
+$page-background-color: $background-color;
+$page-background-color-light-transparency: $background-color-light-transparency;
+
+// Theme Layout Intents
+$text-color: $primary-color;
+$inverse-text-color: $background-color;
+$body-font-color: $text-color;
+$heading-font-color: $text-color;
+$note-font-color: $text-color;
+$link-color: $text-color;
+$modal-title-font-color: $text-color;
+$modal-body-font-color: $text-color;
+$error-color: $error-red;
 
 // Theme Form Intents
 $text-input-title-color--default: $primary-color;

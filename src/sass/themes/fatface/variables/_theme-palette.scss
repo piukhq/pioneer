@@ -11,13 +11,25 @@ $secondary-color-highlight: #252627;
 
 $tertiary-color: #a30f27;
 
-$error-red: #e6230a;
-
-$disabled-button-color: #f0f0f0;
+$disabled-button-color: #1b1919;
 $disabled-button-text-color: #bebfc1;
 
-$background-color: #fff;
-$background-color-light-transparency: rgba(#fff, 0.8);
+// Theme General Intents
+$background-color: $white;
+$background-color-light-transparency: $white-20-percent-transparency;
+$page-background-color: $background-color;
+$page-background-color-light-transparency: $background-color-light-transparency;
+
+// Theme Layout Intents
+$text-color: $primary-color;
+$inverse-text-color: $background-color;
+$body-font-color: $text-color;
+$heading-font-color: $text-color;
+$note-font-color: $text-color;
+$link-color: $text-color;
+$modal-title-font-color: $text-color;
+$modal-body-font-color: $text-color;
+$error-color: $error-red;
 
 // Theme Form Intents
 $text-input-title-color--default: $primary-color;
