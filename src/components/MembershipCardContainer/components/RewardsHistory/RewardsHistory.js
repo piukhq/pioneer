@@ -87,7 +87,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
           <div className={styles.root__subtitle}>Add a payment card</div>
           <div className={styles.root__explainer}>
             <div className={styles['root__explainer-paragraph']}>To collect rewards you need to add a payment card to { planName }.</div>
-            <div className={styles['root__explainer-paragraph']}>Click here to get started.</div>
+            <div>Click here to get started.</div>
           </div>
         </div>
       ) }
@@ -98,7 +98,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             <div className={styles.root__explainer}>
               <div className={styles['root__explainer-paragraph']}>There was a problem setting up your account.</div>
               <div className={styles['root__explainer-paragraph']}>We need some additional information to resolve this.</div>
-              <div className={styles['root__explainer-paragraph']}>Click here to resolve.</div>
+              <div>Click here to resolve.</div>
             </div>
           </div>
       ) }
@@ -108,7 +108,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             <div className={styles.root__subtitle}>Pending</div>
             <div className={styles.root__explainer}>
               <div className={styles['root__explainer-paragraph']}>We are getting everything ready for you.</div>
-              <div className={styles['root__explainer-paragraph']}>
+              <div>
                 You will need a payment card to start collecting rewards.
                 This can be done alongside this process.
               </div>
