@@ -11,7 +11,7 @@ const Modal = ({ children, onClose, className, isLoading }) => {
 
   return (
     <>
-      <div className={styles.root__overlay}></div>
+      <div className={styles.root__overlay} onClick={onClose}></div>
       <div className={cx(styles.root__box, className)}>
         {onClose && <Modal.CloseButton onClick={onClose} disabled={isLoading} />}
         <div className={styles.root__body} ref={scrollRef}>
