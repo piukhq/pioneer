@@ -14,7 +14,7 @@
 
   &--primary {
     background-color: $primary-color;
-    color: $inverse-text-color;
+    color: $text-color-inverse;
     width: 100%;
     transition: 0.3s ease;
   }
@@ -31,7 +31,7 @@
 
   &--tertiary {
     background-color: $error-red;
-    color: $inverse-text-color;
+    color: $text-color-inverse;
     transition: 0.3s ease;
   }
 
@@ -42,7 +42,7 @@
 
   &--disabled {
     background-color: $disabled-color;
-    color: $inverse-text-color;
+    color: $text-color-inverse;
   }
 
   &--disabled:hover {
