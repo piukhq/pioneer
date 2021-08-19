@@ -22,19 +22,13 @@
     left: 0;
     right: 0;
     background-color: #999;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.22);
     color: #fff;
-    font-size: 18px;
-    text-align: center;
-    line-height: 1.2em;
-    padding: 12px 0;
-
-    @media (min-width: 800px) {
-      padding: 25px 0;
-    }
-
-    &-label {
-      font-weight: 800;
-    }
+    font-size: 24px;
+    line-height: 27.58px;
+    letter-spacing: 0.27px;
+    padding: 25px 0 25px 32px;
+    display: flex;
+    align-items: center;
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
+import heroImage from 'images/Wasabi-hero-image.png'
 
 import styles from './MembershipCardHeroImage.module.scss'
 
@@ -8,13 +9,22 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
 
+  const shouldRenderHeroImage = () => {
+    // If wasabi, use custom asset
+    const imageSrc = Config.theme === 'wasabi' ? heroImage : imageUrl
+
+    if (imageSrc) {
+      return <img className={styles.root__image} src={imageSrc} alt='' data-testid='membership-card-image' />
+    }
+    return null
+  }
+
   return (
     <div className={styles['root__image-section']} style={{ backgroundColor }}>
-      { imageUrl && <img className={styles.root__image} src={imageUrl} alt='' data-testid='membership-card-image' /> }
+      {shouldRenderHeroImage()}
       { membershipId && (
         <div className={styles['root__card-number']}>
-          <div className={styles['root__card-number-label']}>Card number</div>
-          <div>{membershipId}</div>
+          <div>Card number: {membershipId}</div>
         </div>
       )}
     </div>
