@@ -64,7 +64,7 @@ describe('Test StampVoucher', () => {
       expect(getByText(`${mockStamps} stamp to go`)).toBeInTheDocument()
     })
 
-    it('should render deafult state text', () => {
+    it('should render default state text', () => {
       const mockState = 'mock_state'
       const { getByText } = render(
         <StampVoucher
