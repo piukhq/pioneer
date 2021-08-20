@@ -1,6 +1,6 @@
 import React from 'react'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
-import heroImage from 'images/Wasabi-hero-image.png'
+import heroImage from 'images/wasabi-hero.png'
 
 import styles from './MembershipCardHeroImage.module.scss'
 
