@@ -58,16 +58,16 @@
   }
 
   &__status {
-    background-color: #fff;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: black;
+    background-color: $page-background-color;
+    background-color: $page-background-color-light-transparency;
+    color: $black;
     display: flex;
     padding: 0 10px 0 0;
     border-radius: 14px;
     align-items: center;
     font-size: 17px;
     font-weight: 800;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 4px $transparent-50-percent;
   }
 
   &__status-icon {
@@ -76,32 +76,32 @@
 
   background: $generic-gradient-fallback;
   background: linear-gradient(to right, $generic-gradient-left, $generic-gradient-right);
-  color: white;
+  color: $text-color-inverse;
 
   &--provider {
     &-visa {
       background: $visa-background-fallback;
       background: linear-gradient(to right, $visa-gradient-left, $visa-gradient-right);
-      color: white;
+      color: $text-color-inverse;
     }
 
     &-mastercard {
       background: $mastercard-background-fallback;
       background: linear-gradient(to right, $mastercard-gradient-left, $mastercard-gradient-right);
-      color: white;
+      color: $text-color-inverse;
     }
 
     &-american-express {
       background: $amex-background-fallback;
       background: linear-gradient(to right, $amex-gradient-left, $amex-gradient-right);
-      color: white;
+      color: $text-color-inverse;
     }
   }
 
   &--expired,
   &--activating {
-    background: #666;
-    color: white;
+    background: $payment-card-activating-background-color;
+    color: $text-color-inverse;
   }
 
   &__logo {

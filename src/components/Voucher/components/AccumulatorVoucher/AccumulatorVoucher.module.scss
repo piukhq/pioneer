@@ -8,15 +8,15 @@
     position: inherit;
     height: 14px;
     width: inherit;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: $transparent-85-percent;
     border-radius: 7px;
 
     &--inprogress {
-      background-color: #f5a623;
+      background-color: $in-progress;
     }
 
     &--issued {
-      background-color: #00c176;
+      background-color: $positive;
     }
 
     &--redeemed {
@@ -25,7 +25,7 @@
 
     &--expired,
     &--cancelled {
-      background-color: rgba(0, 0, 0, 0.15);
+      background-color: $transparent-85-percent;
     }
   }
 
