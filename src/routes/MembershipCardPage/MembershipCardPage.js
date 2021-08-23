@@ -138,7 +138,7 @@ const MembershipCardPage = () => {
           {shouldRenderModalOverlay()}
 
           <AccountMenu />
-          <MembershipCardContainer membershipCard={membershipCard} addPaymentCardClickHandler={() => setPaymentCardAddFormVisible(true)} />
+          <MembershipCardContainer membershipCard={membershipCard} addPaymentCardClickHandler={setPaymentCardAddFormVisible} />
           {shouldRenderVoucherSection()}
 
           <PaymentCards
