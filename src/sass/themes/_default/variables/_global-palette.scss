@@ -16,9 +16,15 @@ $bright-green: #00c176;
 $bright-orange: #f5a623;
 $blue-grey: #b1c2cb;
 
+$tertiary-color: #a30f3c;
+$tertiary-color-highlight: #c94155;
+$tertiary-transparent-50-percent: rgba(#a30f3c, 0.5);
+$tertiary-color-background: #f6e9ed;
+
 $error-red: #a30f3c;
 
 // Global Intents
+$error-color: $error-red;
 $positive: $bright-green;
 $in-progress: $bright-orange;
 $disabled-color: $grey-12-percent;
