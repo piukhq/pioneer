@@ -53,6 +53,7 @@ describe('Test RewardsHistory', () => {
   })
 
   describe('Test authorised state', () => {
+    const authorisedRewardsHistoryComponent = <RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />
     describe('Test transactions found', () => {
       beforeEach(() => {
         useMembershipCardStateById.mockImplementation(() => ({
@@ -61,7 +62,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render the transaction-history container and relevant text', () => {
-        const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { queryByTestId, getByText } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('transaction-history')).toBeInTheDocument()
         expect(getByText(mockBalanceValue + ' ' + mockBalanceSuffix)).toBeInTheDocument()
         expect(getByText('View history')).toBeInTheDocument()
@@ -74,14 +75,14 @@ describe('Test RewardsHistory', () => {
           // isTransactionsModalOpen
           .mockReturnValueOnce([true, jest.fn()])
 
-        const { queryByTestId } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('transaction-modal')).toBeInTheDocument()
       })
     })
 
     describe('Test no transactions found', () => {
       it('should render the no-transaction-history container and relevant text', () => {
-        const { queryByTestId } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('no-transaction-history')).toBeInTheDocument()
       })
 
@@ -90,7 +91,7 @@ describe('Test RewardsHistory', () => {
           shouldRenderDesktopText: true,
         }))
 
-        const { getByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
         expect(getByText('No transactions to show')).toBeInTheDocument()
         expect(queryByText('Not available')).not.toBeInTheDocument()
       })
@@ -100,7 +101,7 @@ describe('Test RewardsHistory', () => {
           shouldRenderDesktopText: false,
         }))
 
-        const { getAllByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { getAllByText, queryByText } = render(authorisedRewardsHistoryComponent)
 
         expect(queryByText('No transactions to show')).not.toBeInTheDocument()
         const notAvailableTextArray = getAllByText('Not available')
@@ -119,7 +120,7 @@ describe('Test RewardsHistory', () => {
       it('should render the non-active-vouchers container and relevant text', () => {
         React.useState = jest.fn().mockReturnValue([false, jest.fn()])
 
-        const { queryByTestId } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('non-active-vouchers')).toBeInTheDocument()
       })
 
@@ -128,7 +129,7 @@ describe('Test RewardsHistory', () => {
           shouldRenderDesktopText: true,
         }))
 
-        const { getByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
         expect(getByText('Rewards history')).toBeInTheDocument()
         expect(queryByText('History')).not.toBeInTheDocument()
         expect(getByText('See your past rewards')).toBeInTheDocument()
@@ -140,7 +141,7 @@ describe('Test RewardsHistory', () => {
           shouldRenderDesktopText: false,
         }))
 
-        const { getByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
 
         expect(queryByText('Rewards history')).not.toBeInTheDocument()
         expect(getByText('History')).toBeInTheDocument()
@@ -151,7 +152,7 @@ describe('Test RewardsHistory', () => {
       it('should render non active vouchers modal', () => {
         React.useState = jest.fn().mockReturnValue([true, jest.fn()])
 
-        const { queryByTestId } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('non-active-vouchers-modal')).toBeInTheDocument()
       })
     })
@@ -165,7 +166,7 @@ describe('Test RewardsHistory', () => {
           nonActiveVouchers: [],
         }))
 
-        const { queryByTestId } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('no-non-active-vouchers')).toBeInTheDocument()
       })
 
@@ -174,7 +175,7 @@ describe('Test RewardsHistory', () => {
           shouldRenderDesktopText: true,
         }))
 
-        const { getByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
         expect(getByText('Rewards history')).toBeInTheDocument()
         expect(queryByText('History')).not.toBeInTheDocument()
         expect(getByText('No vouchers to show')).toBeInTheDocument()
@@ -186,7 +187,7 @@ describe('Test RewardsHistory', () => {
           shouldRenderDesktopText: false,
         }))
 
-        const { getByText, getAllByText, queryByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />)
+        const { getByText, getAllByText, queryByText } = render(authorisedRewardsHistoryComponent)
 
         expect(queryByText('Rewards history')).not.toBeInTheDocument()
         expect(getByText('History')).toBeInTheDocument()
