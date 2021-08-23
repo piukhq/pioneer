@@ -7,12 +7,6 @@ $primary-color-alternative2: #f1f5f4;
 $secondary-color: transparent;
 $secondary-color-highlight: transparent;
 
-$tertiary-color: #a30f3c;
-$tertiary-color-highlight: #c94155;
-
-$tertiary-transparent-50-percent: rgba(#a30f3c, 0.5);
-$tertiary-color-background: #f6e9ed;
-
 // Theme General Intents
 $background-color: $white;
 $background-color-light-transparency: $white-20-percent-transparency;
@@ -28,7 +22,6 @@ $note-font-color: $text-color;
 $link-color: $text-color;
 $modal-title-font-color: $text-color;
 $modal-body-font-color: $text-color;
-$error-color: $error-red;
 
 // Theme Form Intents
 $text-input-title-color--default: $primary-color;
