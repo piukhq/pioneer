@@ -223,14 +223,14 @@ export const selectors = {
   isReenrolRequired: createSelector(
     membershipCardReasonCodeSelector,
     (membershipCardReasonCode) => {
-      const reenrolCodes = ['X101', 'X201']
+      const reenrolCodes = ['X101', 'X102', 'X201']
       return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
     },
   ),
   isReaddRequired: createSelector(
     membershipCardReasonCodeSelector,
     (membershipCardReasonCodes) => {
-      const readdCodes = ['X102', 'X104', 'X202', 'X302', 'X303', 'X304']
+      const readdCodes = ['X104', 'X202', 'X302', 'X303', 'X304']
       return (readdCodes.includes(membershipCardReasonCodes) && Config.isMerchantChannel)
     },
   ),
