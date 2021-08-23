@@ -2,10 +2,10 @@
 
 .root {
   padding: 20px;
-  box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 22px 0 $transparent-90-percent;
   border: none;
-  color: rgb(0, 0, 0); // Prevents disappearing text on click in Safari
-  background: #fff;
+  color: $black; // Prevents disappearing text on click in Safari
+  background: $page-background-color;
   text-align: left;
 
   &__issued {
