@@ -7,10 +7,10 @@ $primary-color-alternative2: #f1f5f4;
 $secondary-color: transparent;
 $secondary-color-highlight: transparent;
 
-$tertiary-color: #930f27;
+$tertiary-color: #a30f3c;
 $tertiary-color-highlight: #c94155;
 
-$error-red-transparent-50-percent: rgba(#a30f3c, 0.5);
+$tertiary-transparent-50-percent: rgba(#a30f3c, 0.5);
 $tertiary-color-background: #f6e9ed;
 
 // Theme General Intents
@@ -47,6 +47,6 @@ $text-input-text-color--error: $tertiary-color;
 $text-input-text-color--disabled: $primary-color-alternative1;
 
 $text-input-placeholder-color--default: $primary-color-alternative1;
-$text-input-placeholder-color--error: $error-red-transparent-50-percent;
+$text-input-placeholder-color--error: $tertiary-transparent-50-percent;
 
 $text-input-error-color: $tertiary-color;
