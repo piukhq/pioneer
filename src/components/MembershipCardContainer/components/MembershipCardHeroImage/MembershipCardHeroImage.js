@@ -1,6 +1,6 @@
 import React from 'react'
+import cx from 'classnames'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
-import heroImage from 'images/Wasabi-hero-image.png'
 
 import styles from './MembershipCardHeroImage.module.scss'
 
@@ -11,10 +11,10 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
 
   const shouldRenderHeroImage = () => {
     // If wasabi, use custom asset
-    const imageSrc = Config.theme === 'wasabi' ? heroImage : imageUrl
-
-    if (imageSrc) {
-      return <img className={styles.root__image} src={imageSrc} alt='' data-testid='membership-card-image' />
+    if (Config.theme === 'wasabi') {
+      return <div className={cx(styles.root__image, styles['root__image--wasabi'])} data-testid='membership-card-image'></div>
+    } else if (imageUrl) {
+      return <img className={styles.root__image} src={imageUrl} alt='' data-testid='membership-card-image' />
     }
     return null
   }
