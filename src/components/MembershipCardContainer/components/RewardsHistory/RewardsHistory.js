@@ -8,7 +8,7 @@ import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.sv
 import { ReactComponent as StateAuthorisedGreySvg } from 'images/state-authorised-grey.svg'
 import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
 import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
-import { useCalculateWindowDimensions } from './hooks/useCalculateWindowDimensions'
+import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 import styles from './RewardsHistory.module.scss'
 
 const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = () => {} }) => {
@@ -17,7 +17,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
 
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
   const { planName } = useMembershipCardDetailsByCardId()
-  const { shouldRenderDesktopText } = useCalculateWindowDimensions()
+  const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
 
   const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = React.useState(false)
   const [isTransactionsModalOpen, setTransactionsModalOpen] = React.useState(false)
@@ -52,15 +52,15 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             <div data-testid='no-transaction-history' className={cx(styles['root__transaction-history'], styles['root__transaction-history--disabled'])}>
               <StateAuthorisedGreySvg key={state} />
               <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
-              <div className={cx(styles.root__explainer)}>{shouldRenderDesktopText ? 'No transactions to show' : 'Not available'}</div>
+              <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
             </div>
           ) }
           { nonActiveVouchers?.length > 0 ? (
             <>
               <div data-testid='non-active-vouchers' className={styles['root__voucher-history']} onClick={() => setNonActiveVouchersModalOpen(true)}>
                 <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
-                <div className={cx(styles.root__subtitle)}>{shouldRenderDesktopText ? 'Rewards history' : 'History'}</div>
-                <div className={cx(styles.root__explainer)}>{shouldRenderDesktopText ? 'See your past rewards' : 'Past rewards'}</div>
+                <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Rewards history' : 'History'}</div>
+                <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
               </div>
               { isNonActiveVouchersModalOpen && (
                 <div data-testid='non-active-vouchers-modal'>
@@ -75,8 +75,8 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
           ) : (
             <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])}>
               <StateAuthorisedGreySvg key={state} />
-              <div className={cx(styles.root__subtitle)}>{shouldRenderDesktopText ? 'Rewards history' : 'History'}</div>
-              <div className={cx(styles.root__explainer)}>{shouldRenderDesktopText ? 'No vouchers to show' : 'Not available'}</div>
+              <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Rewards history' : 'History'}</div>
+              <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
             </div>
           ) }
         </>

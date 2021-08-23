@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
-import { useCalculateWindowDimensions } from './hooks/useCalculateWindowDimensions'
+import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 
 import RewardsHistory from './RewardsHistory'
 
@@ -17,7 +17,7 @@ jest.mock('hooks/useMembershipCardDetailsByCardId', () => ({
   useMembershipCardDetailsByCardId: jest.fn(),
 }))
 
-jest.mock('./hooks/useCalculateWindowDimensions', () => ({
+jest.mock('utils/windowDimensions', () => ({
   useCalculateWindowDimensions: jest.fn(),
 }))
 
@@ -48,7 +48,7 @@ describe('Test RewardsHistory', () => {
     }))
 
     useCalculateWindowDimensions.mockImplementation(() => ({
-      shouldRenderDesktopText: true,
+      isDesktopViewportDimensions: true,
     }))
   })
 
@@ -88,7 +88,7 @@ describe('Test RewardsHistory', () => {
 
       it('should render desktop text', () => {
         useCalculateWindowDimensions.mockImplementation(() => ({
-          shouldRenderDesktopText: true,
+          isDesktopViewportDimensions: true,
         }))
 
         const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
@@ -98,7 +98,7 @@ describe('Test RewardsHistory', () => {
 
       it('should render mobile text', () => {
         useCalculateWindowDimensions.mockImplementation(() => ({
-          shouldRenderDesktopText: false,
+          isDesktopViewportDimensions: false,
         }))
 
         const { getAllByText, queryByText } = render(authorisedRewardsHistoryComponent)
@@ -126,7 +126,7 @@ describe('Test RewardsHistory', () => {
 
       it('should render desktop text', () => {
         useCalculateWindowDimensions.mockImplementation(() => ({
-          shouldRenderDesktopText: true,
+          isDesktopViewportDimensions: true,
         }))
 
         const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
@@ -138,7 +138,7 @@ describe('Test RewardsHistory', () => {
 
       it('should render mobile text', () => {
         useCalculateWindowDimensions.mockImplementation(() => ({
-          shouldRenderDesktopText: false,
+          isDesktopViewportDimensions: false,
         }))
 
         const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
@@ -172,7 +172,7 @@ describe('Test RewardsHistory', () => {
 
       it('should render desktop text', () => {
         useCalculateWindowDimensions.mockImplementation(() => ({
-          shouldRenderDesktopText: true,
+          isDesktopViewportDimensions: true,
         }))
 
         const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
@@ -184,7 +184,7 @@ describe('Test RewardsHistory', () => {
 
       it('should render mobile text', () => {
         useCalculateWindowDimensions.mockImplementation(() => ({
-          shouldRenderDesktopText: false,
+          isDesktopViewportDimensions: false,
         }))
 
         const { getByText, getAllByText, queryByText } = render(authorisedRewardsHistoryComponent)

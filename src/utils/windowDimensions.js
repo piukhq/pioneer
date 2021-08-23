@@ -20,8 +20,8 @@ const useCalculateWindowDimensions = () => {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const shouldRenderDesktopText = windowDimensions.width >= 800
-  return { shouldRenderDesktopText }
+  const isDesktopViewportDimensions = windowDimensions.width >= 800
+  return { isDesktopViewportDimensions }
 }
 
 export { useCalculateWindowDimensions }
