@@ -74,7 +74,7 @@ deploy-mr:
     - copy --sync wasabi /mr-$CI_MERGE_REQUEST_IID/wasabi/
     # Run Lighthouse over deployment
     - mkdir lh
-    - lighthouse https://web.dev.gb.bink.com/demo/mr-$CI_MERGE_REQUEST_IID/wasabi/
+    - lighthouse https://web.dev.gb.bink.com/mr-$CI_MERGE_REQUEST_IID/wasabi/
       --chrome-flags="--headless --no-sandbox --disable-gpu"
       --output=html
       --output-path=lh/index.html
