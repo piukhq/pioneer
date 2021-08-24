@@ -1,7 +1,6 @@
 
 @mixin button-style {
   font-family: $font-scotch;
-  // todo: change colour values to be accessed via variables.scss
   border-radius: 0;
   font-size: 16px;
   line-height: 40px;
@@ -12,54 +11,54 @@
   height: 40px;
 
   &--primary {
-    border: 1px solid #57595b;
-    background-color: #57595b;
-    color: #fff;
+    border: 1px solid $primary-color;
+    background-color: $primary-color;
+    color: $text-color-inverse;
 
     &:focus {
-      background-color: #707375;
+      background-color: $primary-color-highlight;
     }
 
     &:hover {
-      background-color: #646668;
+      background-color: $primary-color-alternative1;
     }
 
     &:active {
-      background-color: #48494b;
+      background-color: $primary-color-alternative2;
     }
   }
 
   &--secondary {
-    border: 1px solid #57595b;
-    color: #57595b;
+    border: 1px solid $primary-color;
+    color: $primary-color;
     background-color: transparent;
 
     &:focus,
     &:hover {
-      border: 1px solid #252627;
-      color: #252627;
+      border: 1px solid $secondary-color-highlight;
+      color: $secondary-color-highlight;
     }
 
     &:active {
-      border: 1px solid #48494b;
-      color: #48494b;
+      border: 1px solid $primary-color-alternative2;
+      color: $primary-color-alternative2;
     }
   }
 
   &--tertiary {
-    border: 1px solid #a30f27;
-    background-color: #a30f27;
-    color: #fff;
+    border: 1px solid $tertiary-color;
+    background-color: $tertiary-color;
+    color: $text-color-inverse;
   }
 
   &--disabled {
-    border: 1px solid #f0f0f0;
-    background-color: #f0f0f0;
-    color: #bebfc1;
+    border: 1px solid $disabled-button-color;
+    background-color: $disabled-button-color;
+    color: $disabled-button-text-color;
 
     &:hover,
     &:active {
-      background-color: #f0f0f0;
+      background-color: $disabled-button-color;
     }
   }
 

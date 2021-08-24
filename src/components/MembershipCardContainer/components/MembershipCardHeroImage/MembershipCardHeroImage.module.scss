@@ -1,3 +1,5 @@
+@import "src/sass/variables";
+
 .root {
   $ratio: 1312 / 800;
 
@@ -26,9 +28,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #999;
-    background-color: rgba(0, 0, 0, 0.22);
-    color: #fff;
+    background-color: $transparent-90-percent;
+    color: $text-color-inverse;
     font-size: 24px;
     line-height: 27.58px;
     letter-spacing: 0.27px;

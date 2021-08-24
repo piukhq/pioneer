@@ -6,18 +6,6 @@
     font-size: 18px;
     line-height: 1.2em;
     font-weight: 800;
-
-    @media (max-width: 799px) {
-      &--desktop-only {
-        display: none;
-      }
-    }
-
-    @media (min-width: 800px) {
-      &--mobile-only {
-        display: none;
-      }
-    }
   }
 
   &__explainer {
@@ -27,25 +15,13 @@
     &-paragraph {
       margin: 0 0 1em;
     }
-
-    @media (max-width: 799px) {
-      &--desktop-only {
-        display: none;
-      }
-    }
-
-    @media (min-width: 800px) {
-      &--mobile-only {
-        display: none;
-      }
-    }
   }
 
   @mixin state-box {
     padding: 20px;
-    background: #fff;
+    background: $page-background-color;
     border-radius: 20px;
-    box-shadow: 0 3px 22px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 22px 0 $transparent-90-percent;
   }
 
   &__no-payment-card-state {
@@ -75,7 +51,7 @@
 
     &--disabled {
       cursor: auto;
-      color: #999;
+      color: $disabled-color-dark;
     }
   }
 
@@ -87,7 +63,7 @@
 
     &--disabled {
       cursor: auto;
-      color: #999;
+      color: $disabled-color-dark;
     }
   }
 

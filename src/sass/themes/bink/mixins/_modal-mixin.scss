@@ -13,12 +13,12 @@
     top: 0;
     bottom: 0;
     z-index: 9999;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $transparent-50-percent;
     backdrop-filter: blur(4px);
   }
 
   &__box {
-    background-color: white;
+    background-color: $page-background-color;
     z-index: 10000;
     position: fixed;
     width: 600px;
@@ -42,12 +42,12 @@
     right: 25px - 2px;
     top: 25px - 9px;
     cursor: pointer;
-    background-color: rgba(#fff, 0.8);
+    background-color: $page-background-color-light-transparency;
     border: none;
   }
 
   &__top-fade {
-    $top-fade-color: #fff;
+    $top-fade-color: $page-background-color;
 
     pointer-events: none;
     position: absolute;
@@ -61,7 +61,7 @@
   }
 
   &__bottom-fade {
-    $bottom-fade-color: #fff;
+    $bottom-fade-color: $page-background-color;
 
     pointer-events: none;
     position: absolute;
