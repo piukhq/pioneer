@@ -3,7 +3,7 @@
 @mixin checkbox-group {
   display: grid;
   grid-template-columns: 26px auto;
-  font-size: 14px;
+  font-size: $note-font-size;
   color: $text-color;
 
   &__box {
@@ -23,29 +23,24 @@
       background-color: $checkbox-background-color;
     }
 
-    &__box:checked {
-      content: "";
-    }
-
     &__box:checked::before { //left, 'downwards' line
       position: absolute;
+      background-color: $checkmark-color;
+      content: "";
       top: 45%;
       height: 12%;
       width: 40%;
-      background-color: $checkmark-color;
-      content: "";
       transform: translateX(10%) rotate(45deg);
       transform-origin: left bottom;
     }
 
     &__box:checked::after { //right, 'upwards' line
       position: absolute;
-      top: 70%;
-      bottom: 0;
-      height: 12%;
-      width: 80%;
       background-color: $checkmark-color;
       content: "";
+      top: 70%;
+      height: 12%;
+      width: 80%;
       transform: translateX(50%) rotate(-45deg);
       transform-origin: left bottom;
     }
