@@ -1,21 +1,15 @@
 @import "src/sass/variables";
-@import "src/sass/mixins";
 
 .root {
   $ratio: 1312 / 800;
 
   &__image-section {
-    @include base-hover-style;
 
     position: relative;
     padding-bottom: (1/$ratio) * 100%;
     grid-area: image;
     border-radius: 20px;
     overflow: hidden;
-
-    &:hover {
-      @include hover-style-large-element;
-    }
   }
 
   &__image {
