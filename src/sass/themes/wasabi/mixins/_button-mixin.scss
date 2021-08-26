@@ -12,31 +12,45 @@
   min-height: 56px;
 
   &--primary {
+    @include base-hover-style;
+
     background-color: $primary-color;
     color: $text-color-inverse;
     width: 100%;
     transition: 0.3s ease;
-  }
 
-  &--primary:hover {
-    background-color: $primary-color-highlight;
-    transition: 0.3s ease;
+    &:hover {
+      @include hover-style-large-element;
+
+      background-color: $primary-color-highlight;
+      transition: 0.3s ease;
+    }
   }
 
   &--secondary {
+    @include base-hover-style;
+
     color: $text-color;
     background-color: transparent;
+
+    &:hover {
+      @include hover-style-large-element;
+    }
   }
 
   &--tertiary {
+    @include base-hover-style;
+
     background-color: $error-red;
     color: $text-color-inverse;
     transition: 0.3s ease;
-  }
 
-  &--tertiary:hover {
-    background-color: $tertiary-color-highlight;
-    transition: 0.3s ease;
+    &:hover {
+      @include hover-style-large-element;
+
+      background-color: $tertiary-color-highlight;
+      transition: 0.3s ease;
+    }
   }
 
   &--disabled {
@@ -45,6 +59,8 @@
   }
 
   &--disabled:hover {
+    @include no-hover-style; //overrides hover when disabled
+
     background-color: $disabled-color;
   }
 
