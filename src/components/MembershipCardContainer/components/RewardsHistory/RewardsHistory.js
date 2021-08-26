@@ -62,7 +62,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
                 <div data-testid='no-transaction-history-modal'>
                   <TransactionsRewardsEmptyStateModal
                     title='Transaction History'
-                    description='No transaction available to display.'
+                    description='No transactions available to display.'
                     setIsModalOpenState={setNoTransactionsModalOpen}
                     balance={balance}
                   />
