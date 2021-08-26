@@ -2,8 +2,6 @@
 @import "src/sass/mixins";
 
 .root {
-  @include base-hover-style;
-
   padding: 20px;
   box-shadow: 0 3px 22px 0 $transparent-90-percent;
   border: none;
@@ -13,10 +11,12 @@
   text-align: left;
 
   &__issued {
-    cursor: pointer;
-  }
+    @include base-hover-style;
 
-  &:hover {
-    @include hover-style;
+    cursor: pointer;
+
+    &:hover {
+      @include hover-style;
+    }
   }
 }
