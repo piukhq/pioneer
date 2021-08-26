@@ -5,6 +5,7 @@ $primary-color-alternative1: #646668;
 $primary-color-alternative2: #48494b;
 $primary-color-alternative3: #c9c9c9;
 $primary-color-alternative4: #949494;
+$primary-color-alternative5: #dbdbdb;
 
 $secondary-color: transparent;
 $secondary-color-highlight: #252627;
@@ -50,3 +51,8 @@ $text-input-placeholder-color--focused: $primary-color-alternative3;
 $text-input-placeholder-color--error: $primary-color-alternative3;
 
 $text-input-error-color: $error-red;
+
+// Checkbox Intents
+$checkbox-background-color: $white;
+$checkbox-border-color: $primary-color-alternative5;
+$checkmark-color: $black;
