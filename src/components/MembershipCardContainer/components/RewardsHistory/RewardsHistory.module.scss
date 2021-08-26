@@ -18,10 +18,16 @@
   }
 
   @mixin state-box {
+    @include base-hover-style;
+
     padding: 20px;
     background: $page-background-color;
     border-radius: 20px;
     box-shadow: 0 3px 22px 0 $transparent-90-percent;
+
+    &:hover {
+      @include hover-style;
+    }
   }
 
   &__no-payment-card-state {
