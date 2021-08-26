@@ -50,7 +50,6 @@
     @include state-box;
 
     &--disabled {
-      cursor: auto;
       color: $disabled-color-dark;
     }
   }
@@ -62,7 +61,6 @@
     @include state-box;
 
     &--disabled {
-      cursor: auto;
       color: $disabled-color-dark;
     }
   }

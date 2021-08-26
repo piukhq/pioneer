@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import cx from 'classnames'
-import VoucherModal from 'components/VoucherModal'
+import VoucherModal from 'components/Modals/VoucherModal'
 import AccumulatorVoucher from './components/AccumulatorVoucher'
 import StampVoucher from './components/StampVoucher'
 
