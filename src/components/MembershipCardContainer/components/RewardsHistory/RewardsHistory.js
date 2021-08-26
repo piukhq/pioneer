@@ -1,7 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
-import NonActiveVouchersModal from 'components/NonActiveVouchersModal'
-import TransactionsModal from 'components/TransactionsModal'
+import NonActiveVouchersModal from 'components/Modals/NonActiveVouchersModal'
+import TransactionsRewardsEmptyStateModal from 'components/Modals/TransactionsRewardsEmptyStateModal'
+import TransactionsModal from 'components/Modals/TransactionsModal'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
@@ -19,6 +20,8 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
   const { planName } = useMembershipCardDetailsByCardId()
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
 
+  const [isNoTransactionsModalOpen, setNoTransactionsModalOpen] = React.useState(false)
+  const [isNoRewardsModalOpen, setNoRewardsModalOpen] = React.useState(false)
   const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = React.useState(false)
   const [isTransactionsModalOpen, setTransactionsModalOpen] = React.useState(false)
 
@@ -49,11 +52,23 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
               )}
             </>
           ) : (
-            <div data-testid='no-transaction-history' className={cx(styles['root__transaction-history'], styles['root__transaction-history--disabled'])}>
-              <StateAuthorisedGreySvg key={state} />
-              <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
-              <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
-            </div>
+            <>
+              <div data-testid='no-transaction-history' className={cx(styles['root__transaction-history'], styles['root__transaction-history--disabled'])} onClick={() => setNoTransactionsModalOpen(true)}>
+                <StateAuthorisedGreySvg key={state} />
+                <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
+                <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
+              </div>
+              { isNoTransactionsModalOpen && (
+                <div data-testid='no-transaction-history-modal'>
+                  <TransactionsRewardsEmptyStateModal
+                    title='Transaction History'
+                    description='No transaction available to display.'
+                    setIsModalOpenState={setNoTransactionsModalOpen}
+                    balance={balance}
+                  />
+                </div>
+              )}
+            </>
           ) }
           { nonActiveVouchers?.length > 0 ? (
             <>
@@ -73,11 +88,23 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             </>
 
           ) : (
-            <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])}>
-              <StateAuthorisedGreySvg key={state} />
-              <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Rewards history' : 'History'}</div>
-              <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
-            </div>
+            <>
+              <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])} onClick={() => setNoRewardsModalOpen(true)}>
+                <StateAuthorisedGreySvg key={state} />
+                <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Rewards history' : 'History'}</div>
+                <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
+              </div>
+              { isNoRewardsModalOpen && (
+                  <div data-testid='no-non-active-vouchers-modal'>
+                    <TransactionsRewardsEmptyStateModal
+                      title='Rewards History'
+                      description='No past rewards available to display.'
+                      setIsModalOpenState={setNoRewardsModalOpen}
+                      balance={balance}
+                    />
+                  </div>
+              )}
+            </>
           ) }
         </>
       ) }
