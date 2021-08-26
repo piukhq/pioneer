@@ -15,28 +15,36 @@
     background-color: $primary-color;
     color: $text-color-inverse;
     width: 100%;
-    transition: 0.3s ease;
+    transition: $hover-transition;
   }
 
   &--primary:hover {
     background-color: $primary-color-highlight;
-    transition: 0.3s ease;
+    transition: $hover-transition;
+    transform: $hover-scaling-medium;
   }
 
   &--secondary {
     color: $text-color;
     background-color: transparent;
+    transition: $hover-transition;
+  }
+
+  &--secondary:hover {
+    transition: $hover-transition;
+    transform: $hover-scaling-medium;
   }
 
   &--tertiary {
     background-color: $error-red;
     color: $text-color-inverse;
-    transition: 0.3s ease;
+    transition: $hover-transition;
   }
 
   &--tertiary:hover {
     background-color: $tertiary-color-highlight;
-    transition: 0.3s ease;
+    transition: $hover-transition;
+    transform: $hover-scaling-medium;
   }
 
   &--disabled {
@@ -46,6 +54,7 @@
 
   &--disabled:hover {
     background-color: $disabled-color;
+    transform: $no-hover-scaling;
   }
 
   &:hover,
