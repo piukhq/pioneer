@@ -29,12 +29,22 @@
     grid-area: no-payment-card-state;
 
     @include state-box;
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
   }
 
   &__failed-state {
     grid-area: failed-state;
 
     @include state-box;
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
   }
 
   &__pending-state {
@@ -48,6 +58,11 @@
     grid-area: transaction-history;
 
     @include state-box;
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
 
     &--disabled {
       color: $disabled-color-dark;
@@ -59,6 +74,11 @@
     grid-area: voucher-history;
 
     @include state-box;
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
 
     &--disabled {
       color: $disabled-color-dark;

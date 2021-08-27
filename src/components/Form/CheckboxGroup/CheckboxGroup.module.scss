@@ -1,4 +1,5 @@
 @import "src/sass/variables";
+@import "src/sass/mixins";
 
 .root {
   display: flex;
@@ -6,9 +7,15 @@
   color: $text-color;
 
   &__box {
+    @include base-hover-style;
+
     margin: 0 10px 0 0;
     flex-grow: 0;
     vertical-align: bottom;
+
+    &:hover {
+      @include hover-style-small-element;
+    }
   }
 
   &__label {
