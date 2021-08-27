@@ -11,6 +11,8 @@
   height: 40px;
 
   &--primary {
+    @include base-hover-style;
+
     border: 1px solid $primary-color;
     background-color: $primary-color;
     color: $text-color-inverse;
@@ -20,6 +22,8 @@
     }
 
     &:hover {
+      @include hover-style-large-element;
+
       background-color: $primary-color-alternative1;
     }
 
@@ -29,12 +33,16 @@
   }
 
   &--secondary {
+    @include base-hover-style;
+
     border: 1px solid $primary-color;
     color: $primary-color;
     background-color: transparent;
 
     &:focus,
     &:hover {
+      @include hover-style-large-element;
+
       border: 1px solid $secondary-color-highlight;
       color: $secondary-color-highlight;
     }
@@ -46,9 +54,15 @@
   }
 
   &--tertiary {
+    @include base-hover-style;
+
     border: 1px solid $tertiary-color;
     background-color: $tertiary-color;
     color: $text-color-inverse;
+
+    &:hover {
+      @include hover-style-large-element;
+    }
   }
 
   &--disabled {
@@ -58,6 +72,8 @@
 
     &:hover,
     &:active {
+      @include hover-style-large-element;
+
       background-color: $disabled-button-color;
     }
   }
