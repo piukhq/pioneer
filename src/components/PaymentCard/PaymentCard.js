@@ -6,7 +6,7 @@ import { ReactComponent as WarningSvg } from 'images/sign-warning.svg'
 import { ReactComponent as ErrorSvg } from 'images/sign-error.svg'
 import styles from './PaymentCard.module.scss'
 
-const PaymentCard = ({ id, className, onClick, onDelete, expired, activating, unlinked }) => {
+const PaymentCard = ({ id, className, onClick, onDelete, expired, activating, hoverEnabled }) => {
   const { card } = usePaymentCardById(id)
   const provider = card?.card?.provider || ''
   const nameOnCard = card?.card?.name_on_card
@@ -21,7 +21,7 @@ const PaymentCard = ({ id, className, onClick, onDelete, expired, activating, un
         styles[`root--provider-${provider.replace(/\s+/g, '-').toLowerCase()}`],
         expired && styles['root--expired'],
         activating && styles['root--activating'],
-        unlinked && styles['root--unlinked'],
+        hoverEnabled && styles['root--hover-enabled'],
       ) }
       data-testid='payment-card'
     >

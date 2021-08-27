@@ -105,7 +105,7 @@
     color: $text-color-inverse;
   }
 
-  &--unlinked {
+  &--hover-enabled {
     @include base-hover-style;
 
     &:hover {

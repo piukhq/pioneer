@@ -138,7 +138,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
                     key={paymentCard.id}
                     expired={isPaymentCardExpired(paymentCard)}
                     activating={isActivating(paymentCard)}
-                    unlinked={true}
+                    hoverEnabled
                   />
                 </div>
               ))
