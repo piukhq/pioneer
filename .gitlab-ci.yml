@@ -72,6 +72,15 @@ deploy-mr:
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi-development.tar.gz
     - copy --sync wasabi /mr-$CI_MERGE_REQUEST_IID/wasabi/
+    # Run Lighthouse over deployment
+    - mkdir lh
+    - lighthouse https://web.dev.gb.bink.com/mr-$CI_MERGE_REQUEST_IID/wasabi/
+      --chrome-flags="--headless --no-sandbox --disable-gpu"
+      --output=html
+      --output-path=lh/index.html
+      --no-enable-error-reporting
+    # Copy Lighthouse report from lh/ to blobstorage
+    - copy lh /mr-$CI_MERGE_REQUEST_IID/wasabi/lh/
 
     # deploy fatface theme
     - mkdir fatface
@@ -100,7 +109,7 @@ build-staging:
       - build*.tar.gz
     expire_in: 3 weeks
   only:
-    - develop
+    - tags
 
 deploy-staging-wasabi:
   stage: staging-deploy
@@ -117,7 +126,7 @@ deploy-staging-wasabi:
     - copy --sandbox --sync sandbox /wasabi/
   when: manual
   only:
-    - develop
+    - tags
 
 deploy-staging-fatface:
   stage: staging-deploy
@@ -129,7 +138,7 @@ deploy-staging-fatface:
     - copy --staging --sync fatface /staging/fatface/
   when: manual
   only:
-    - develop
+    - tags
 
 build-prod:
   <<: *build
@@ -142,6 +151,7 @@ build-prod:
     paths:
       - build*.tar.gz
     expire_in: 3 weeks
+  when: manual
   only:
     - tags
 

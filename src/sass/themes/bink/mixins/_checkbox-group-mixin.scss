@@ -1,0 +1,17 @@
+@import "src/sass/variables";
+
+@mixin checkbox-group {
+  display: grid;
+  grid-template-columns: 26px auto;
+  font-size: 14px;
+  color: $text-color;
+
+  &__box {
+    position: relative;
+    width: 13px;
+    height: 13px;
+    left: 3px;
+  }
+
+  // custom checkbox styling not yet defined for Bink Theme
+}

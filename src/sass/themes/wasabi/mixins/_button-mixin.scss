@@ -41,7 +41,7 @@
   &--tertiary {
     @include base-hover-style;
 
-    background-color: $error-red;
+    background-color: $tertiary-color;
     color: $text-color-inverse;
     transition: 0.3s ease;
 
