@@ -20,7 +20,7 @@ const getExpiryDates = () => {
   }
 }
 
-const getDOBDates = () => {
+const getDateOfBirthsDates = () => {
   const currentYear = parseInt(new Date().getFullYear().toString())
 
   // Length of 101 allows for 100 years before the current year
@@ -39,4 +39,4 @@ const getDOBDates = () => {
   }
 }
 
-export { getExpiryDates, shortDateFromTimestamp, getDOBDates }
+export { getExpiryDates, shortDateFromTimestamp, getDateOfBirthsDates }
