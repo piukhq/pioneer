@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import SelectboxGroup from 'components/Form/SelectboxGroup'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
-import { getDateOfBirthsDates } from 'utils/dates'
+import { getDateOfBirthDates } from 'utils/dates'
 import { isValidDateOfBirth } from 'utils/validation'
 
 const types = {
@@ -26,7 +26,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
 
   const isDOBField = type === 0 && common_name === 'date_of_birth'
 
-  const [inputType, selectboxValues] = isDOBField ? [2, getDateOfBirthsDates()] : [type, choice]
+  const [inputType, selectboxValues] = isDOBField ? [2, getDateOfBirthDates()] : [type, choice]
 
   const handleChange = useCallback(
     (event) => { onChange(event, data, fieldType) },
