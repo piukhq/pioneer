@@ -150,7 +150,7 @@ describe('Test RewardsHistory', () => {
         }))
 
         const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
-        expect(getByText('Rewards history')).toBeInTheDocument()
+        expect(getByText('Reward history')).toBeInTheDocument()
         expect(queryByText('History')).not.toBeInTheDocument()
         expect(getByText('See your past rewards')).toBeInTheDocument()
         expect(queryByText('Past rewards')).not.toBeInTheDocument()
@@ -163,7 +163,7 @@ describe('Test RewardsHistory', () => {
 
         const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
 
-        expect(queryByText('Rewards history')).not.toBeInTheDocument()
+        expect(queryByText('Reward history')).not.toBeInTheDocument()
         expect(getByText('History')).toBeInTheDocument()
         expect(queryByText('See your past rewards')).not.toBeInTheDocument()
         expect(getByText('Past rewards')).toBeInTheDocument()
@@ -196,7 +196,7 @@ describe('Test RewardsHistory', () => {
         }))
 
         const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
-        expect(getByText('Rewards history')).toBeInTheDocument()
+        expect(getByText('Reward history')).toBeInTheDocument()
         expect(queryByText('History')).not.toBeInTheDocument()
         expect(getByText('No vouchers to show')).toBeInTheDocument()
         expect(queryByText('Not available')).not.toBeInTheDocument()
@@ -209,7 +209,7 @@ describe('Test RewardsHistory', () => {
 
         const { getByText, getAllByText, queryByText } = render(authorisedRewardsHistoryComponent)
 
-        expect(queryByText('Rewards history')).not.toBeInTheDocument()
+        expect(queryByText('Reward history')).not.toBeInTheDocument()
         expect(getByText('History')).toBeInTheDocument()
         expect(queryByText('No vouchers to show')).not.toBeInTheDocument()
         const notAvailableTextArray = getAllByText('Not available')
