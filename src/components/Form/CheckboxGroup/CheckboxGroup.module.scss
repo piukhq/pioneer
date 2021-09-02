@@ -2,23 +2,5 @@
 @import "src/sass/mixins";
 
 .root {
-  display: flex;
-  font-size: 14px;
-  color: $text-color;
-
-  &__box {
-    @include base-hover-style;
-
-    margin: 0 10px 0 0;
-    flex-grow: 0;
-    vertical-align: bottom;
-
-    &:hover {
-      @include hover-style-small-element;
-    }
-  }
-
-  &__label {
-    flex-grow: 1;
-  }
+  @include checkbox-group;
 }
