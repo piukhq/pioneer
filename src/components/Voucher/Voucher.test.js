@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 
 import Voucher from './Voucher'
 
-jest.mock('components/VoucherModal', () => () => null)
+jest.mock('components/Modals/VoucherModal', () => () => null)
 
 describe('Test Voucher', () => {
   it('should render voucher container', () => {

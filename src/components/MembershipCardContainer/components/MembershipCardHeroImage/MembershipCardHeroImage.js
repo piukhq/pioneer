@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
 
 import styles from './MembershipCardHeroImage.module.scss'
@@ -8,13 +9,22 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
 
+  const shouldRenderHeroImage = () => {
+    // If wasabi, use custom asset
+    if (Config.theme === 'wasabi') {
+      return <div className={cx(styles.root__image, styles['root__image--wasabi'])} data-testid='membership-card-image'></div>
+    } else if (imageUrl) {
+      return <img className={styles.root__image} src={imageUrl} alt='' data-testid='membership-card-image' />
+    }
+    return null
+  }
+
   return (
     <div className={styles['root__image-section']} style={{ backgroundColor }}>
-      { imageUrl && <img className={styles.root__image} src={imageUrl} alt='' data-testid='membership-card-image' /> }
+      {shouldRenderHeroImage()}
       { membershipId && (
         <div className={styles['root__card-number']}>
-          <div className={styles['root__card-number-label']}>Card number</div>
-          <div>{membershipId}</div>
+          <div>Card number: {membershipId}</div>
         </div>
       )}
     </div>

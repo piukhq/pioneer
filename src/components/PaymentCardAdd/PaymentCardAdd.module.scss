@@ -1,6 +1,9 @@
-@import "src/sass/variables.scss";
+@import "src/sass/variables";
+@import "src/sass/mixins";
 
 .root {
+  @include base-hover-style;
+
   cursor: pointer;
   height: 120px;
   background: transparent;
@@ -10,4 +13,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    @include hover-style;
+  }
 }
