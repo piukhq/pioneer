@@ -1,4 +1,5 @@
-@import "src/sass/variables.scss";
+@import "src/sass/variables";
+@import "src/sass/mixins";
 
 .root {
   box-sizing: border-box;
@@ -44,6 +45,8 @@
   }
 
   &__delete {
+    @include base-hover-style;
+
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -51,9 +54,7 @@
     border-radius: 15px;
 
     &:hover {
-      width: 32px;
-      height: 32px;
-      margin: -1px;
+      @include hover-style-small-element;
     }
   }
 
@@ -102,6 +103,14 @@
   &--activating {
     background: $payment-card-activating-background-color;
     color: $text-color-inverse;
+  }
+
+  &--hover-enabled {
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
   }
 
   &__logo {

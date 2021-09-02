@@ -6,8 +6,9 @@ import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 
 import RewardsHistory from './RewardsHistory'
 
-jest.mock('components/NonActiveVouchersModal', () => () => null)
-jest.mock('components/TransactionsModal', () => () => null)
+jest.mock('components/Modals/NonActiveVouchersModal', () => () => null)
+jest.mock('components/Modals/TransactionsModal', () => () => null)
+jest.mock('components/Modals/TransactionsRewardsEmptyStateModal', () => () => null)
 
 jest.mock('hooks/membershipCards', () => ({
   useMembershipCardStateById: jest.fn(),
@@ -70,6 +71,10 @@ describe('Test RewardsHistory', () => {
 
       it('should render the transactions modal', () => {
         React.useState = jest.fn()
+          // isNoTransactionsModalOpen
+          .mockReturnValueOnce([false, jest.fn()])
+          // isNoRewardsModalOpen
+          .mockReturnValueOnce([false, jest.fn()])
           // isNonActiveVouchersModalOpen
           .mockReturnValueOnce([false, jest.fn()])
           // isTransactionsModalOpen
@@ -106,6 +111,21 @@ describe('Test RewardsHistory', () => {
         expect(queryByText('No transactions to show')).not.toBeInTheDocument()
         const notAvailableTextArray = getAllByText('Not available')
         expect(notAvailableTextArray.length).toBeGreaterThan(0)
+      })
+
+      it('should render the no transaction history modal', () => {
+        React.useState = jest.fn()
+          // isNoTransactionsModalOpen
+          .mockReturnValueOnce([true, jest.fn()])
+          // isNoRewardsModalOpen
+          .mockReturnValueOnce([false, jest.fn()])
+          // isNonActiveVouchersModalOpen
+          .mockReturnValueOnce([false, jest.fn()])
+          // isTransactionsModalOpen
+          .mockReturnValueOnce([false, jest.fn()])
+
+        const { queryByTestId } = render(authorisedRewardsHistoryComponent)
+        expect(queryByTestId('no-transaction-history-modal')).toBeInTheDocument()
       })
     })
 
@@ -194,6 +214,21 @@ describe('Test RewardsHistory', () => {
         expect(queryByText('No vouchers to show')).not.toBeInTheDocument()
         const notAvailableTextArray = getAllByText('Not available')
         expect(notAvailableTextArray.length).toBeGreaterThan(0)
+      })
+
+      it('should render the no non active vouchers modal', () => {
+        React.useState = jest.fn()
+          // isNoTransactionsModalOpen
+          .mockReturnValueOnce([false, jest.fn()])
+          // isNoRewardsModalOpen
+          .mockReturnValueOnce([true, jest.fn()])
+          // isNonActiveVouchersModalOpen
+          .mockReturnValueOnce([false, jest.fn()])
+          // isTransactionsModalOpen
+          .mockReturnValueOnce([false, jest.fn()])
+
+        const { queryByTestId } = render(authorisedRewardsHistoryComponent)
+        expect(queryByTestId('no-non-active-vouchers-modal')).toBeInTheDocument()
       })
     })
   })

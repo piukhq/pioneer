@@ -2,7 +2,7 @@
 
 .root {
   &__subtitle {
-    margin-top: 5px;
+    margin: 5px 0;
     font-size: 18px;
     line-height: 1.2em;
     font-weight: 800;
@@ -18,9 +18,9 @@
   }
 
   @mixin state-box {
-    padding: 20px 20px 15px;
+    padding: 20px;
     background: $page-background-color;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 0 3px 22px 0 $transparent-90-percent;
   }
 
@@ -29,9 +29,10 @@
     grid-area: no-payment-card-state;
 
     @include state-box;
+    @include base-hover-style;
 
-    @media (min-width: 800px) {
-      margin: 10px 0;
+    &:hover {
+      @include hover-style;
     }
   }
 
@@ -39,9 +40,10 @@
     grid-area: failed-state;
 
     @include state-box;
+    @include base-hover-style;
 
-    @media (min-width: 800px) {
-      margin: 10px 0;
+    &:hover {
+      @include hover-style;
     }
   }
 
@@ -49,10 +51,6 @@
     grid-area: pending-state;
 
     @include state-box;
-
-    @media (min-width: 800px) {
-      margin: 10px 0;
-    }
   }
 
   &__transaction-history {
@@ -60,13 +58,13 @@
     grid-area: transaction-history;
 
     @include state-box;
+    @include base-hover-style;
 
-    @media (min-width: 800px) {
-      margin-top: 10px;
+    &:hover {
+      @include hover-style;
     }
 
     &--disabled {
-      cursor: auto;
       color: $disabled-color-dark;
     }
   }
@@ -76,13 +74,13 @@
     grid-area: voucher-history;
 
     @include state-box;
+    @include base-hover-style;
 
-    @media (min-width: 800px) {
-      margin-bottom: 10px;
+    &:hover {
+      @include hover-style;
     }
 
     &--disabled {
-      cursor: auto;
       color: $disabled-color-dark;
     }
   }
