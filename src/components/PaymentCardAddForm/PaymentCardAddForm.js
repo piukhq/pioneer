@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Modal from 'components/Modal'
 import cx from 'classnames'
 import Button from 'components/Button'
