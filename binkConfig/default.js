@@ -48,14 +48,14 @@ module.exports = {
       case 'wasabi': return { // todo: consider addition to plan documents on api?
         support: 'https://www.wasabi.uk.com/contact-us/',
         merchantFaq: 'https://www.wasabi.uk.com/faq/',
-        binkFaq: 'https://help.bink.com/hc/en-gb/categories/360002202520-Frequently-Asked-Questions',
+        binkFaq: 'https://help.bink.com/hc/en-gb/sections/4404115016850-Bink-Web',
         termsAndConditions: 'https://www.wasabi.uk.com/terms-and-conditions/',
       }
       case 'fatface': return { // todo: consider addition to plan documents on api?
         support: 'https://www.fatface.com/help-centre/contact-us.html',
         merchantFaq: 'https://www.fatface.com/help-centre/frequently-asked-questions.html',
         // todo: this is the same as for Wasabi for now. Might require updating when we know what it should be
-        binkFaq: 'https://help.bink.com/hc/en-gb/categories/360002202520-Frequently-Asked-Questions',
+        binkFaq: 'https://help.bink.com/hc/en-gb/sections/4404115016850-Bink-Web',
         termsAndConditions: 'https://www.fatface.com/legal-info/terms-and-conditions.html',
       }
     }
