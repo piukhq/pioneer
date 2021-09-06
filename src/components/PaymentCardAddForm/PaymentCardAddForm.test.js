@@ -36,7 +36,7 @@ const mockHandlePaymentCardChange = jest.fn()
 const mockHandlePaymentCardBlur = jest.fn()
 const mockGenericSpreedlyError = false
 const mockGenericBinkError = false
-const mockIsPaymentFormValid = jest.fn(() => true)
+const mockIsValidForm = jest.fn(() => true)
 const mockIsLoading = false
 const mockSubmitForm = jest.fn()
 
@@ -58,7 +58,7 @@ const defaultHookValues = {
   handlePaymentCardBlur: mockHandlePaymentCardBlur,
   genericSpreedlyError: mockGenericSpreedlyError,
   genericBinkError: mockGenericBinkError,
-  isPaymentFormValid: mockIsPaymentFormValid,
+  isValidForm: mockIsValidForm,
   isLoading: mockIsLoading,
   submitForm: mockSubmitForm,
 }
@@ -141,7 +141,7 @@ describe('Test PaymentCardAddForm', () => {
       it('should enable the submit button when payment form is valid', () => {
         usePaymentCardAddForm.mockImplementation(() => ({
           ...defaultHookValues,
-          isPaymentFormValid: () => true,
+          isValidForm: () => true,
           isLoading: false,
         }))
         render(PaymentCardAddFormComponent)
@@ -150,7 +150,7 @@ describe('Test PaymentCardAddForm', () => {
       it('should disable the submit button when payment form is loading', () => {
         usePaymentCardAddForm.mockImplementation(() => ({
           ...defaultHookValues,
-          isPaymentFormValid: () => true,
+          isValidForm: () => true,
           isLoading: true,
         }))
         render(PaymentCardAddFormComponent)
@@ -160,7 +160,7 @@ describe('Test PaymentCardAddForm', () => {
         window._virtualConsole.emit = jest.fn() // fix to override console log html form submission error
         usePaymentCardAddForm.mockImplementation(() => ({
           ...defaultHookValues,
-          isPaymentFormValid: () => true,
+          isValidForm: () => true,
           isLoading: false,
         }))
         render(PaymentCardAddFormComponent)
