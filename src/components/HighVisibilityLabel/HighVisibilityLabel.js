@@ -5,7 +5,6 @@ import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 import styles from './HighVisibilityLabel.module.scss'
 
 const HighVisibilityLabel = ({ value }) => {
-  console.log('Rendered')
   const valueArr = Array.from(value)
   const refs = Array(valueArr.length).fill().map(() => createRef())
   const { windowDimensions } = useCalculateWindowDimensions()
