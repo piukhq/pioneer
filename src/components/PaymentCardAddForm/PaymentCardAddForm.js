@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import Modal from 'components/Modal'
 import cx from 'classnames'
 import Button from 'components/Button'
@@ -8,7 +8,6 @@ import { usePaymentCardAddForm } from './hooks/usePaymentCardAddForm'
 import PaymentCardInputGroup from 'components/Form/PaymentCardInputGroup'
 import { getExpiryDates } from 'utils/dates'
 import styles from './PaymentCardAddForm.module.scss'
-import { useSetState } from 'react-use'
 
 // todo: to rename this component to PaymentCardAddModal
 const PaymentCardAddForm = ({ onClose }) => {
@@ -26,18 +25,10 @@ const PaymentCardAddForm = ({ onClose }) => {
     genericSpreedlyError,
     genericBinkError,
     isLoading,
-    isNameValid,
-    isExpiryValid,
+    spreedlyNumberValidation,
+    isValidForm,
     submitForm,
   } = usePaymentCardAddForm(onClose)
-  const [isNumberValid, setIsNumberValid] = useState(false)
-
-  const numberValidation = (validationField) => {
-    setIsNumberValid(validationField)
-  }
-  const validForm = () => {
-    return isNumberValid && isNameValid() && isExpiryValid()
-  }
 
   return (
     <Modal onClose={onClose} isLoading={isLoading}>
@@ -53,7 +44,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             error={cardNumberError}
             onChange={handlePaymentCardChange}
             onBlur={handlePaymentCardBlur}
-            onValidation={numberValidation}
+            onValidation={spreedlyNumberValidation}
           />
 
           <SelectboxGroup
@@ -91,7 +82,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             primary
             className={styles.root__button}
             onClick={submitForm}
-            disabled={!validForm() || isLoading}
+            disabled={!isValidForm() || isLoading}
             loading={isLoading}
           >
             Add payment card
