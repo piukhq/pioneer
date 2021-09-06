@@ -16,7 +16,7 @@ const TransactionsRewardsEmptyStateModal = ({ setIsModalOpenState, title, descri
     const minutes = Math.floor(diffTime / 60000)
     const hours = Math.round(minutes / 60)
     const days = Math.round(hours / 24)
-    const weeks = Math.round(hours / 7)
+    const weeks = Math.round(days / 7)
 
     // Only return 1 variation of time unit
     return (
