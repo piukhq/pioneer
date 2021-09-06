@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import debounce from 'lodash/debounce'
 
 const getWindowDimensions = () => {
   const { innerWidth: width, innerHeight: height } = window
@@ -16,12 +17,15 @@ const useCalculateWindowDimensions = () => {
       setWindowDimensions(getWindowDimensions())
     }
 
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    // Debouncing this event to stop components re-rendering on every single pixel change
+    const debouncedHandleResize = debounce(handleResize, 15)
+
+    window.addEventListener('resize', debouncedHandleResize)
+    return () => window.removeEventListener('resize', debouncedHandleResize)
   }, [])
 
   const isDesktopViewportDimensions = windowDimensions.width >= 800
-  return { isDesktopViewportDimensions }
+  return { windowDimensions, isDesktopViewportDimensions }
 }
 
 export { useCalculateWindowDimensions }

@@ -1,3 +1,4 @@
+@import "src/sass/mixins";
 @import "src/sass/variables";
 
 .root {
@@ -9,6 +10,13 @@
     grid-area: image;
     border-radius: 20px;
     overflow: hidden;
+    cursor: pointer;
+
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
   }
 
   &__image {
