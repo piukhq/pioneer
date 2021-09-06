@@ -17,14 +17,12 @@ export const usePaymentCardAddForm = (onClose) => {
 
   const dispatch = useDispatch()
 
-  // TODO: Validation/styling of the spreedly card number field is split between this hook and useSpreedlyCardNumber. Recommend refactoring to separate concerns fully to avoid confusion in future.
+  // TODO: Validation and associated styling of the spreedly card number field is split between functions here and in useSpreedlyCardNumber. Recommend refactoring to avoid duplicate code/ease of understanding
 
   const spreedlyNumberValidation = (validationField) => { // passed to useSpreedlyCardNumber for response
     setIsSpreedlyNumberValid(validationField)
   }
-  const isValidForm = () => {
-    return isSpreedlyNumberValid && isNameValid() && isExpiryValid()
-  }
+
   const handlePaymentCardBlur = useCallback(() => {
     if (!isCardNumberValid) {
       setCardNumberError('Invalid card number')
@@ -34,6 +32,7 @@ export const usePaymentCardAddForm = (onClose) => {
       setCardNumberError(false)
     }
   }, [isCardNumberValid, isCardTypeValid, setCardNumberError])
+
   const handlePaymentCardChange = useCallback(({ isCardNumberValid, isCardTypeValid }) => {
     setCardNumberError(false)
     setIsCardNumberValid(isCardNumberValid)
@@ -132,6 +131,9 @@ export const usePaymentCardAddForm = (onClose) => {
 
   const isNameValid = useCallback(() => isValidName(fullName), [fullName])
   const isExpiryValid = useCallback(() => isValidExpiry(expiry), [expiry])
+  const isValidForm = useCallback(() => {
+    isSpreedlyNumberValid && isNameValid() && isExpiryValid()
+  }, [isSpreedlyNumberValid, isNameValid, isExpiryValid])
 
   const submitForm = (event) => {
     event.preventDefault()
