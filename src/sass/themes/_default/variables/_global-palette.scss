@@ -8,7 +8,8 @@ $white-20-percent-transparency: rgba(#fff, 0.8);
 $off-white: #eee;
 $black: #000;
 
-$grey-12-percent: #d8d8d8;
+$grey-12-percent: rgb(216, 216, 216);
+$grey-12-percent-50-percent-opacity: rgba(216, 216, 216, 0.5);
 $grey-45-percent: #999;
 $grey-75-percent: #444;
 
@@ -30,3 +31,5 @@ $disabled-color: $grey-12-percent;
 $disabled-color-dark: $grey-45-percent;
 $account-menu-font-color: $grey-75-percent;
 $list-divider-color: $off-white;
+$high-visibility-gray: $grey-12-percent;
+$high-visibility-opacity-gray: $grey-12-percent-50-percent-opacity;

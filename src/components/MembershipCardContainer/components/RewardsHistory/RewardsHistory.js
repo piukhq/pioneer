@@ -74,7 +74,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             <>
               <div data-testid='non-active-vouchers' className={styles['root__voucher-history']} onClick={() => setNonActiveVouchersModalOpen(true)}>
                 <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
-                <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Rewards history' : 'History'}</div>
+                <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
               </div>
               { isNonActiveVouchersModalOpen && (
@@ -91,13 +91,13 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             <>
               <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])} onClick={() => setNoRewardsModalOpen(true)}>
                 <StateAuthorisedGreySvg key={state} />
-                <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Rewards history' : 'History'}</div>
+                <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
               </div>
               { isNoRewardsModalOpen && (
                   <div data-testid='no-non-active-vouchers-modal'>
                     <TransactionsRewardsEmptyStateModal
-                      title='Rewards History'
+                      title='Reward History'
                       description='No past rewards available to display.'
                       setIsModalOpenState={setNoRewardsModalOpen}
                       balance={balance}
