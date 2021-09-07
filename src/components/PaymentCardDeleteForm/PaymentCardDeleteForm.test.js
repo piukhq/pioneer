@@ -55,7 +55,7 @@ describe('Test PaymentCardDeleteForm', () => {
       }))
       const { getByText, queryByTestId } = render(paymentCardDeleteFormComponent)
       expect(getByText('Card Expired')).toBeInTheDocument()
-      expect(getByText('This payment card has expired and can no longer be used to auto-collect points and rewards.')).toBeInTheDocument()
+      expect(getByText('This credit/debit card has expired and can no longer be used to auto-collect points and rewards.')).toBeInTheDocument()
       expect(queryByTestId('expired-card-submit-button')).toBeInTheDocument()
     })
     it('should disable the expired card submit button when loading', () => {
@@ -93,7 +93,7 @@ describe('Test PaymentCardDeleteForm', () => {
           isLastPaymentCard: true,
         }))
         const { getByText, queryByText } = render(paymentCardDeleteFormComponent)
-        expect(getByText(`We are currently processing your payment card to automatically collect ${mockCurrency}.`)).toBeInTheDocument()
+        expect(getByText(`We are currently processing your credit/debit card to automatically collect ${mockCurrency}.`)).toBeInTheDocument()
         expect(queryByText(`Any ${mockCurrency} that have not yet been awarded will be lost. If you have recently made a purchase using this card, make sure any ${mockCurrency} have been added to your ${mockPlanName} ${mockPlanNameSuffix} before deleting.`)).not.toBeInTheDocument()
       })
     })
@@ -106,7 +106,7 @@ describe('Test PaymentCardDeleteForm', () => {
         }))
         const { getByText, queryByText } = render(paymentCardDeleteFormComponent)
         expect(getByText(`Any ${mockCurrency} that have not yet been awarded will be lost. If you have recently made a purchase using this card, make sure any ${mockCurrency} have been added to your ${mockPlanName} ${mockPlanNameSuffix} before deleting.`)).toBeInTheDocument()
-        expect(queryByText(`You are about to delete your only active payment card. This will mean you will not collect ${mockPlanName} ${mockCurrency}.`)).not.toBeInTheDocument()
+        expect(queryByText(`You are about to delete your only active credit/debit card. This will mean you will not collect ${mockPlanName} ${mockCurrency}.`)).not.toBeInTheDocument()
       })
     })
     describe('Test Last Active Card', () => {
@@ -117,7 +117,7 @@ describe('Test PaymentCardDeleteForm', () => {
           isLastPaymentCard: true,
         }))
         const { getByText } = render(paymentCardDeleteFormComponent)
-        expect(getByText(`You are about to delete your only active payment card. This will mean you will not collect ${mockPlanName} ${mockCurrency}.`)).toBeInTheDocument()
+        expect(getByText(`You are about to delete your only active credit/debit card. This will mean you will not collect ${mockPlanName} ${mockCurrency}.`)).toBeInTheDocument()
       })
     })
     describe('Test Submit Button', () => {

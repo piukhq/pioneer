@@ -31,8 +31,8 @@ const PaymentCardAddForm = ({ onClose }) => {
 
   return (
     <Modal onClose={onClose} isLoading={isLoading}>
-      <Modal.Header>Add payment card</Modal.Header>
-      <div className={styles.root__paragraph}>Enter details below to add your payment card.</div>
+      <Modal.Header>Add credit/debit card</Modal.Header>
+      <div className={styles.root__paragraph}>Enter details below to add your credit/debit card.</div>
 
       <form className={styles.root}>
         <div className={styles.root__groups}>
@@ -83,7 +83,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             disabled={!isPaymentFormValid() || isLoading}
             loading={isLoading}
           >
-            Add payment card
+            Add credit/debit card
           </Button>
         </div>
         <a data-testid='bink-privacy-and-security' className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer' >Bink Privacy and Security</a>

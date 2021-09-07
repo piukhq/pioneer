@@ -45,7 +45,7 @@ describe('Test PaymentCard', () => {
     jest.clearAllMocks()
   })
 
-  it('should render a payment card with correct information', () => {
+  it('should render a credit/debit card with correct information', () => {
     usePaymentCardById.mockImplementation(() => ({
       ...defaultValues,
     }))
@@ -92,7 +92,7 @@ describe('Test PaymentCard', () => {
     })
   })
   describe('Test Payment Card Actions', () => {
-    it('should indicate when payment card is expired', () => {
+    it('should indicate when credit/debit card is expired', () => {
       usePaymentCardById.mockImplementation(() => ({
         ...defaultValues,
       }))
@@ -100,7 +100,7 @@ describe('Test PaymentCard', () => {
       expect(getByText('Expired')).toBeInTheDocument()
       expect(queryByTestId('delete-icon')).not.toBeInTheDocument()
     })
-    it('should indicate when payment card is activating', () => {
+    it('should indicate when credit/debit card is activating', () => {
       usePaymentCardById.mockImplementation(() => ({
         ...defaultValues,
       }))

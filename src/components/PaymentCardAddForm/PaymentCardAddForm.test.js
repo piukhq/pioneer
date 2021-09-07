@@ -73,12 +73,12 @@ describe('Test PaymentCardAddForm', () => {
       it('should display the correct modal header', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
-        expect(screen.getByRole('heading')).toHaveTextContent('Add payment card')
+        expect(screen.getByRole('heading')).toHaveTextContent('Add credit/debit card')
       })
       it('should display the correct instructions', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
-        expect(screen.getByText('Enter details below to add your payment card.')).toBeInTheDocument()
+        expect(screen.getByText('Enter details below to add your credit/debit card.')).toBeInTheDocument()
       })
       it('should display the privacy and security link with correct behaviour', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
@@ -135,7 +135,7 @@ describe('Test PaymentCardAddForm', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
         const submitButton = screen.getByTestId('submit-button')
-        expect(submitButton).toHaveTextContent('Add payment card')
+        expect(submitButton).toHaveTextContent('Add credit/debit card')
         expect(submitButton).toBeDisabled()
       })
       it('should enable the submit button when payment form is valid', () => {

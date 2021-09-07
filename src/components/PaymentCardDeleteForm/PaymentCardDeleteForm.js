@@ -30,7 +30,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
         <>
           <Modal.Header>Card Expired</Modal.Header>
           <div className={styles.root__paragraph}>
-            This payment card has expired and can no longer be used to auto-collect points and rewards.
+            This credit/debit card has expired and can no longer be used to auto-collect points and rewards.
           </div>
 
           <Button
@@ -49,14 +49,14 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
             Are you sure you want to delete the card ending in {last4Digits}? This cannot be undone.
           </div>
           {isCardPending ? (
-            <div>We are currently processing your payment card to automatically collect {currency}.</div>
+            <div>We are currently processing your credit/debit card to automatically collect {currency}.</div>
           ) : (
           <div className={styles.root__paragraph}>
           Any {currency} that have not yet been awarded will be lost. If you have recently made a purchase using this card, make sure any {currency} have been added to your {planName} {planNameSuffix} before deleting.
           </div>
           )}
           { isLastPaymentCard && !isCardPending && (
-            <div className={styles.root__paragraph}>You are about to delete your only active payment card. This will mean you will not collect {planName} {currency}.</div>
+            <div className={styles.root__paragraph}>You are about to delete your only active credit/debit card. This will mean you will not collect {planName} {currency}.</div>
           )}
           <div className={styles.root__paragraph}>Enter the last four digits of the card to confirm.</div>
           <TextInputGroup

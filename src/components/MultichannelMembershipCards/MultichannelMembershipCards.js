@@ -27,7 +27,7 @@ const MultichannelMembershipCards = () => {
       ))}
       <Link to={`/membership-card/add/${Config.membershipPlanId}`}>Add a card</Link>
       <br /><br /><br />
-      <Link to={'/payment-cards'}>Payment Cards</Link>
+      <Link to={'/payment-cards'}>Credit/debit cards</Link>
       <br />
       <Link to={'/membership-plans'}>Membership Plans</Link>
       { loading && <LoadingIndicator /> }
