@@ -81,14 +81,14 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
       { newlyPendingPaymentCard && <PaymentCardRefresher paymentCardId={newlyPendingPaymentCard.id} /> }
 
       <section className={styles.root} data-testid='linked-payment-cards-section' >
-        <h2 className={styles.root__headline}>Payment cards</h2>
+        <h2 className={styles.root__headline}>Credit/debit cards</h2>
         {(linkedPaymentCards.length > 0 || newlyPendingPaymentCard) ? (
           <div className={styles.root__paragraph}>
-            The payment cards below are linked to your {planName} {planNameSuffix}. Simply pay with them to automatically collect {membershipCardCurrency}.
+            The credit/debit cards below are linked to your {planName} {planNameSuffix}. Simply pay with them to automatically collect {membershipCardCurrency}.
           </div>
         ) : (
           <div className={styles.root__paragraph}>
-            You have yet to add any payment cards. By adding a payment card to your account,
+            You have yet to add any credit/debit cards. By adding a credit/debit card to your account,
             you will auto-collect {membershipCardCurrency} when you shop.
           </div>
         ) }
@@ -121,9 +121,9 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
 
       { unlinkedPaymentCards.filter(paymentCard => paymentCard.id !== newlyPendingPaymentCard?.id).length > 0 && (
         <section className={styles.root} data-testid='unlinked-payment-cards-section'>
-          <h2 className={styles.root__headline}>Unlinked payment cards</h2>
+          <h2 className={styles.root__headline}>Unlinked credit/debit cards</h2>
           <div className={styles.root__paragraph}>
-            These are payment cards that you have added but are not currently linked to your {planNameSuffix}.
+            These are credit/debit cards that you have added but are not currently linked to your {planNameSuffix}.
             Making purchases with one of these cards <span className={styles.root__warning}>will not collect {membershipCardCurrency}</span>.
             Select the card to see how this can be resolved.
           </div>
