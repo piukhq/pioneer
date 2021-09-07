@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 
-const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, numberValidation) => {
+const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, setCardNumberValidation) => {
   const Spreedly = window.Spreedly
   const [length, setLength] = useState(0)
   const [focus, setFocus] = useState(false)
@@ -46,9 +46,8 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, nu
       } else {
         setErrorMessage(false)
       }
-      numberValidation(!isNumberInvalid && !isTypeInvalid)
     }
-  }, [isNumberInvalid, isTypeInvalid, numberValidation, isIframeReady, Spreedly])
+  }, [isNumberInvalid, isTypeInvalid, setCardNumberValidation, isIframeReady, Spreedly])
 
   useEffect(() => {
     const Spreedly = window.Spreedly
@@ -63,6 +62,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, nu
       setIsNumberInvalid(!validNumber)
       if (numberLength >= 16) {
         setIsTypeInvalid(!validCardTypes.includes(cardType))
+        setCardNumberValidation(!isNumberInvalid && !isTypeInvalid)
       }
     })
 
