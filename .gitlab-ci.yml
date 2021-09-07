@@ -119,7 +119,14 @@ deploy-staging-wasabi:
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi-staging.tar.gz
     - copy --staging --sync wasabi /staging/wasabi/
+  when: manual
+  only:
+    - tags
 
+deploy-sandbox-wasabi:
+  stage: staging-deploy
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
     # deploy wasabi theme for sandbox
     - mkdir sandbox
     - tar -C sandbox -xf build-wasabi-sandbox.tar.gz
