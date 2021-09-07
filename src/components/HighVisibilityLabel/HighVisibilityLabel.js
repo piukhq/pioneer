@@ -11,24 +11,21 @@ const HighVisibilityLabel = ({ value }) => {
   const [newLineIndexes, setNewLineIndexes] = useState([])
 
   useEffect(() => {
-    // Only perform calculations if array is likely to wrap to a new line
-    if (windowDimensions.width < 500) {
-      const indexes = [0]
-      refs.forEach((ref, index) => {
-        const prevRef = refs[index - 1]
+    const indexes = [0]
+    refs.forEach((ref, index) => {
+      const prevRef = refs[index - 1]
 
-        // This will detect when the array has wrapped to a new line, by comparing the offestTop value of the current ref against the previous ref
-        if (ref?.current && prevRef?.current && (ref?.current?.offsetTop !== prevRef?.current?.offsetTop)) {
-          indexes.push(index)
-        }
-      })
-
-      // Set new array of new line indexes if a change is detected
-      if (JSON.stringify(newLineIndexes) !== JSON.stringify(indexes)) {
-        setNewLineIndexes(indexes)
+      // This will detect when the array has wrapped to a new line, by comparing the offestTop value of the current ref against the previous ref
+      if (ref?.current && prevRef?.current && (ref?.current?.offsetTop !== prevRef?.current?.offsetTop)) {
+        indexes.push(index)
       }
+    })
+
+    // Set new array of new line indexes if a change is detected
+    if (JSON.stringify(newLineIndexes) !== JSON.stringify(indexes)) {
+      setNewLineIndexes(indexes)
     }
-  }, [windowDimensions, refs, newLineIndexes])
+  }, [valueArr, windowDimensions, refs, newLineIndexes])
 
   // Determines what values in the array should have an opacity applied to the background colour
   const opacityArray = valueArr.reduce((acc, _, index) => {
