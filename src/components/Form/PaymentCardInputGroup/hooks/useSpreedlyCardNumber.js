@@ -26,9 +26,10 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
     const onSpreedlyBlur = () => {
       onBlur && onBlur(isNumberInvalid, isTypeInvalid)
     }
+    setCardNumberValidation(!isNumberInvalid && !isTypeInvalid)
     window.addEventListener('bink.spreedly.blur', onSpreedlyBlur)
     return () => window.removeEventListener('bink.spreedly.blur', onSpreedlyBlur)
-  }, [onBlur, isNumberInvalid, isTypeInvalid])
+  }, [onBlur, isNumberInvalid, isTypeInvalid, setCardNumberValidation])
 
   const handleLabelClick = () => {
     Spreedly.transferFocus('number')
@@ -62,7 +63,6 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
       setIsNumberInvalid(!validNumber)
       if (numberLength >= 16) {
         setIsTypeInvalid(!validCardTypes.includes(cardType))
-        setCardNumberValidation(!isNumberInvalid && !isTypeInvalid)
       }
     })
 
