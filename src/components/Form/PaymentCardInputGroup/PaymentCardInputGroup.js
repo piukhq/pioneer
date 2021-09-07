@@ -30,7 +30,7 @@ const PaymentCardInputGroup = ({ className, label, error, onChange, onBlur, onRe
       )}>
         <div id='bink-spreedly-number' className={cx(
           styles['root__spreedly-container'],
-          length === 0 && errorMessage && styles['root__iframe-placeholder'],
+          length === 0 && !errorMessage && styles['root__iframe-placeholder'],
           length === 0 && error && errorMessage && styles['root__iframe-placeholder--error'],
         )} />
       </div>
