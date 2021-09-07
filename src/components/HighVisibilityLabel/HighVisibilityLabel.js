@@ -11,19 +11,22 @@ const HighVisibilityLabel = ({ value }) => {
   const [newLineIndexes, setNewLineIndexes] = useState([])
 
   useEffect(() => {
-    const indexes = [0]
-    refs.forEach((ref, index) => {
-      const prevRef = refs[index - 1]
+    // Only perform calculations if array is likely to wrap to a new line
+    if (windowDimensions.width < 500) {
+      const indexes = [0]
+      refs.forEach((ref, index) => {
+        const prevRef = refs[index - 1]
 
-      // This will detect what the array has wrapped to a new line, by comparing the offestTop value if the previous value in the array
-      if (ref?.current && prevRef?.current && (ref?.current?.offsetTop !== prevRef?.current?.offsetTop)) {
-        indexes.push(index)
+        // This will detect when the array has wrapped to a new line, by comparing the offestTop value of the current ref against the previous ref
+        if (ref?.current && prevRef?.current && (ref?.current?.offsetTop !== prevRef?.current?.offsetTop)) {
+          indexes.push(index)
+        }
+      })
+
+      // Set new array of new line indexes if a change is detected
+      if (JSON.stringify(newLineIndexes) !== JSON.stringify(indexes)) {
+        setNewLineIndexes(indexes)
       }
-    })
-
-    // Set new array of new line indexes if a change is detected
-    if (JSON.stringify(newLineIndexes) !== JSON.stringify(indexes)) {
-      setNewLineIndexes(indexes)
     }
   }, [windowDimensions, refs, newLineIndexes])
 
