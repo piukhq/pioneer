@@ -17,7 +17,9 @@
     height: 87px;
     width: 41px;
     justify-content: center;
-    background-color: $high-visibility-gray;
+    // background-color: $high-visibility-gray;
+    // background-color: rgb(216, 216, 216);
+    background-color: $grey-12-percent;
 
     &--opacity-applied {
       background-color: $high-visibility-opacity-gray;
