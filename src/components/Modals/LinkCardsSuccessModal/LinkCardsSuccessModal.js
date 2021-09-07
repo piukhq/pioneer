@@ -8,7 +8,7 @@ const LinkCardsSuccessModal = ({ onClose }) => (
   <Modal onClose={onClose}>
     <Modal.Header>Card linked</Modal.Header>
     <div className={styles.root__paragraph}>
-      Your payment card is now linked! You can now collect points and rewards when you spend.
+      Your credit/debit card is now linked! You can now collect points and rewards when you spend.
     </div>
     <Button className={styles.root__button} onClick={onClose}>Dismiss</Button>
   </Modal>

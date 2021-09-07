@@ -39,7 +39,7 @@ const AccountMenuModal = ({ onClose }) => {
       <Modal.Header>{ Config.accountTitle }</Modal.Header>
       <div className={styles.root}>
         <div className={styles['root__modal-body']}>
-          Bink is a service which links payment cards to loyalty memberships allowing you to earn rewards automatically when you shop.
+          Bink is a service which links credit/debit cards to loyalty memberships allowing you to earn rewards automatically when you shop.
         </div>
         { Config.isMerchantChannel && (
           <>

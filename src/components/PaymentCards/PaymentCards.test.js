@@ -99,12 +99,12 @@ describe('Test PaymentCards', () => {
       const { queryByTestId, getByText } = render(paymentCardsComponent)
 
       expect(queryByTestId('linked-payment-cards-section')).toBeInTheDocument()
-      expect(getByText('Payment cards')).toBeInTheDocument()
+      expect(getByText('Credit/debit cards')).toBeInTheDocument()
     })
 
     it('should render relevant text if linked payment cards are available', () => {
       const { getByText } = render(paymentCardsComponent)
-      expect(getByText(`The payment cards below are linked to your ${mockPlanName} ${mockPlanNameSuffix}. Simply pay with them to automatically collect ${mockMembershipCardCurrency}.`)).toBeInTheDocument()
+      expect(getByText(`The credit/debit cards below are linked to your ${mockPlanName} ${mockPlanNameSuffix}. Simply pay with them to automatically collect ${mockMembershipCardCurrency}.`)).toBeInTheDocument()
     })
 
     it('should render relevant text if no linked payment cards are available', () => {
@@ -123,7 +123,7 @@ describe('Test PaymentCards', () => {
         .mockReturnValueOnce(undefined)
 
       const { getByText } = render(paymentCardsComponent)
-      expect(getByText(`You have yet to add any payment cards. By adding a payment card to your account, you will auto-collect ${mockMembershipCardCurrency} when you shop.`)).toBeInTheDocument()
+      expect(getByText(`You have yet to add any credit/debit cards. By adding a credit/debit card to your account, you will auto-collect ${mockMembershipCardCurrency} when you shop.`)).toBeInTheDocument()
     })
 
     it('should render correct number of linked payment cards', () => {

@@ -112,8 +112,8 @@ module.exports = {
       }
       case 'fatface': {
         return [
-          'Use your linked payment cards every time you shop in a FatFace store or online at fatface.com to start earning Rewards. Each purchase gets you closer to a Reward Voucher. Once you have spent £100 you will receive a 15% Voucher to use online.',
-          'Bink is technology that makes loyalty simpler. By connecting your loyalty account to the payment card of your choice, you earn rewards every time you shop. By entering your email address you authorise Bink to check if you already have a loyalty account.',
+          'Use your linked credit/debit cards every time you shop in a FatFace store or online at fatface.com to start earning Rewards. Each purchase gets you closer to a Reward Voucher. Once you have spent £100 you will receive a 15% Voucher to use online.',
+          'Bink is technology that makes loyalty simpler. By connecting your loyalty account to the credit/debit card of your choice, you earn rewards every time you shop. By entering your email address you authorise Bink to check if you already have a loyalty account.',
           'Log in or become a new member just by entering your email address.',
         ]
       }

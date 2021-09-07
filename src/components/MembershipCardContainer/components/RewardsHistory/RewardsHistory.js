@@ -111,9 +111,9 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
       { state === 'no-payment-cards' && (
         <div data-testid='no-payment-cards' className={styles['root__no-payment-card-state']} onClick={handleNoPaymentCardsOnClick}>
           <StateFailedSvg key={state} />
-          <div className={styles.root__subtitle}>Add a payment card</div>
+          <div className={styles.root__subtitle}>Add a credit/debit card</div>
           <div className={styles.root__explainer}>
-            <div className={styles['root__explainer-paragraph']}>To collect rewards you need to add a payment card to { planName }.</div>
+            <div className={styles['root__explainer-paragraph']}>To collect rewards you need to add a credit/debit card to { planName }.</div>
             <div>Click here to get started.</div>
           </div>
         </div>
@@ -136,7 +136,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
             <div className={styles.root__explainer}>
               <div className={styles['root__explainer-paragraph']}>We are getting everything ready for you.</div>
               <div>
-                You will need a payment card to start collecting rewards.
+                You will need a credit/debit card to start collecting rewards.
                 This can be done alongside this process.
               </div>
             </div>
