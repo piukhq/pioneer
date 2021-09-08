@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-const retryIntervals = [3, 6, 10, 20, 60, 120, 300]
+const retryIntervals = [2, 3, 6, 8, 10, 20, 60, 120, 300]
 
 const useCardRefresher = (card, updateCard, cardStatus, pendingState, loadingState, handlePaymentCardStateChange) => {
   const [initialCardState, setCardState] = useState(null)
