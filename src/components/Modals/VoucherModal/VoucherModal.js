@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import HighVisibilityLabel from 'components/HighVisibilityLabel'
 import Modal from 'components/Modal'
 import { shortDateFromTimestamp } from 'utils/dates'
 
@@ -18,9 +19,15 @@ const VoucherModal = ({ onClose, voucher, plan }) => {
   return (
     <Modal className={styles.root} onClose={onClose}>
       {imageLoading && <div className={styles.root__placeholder} />}
-      <img className={styles.root__image} src={imgUrl} alt='' onLoad={ () => setImageLoading(false)}/>
+      <img className={styles.root__image} src={imgUrl} alt='' onLoad={() => setImageLoading(false)}/>
       <div className={styles.root__heading}>{burnPrefix}{burnValue} {burnSuffix} for collecting {earnPrefix}{earnTargetValue} {earnSuffix}</div>
-      <div className={styles.root__code}>{code}</div>
+
+      {code && (
+        <div className={styles.root__code}>
+          <HighVisibilityLabel value={code} />
+        </div>
+      )}
+
       <div className={styles.root__information}>
         <div className={styles['root__information__issued-detail']}>{issuedDetail}</div>
         <div className={styles.root__information__date}>Added {formattedIssuedDate}</div>
