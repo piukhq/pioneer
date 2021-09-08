@@ -24,8 +24,9 @@ const PaymentCardAddForm = ({ onClose }) => {
     handlePaymentCardBlur,
     genericSpreedlyError,
     genericBinkError,
-    isPaymentFormValid,
     isLoading,
+    spreedlyNumberValidation,
+    isValidForm,
     submitForm,
   } = usePaymentCardAddForm(onClose)
 
@@ -43,6 +44,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             error={cardNumberError}
             onChange={handlePaymentCardChange}
             onBlur={handlePaymentCardBlur}
+            onValidation={spreedlyNumberValidation}
           />
 
           <SelectboxGroup
@@ -80,7 +82,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             primary
             className={styles.root__button}
             onClick={submitForm}
-            disabled={!isPaymentFormValid() || isLoading}
+            disabled={!isValidForm() || isLoading}
             loading={isLoading}
           >
             Add credit/debit card

@@ -13,8 +13,15 @@ export const usePaymentCardAddForm = (onClose) => {
   const [isCardTypeValid, setIsCardTypeValid] = useState(false)
   const [cardNumberError, setCardNumberError] = useState(false)
   const [genericSpreedlyError, setGenericSpreedlyError] = useState(false)
+  const [isSpreedlyNumberValid, setIsSpreedlyNumberValid] = useState(false)
 
   const dispatch = useDispatch()
+
+  // TODO: Validation and associated styling of the spreedly card number field is split between functions here and in useSpreedlyCardNumber. Recommend refactoring to avoid duplicate code/ease of understanding
+
+  const spreedlyNumberValidation = (validationField) => { // passed to useSpreedlyCardNumber for response
+    setIsSpreedlyNumberValid(validationField)
+  }
 
   const handlePaymentCardBlur = useCallback(() => {
     if (!isCardNumberValid) {
@@ -122,10 +129,11 @@ export const usePaymentCardAddForm = (onClose) => {
     setFullNameError(errorMessage)
   }, [fullName])
 
-  const isPaymentFormValid = useCallback(
-    () => isValidName(fullName) && isValidExpiry(expiry) && isCardNumberValid && isCardTypeValid,
-    [fullName, expiry, isCardNumberValid, isCardTypeValid],
-  )
+  const isNameValid = useCallback(() => isValidName(fullName), [fullName])
+  const isExpiryValid = useCallback(() => isValidExpiry(expiry), [expiry])
+  const isValidForm = useCallback(() => {
+    isSpreedlyNumberValid && isNameValid() && isExpiryValid()
+  }, [isSpreedlyNumberValid, isNameValid, isExpiryValid])
 
   const submitForm = (event) => {
     event.preventDefault()
@@ -168,8 +176,11 @@ export const usePaymentCardAddForm = (onClose) => {
     handlePaymentCardBlur,
     genericSpreedlyError,
     genericBinkError,
-    isPaymentFormValid,
+    isNameValid,
+    isExpiryValid,
     isLoading,
     submitForm,
+    spreedlyNumberValidation,
+    isValidForm,
   }
 }
