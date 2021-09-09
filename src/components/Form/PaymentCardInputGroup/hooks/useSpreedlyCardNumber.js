@@ -71,7 +71,6 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
         switch (type) {
           case 'input':
             setLength(inputProperties.numberLength)
-            if (inputProperties.numberLength >= 16) Spreedly.validate()
             window.dispatchEvent(new CustomEvent('bink.spreedly.input', { detail: inputProperties }))
             break
           case 'focus':
