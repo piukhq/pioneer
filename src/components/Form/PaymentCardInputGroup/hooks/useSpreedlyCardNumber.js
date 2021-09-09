@@ -7,6 +7,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
   const [isIframeReady, setIframeReady] = useState(false)
   const [isNumberInvalid, setIsNumberInvalid] = useState(false)
   const [isTypeInvalid, setIsTypeInvalid] = useState(false)
+  const [hasBlurredFirstTime, setHasBlurredFirstTime] = useState(false)
   const [errorMessage, setErrorMessage] = useState(false)
   const validCardTypes = useMemo(() => ['visa', 'master', 'american_express'], [])
 
@@ -26,10 +27,10 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
     const onSpreedlyBlur = () => {
       onBlur && onBlur(isNumberInvalid, isTypeInvalid)
     }
-    setCardNumberValidation(!isNumberInvalid && !isTypeInvalid)
+    setCardNumberValidation(!isNumberInvalid && !isTypeInvalid && length >= 16)
     window.addEventListener('bink.spreedly.blur', onSpreedlyBlur)
     return () => window.removeEventListener('bink.spreedly.blur', onSpreedlyBlur)
-  }, [onBlur, isNumberInvalid, isTypeInvalid, setCardNumberValidation])
+  }, [onBlur, isNumberInvalid, isTypeInvalid, setCardNumberValidation, length])
 
   const handleLabelClick = () => {
     Spreedly.transferFocus('number')
@@ -38,17 +39,17 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
   useEffect(() => {
     if (isIframeReady) {
       Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
-      if (isNumberInvalid) {
+      if (isNumberInvalid && hasBlurredFirstTime) {
         setErrorMessage('Invalid card number')
         Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.error)
-      } else if (isTypeInvalid) {
+      } else if (isTypeInvalid && hasBlurredFirstTime) {
         setErrorMessage('You can only add Visa, Mastercard or American Express cards')
         Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.error)
       } else {
         setErrorMessage(false)
       }
     }
-  }, [isNumberInvalid, isTypeInvalid, setCardNumberValidation, isIframeReady, Spreedly])
+  }, [isNumberInvalid, isTypeInvalid, setCardNumberValidation, isIframeReady, Spreedly, hasBlurredFirstTime])
 
   useEffect(() => {
     const Spreedly = window.Spreedly
@@ -72,6 +73,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
           case 'input':
             setLength(inputProperties.numberLength)
             window.dispatchEvent(new CustomEvent('bink.spreedly.input', { detail: inputProperties }))
+            if (inputProperties.numberLength >= 16) Spreedly.validate()
             break
           case 'focus':
             setFocus(true)
@@ -80,6 +82,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
             Spreedly.validate()
             setFocus(false)
             window.dispatchEvent(new CustomEvent('bink.spreedly.blur'))
+            setHasBlurredFirstTime(true)
             break
           default:
         }

@@ -132,7 +132,7 @@ export const usePaymentCardAddForm = (onClose) => {
   const isNameValid = useCallback(() => isValidName(fullName), [fullName])
   const isExpiryValid = useCallback(() => isValidExpiry(expiry), [expiry])
   const isValidForm = useCallback(() => {
-    isSpreedlyNumberValid && isNameValid() && isExpiryValid()
+    return isSpreedlyNumberValid && isNameValid() && isExpiryValid()
   }, [isSpreedlyNumberValid, isNameValid, isExpiryValid])
 
   const submitForm = (event) => {
