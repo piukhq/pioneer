@@ -60,6 +60,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
     Spreedly.on('validation', function (inputProperties) {
       const { validNumber, cardType, numberLength } = inputProperties
       setLength(numberLength)
+      console.log(validNumber)
       setIsNumberInvalid(!validNumber)
       if (numberLength >= 16) {
         setIsTypeInvalid(!validCardTypes.includes(cardType))
@@ -70,8 +71,8 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
       if (name === 'number') {
         switch (type) {
           case 'input':
-            if (inputProperties.numberLength >= 16) Spreedly.validate()
             setLength(inputProperties.numberLength)
+            window.dispatchEvent(new CustomEvent('bink.spreedly.input', { detail: inputProperties }))
             break
           case 'focus':
             setFocus(true)
