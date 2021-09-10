@@ -40,7 +40,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
   const numberOfCardsInLinkedSection = newlyPendingPaymentCard ? linkedPaymentCards?.length + 1 : linkedPaymentCards?.length
-
+  console.log('paymentCARDS!')
   // Check to see if the payment card limit is reached
   useEffect(() => {
     // The user can have no more than 5 payment cards, regardless of the card's state
@@ -98,7 +98,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
             <div data-testid='linked-payment-card' key={paymentCard.id}>
               <PaymentCard
                 id={paymentCard.id}
-                onDelete={() => handleDeletePaymentCard(paymentCard)}
+                onDelete={handleClickOnPaymentCard}
               />
             </div>
           ))}
@@ -150,4 +150,4 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
   )
 }
 
-export default PaymentCards
+export default React.memo(PaymentCards)

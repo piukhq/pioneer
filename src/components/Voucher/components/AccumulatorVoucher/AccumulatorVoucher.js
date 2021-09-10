@@ -87,4 +87,4 @@ const AccumulatorVoucher = ({ voucher }) => {
   )
 }
 
-export default AccumulatorVoucher
+export default React.memo(AccumulatorVoucher)
