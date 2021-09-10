@@ -93,4 +93,4 @@ const StampVoucher = ({ voucher }) => {
   )
 }
 
-export default StampVoucher
+export default React.memo(StampVoucher)
