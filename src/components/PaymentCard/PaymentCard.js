@@ -11,6 +11,7 @@ const PaymentCard = ({ id, className, onClick, onDelete, expired, activating, ho
   const provider = card?.card?.provider || ''
   const nameOnCard = card?.card?.name_on_card
   const last4Digits = card?.card?.last_four_digits
+  console.log(id)
 
   return (
     <div
@@ -57,4 +58,4 @@ const PaymentCard = ({ id, className, onClick, onDelete, expired, activating, ho
   )
 }
 
-export default PaymentCard
+export default React.memo(PaymentCard)

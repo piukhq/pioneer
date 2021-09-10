@@ -29,6 +29,7 @@ const PaymentCardAddForm = ({ onClose }) => {
     submitForm,
   } = usePaymentCardAddForm(onClose)
 
+  console.log(isValidForm())
   return (
     <Modal onClose={onClose} isLoading={isLoading}>
       <Modal.Header>Add credit/debit card</Modal.Header>
