@@ -83,7 +83,7 @@ const MembershipCardPage = () => {
     setDeleteFormVisible(false)
     setCardIdToBeDeleted(null)
   }, [])
-  const setPaymentCardAddFormVisibility = useCallback(() => {
+  const handlePaymentCardAddFormVisible = useCallback(() => {
     setPaymentCardAddFormVisible(true)
   }, [])
 
@@ -148,7 +148,7 @@ const MembershipCardPage = () => {
             handleLinkingSuccess={handleLinkingSuccess}
             handleLinkingError={handleLinkingError}
             setPaymentCardLimitModalVisible={setPaymentCardLimitModalVisible}
-            handleAddPaymentCard={setPaymentCardAddFormVisibility}
+            handleAddPaymentCard={handlePaymentCardAddFormVisible}
             handleDeletePaymentCard={handleDeletePaymentCard}
           />
 
