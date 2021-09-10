@@ -74,7 +74,6 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
   }
 
   const isActivating = (card) => isPaymentCardPending(card) && !isPaymentCardExpired(card)
-
   return (
     <>
       {/* Only mount component if there is a newly added payment card in a pending state */}
@@ -150,4 +149,4 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
   )
 }
 
-export default PaymentCards
+export default React.memo(PaymentCards)

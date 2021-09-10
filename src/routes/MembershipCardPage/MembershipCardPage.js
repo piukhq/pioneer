@@ -83,6 +83,9 @@ const MembershipCardPage = () => {
     setDeleteFormVisible(false)
     setCardIdToBeDeleted(null)
   }, [])
+  const setPaymentCardAddFormVisibility = useCallback(() => {
+    setPaymentCardAddFormVisible(true)
+  }, [])
 
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
@@ -145,7 +148,7 @@ const MembershipCardPage = () => {
             handleLinkingSuccess={handleLinkingSuccess}
             handleLinkingError={handleLinkingError}
             setPaymentCardLimitModalVisible={setPaymentCardLimitModalVisible}
-            handleAddPaymentCard={() => setPaymentCardAddFormVisible(true)}
+            handleAddPaymentCard={setPaymentCardAddFormVisibility}
             handleDeletePaymentCard={handleDeletePaymentCard}
           />
 
