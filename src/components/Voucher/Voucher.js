@@ -38,4 +38,4 @@ const Voucher = ({ voucher, plan }) => {
   )
 }
 
-export default Voucher
+export default React.memo(Voucher)
