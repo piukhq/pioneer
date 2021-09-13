@@ -7,7 +7,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
   const [isIframeReady, setIframeReady] = useState(false)
   const [isNumberInvalid, setIsNumberInvalid] = useState(false)
   const [isTypeInvalid, setIsTypeInvalid] = useState(false)
-  const [hasBlurredFirstTime, setHasBlurredFirstTime] = useState(false)
+  const [hasBlurredFirstTime, setHasBlurredFirstTime] = useState(false) // Mechanism to prevent error messages appearing till the card number field is unfocused first time around.
   const [errorMessage, setErrorMessage] = useState(false)
   const validCardTypes = useMemo(() => ['visa', 'master', 'american_express'], [])
 
@@ -27,7 +27,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
     const onSpreedlyBlur = () => {
       onBlur && onBlur(isNumberInvalid, isTypeInvalid)
     }
-    setCardNumberValidation(!isNumberInvalid && !isTypeInvalid && length >= 16)
+    setCardNumberValidation(!isNumberInvalid && !isTypeInvalid && length) // The length check here prevents a card number with no length (which is not considered invalid yet, consider refactoring) enabling the submit button.
     window.addEventListener('bink.spreedly.blur', onSpreedlyBlur)
     return () => window.removeEventListener('bink.spreedly.blur', onSpreedlyBlur)
   }, [onBlur, isNumberInvalid, isTypeInvalid, setCardNumberValidation, length])
@@ -62,18 +62,19 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
       const { validNumber, cardType, numberLength } = inputProperties
       setLength(numberLength)
       setIsNumberInvalid(!validNumber)
-      if (numberLength >= 16) {
+      if (numberLength >= 8) { // the maximum amount of digits used to identify a card type in card numbers
         setIsTypeInvalid(!validCardTypes.includes(cardType))
       }
     })
 
     Spreedly.on('fieldEvent', function (name, type, activeEl, inputProperties) {
+      const { numberLength, cardType } = inputProperties
       if (name === 'number') {
         switch (type) {
           case 'input':
-            setLength(inputProperties.numberLength)
+            setLength(numberLength)
             window.dispatchEvent(new CustomEvent('bink.spreedly.input', { detail: inputProperties }))
-            if (inputProperties.numberLength >= 16) Spreedly.validate()
+            if (numberLength >= 16 || (numberLength === 15 && cardType === 'american_express')) Spreedly.validate() // To support enable an immediate validation when correcting a wrong card number on completion
             break
           case 'focus':
             setFocus(true)
