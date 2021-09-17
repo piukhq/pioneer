@@ -17,6 +17,12 @@ build: &build
     - npm ci
     - npm run lint-js
     - npm run lint-css
+    # build bink theme
+    - PUBLIC_URL=$URL_PREFIX/bink THEME=bink npm run build
+    - cp version.json build/
+    - tar -C build -zcvf build-bink-$NODE_CONFIG_ENV.tar.gz .
+    - rm -rf build
+
     # build wasabi theme
     - PUBLIC_URL=$URL_PREFIX/wasabi THEME=wasabi npm run build
     - cp version.json build/
@@ -39,6 +45,11 @@ deploy-dev:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
+    # deploy bink theme
+    - mkdir bink
+    - tar -C bink -xf build-bink-development.tar.gz
+    - copy --sync bink /develop/bink/
+
     # deploy wasabi theme
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi-development.tar.gz
@@ -68,6 +79,21 @@ deploy-mr:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
+    # deploy bink theme
+    - mkdir bink
+    - tar -C bink -xf build-bink-development.tar.gz
+    - copy --sync bink /mr-$CI_MERGE_REQUEST_IID/bink/
+    # Run Lighthouse over deployment
+    - mkdir lh
+    - lighthouse https://web.dev.gb.bink.com/mr-$CI_MERGE_REQUEST_IID/bink/
+      --chrome-flags="--headless --no-sandbox --disable-gpu"
+      --output=html
+      --output-path=lh/index.html
+      --no-enable-error-reporting
+    # Copy Lighthouse report from lh/ to blobstorage
+    - copy lh /mr-$CI_MERGE_REQUEST_IID/bink/lh/
+    - rm -rf lh
+
     # deploy wasabi theme
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi-development.tar.gz
@@ -81,6 +107,7 @@ deploy-mr:
       --no-enable-error-reporting
     # Copy Lighthouse report from lh/ to blobstorage
     - copy lh /mr-$CI_MERGE_REQUEST_IID/wasabi/lh/
+    - rm -rf lh
 
     # deploy fatface theme
     - mkdir fatface
@@ -108,6 +135,18 @@ build-staging:
     paths:
       - build*.tar.gz
     expire_in: 3 weeks
+  only:
+    - tags
+
+deploy-staging-bink:
+  stage: staging-deploy
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
+    # deploy bink theme
+    - mkdir bink
+    - tar -C bink -xf build-bink-staging.tar.gz
+    - copy --staging --sync bink /staging/bink/
+  when: manual
   only:
     - tags
 
@@ -158,6 +197,20 @@ build-prod:
     paths:
       - build*.tar.gz
     expire_in: 3 weeks
+  when: manual
+  only:
+    - tags
+
+deploy-prod-bink:
+  stage: prod-deploy
+  image: binkcore.azurecr.io/copy2blobstorage:latest
+  script:
+    # deploy bink theme
+    - mkdir bink
+    - tar -C bink -xf build-bink-production.tar.gz
+    - rm -rf bink/themes
+    - rm `ls bink/*.* | grep -v "^bink\/version\.json$"`
+    - copy --prod --sync bink /bink/
   when: manual
   only:
     - tags
