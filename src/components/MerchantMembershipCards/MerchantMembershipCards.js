@@ -6,9 +6,8 @@ import { useMerchantMembershipCardsLogic } from './hooks/useMerchantMembershipCa
 import MultichannelMembershipCards from 'components/MultichannelMembershipCards'
 import Button from 'components/Button'
 import HangTight from 'components/HangTight'
-
-import WeFoundYou from 'components/WeFoundYou'
 import PreparingYourCard from 'components/PreparingYourCard'
+import WeFoundYou from 'components/WeFoundYou'
 import styles from './MerchantMembershipCards.module.scss'
 
 const MerchantMembershipCards = () => {

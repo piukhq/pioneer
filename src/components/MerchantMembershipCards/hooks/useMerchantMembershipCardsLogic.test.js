@@ -54,13 +54,6 @@ describe('Test useMerchantMembershipCardsLogic', () => {
     React.useState = jest.fn().mockReturnValue([false, mockSetState])
   })
 
-  it('should dispatch correct number of functions', () => {
-    const dummyDispatch = jest.fn()
-    useDispatchMock.mockReturnValue(dummyDispatch)
-    renderHook(() => useMerchantMembershipCardsLogic())
-    expect(dummyDispatch).toBeCalledTimes(3)
-  })
-
   it('should call correct route if no membership cards are found', () => {
     useMembershipCardsState.mockImplementationOnce(() => ({
       membershipCards: [],
