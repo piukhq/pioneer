@@ -92,6 +92,7 @@ deploy-mr:
       --no-enable-error-reporting
     # Copy Lighthouse report from lh/ to blobstorage
     - copy lh /mr-$CI_MERGE_REQUEST_IID/bink/lh/
+    - rm -rf lh
 
     # deploy wasabi theme
     - mkdir wasabi
@@ -106,6 +107,7 @@ deploy-mr:
       --no-enable-error-reporting
     # Copy Lighthouse report from lh/ to blobstorage
     - copy lh /mr-$CI_MERGE_REQUEST_IID/wasabi/lh/
+    - rm -rf lh
 
     # deploy fatface theme
     - mkdir fatface
