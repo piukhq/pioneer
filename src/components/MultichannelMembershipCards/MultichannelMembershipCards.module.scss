@@ -51,6 +51,7 @@
     background-color: $delete-red;
     color: $white;
     align-self: flex-end;
+    cursor: pointer;
   }
 
   &__content-container {

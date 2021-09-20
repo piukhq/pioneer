@@ -1,0 +1,13 @@
+@import "src/sass/mixins";
+
+.root {
+  &__paragraph {
+    @include body-font-style;
+
+    margin: 12px 0 22px;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}
