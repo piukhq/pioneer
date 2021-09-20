@@ -20,7 +20,7 @@ module.exports = {
   })(),
   magicLinkSlug: (() => {
     switch (process.env.THEME) {
-      case 'bink': return null
+      case 'bink': return 'bink-loyalty'
       case 'wasabi': return 'wasabi-club'
       case 'fatface': return 'fatface'
     }

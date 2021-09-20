@@ -8,4 +8,11 @@ module.exports = {
       case 'fatface': return 'xD1k2LTwUlSgwY4NF6TrqmQHoMzkZjlzJhb9d2bAFRcSykDvHm'
     }
   })(),
+  bundleId: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return 'com.bink.bink20dev'
+      case 'wasabi': return 'com.wasabi.bink.web'
+      case 'fatface': return 'com.fatface.bink.web'
+    }
+  })(),
 }
