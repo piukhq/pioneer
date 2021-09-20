@@ -1,22 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { selectors as membershipCardsSelectors, actions as membershipCardsActions } from 'ducks/membershipCards'
-import { actions as serviceActions } from 'ducks/service'
-
+import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { useMembershipCardsState } from 'hooks/membershipCards'
-import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 
-export const useMerchantMembershipCardsLogic = () => {
-  const dispatch = useDispatch()
-  const { getMembershipPlans } = useMembershipPlansDispatch()
-
-  useEffect(() => {
-    dispatch(membershipCardsActions.getMembershipCards())
-    getMembershipPlans()
-    dispatch(serviceActions.getService())
-  }, [dispatch, getMembershipPlans])
-
+export const useMerchantMembershipCards = () => {
   const { membershipCards } = useMembershipCardsState()
   const membershipCard = membershipCards?.[0]
   const isMembershipCardPending = membershipCard?.status?.state === 'pending'

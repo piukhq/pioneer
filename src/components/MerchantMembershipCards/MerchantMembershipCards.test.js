@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { useMerchantMembershipCardsLogic } from './hooks/useMerchantMembershipCardsLogic'
+import { useMerchantMembershipCards } from './hooks/useMerchantMembershipCards'
 import MerchantMembershipCards from './MerchantMembershipCards'
 
 jest.mock('hooks/useLogout', () => ({
@@ -11,8 +11,8 @@ jest.mock('hooks/useContactSupport', () => ({
   __esModule: true,
   default: () => jest.fn(),
 }))
-jest.mock('./hooks/useMerchantMembershipCardsLogic', () => ({
-  useMerchantMembershipCardsLogic: jest.fn(),
+jest.mock('./hooks/useMerchantMembershipCards', () => ({
+  useMerchantMembershipCards: jest.fn(),
 }))
 
 jest.mock('components/WeFoundYou', () => () => null)
@@ -26,7 +26,7 @@ describe('Test MerchantMembershipCards', () => {
 
   describe('Test too many cards error scenario', () => {
     it('should render too many cards error', () => {
-      useMerchantMembershipCardsLogic.mockImplementation(() => ({
+      useMerchantMembershipCards.mockImplementation(() => ({
         tooManyCardsError: true,
       }))
 
@@ -41,7 +41,7 @@ describe('Test MerchantMembershipCards', () => {
     })
 
     it('should not render too many cards error', () => {
-      useMerchantMembershipCardsLogic.mockImplementation(() => ({
+      useMerchantMembershipCards.mockImplementation(() => ({
         tooManyCardsError: false,
       }))
 
@@ -53,7 +53,7 @@ describe('Test MerchantMembershipCards', () => {
 
   describe('Test We Found You scenario', () => {
     it('should render We Found You', () => {
-      useMerchantMembershipCardsLogic.mockImplementation(() => ({
+      useMerchantMembershipCards.mockImplementation(() => ({
         shouldDisplayWeFoundYou: true,
       }))
 
@@ -62,7 +62,7 @@ describe('Test MerchantMembershipCards', () => {
     })
 
     it('should not render We Found You', () => {
-      useMerchantMembershipCardsLogic.mockImplementation(() => ({
+      useMerchantMembershipCards.mockImplementation(() => ({
         shouldDisplayWeFoundYou: false,
       }))
 
@@ -73,7 +73,7 @@ describe('Test MerchantMembershipCards', () => {
 
   describe('Test Preparing Your Card scenario', () => {
     it('should render Preparing Your Card', () => {
-      useMerchantMembershipCardsLogic.mockImplementation(() => ({
+      useMerchantMembershipCards.mockImplementation(() => ({
         isMembershipCardPending: true,
         membershipCard: {
           id: 'mock-id',
@@ -85,7 +85,7 @@ describe('Test MerchantMembershipCards', () => {
     })
 
     it('should not render Preparing Your Card', () => {
-      useMerchantMembershipCardsLogic.mockImplementation(() => ({
+      useMerchantMembershipCards.mockImplementation(() => ({
         isMembershipCardPending: false,
       }))
 
@@ -96,7 +96,7 @@ describe('Test MerchantMembershipCards', () => {
 
   describe('Test Hang Tight scenario', () => {
     it('should render Hang Tight', () => {
-      useMerchantMembershipCardsLogic.mockImplementation(() => ({
+      useMerchantMembershipCards.mockImplementation(() => ({
         tooManyCardsError: false,
         shouldDisplayWeFoundYou: false,
         isMembershipCardPending: false,
@@ -107,7 +107,7 @@ describe('Test MerchantMembershipCards', () => {
     })
 
     it('should not render Hang Tight', () => {
-      useMerchantMembershipCardsLogic.mockImplementation(() => ({
+      useMerchantMembershipCards.mockImplementation(() => ({
         tooManyCardsError: true,
         shouldDisplayWeFoundYou: true,
         isMembershipCardPending: true,

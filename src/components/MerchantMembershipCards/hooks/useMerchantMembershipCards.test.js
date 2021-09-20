@@ -2,7 +2,7 @@ import React from 'react'
 import * as reactRedux from 'react-redux'
 import { renderHook } from '@testing-library/react-hooks'
 import { useMembershipCardsState } from 'hooks/membershipCards'
-import { useMerchantMembershipCardsLogic } from './useMerchantMembershipCardsLogic'
+import { useMerchantMembershipCards } from './useMerchantMembershipCards'
 
 jest.mock('hooks/membershipCards', () => ({
   useMembershipCardsState: jest.fn(),
@@ -28,7 +28,7 @@ jest.mock('react-router-dom', () => ({
   }),
 }))
 
-describe('Test useMerchantMembershipCardsLogic', () => {
+describe('Test useMerchantMembershipCards', () => {
   const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
   const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch')
 
@@ -54,19 +54,12 @@ describe('Test useMerchantMembershipCardsLogic', () => {
     React.useState = jest.fn().mockReturnValue([false, mockSetState])
   })
 
-  it('should dispatch correct number of functions', () => {
-    const dummyDispatch = jest.fn()
-    useDispatchMock.mockReturnValue(dummyDispatch)
-    renderHook(() => useMerchantMembershipCardsLogic())
-    expect(dummyDispatch).toBeCalledTimes(3)
-  })
-
   it('should call correct route if no membership cards are found', () => {
     useMembershipCardsState.mockImplementationOnce(() => ({
       membershipCards: [],
     }))
 
-    renderHook(() => useMerchantMembershipCardsLogic())
+    renderHook(() => useMerchantMembershipCards())
     expect(mockHistoryReplace).toBeCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
   })
 
@@ -86,7 +79,7 @@ describe('Test useMerchantMembershipCardsLogic', () => {
       // State membershipCards slice
       .mockReturnValueOnce({ success: true })
 
-    renderHook(() => useMerchantMembershipCardsLogic())
+    renderHook(() => useMerchantMembershipCards())
     expect(mockSetState).toBeCalled()
   })
 
@@ -102,7 +95,7 @@ describe('Test useMerchantMembershipCardsLogic', () => {
         // State membershipCards slice
         .mockReturnValueOnce({ success: true })
 
-      renderHook(() => useMerchantMembershipCardsLogic())
+      renderHook(() => useMerchantMembershipCards())
       expect(mockHistoryReplace).toBeCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
     })
 
@@ -117,7 +110,7 @@ describe('Test useMerchantMembershipCardsLogic', () => {
         // State membershipCards slice
         .mockReturnValueOnce({ success: true })
 
-      renderHook(() => useMerchantMembershipCardsLogic())
+      renderHook(() => useMerchantMembershipCards())
       expect(mockHistoryReplace).toBeCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
     })
   })
@@ -149,7 +142,7 @@ describe('Test useMerchantMembershipCardsLogic', () => {
         }],
       }))
 
-      renderHook(() => useMerchantMembershipCardsLogic())
+      renderHook(() => useMerchantMembershipCards())
       expect(mockHistoryReplace).toBeCalledWith(`/membership-card/${mockMembershipCardId}`)
     })
 
@@ -163,7 +156,7 @@ describe('Test useMerchantMembershipCardsLogic', () => {
         }],
       }))
 
-      renderHook(() => useMerchantMembershipCardsLogic())
+      renderHook(() => useMerchantMembershipCards())
       expect(mockHistoryReplace).not.toBeCalledWith(`/membership-card/${mockMembershipCardId}`)
     })
   })
