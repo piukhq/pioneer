@@ -28,8 +28,7 @@ module.exports = {
   clientId: null,
   bundleId: (() => {
     switch (process.env.THEME) {
-      // case 'bink': return 'com.bink.wallet'
-      case 'bink': return 'com.bink.bink20dev'
+      case 'bink': return 'com.bink.wallet'
       case 'wasabi': return 'com.wasabi.bink.web'
       case 'fatface': return 'com.fatface.bink.web'
     }

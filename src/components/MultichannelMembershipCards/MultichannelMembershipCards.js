@@ -5,7 +5,7 @@ import AccountMenu from 'components/AccountMenu'
 import LoadingIndicator from 'components/LoadingIndicator'
 import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
-import { ReactComponent as FuelGuageSvg } from 'images/fuel.svg'
+import { ReactComponent as FuelGaugeSvg } from 'images/fuel.svg'
 
 import styles from './MultichannelMembershipCards.module.scss'
 
@@ -65,7 +65,7 @@ const MultichannelMembershipCards = () => {
     }
     return (
       <div className={styles['root__empty-state-container']}>
-        <FuelGuageSvg className={styles['root__empty-state-icon']} />
+        <FuelGaugeSvg className={styles['root__empty-state-icon']} />
         <div className={styles['root__empty-state-text']}>You have no cards</div>
       </div>
     )
