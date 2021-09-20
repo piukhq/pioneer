@@ -53,7 +53,7 @@ const MultichannelMembershipCards = () => {
           const { state, reason_codes } = card?.status
           return (
             <div key={card.id} className={styles.root__card}>
-              <div className={styles['root__delete-button']} onClick={() => setDeleteModalMembershipCard(card)}>DELETE</div>
+              <button className={styles['root__delete-button']} onClick={() => setDeleteModalMembershipCard(card)}>DELETE</button>
 
               <div className={styles['root__content-container']}>
                 <div className={styles['root__plan-info']}>
