@@ -1,8 +1,9 @@
-import React from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
 import AccountMenu from 'components/AccountMenu'
 import LoadingIndicator from 'components/LoadingIndicator'
+import MembershipCardDeleteModal from 'components/Modals/MembershipCardDeleteModal'
 import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import { ReactComponent as FuelGaugeSvg } from 'images/fuel.svg'
@@ -13,9 +14,12 @@ const MultichannelMembershipCards = () => {
   const { membershipCards, loading } = useMembershipCardsState()
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
 
-  const getPlanInfo = (cardId) => {
-    if (cardId && plans.length > 0) {
-      const plan = plans.find(plan => plan.id === cardId)
+  // Stores membership card that delete modal is associated with
+  const [deleteModalMembershipCard, setDeleteModalMembershipCard] = useState(null)
+
+  const getPlanInfo = (planId) => {
+    if (planId && plans.length > 0) {
+      const plan = plans.find(plan => plan.id === planId)
       const { company_name: companyName, plan_name: planName } = plan?.account
       const { colour, secondary_colour: secondaryColour } = plan?.card
       const iconImage = plan?.images.find(image => image.type === 3)
@@ -31,6 +35,16 @@ const MultichannelMembershipCards = () => {
     return {}
   }
 
+  // Separate to getPlanInfo as that function returns additional info we are not interested in
+  const getPlanString = () => {
+    const plan = plans.find(plan => plan.id === deleteModalMembershipCard.membership_plan)
+    if (plan) {
+      const { plan_name: planName, plan_name_card: planNameCard } = plan?.account
+      return `${planName} ${planNameCard}`
+    }
+    return ''
+  }
+
   const renderMembershipCardsContent = () => {
     if (membershipCards.length > 0) {
       return (
@@ -39,7 +53,7 @@ const MultichannelMembershipCards = () => {
           const { state, reason_codes } = card?.status
           return (
             <div key={card.id} className={styles.root__card}>
-              <div className={styles['root__delete-button']}>DELETE</div>
+              <button className={styles['root__delete-button']} onClick={() => setDeleteModalMembershipCard(card)}>DELETE</button>
 
               <div className={styles['root__content-container']}>
                 <div className={styles['root__plan-info']}>
@@ -77,6 +91,8 @@ const MultichannelMembershipCards = () => {
 
   return (
     <div className={styles.root}>
+      {deleteModalMembershipCard && <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard.id} planString={getPlanString()}/>}
+
       <AccountMenu />
       <h1 className={cx(styles.root__heading)}>Membership Cards</h1>
 
