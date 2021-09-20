@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 
-export const useMerchantMembershipCardsLogic = () => {
+export const useMerchantMembershipCards = () => {
   const { membershipCards } = useMembershipCardsState()
   const membershipCard = membershipCards?.[0]
   const isMembershipCardPending = membershipCard?.status?.state === 'pending'

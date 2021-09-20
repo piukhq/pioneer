@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import useLogout from 'hooks/useLogout'
 import useContactSupport from 'hooks/useContactSupport'
-import { useMerchantMembershipCardsLogic } from './hooks/useMerchantMembershipCardsLogic'
+import { useMerchantMembershipCards } from './hooks/useMerchantMembershipCards'
 import MultichannelMembershipCards from 'components/MultichannelMembershipCards'
 import Button from 'components/Button'
 import HangTight from 'components/HangTight'
@@ -14,7 +14,7 @@ const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
 
-  const { tooManyCardsError, shouldDisplayWeFoundYou, membershipCard, isMembershipCardPending } = useMerchantMembershipCardsLogic()
+  const { tooManyCardsError, shouldDisplayWeFoundYou, membershipCard, isMembershipCardPending } = useMerchantMembershipCards()
 
   if (tooManyCardsError) {
     return (
