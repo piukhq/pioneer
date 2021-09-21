@@ -1,97 +1,97 @@
 import { createSelector } from 'reselect'
 
 export const types = {
-  PAYMENT_CARD_LIMIT_MODAL_VISIBLE: 'modals/PAYMENT_LIMIT_MODAL_VISIBLE',
-  PAYMENT_CARD_ADD_FORM_MODAL_VISIBLE: 'modals/PAYMENT_ADD_FORM_MODAL_VISIBLE',
-  PAYMENT_CARD_DELETE_FORM_MODAL_VISIBLE: 'modal/PAYMENT_DELETE_FORM_MODAL_VISIBLE',
-  PAYMENT_CARD_LINKING_SUCCESS_MODAL_VISIBLE: 'modals/PAYMENT_CARD_LINKING_SUCCESS_MODAL_VISIBLE',
-  PAYMENT_CARD_LINKING_ERROR_MODAL_VISIBLE: 'modals/PAYMENT_CARD_LINKING_ERROR_MODAL_VISIBLE',
-  MEMBERSHIP_CARD_HERO_MODAL_VISIBLE: 'modals/MEMBERSHIP_CARD_HERO_MODAL_VISIBLE',
-  MEMBERSHIP_CARD_TRANSACTIONS_MODAL_VISIBLE: 'modals/MEMBERSHIP_CARD_TRANSACTIONS_MODAL_VISIBLE',
-  MEMBERSHIP_CARD_NO_TRANSACTIONS_MODAL_VISIBLE: 'modals/MEMBERSHIP_CARD_NO_TRANSACTIONS_MODAL_VISIBLE',
-  MEMBERSHIP_CARD_NO_REWARDS_MODAL_VISIBLE: 'modals/MEMBERSHIP_CARD_NO_REWARDS_MODAL_VISIBLE',
-  MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_VISIBLE: 'modals/MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_VISIBLE',
-  MEMBERSHIP_CARD_DELETE_MODAL_VISIBLE: 'modals/MEMBERSHIP_CARD_DELETE_MODAL_VISIBLE',
-  VOUCHER_MODAL_VISIBLE: 'modals/VOUCHER_MODAL_VISIBLE',
+  PAYMENT_CARD_LIMIT_MODAL_REQUESTED: 'modals/PAYMENT_LIMIT_MODAL_REQUESTED',
+  PAYMENT_CARD_ADD_FORM_MODAL_REQUESTED: 'modals/PAYMENT_ADD_FORM_MODAL_REQUESTED',
+  PAYMENT_CARD_DELETE_FORM_MODAL_REQUESTED: 'modal/PAYMENT_DELETE_FORM_MODAL_REQUESTED',
+  PAYMENT_CARD_LINKING_SUCCESS_MODAL_REQUESTED: 'modals/PAYMENT_CARD_LINKING_SUCCESS_MODAL_REQUESTED',
+  PAYMENT_CARD_LINKING_ERROR_MODAL_REQUESTED: 'modals/PAYMENT_CARD_LINKING_ERROR_MODAL_REQUESTED',
+  MEMBERSHIP_CARD_HERO_MODAL_REQUESTED: 'modals/MEMBERSHIP_CARD_HERO_MODAL_REQUESTED',
+  MEMBERSHIP_CARD_TRANSACTIONS_MODAL_REQUESTED: 'modals/MEMBERSHIP_CARD_TRANSACTIONS_MODAL_REQUESTED',
+  MEMBERSHIP_CARD_NO_TRANSACTIONS_MODAL_REQUESTED: 'modals/MEMBERSHIP_CARD_NO_TRANSACTIONS_MODAL_REQUESTED',
+  MEMBERSHIP_CARD_NO_REWARDS_MODAL_REQUESTED: 'modals/MEMBERSHIP_CARD_NO_REWARDS_MODAL_REQUESTED',
+  MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_REQUESTED: 'modals/MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_REQUESTED',
+  MEMBERSHIP_CARD_DELETE_MODAL_REQUESTED: 'modals/MEMBERSHIP_CARD_DELETE_MODAL_REQUESTED',
+  VOUCHER_MODAL_REQUESTED: 'modals/VOUCHER_MODAL_REQUESTED',
   MODALS_CLOSED: 'modals/MODALS_CLOSED',
 }
 
 const initialState = {
-  paymentCardLimitModalVisible: false,
-  paymentCardAddFormModalVisible: false,
-  paymentCardDeleteFormModalVisible: false,
-  paymentCardLinkingSuccessModalVisible: false,
-  paymentCardLinkingErrorModalVisible: false,
-  membershipCardHeroModalVisible: false,
-  membershipCardTransactionsModalVisible: false,
-  membershipCardNoTransactionsModalVisible: false,
-  membershipCardNoRewardsModalVisible: false,
-  membershipCardNonActiveVouchersModalVisible: false,
-  membershipCardDeleteModalVisible: false,
-  voucherModalVisible: false,
+  paymentCardLimitModalRequested: false,
+  paymentCardAddFormModalRequested: false,
+  paymentCardDeleteFormModalRequested: false,
+  paymentCardLinkingSuccessModalRequested: false,
+  paymentCardLinkingErrorModalRequested: false,
+  membershipCardHeroModalRequested: false,
+  membershipCardTransactionsModalRequested: false,
+  membershipCardNoTransactionsModalRequested: false,
+  membershipCardNoRewardsModalRequested: false,
+  membershipCardNonActiveVouchersModalRequested: false,
+  membershipCardDeleteModalRequested: false,
+  voucherModalRequested: false,
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.PAYMENT_CARD_LIMIT_MODAL_VISIBLE:
+    case types.PAYMENT_CARD_LIMIT_MODAL_REQUESTED:
       return {
         ...state,
-        paymentCardLimitModalVisible: true,
+        paymentCardLimitModalRequested: true,
       }
-    case types.PAYMENT_CARD_ADD_FORM_MODAL_VISIBLE:
+    case types.PAYMENT_CARD_ADD_FORM_MODAL_REQUESTED:
       return {
         ...state,
-        paymentCardAddFormModalVisible: true,
+        paymentCardAddFormModalRequested: true,
       }
-    case types.PAYMENT_CARD_DELETE_FORM_MODAL_VISIBLE:
+    case types.PAYMENT_CARD_DELETE_FORM_MODAL_REQUESTED:
       return {
         ...state,
-        paymentCardDeleteFormModalVisible: true,
+        paymentCardDeleteFormModalRequested: true,
       }
-    case types.PAYMENT_CARD_LINKING_SUCCESS_FORM_MODAL_VISIBLE:
+    case types.PAYMENT_CARD_LINKING_SUCCESS_FORM_MODAL_REQUESTED:
       return {
         ...state,
-        paymentCardLinkingSuccessModalVisible: true,
+        paymentCardLinkingSuccessModalRequested: true,
       }
-    case types.PAYMENT_CARD_LINKING_ERROR_FORM_MODAL_VISIBLE:
+    case types.PAYMENT_CARD_LINKING_ERROR_FORM_MODAL_REQUESTED:
       return {
         ...state,
-        paymentCardLinkingErrorModalVisible: true,
+        paymentCardLinkingErrorModalRequested: true,
       }
-    case types.MEMBERSHIP_CARD_HERO_MODAL_VISIBLE:
+    case types.MEMBERSHIP_CARD_HERO_MODAL_REQUESTED:
       return {
         ...state,
-        membershipCardHeroModalVisible: true,
+        membershipCardHeroModalRequested: true,
       }
-    case types.MEMBERSHIP_CARD_TRANSACTIONS_MODAL_VISIBLE:
+    case types.MEMBERSHIP_CARD_TRANSACTIONS_MODAL_REQUESTED:
       return {
         ...state,
-        membershipCardTransactionsModalVisible: true,
+        membershipCardTransactionsModalRequested: true,
       }
-    case types.MEMBERSHIP_CARD_NO_TRANSACTIONS_MODAL_VISIBLE:
+    case types.MEMBERSHIP_CARD_NO_TRANSACTIONS_MODAL_REQUESTED:
       return {
         ...state,
-        membershipCardNoTransactionsModalVisible: true,
+        membershipCardNoTransactionsModalRequested: true,
       }
-    case types.MEMBERSHIP_CARD_NO_REWARDS_MODAL_VISIBLE:
+    case types.MEMBERSHIP_CARD_NO_REWARDS_MODAL_REQUESTED:
       return {
         ...state,
-        membershipCardNoRewardsModalVisible: true,
+        membershipCardNoRewardsModalRequested: true,
       }
-    case types.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_VISIBLE:
+    case types.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_REQUESTED:
       return {
         ...state,
-        membershipCardNonActiveVouchersModalVisible: true,
+        membershipCardNonActiveVouchersModalRequested: true,
       }
-    case types.MEMBERSHIP_CARD_DELETE_MODAL_VISIBLE:
+    case types.MEMBERSHIP_CARD_DELETE_MODAL_REQUESTED:
       return {
         ...state,
-        membershipCardDeleteModalVisible: true,
+        membershipCardDeleteModalRequested: true,
       }
-    case types.VOUCHER_MODAL_VISIBLE:
+    case types.VOUCHER_MODAL_REQUESTED:
       return {
         ...state,
-        voucherModalVisible: true,
+        voucherModalRequested: true,
       }
     case types.MODALS_CLOSED:
       return initialState
@@ -105,98 +105,98 @@ export default reducer
 const modalSelector = state => state?.modals
 
 export const selectors = {
-  isAnyModalVisible: createSelector(
+  isAnyModalRequested: createSelector(
     modalSelector,
     (modals) => modals?.some(modal => true), // TODO: Is some ok?
   ),
-  isPaymentCardLimitModalVisible: createSelector(
+  isPaymentCardLimitModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.paymentCardLimitModalVisible,
+    (modals) => modals?.paymentCardLimitModalRequested,
   ),
-  isPaymentCardAddFormModalVisible: createSelector(
+  isPaymentCardAddFormModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.paymentCardAddFormModalVisible,
+    (modals) => modals?.paymentCardAddFormModalRequested,
   ),
-  isPaymentCardDeleteFormModalVisible: createSelector(
+  isPaymentCardDeleteFormModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.paymentCardDeleteFormModalVisible,
+    (modals) => modals?.paymentCardDeleteFormModalRequested,
   ),
-  isPaymentCardLinkingSuccessModalVisible: createSelector(
+  isPaymentCardLinkingSuccessModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.paymentCardLinkingSuccessModalVisible,
+    (modals) => modals?.paymentCardLinkingSuccessModalRequested,
   ),
-  isPaymentCardLinkingErrorModalVisible: createSelector(
+  isPaymentCardLinkingErrorModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.paymentCardLinkingErrorModalVisible,
+    (modals) => modals?.paymentCardLinkingErrorModalRequested,
   ),
-  isMembershipCardHeroModalVisible: createSelector(
+  isMembershipCardHeroModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.membershipCardHeroModalVisible,
+    (modals) => modals?.membershipCardHeroModalRequested,
   ),
-  isMembershipCardTransactionsModalVisible: createSelector(
+  isMembershipCardTransactionsModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.membershipCardTransactionsModalVisible,
+    (modals) => modals?.membershipCardTransactionsModalRequested,
   ),
-  isMembershipCardNoTransactionsModalVisible: createSelector(
+  isMembershipCardNoTransactionsModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.membershipCardNoTransactionsModalVisible,
+    (modals) => modals?.membershipCardNoTransactionsModalRequested,
   ),
-  isMembershipCardNoRewardsModalVisible: createSelector(
+  isMembershipCardNoRewardsModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.membershipCardNoRewardsModalVisible,
+    (modals) => modals?.membershipCardNoRewardsModalRequested,
   ),
-  isMembershipCardNonActiveVouchersModalVisible: createSelector(
+  isMembershipCardNonActiveVouchersModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.membershipCardNonActiveVouchersModalVisible,
+    (modals) => modals?.membershipCardNonActiveVouchersModalRequested,
   ),
-  isMembershipCardDeleteModalVisible: createSelector(
+  isMembershipCardDeleteModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.membershipCardDeleteModalVisible,
+    (modals) => modals?.membershipCardDeleteModalRequested,
   ),
-  isVoucherModalVisible: createSelector(
+  isVoucherModalRequested: createSelector(
     modalSelector,
-    (modals) => modals?.voucherModalVisible,
+    (modals) => modals?.voucherModalRequested,
   ),
 }
 
 export const actions = {
-  setPaymentCardLimitModalVisible: () => dispatch => {
-    dispatch({ type: types.PAYMENT_CARD_LIMIT_MODAL_VISIBLE })
+  requestPaymentCardLimitModal: () => dispatch => {
+    dispatch({ type: types.PAYMENT_CARD_LIMIT_MODAL_REQUESTED })
   },
-  setPaymentCardAddFormModalVisible: () => dispatch => {
-    dispatch({ type: types.PAYMENT_CARD_ADD_FORM_MODAL_VISIBLE })
+  requestPaymentCardAddFormModal: () => dispatch => {
+    dispatch({ type: types.PAYMENT_CARD_ADD_FORM_MODAL_REQUESTED })
   },
-  setPaymentCardDeleteFormModalVisible: () => dispatch => {
-    dispatch({ type: types.PAYMENT_CARD_DELETE_FORM_MODAL_VISIBLE })
+  requestPaymentCardDeleteFormModal: () => dispatch => {
+    dispatch({ type: types.PAYMENT_CARD_DELETE_FORM_MODAL_REQUESTED })
   },
-  setPaymentCardLinkingSuccessModalVisible: () => dispatch => {
-    dispatch({ type: types.PAYMENT_CARD_LINKING_SUCCESS_MODAL_VISIBLE })
+  requestPaymentCardLinkingSuccessModal: () => dispatch => {
+    dispatch({ type: types.PAYMENT_CARD_LINKING_SUCCESS_MODAL_REQUESTED })
   },
-  setPaymentCardLinkingErrorModalVisible: () => dispatch => {
-    dispatch({ type: types.PAYMENT_CARD_LINKING_ERROR_MODAL_VISIBLE })
+  requestPaymentCardLinkingErrorModal: () => dispatch => {
+    dispatch({ type: types.PAYMENT_CARD_LINKING_ERROR_MODAL_REQUESTED })
   },
-  setMembershipCardHeroModalVisible: () => dispatch => {
-    dispatch({ type: types.MEMBERSHIP_CARD_HERO_MODAL_VISIBLE })
+  requestMembershipCardHeroModal: () => dispatch => {
+    dispatch({ type: types.MEMBERSHIP_CARD_HERO_MODAL_REQUESTED })
   },
-  setMembershipCardTransactionsModalVisible: () => dispatch => {
-    dispatch({ type: types.MEMBERSHIP_CARD_TRANSACTIONS_MODAL_VISIBLE })
+  requestMembershipCardTransactionsModal: () => dispatch => {
+    dispatch({ type: types.MEMBERSHIP_CARD_TRANSACTIONS_MODAL_REQUESTED })
   },
-  setMembershipCardNoTransactionsModalVisible: () => dispatch => {
-    dispatch({ type: types.MEMBERSHIP_CARD_NO_TRANSACTIONS_MODAL_VISIBLE })
+  requestMembershipCardNoTransactionsModal: () => dispatch => {
+    dispatch({ type: types.MEMBERSHIP_CARD_NO_TRANSACTIONS_MODAL_REQUESTED })
   },
-  setMembershipCardNoRewardsModalVisible: () => dispatch => {
-    dispatch({ type: types.MEMBERSHIP_CARD_NO_REWARDS_MODAL_VISIBLE })
+  requestMembershipCardNoRewardsModal: () => dispatch => {
+    dispatch({ type: types.MEMBERSHIP_CARD_NO_REWARDS_MODAL_REQUESTED })
   },
-  setMembershipCardNonActiveVouchersModalVisible: () => dispatch => {
-    dispatch({ type: types.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_VISIBLE })
+  requestMembershipCardNonActiveVouchersModal: () => dispatch => {
+    dispatch({ type: types.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_REQUESTED })
   },
-  setMembershipCardDeleteModalVisible: () => dispatch => {
-    dispatch({ type: types.MEMBERSHIP_CARD_DELETE_MODAL_VISIBLE })
+  requestMembershipCardDeleteModal: () => dispatch => {
+    dispatch({ type: types.MEMBERSHIP_CARD_DELETE_MODAL_REQUESTED })
   },
-  setVoucherModalVisible: () => dispatch => {
-    dispatch({ type: types.VOUCHER_MODAL_VISIBLE })
+  requestVoucherModal: () => dispatch => {
+    dispatch({ type: types.VOUCHER_MODAL_REQUESTED })
   },
-  setModalsClosed: () => dispatch => {
+  requestModalsClosed: () => dispatch => {
     dispatch({ type: types.MODALS_CLOSED })
   },
 }
