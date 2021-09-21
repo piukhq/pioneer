@@ -13,7 +13,7 @@ export const types = {
   MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_VISIBLE: 'modals/MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_VISIBLE',
   MEMBERSHIP_CARD_DELETE_MODAL_VISIBLE: 'modals/MEMBERSHIP_CARD_DELETE_MODAL_VISIBLE',
   VOUCHER_MODAL_VISIBLE: 'modals/VOUCHER_MODAL_VISIBLE',
-  MODAL_CLOSED: 'modals/MODALS_CLOSED',
+  MODALS_CLOSED: 'modals/MODALS_CLOSED',
 }
 
 const initialState = {
@@ -93,7 +93,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         voucherModalVisible: true,
       }
-    case types.MODAL_CLOSED:
+    case types.MODALS_CLOSED:
       return initialState
     default:
       return state
@@ -153,7 +153,7 @@ export const selectors = {
     modalSelector,
     (modals) => modals?.membershipCardDeleteModalVisible,
   ),
-  isvoucherModalVisible: createSelector(
+  isVoucherModalVisible: createSelector(
     modalSelector,
     (modals) => modals?.voucherModalVisible,
   ),
