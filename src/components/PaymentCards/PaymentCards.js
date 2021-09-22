@@ -59,7 +59,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
         handleDeletePaymentCard(card)
       } else if (numberOfCardsInLinkedSection >= 5) {
         // card can be linked but too many cards are already linked
-        setPaymentCardLimitModalVisible(true)
+        requestPaymentCardLimitModal()
       } else {
         // card is not linked as is not expired
         linkCard(card)
@@ -67,7 +67,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     } else {
     // card is linked. should do nothing if clicked
     }
-  }, [membershipCard, linkCard, handleDeletePaymentCard, numberOfCardsInLinkedSection, setPaymentCardLimitModalVisible])
+  }, [membershipCard, linkCard, handleDeletePaymentCard, numberOfCardsInLinkedSection, requestPaymentCardLimitModal])
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
