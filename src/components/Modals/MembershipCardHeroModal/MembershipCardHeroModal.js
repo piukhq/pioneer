@@ -3,9 +3,9 @@ import Modal from 'components/Modal'
 import HighVisibilityLabel from 'components/HighVisibilityLabel'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
 
-import styles from './MembershipCardModal.module.scss'
+import styles from './MembershipCardHeroModal.module.scss'
 
-const MembershipCardModal = ({ membershipCard }) => {
+const MembershipCardHeroModal = ({ membershipCard }) => {
   const imageUrl = membershipCard?.images?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.ALTERNATIVE)?.[0]?.url
   const backgroundColor = membershipCard?.card?.colour
   const cardId = membershipCard?.card?.membership_id
@@ -27,4 +27,4 @@ const MembershipCardModal = ({ membershipCard }) => {
   )
 }
 
-export default MembershipCardModal
+export default MembershipCardHeroModal

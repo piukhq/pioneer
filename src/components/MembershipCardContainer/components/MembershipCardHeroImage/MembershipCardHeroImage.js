@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
+import MembershipCardHeroModal from 'components/Modals/MembershipCardHeroModal'
 import { useModals } from 'hooks/useModals'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
 
@@ -11,7 +12,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
 
-  const { requestMembershipCardHeroModal } = useModals()
+  const { requestMembershipCardHeroModal, isMembershipCardHeroModalRequested } = useModals()
 
   const shouldRenderHeroImage = () => {
     // If wasabi, use custom asset
@@ -33,6 +34,9 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
           </div>
         )}
       </div>
+      {isMembershipCardHeroModalRequested && (
+        <MembershipCardHeroModal membershipCard={membershipCard} />
+      )}
     </>
   )
 }
