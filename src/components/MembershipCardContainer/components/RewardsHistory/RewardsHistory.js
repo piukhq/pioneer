@@ -5,6 +5,7 @@ import TransactionsRewardsEmptyStateModal from 'components/Modals/TransactionsRe
 import TransactionsModal from 'components/Modals/TransactionsModal'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
+import { useModals } from 'hooks/useModals'
 import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
 import { ReactComponent as StateAuthorisedGreySvg } from 'images/state-authorised-grey.svg'
 import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
@@ -20,14 +21,25 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
   const { planName } = useMembershipCardDetailsByCardId()
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
 
-  const [isNoTransactionsModalOpen, setNoTransactionsModalOpen] = React.useState(false)
-  const [isNoRewardsModalOpen, setNoRewardsModalOpen] = React.useState(false)
-  const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = React.useState(false)
-  const [isTransactionsModalOpen, setTransactionsModalOpen] = React.useState(false)
+  // const [isNoTransactionsModalOpen, setNoTransactionsModalOpen] = React.useState(false)
+  // const [isNoRewardsModalOpen, setNoRewardsModalOpen] = React.useState(false)
+  // const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = React.useState(false)
+  // const [isTransactionsModalOpen, setTransactionsModalOpen] = React.useState(false)
 
-  const handleNoPaymentCardsOnClick = () => {
-    addPaymentCardClickHandler(true)
-  }
+  const {
+    closeModals,
+    requestPaymentCardAddFormModal,
+    requestMembershipCardTransactionsModal,
+    isMembershipCardTransactionsModalRequested,
+    requestMembershipCardNoTransactionsModal,
+    isMembershipCardNoTransactionsModalRequested,
+    requestMembershipCardNoRewardsModal,
+    isMembershipCardNoRewardsModalRequested,
+    requestMembershipCardNonActiveVouchersModal,
+    isMembershipCardNonActiveVouchersModalRequested,
+    requestVoucherModal,
+    isVoucherModalRequested,
+  } = useModals()
 
   return (
     <>
@@ -36,34 +48,30 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
           { transactions?.length > 0 ? (
             <>
               {/* todo: would there ever be an unhappy path ever where balance is missing? */}
-              <div data-testid='transaction-history' className={styles['root__transaction-history']} onClick={() => setTransactionsModalOpen(true)}>
+              <div data-testid='transaction-history' className={styles['root__transaction-history']} onClick={requestMembershipCardTransactionsModal}>
                 <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
                 <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
                 <div className={styles.root__explainer}>View history</div>
               </div>
 
-              { isTransactionsModalOpen && (
+              { isMembershipCardTransactionsModalRequested && (
                 <div data-testid='transaction-modal'>
-                  <TransactionsModal
-                    membershipCardId={membershipCardId}
-                    onClose={() => setTransactionsModalOpen(false)}
-                  />
+                  <TransactionsModal membershipCardId={membershipCardId}/>
                 </div>
               )}
             </>
           ) : (
             <>
-              <div data-testid='no-transaction-history' className={cx(styles['root__transaction-history'], styles['root__transaction-history--disabled'])} onClick={() => setNoTransactionsModalOpen(true)}>
+              <div data-testid='no-transaction-history' className={cx(styles['root__transaction-history'], styles['root__transaction-history--disabled'])} onClick={requestMembershipCardNoTransactionsModal}>
                 <StateAuthorisedGreySvg key={state} />
                 <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
               </div>
-              { isNoTransactionsModalOpen && (
+              { isMembershipCardNoTransactionsModalRequested && (
                 <div data-testid='no-transaction-history-modal'>
                   <TransactionsRewardsEmptyStateModal
                     title='Transaction History'
                     description='No transactions available to display.'
-                    setIsModalOpenState={setNoTransactionsModalOpen}
                     balance={balance}
                   />
                 </div>
@@ -72,34 +80,30 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
           ) }
           { nonActiveVouchers?.length > 0 ? (
             <>
-              <div data-testid='non-active-vouchers' className={styles['root__voucher-history']} onClick={() => setNonActiveVouchersModalOpen(true)}>
+              <div data-testid='non-active-vouchers' className={styles['root__voucher-history']} onClick={requestMembershipCardNonActiveVouchersModal}>
                 <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
                 <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
               </div>
-              { isNonActiveVouchersModalOpen && (
+              { isMembershipCardNonActiveVouchersModalRequested && (
                 <div data-testid='non-active-vouchers-modal'>
-                  <NonActiveVouchersModal
-                    membershipCardId={membershipCardId}
-                    onClose={() => setNonActiveVouchersModalOpen(false)}
-                  />
+                  <NonActiveVouchersModal membershipCardId={membershipCardId}/>
                 </div>
               )}
             </>
 
           ) : (
             <>
-              <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])} onClick={() => setNoRewardsModalOpen(true)}>
+              <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])} onClick={requestMembershipCardNoRewardsModal}>
                 <StateAuthorisedGreySvg key={state} />
                 <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
               </div>
-              { isNoRewardsModalOpen && (
+              { isMembershipCardNoRewardsModalRequested && (
                   <div data-testid='no-non-active-vouchers-modal'>
                     <TransactionsRewardsEmptyStateModal
                       title='Reward History'
                       description='No past rewards available to display.'
-                      setIsModalOpenState={setNoRewardsModalOpen}
                       balance={balance}
                     />
                   </div>
@@ -109,7 +113,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
         </>
       ) }
       { state === 'no-payment-cards' && (
-        <div data-testid='no-payment-cards' className={styles['root__no-payment-card-state']} onClick={handleNoPaymentCardsOnClick}>
+        <div data-testid='no-payment-cards' className={styles['root__no-payment-card-state']} onClick={requestPaymentCardAddFormModal}>
           <StateFailedSvg key={state} />
           <div className={styles.root__subtitle}>Add a credit/debit card</div>
           <div className={styles.root__explainer}>
