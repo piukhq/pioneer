@@ -3,29 +3,26 @@ import cx from 'classnames'
 import VoucherModal from 'components/Modals/VoucherModal'
 import AccumulatorVoucher from './components/AccumulatorVoucher'
 import StampVoucher from './components/StampVoucher'
+import { useModals } from 'hooks/useModals'
 
 import styles from './Voucher.module.scss'
 
 const Voucher = ({ voucher, plan }) => {
-  const [voucherModalVisible, setVoucherModalVisible] = React.useState(false)
+  const { requestVoucherModal, isVoucherModalRequested } = useModals()
   const isVoucherIssued = voucher.state === 'issued'
 
-  const handleCloseVoucherModal = useCallback(() => {
-    setVoucherModalVisible(false)
-  }, [setVoucherModalVisible])
-
   const handleVoucherClick = useCallback(() => {
-    isVoucherIssued && setVoucherModalVisible(true)
-  }, [isVoucherIssued, setVoucherModalVisible])
+    !isVoucherIssued && requestVoucherModal()
+  }, [isVoucherIssued, requestVoucherModal])
 
   const isAccumulatorVoucher = voucher?.earn?.type === 'accumulator'
 
   const { state = null } = voucher
   return (
     <>
-      { voucherModalVisible && voucher && (
+      { isVoucherModalRequested && voucher && (
         <div data-testid='voucher-modal'>
-          <VoucherModal voucher={voucher} plan={plan} onClose={handleCloseVoucherModal} />
+          <VoucherModal voucher={voucher} plan={plan} />
         </div>
       )}
       <button data-testid='voucher-container' onClick={handleVoucherClick} className={ cx(

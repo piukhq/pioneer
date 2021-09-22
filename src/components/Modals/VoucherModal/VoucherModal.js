@@ -5,7 +5,7 @@ import { shortDateFromTimestamp } from 'utils/dates'
 
 import styles from './VoucherModal.module.scss'
 
-const VoucherModal = ({ onClose, voucher, plan }) => {
+const VoucherModal = ({ voucher, plan }) => {
   const [imageLoading, setImageLoading] = useState(true)
 
   const { code = '', burn = {}, earn = {}, date_issued: issuedDate = null, expiry_date: expiryDate = null } = voucher
@@ -17,7 +17,7 @@ const VoucherModal = ({ onClose, voucher, plan }) => {
   const issuedDetail = plan?.content?.filter(content => content.column === 'Voucher_Issued_Detail')[0].value
 
   return (
-    <Modal className={styles.root} onClose={onClose}>
+    <Modal className={styles.root}>
       {imageLoading && <div className={styles.root__placeholder} />}
       <img className={styles.root__image} src={imgUrl} alt='' onLoad={() => setImageLoading(false)}/>
       <div className={styles.root__heading}>{burnPrefix}{burnValue} {burnSuffix} for collecting {earnPrefix}{earnTargetValue} {earnSuffix}</div>
