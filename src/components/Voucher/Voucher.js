@@ -12,7 +12,7 @@ const Voucher = ({ voucher, plan }) => {
   const isVoucherIssued = voucher.state === 'issued'
 
   const handleVoucherClick = useCallback(() => {
-    !isVoucherIssued && requestVoucherModal()
+    isVoucherIssued && requestVoucherModal()
   }, [isVoucherIssued, requestVoucherModal])
 
   const isAccumulatorVoucher = voucher?.earn?.type === 'accumulator'
