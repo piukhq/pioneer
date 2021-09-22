@@ -34,9 +34,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
           </div>
         )}
       </div>
-      {isMembershipCardHeroModalRequested && (
-        <MembershipCardHeroModal membershipCard={membershipCard} />
-      )}
+      {isMembershipCardHeroModalRequested && <MembershipCardHeroModal membershipCard={membershipCard} />}
     </>
   )
 }
