@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import cx from 'classnames'
-import MembershipCardModal from 'components/Modals/MembershipCardModal'
 
+import { useModals } from 'hooks/useModals'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
 
 import styles from './MembershipCardHeroImage.module.scss'
@@ -11,11 +11,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
 
-  const [isMembershipCardModalOpen, setIsMembershipCardModalOpen] = useState(false)
-
-  const handleMembershipCardClick = () => {
-    setIsMembershipCardModalOpen(true)
-  }
+  const { requestMembershipCardHeroModal } = useModals()
 
   const shouldRenderHeroImage = () => {
     // If wasabi, use custom asset
@@ -29,7 +25,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
 
   return (
     <>
-      <div className={styles['root__image-section']} style={{ backgroundColor }} onClick={handleMembershipCardClick}>
+      <div className={styles['root__image-section']} style={{ backgroundColor }} onClick={requestMembershipCardHeroModal}>
         {shouldRenderHeroImage()}
         { membershipId && (
           <div className={styles['root__card-number']}>
@@ -37,9 +33,6 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
           </div>
         )}
       </div>
-      {isMembershipCardModalOpen && (
-        <MembershipCardModal onClose={() => setIsMembershipCardModalOpen(false)} membershipCard={membershipCard} />
-      )}
     </>
   )
 }
