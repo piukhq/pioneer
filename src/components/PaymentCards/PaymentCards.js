@@ -9,6 +9,7 @@ import BinkPaymentCardAdd from 'components/BinkPaymentCardAdd'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+import { useModals } from 'hooks/useModals'
 
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
@@ -33,6 +34,8 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
   const newlyPendingPaymentCard = useSelector(
     state => membershipCardsSelectors.newlyPendingPaymentCard(state),
   )
+
+  const { requestPaymentCardLimitModal } = useModals()
 
   const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = React.useState(false)
 
@@ -68,7 +71,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
-      return <PaymentCardLimitAdd onClick={() => setPaymentCardLimitModalVisible(true)} />
+      return <PaymentCardLimitAdd onClick={ requestPaymentCardLimitModal } />
     }
     return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={handleAddPaymentCard} /> : <PaymentCardAdd onClick={handleAddPaymentCard} />
   }
