@@ -22,8 +22,8 @@ export const useModals = () => {
   // selectors to get modal state
 
   const isPaymentCardLimitModalRequested = useSelector(state => modalSelectors.isPaymentCardLimitModalRequested(state))
-  const isPaymentCardAddFormRequested = useSelector(state => modalSelectors.isPaymentCardAddFormModalRequested(state))
-  const isPaymentCardDeleteFormRequested = useSelector(state => modalSelectors.isPaymentCardDeleteFormModalRequested(state))
+  const isPaymentCardAddFormModalRequested = useSelector(state => modalSelectors.isPaymentCardAddFormModalRequested(state))
+  const isPaymentCardDeleteFormModalRequested = useSelector(state => modalSelectors.isPaymentCardDeleteFormModalRequested(state))
   const isPaymentCardLinkingSuccessModalRequested = useSelector(state => modalSelectors.isPaymentCardLinkingSuccessModalRequested(state))
   const isPaymentCardLinkingErrorModalRequested = useSelector(state => modalSelectors.isPaymentCardLinkingErrorModalRequested(state))
   const isMembershipCardHeroModalRequested = useSelector(state => modalSelectors.isMembershipCardHeroModalRequested(state))
@@ -39,9 +39,9 @@ export const useModals = () => {
     requestPaymentCardLimitModal,
     isPaymentCardLimitModalRequested,
     requestPaymentCardAddFormModal,
-    isPaymentCardAddFormRequested,
+    isPaymentCardAddFormModalRequested,
     requestPaymentCardDeleteFormModal,
-    isPaymentCardDeleteFormRequested,
+    isPaymentCardDeleteFormModalRequested,
     requestPaymentCardLinkingSuccessModal,
     isPaymentCardLinkingSuccessModalRequested,
     requestPaymentCardLinkingErrorModal,
