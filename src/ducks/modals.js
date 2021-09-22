@@ -48,12 +48,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         paymentCardDeleteFormModalRequested: true,
       }
-    case types.PAYMENT_CARD_LINKING_SUCCESS_FORM_MODAL_REQUESTED:
+    case types.PAYMENT_CARD_LINKING_SUCCESS_MODAL_REQUESTED:
       return {
         ...state,
         paymentCardLinkingSuccessModalRequested: true,
       }
-    case types.PAYMENT_CARD_LINKING_ERROR_FORM_MODAL_REQUESTED:
+    case types.PAYMENT_CARD_LINKING_ERROR_MODAL_REQUESTED:
       return {
         ...state,
         paymentCardLinkingErrorModalRequested: true,
