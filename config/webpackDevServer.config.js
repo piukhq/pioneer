@@ -62,13 +62,9 @@ module.exports = function (proxy, allowedHost) {
     webSocketServer: 'ws',
     // Prevent a WS client from getting injected as we're already including
     // `webpackHotDevClient`.
-    // injectClient: false,
     // Enable custom sockjs pathname for websocket connection to hot reloading server.
     // Enable custom sockjs hostname, pathname and port for websocket connection
     // to hot reloading server.
-    // sockHost,
-    // sockPath,
-    // sockPort,
     // It is important to tell WebpackDevServer to use the same "publicPath" path as
     // we specified in the webpack config. When homepage is '.', default to serving
     // from the root.
