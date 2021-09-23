@@ -13,7 +13,7 @@ import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
 import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 import styles from './RewardsHistory.module.scss'
 
-const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = () => {} }) => {
+const RewardsHistory = ({ membershipCard, state }) => {
   const membershipCardId = membershipCard?.id
   const balance = membershipCard?.balances?.[0]
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
