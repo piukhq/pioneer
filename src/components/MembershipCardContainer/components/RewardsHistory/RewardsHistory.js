@@ -16,18 +16,11 @@ import styles from './RewardsHistory.module.scss'
 const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = () => {} }) => {
   const membershipCardId = membershipCard?.id
   const balance = membershipCard?.balances?.[0]
-
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
   const { planName } = useMembershipCardDetailsByCardId()
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
 
-  // const [isNoTransactionsModalOpen, setNoTransactionsModalOpen] = React.useState(false)
-  // const [isNoRewardsModalOpen, setNoRewardsModalOpen] = React.useState(false)
-  // const [isNonActiveVouchersModalOpen, setNonActiveVouchersModalOpen] = React.useState(false)
-  // const [isTransactionsModalOpen, setTransactionsModalOpen] = React.useState(false)
-
   const {
-    closeModals,
     requestPaymentCardAddFormModal,
     requestMembershipCardTransactionsModal,
     isMembershipCardTransactionsModalRequested,
@@ -37,8 +30,6 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
     isMembershipCardNoRewardsModalRequested,
     requestMembershipCardNonActiveVouchersModal,
     isMembershipCardNonActiveVouchersModalRequested,
-    requestVoucherModal,
-    isVoucherModalRequested,
   } = useModals()
 
   return (
@@ -78,6 +69,7 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
               )}
             </>
           ) }
+
           { nonActiveVouchers?.length > 0 ? (
             <>
               <div data-testid='non-active-vouchers' className={styles['root__voucher-history']} onClick={requestMembershipCardNonActiveVouchersModal}>
@@ -91,7 +83,6 @@ const RewardsHistory = ({ membershipCard, state, addPaymentCardClickHandler = ()
                 </div>
               )}
             </>
-
           ) : (
             <>
               <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])} onClick={requestMembershipCardNoRewardsModal}>
