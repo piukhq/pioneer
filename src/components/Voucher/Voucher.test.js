@@ -9,6 +9,10 @@ jest.mock('components/Modals/VoucherModal', () => () => null)
 jest.mock('hooks/useModals', () => ({
   useModals: jest.fn(),
 }))
+const useModalsDefaultValues = {
+  isVoucherModalRequested: false,
+  requestVoucherModal: false,
+}
 
 const mockStore = configureMockStore([])
 const store = mockStore()
@@ -19,11 +23,6 @@ const voucherComponent = (
     />,
   </Provider>
 )
-
-const useModalsDefaultValues = {
-  isVoucherModalRequested: false,
-  requestVoucherModal: false,
-}
 
 describe('Test Voucher', () => {
   it('should render voucher container', () => {
