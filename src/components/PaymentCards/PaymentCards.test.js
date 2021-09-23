@@ -1,9 +1,11 @@
 import React from 'react'
 import * as reactRedux from 'react-redux'
 import { render } from '@testing-library/react'
-
+import { Provider } from 'react-redux'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
+import { useModals } from 'hooks/useModals'
+import configureMockStore from 'redux-mock-store'
 
 import PaymentCards from './PaymentCards'
 
@@ -24,6 +26,13 @@ jest.mock('./hooks/useLinkPaymentCard', () => ({
 jest.mock('components/PaymentCardRefresher', () => () => null)
 jest.mock('components/PaymentCard', () => () => null)
 
+jest.mock('hooks/useModals', () => ({
+  useModals: jest.fn(),
+}))
+const useModalsDefaultValues = {
+  requestPaymentCardLimitModal: jest.fn(),
+}
+
 describe('Test PaymentCards', () => {
   const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
   const mockSetState = jest.fn()
@@ -34,14 +43,18 @@ describe('Test PaymentCards', () => {
   const mockHandleAddPaymentCard = jest.fn()
   const mockHandleDeletePaymentCard = jest.fn()
 
+  const mockStore = configureMockStore([])
+  const store = mockStore()
   const paymentCardsComponent = (
-    <PaymentCards
-      handleLinkingSuccess={mockHandleLinkingSuccess}
-      handleLinkingError={mockHandleLinkingError}
-      setPaymentCardLimitModalVisible={mockSetPaymentCardLimitModalVisible}
-      handleAddPaymentCard={mockHandleAddPaymentCard}
-      handleDeletePaymentCard={mockHandleDeletePaymentCard}
-    />
+    <Provider store={store}>
+      <PaymentCards
+        handleLinkingSuccess={mockHandleLinkingSuccess}
+        handleLinkingError={mockHandleLinkingError}
+        setPaymentCardLimitModalVisible={mockSetPaymentCardLimitModalVisible}
+        handleAddPaymentCard={mockHandleAddPaymentCard}
+        handleDeletePaymentCard={mockHandleDeletePaymentCard}
+      />
+    </Provider>
   )
 
   const mockMembershipCard = {}
@@ -67,6 +80,7 @@ describe('Test PaymentCards', () => {
     useLinkPaymentCard.mockImplementation(() => ({
       linkCard: jest.fn(),
     }))
+    useModals.mockImplementation(() => ({ useModalsDefaultValues }))
 
     useMembershipCardDetailsByCardId.mockImplementation(() => ({
       planName: mockPlanName,
