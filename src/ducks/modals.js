@@ -13,6 +13,7 @@ export const types = {
   MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_REQUESTED: 'modals/MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS_MODAL_REQUESTED',
   MEMBERSHIP_CARD_DELETE_MODAL_REQUESTED: 'modals/MEMBERSHIP_CARD_DELETE_MODAL_REQUESTED',
   VOUCHER_MODAL_REQUESTED: 'modals/VOUCHER_MODAL_REQUESTED',
+  ACCOUNT_MENU_MODAL_REQUESTED: 'modals/ACCOUNT_MENU_MODAL_REQUESTED',
   MODALS_CLOSED: 'modals/MODALS_CLOSED',
 }
 
@@ -29,6 +30,7 @@ const initialState = {
   membershipCardNonActiveVouchersModalRequested: false,
   membershipCardDeleteModalRequested: false,
   voucherModalRequested: false,
+  AccountMenuModalRequested: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -92,6 +94,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         voucherModalRequested: true,
+      }
+    case types.ACCOUNT_MENU_MODAL_REQUESTED:
+      return {
+        ...state,
+        accountMenuModalRequested: true,
       }
     case types.MODALS_CLOSED:
       return initialState
@@ -157,6 +164,10 @@ export const selectors = {
     modalSelector,
     (modals) => modals?.voucherModalRequested,
   ),
+  isAccountMenuModalRequested: createSelector(
+    modalSelector,
+    (modals) => modals?.accountMenuModalRequested,
+  ),
 }
 
 export const actions = {
@@ -195,6 +206,9 @@ export const actions = {
   },
   requestVoucherModal: () => dispatch => {
     dispatch({ type: types.VOUCHER_MODAL_REQUESTED })
+  },
+  requestAccountMenuModal: () => dispatch => {
+    dispatch({ type: types.ACCOUNT_MENU_MODAL_REQUESTED })
   },
   requestModalsClosed: () => dispatch => {
     dispatch({ type: types.MODALS_CLOSED })

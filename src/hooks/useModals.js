@@ -18,6 +18,7 @@ export const useModals = () => {
   const requestMembershipCardNonActiveVouchersModal = () => dispatch(modalActions.requestMembershipCardNonActiveVouchersModal())
   const requestMembershipCardDeleteModal = () => dispatch(modalActions.requestMembershipCardDeleteModal())
   const requestVoucherModal = () => dispatch(modalActions.requestVoucherModal())
+  const requestAccountMenuModal = () => dispatch(modalActions.requestAccountMenuModal())
 
   // selectors to get modal state
 
@@ -33,6 +34,7 @@ export const useModals = () => {
   const isMembershipCardNonActiveVouchersModalRequested = useSelector(state => modalSelectors.isMembershipCardNonActiveVouchersModalRequested(state))
   const isMembershipCardDeleteModalRequested = useSelector(state => modalSelectors.isMembershipCardDeleteModalRequested(state))
   const isVoucherModalRequested = useSelector(state => modalSelectors.isVoucherModalRequested(state))
+  const isAccountMenuModalRequested = useSelector(state => modalSelectors.isAccountMenuModalRequested(state))
 
   return {
     closeModals,
@@ -60,5 +62,7 @@ export const useModals = () => {
     isMembershipCardDeleteModalRequested,
     requestVoucherModal,
     isVoucherModalRequested,
+    requestAccountMenuModal,
+    isAccountMenuModalRequested,
   }
 }
