@@ -17,8 +17,6 @@
     height: 87px;
     width: 41px;
     justify-content: center;
-    // background-color: $high-visibility-gray;
-    // background-color: rgb(216, 216, 216);
     background-color: $grey-12-percent;
 
     &--opacity-applied {
@@ -31,11 +29,11 @@
     color: $black;
     font-size: 40px;
     font-weight: bold;
+    padding-top: 12px;
+    margin-bottom: 5px;
   }
 
   &__index {
-    position: absolute;
-    margin-top: 70px;
     align-self: center;
     font-size: 10px;
     letter-spacing: 0.11px;
