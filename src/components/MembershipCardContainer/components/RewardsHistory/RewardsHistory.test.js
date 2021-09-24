@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
+import { useModals } from 'hooks/useModals'
 import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 
 import RewardsHistory from './RewardsHistory'
@@ -21,6 +22,21 @@ jest.mock('hooks/useMembershipCardDetailsByCardId', () => ({
 jest.mock('utils/windowDimensions', () => ({
   useCalculateWindowDimensions: jest.fn(),
 }))
+jest.mock('hooks/useModals', () => ({
+  useModals: jest.fn(),
+}))
+
+const useModalsDefaultValues = {
+  requestPaymentCardAddFormModal: jest.fn(),
+  requestMembershipCardTransactionsModal: jest.fn(),
+  isMembershipCardTransactionsModalRequested: false,
+  requestMembershipCardNoTransactionsModal: jest.fn(),
+  isMembershipCardNoTransactionsModalRequested: false,
+  requestMembershipCardNoRewardsModal: jest.fn(),
+  isMembershipCardNoRewardsModalRequested: false,
+  requestMembershipCardNonActiveVouchersModal: jest.fn(),
+  isMembershipCardNonActiveVouchersModalRequested: false,
+}
 
 describe('Test RewardsHistory', () => {
   const mockClickHandler = jest.fn()
@@ -54,7 +70,9 @@ describe('Test RewardsHistory', () => {
   })
 
   describe('Test authorised state', () => {
-    const authorisedRewardsHistoryComponent = <RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />
+    const authorisedRewardsHistoryComponent = (
+        <RewardsHistory membershipCard={mockMembershipCard} state='authorised' addPaymentCardClickHandler={mockClickHandler} />
+    )
     describe('Test transactions found', () => {
       beforeEach(() => {
         useMembershipCardStateById.mockImplementation(() => ({
@@ -63,6 +81,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render the transaction-history container and relevant text', () => {
+        useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
         const { queryByTestId, getByText } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('transaction-history')).toBeInTheDocument()
         expect(getByText(mockBalanceValue + ' ' + mockBalanceSuffix)).toBeInTheDocument()
@@ -70,16 +89,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render the transactions modal', () => {
-        React.useState = jest.fn()
-          // isNoTransactionsModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-          // isNoRewardsModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-          // isNonActiveVouchersModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-          // isTransactionsModalOpen
-          .mockReturnValueOnce([true, jest.fn()])
-
+        useModals.mockImplementation(() => ({ isMembershipCardTransactionsModalRequested: true }))
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('transaction-modal')).toBeInTheDocument()
       })
@@ -87,11 +97,13 @@ describe('Test RewardsHistory', () => {
 
     describe('Test no transactions found', () => {
       it('should render the no-transaction-history container and relevant text', () => {
+        useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('no-transaction-history')).toBeInTheDocument()
       })
 
       it('should render desktop text', () => {
+        useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
         useCalculateWindowDimensions.mockImplementation(() => ({
           isDesktopViewportDimensions: true,
         }))
@@ -102,6 +114,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render mobile text', () => {
+        useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
         useCalculateWindowDimensions.mockImplementation(() => ({
           isDesktopViewportDimensions: false,
         }))
@@ -114,16 +127,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render the no transaction history modal', () => {
-        React.useState = jest.fn()
-          // isNoTransactionsModalOpen
-          .mockReturnValueOnce([true, jest.fn()])
-          // isNoRewardsModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-          // isNonActiveVouchersModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-          // isTransactionsModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-
+        useModals.mockImplementation(() => ({ isMembershipCardNoTransactionsModalRequested: true }))
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('no-transaction-history-modal')).toBeInTheDocument()
       })
@@ -135,11 +139,11 @@ describe('Test RewardsHistory', () => {
           transactions: [{}],
           nonActiveVouchers: [{}],
         }))
+        useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
       })
 
       it('should render the non-active-vouchers container and relevant text', () => {
         React.useState = jest.fn().mockReturnValue([false, jest.fn()])
-
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('non-active-vouchers')).toBeInTheDocument()
       })
@@ -170,7 +174,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render non active vouchers modal', () => {
-        React.useState = jest.fn().mockReturnValue([true, jest.fn()])
+        useModals.mockImplementation(() => ({ isMembershipCardNonActiveVouchersModalRequested: true }))
 
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('non-active-vouchers-modal')).toBeInTheDocument()
@@ -178,6 +182,9 @@ describe('Test RewardsHistory', () => {
     })
 
     describe('Test no non active vouchers found', () => {
+      beforeEach(() => {
+        useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
+      })
       it('should render the no-non-active-vouchers container', () => {
         React.useState = jest.fn().mockReturnValue([false, jest.fn()])
 
@@ -217,16 +224,11 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render the no non active vouchers modal', () => {
-        React.useState = jest.fn()
-          // isNoTransactionsModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-          // isNoRewardsModalOpen
-          .mockReturnValueOnce([true, jest.fn()])
-          // isNonActiveVouchersModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-          // isTransactionsModalOpen
-          .mockReturnValueOnce([false, jest.fn()])
-
+        useMembershipCardStateById.mockImplementation(() => ({
+          transactions: [{}],
+          nonActiveVouchers: [],
+        }))
+        useModals.mockImplementation(() => ({ isMembershipCardNoRewardsModalRequested: true }))
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('no-non-active-vouchers-modal')).toBeInTheDocument()
       })
@@ -235,7 +237,8 @@ describe('Test RewardsHistory', () => {
 
   describe('Test no payment cards state', () => {
     it('should render the no-payment-cards container and relevant text', () => {
-      const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='no-payment-cards' addPaymentCardClickHandler={mockClickHandler} />)
+      useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
+      const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='no-payment-cards' addPaymentCardClickHandler={mockClickHandler}/>)
       expect(queryByTestId('no-payment-cards')).toBeInTheDocument()
       expect(getByText('Add a credit/debit card')).toBeInTheDocument()
       expect(getByText(`To collect rewards you need to add a credit/debit card to ${mockPlanName}.`)).toBeInTheDocument()
@@ -245,6 +248,7 @@ describe('Test RewardsHistory', () => {
 
   describe('Test failed state', () => {
     it('should render the failed-state container and relevant text', () => {
+      useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
       const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='failed' addPaymentCardClickHandler={mockClickHandler} />)
       expect(queryByTestId('failed-state')).toBeInTheDocument()
       expect(getByText("Something's not right")).toBeInTheDocument()
@@ -256,6 +260,7 @@ describe('Test RewardsHistory', () => {
 
   describe('Test pending state', () => {
     it('should render the pending-state container and relevant text', () => {
+      useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
       const { queryByTestId, getByText } = render(<RewardsHistory membershipCard={mockMembershipCard} state='pending' addPaymentCardClickHandler={mockClickHandler} />)
       expect(queryByTestId('pending-state')).toBeInTheDocument()
       expect(getByText('Pending')).toBeInTheDocument()

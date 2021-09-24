@@ -3,9 +3,18 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { usePaymentCardAddForm } from './hooks/usePaymentCardAddForm'
 
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
 import PaymentCardAddForm from './PaymentCardAddForm'
 
-const PaymentCardAddFormComponent = <PaymentCardAddForm onClose = {jest.fn()} />
+const mockStore = configureMockStore([])
+const store = mockStore()
+
+const PaymentCardAddFormComponent = (
+  <Provider store={store}>
+    <PaymentCardAddForm onClose = {jest.fn()} />
+  </Provider>
+)
 
 jest.mock('./hooks/usePaymentCardAddForm', () => ({
   usePaymentCardAddForm: jest.fn(),
