@@ -7,6 +7,7 @@ import MembershipCardDeleteModal from 'components/Modals/MembershipCardDeleteMod
 import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import { ReactComponent as FuelGaugeSvg } from 'images/fuel.svg'
+import { formatValueToDecimalPlace } from 'utils/format'
 
 import styles from './MultichannelMembershipCards.module.scss'
 
@@ -33,6 +34,20 @@ const MultichannelMembershipCards = () => {
       }
     }
     return {}
+  }
+
+  const getBalanceString = (card) => {
+    const voucher = card?.vouchers.find(voucher => voucher.state === 'inprogress')
+
+    if (voucher && voucher?.state === 'inprogress') {
+      const { type, prefix, value: earnValue, target_value: earnTargetValue, suffix } = voucher?.earn
+
+      // If voucher is an accumulator, the values must be formatted to 2 decimal places
+      const [value, targetValue] = [earnValue, earnTargetValue].map(value => type === 'accumulator' ? formatValueToDecimalPlace(value, 2) : value)
+
+      return `${prefix ?? ''}${value}/${prefix ?? ''}${targetValue} ${suffix ?? ''}`
+    }
+    return null
   }
 
   // Separate to getPlanInfo as that function returns additional info we are not interested in
@@ -63,7 +78,7 @@ const MultichannelMembershipCards = () => {
                     <div className={styles.root__info}>{companyName}</div>
                     <div className={styles.root__info}>{planName}</div>
                     <div className={styles.root__info}>{state} - {reason_codes[0]}</div>
-                    <div className={styles.root__info}>Balance string</div>
+                    <div className={styles.root__info}>{getBalanceString(card)}</div>
                   </div>
                 </div>
 
