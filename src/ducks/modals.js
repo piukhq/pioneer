@@ -160,7 +160,7 @@ export const selectors = {
     modalSelector,
     (modals) => modals?.voucherModalRequested,
   ),
-  shouldAccountMenuRender: createSelector(
+  shouldAccountMenuModalRender: createSelector(
     modalSelector,
     (modals) => modals?.accountMenuModalRequested,
   ),
