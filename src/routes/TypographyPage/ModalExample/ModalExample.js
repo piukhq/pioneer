@@ -23,7 +23,7 @@ const ModalExample = () => {
 
       <Button onClick={() => setNoCloseModal(true)} className={styles.root__button}>No close button modal</Button>
       { noCloseModal && (
-        <Modal>
+        <Modal noCloseModal>
           <Modal.Header>Modal with no close button</Modal.Header>
           <div>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam architecto corporis culpa dolor excepturi itaque maiores modi officiis omnis, perferendis quo rem repellendus rerum voluptate?

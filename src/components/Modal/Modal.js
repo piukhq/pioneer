@@ -6,16 +6,21 @@ import { useModals } from 'hooks/useModals'
 import { ReactComponent as ModalCloseSvg } from 'images/modal-close.svg'
 import styles from './Modal.module.scss'
 
-const Modal = ({ children, className, isLoading }) => {
+const Modal = ({ children, className, isLoading, onClose, noCloseModal }) => {
   useModalSetup()
   const { closeModals } = useModals()
   const [opacity, scrollRef, scrollableRef] = useScrollFader()
 
+  const handleClose = () => {
+    onClose && onClose()
+    closeModals()
+  }
+
   return (
     <>
-      <div className={styles.root__overlay} onClick={closeModals}></div>
+      <div className={styles.root__overlay} onClick={handleClose}></div>
       <div className={cx(styles.root__box, className)}>
-        {<Modal.CloseButton onClick={closeModals} disabled={isLoading} />}
+        {!noCloseModal && <Modal.CloseButton onClick={handleClose} disabled={isLoading} />}
         <div className={styles.root__body} ref={scrollRef}>
           <div className={styles.root__scrollable} ref={scrollableRef}>
             {children}

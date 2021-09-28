@@ -85,9 +85,8 @@ const MembershipCardPage = () => {
   }, [setCardIdToBeDeleted, requestPaymentCardDeleteFormModal])
 
   const handleCloseDeletePaymentCardForm = useCallback(() => {
-    closeModals()
     setCardIdToBeDeleted(null)
-  }, [closeModals])
+  }, [])
 
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
