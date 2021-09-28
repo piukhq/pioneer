@@ -26,7 +26,7 @@ export const useModals = () => {
   const shouldPaymentCardAddFormModalRender = useSelector(state => modalSelectors.shouldPaymentCardAddFormModalRender(state))
   const shouldPaymentCardDeleteFormModalRender = useSelector(state => modalSelectors.shouldPaymentCardDeleteFormModalRender(state))
   const shouldPaymentCardLinkingSuccessModalRender = useSelector(state => modalSelectors.shouldPaymentCardLinkingSuccessModalRender(state))
-  const shouldPaymentCardLinkingErrorModalRender = useSelector(state => modalSelectors.shouldPaymentCardLinkingErrorModalRequested(state))
+  const shouldPaymentCardLinkingErrorModalRender = useSelector(state => modalSelectors.shouldPaymentCardLinkingErrorModalRender(state))
   const shouldMembershipCardHeroModalRender = useSelector(state => modalSelectors.shouldMembershipCardHeroModalRender(state))
   const shouldMembershipCardTransactionsModalRender = useSelector(state => modalSelectors.shouldMembershipCardTransactionsModalRender(state))
   const shouldMembershipCardNoTransactionsModalRender = useSelector(state => modalSelectors.shouldMembershipCardNoTransactionsModalRender(state))
