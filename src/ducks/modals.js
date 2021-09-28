@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { MODAL_TYPES } from 'utils/enums'
+import { MODAL_ACTION_TYPES } from 'utils/enums'
 
 const initialState = {
   paymentCardLimitModalRequested: false,
@@ -18,74 +18,73 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
-    case MODAL_TYPES.PAYMENT_CARD_LIMIT:
+    case MODAL_ACTION_TYPES.PAYMENT_CARD_LIMIT:
       return {
         ...state,
         paymentCardLimitModalRequested: true,
       }
-    case MODAL_TYPES.PAYMENT_CARD_ADD_FORM:
+    case MODAL_ACTION_TYPES.PAYMENT_CARD_ADD_FORM:
       return {
         ...state,
         paymentCardAddFormModalRequested: true,
       }
-    case MODAL_TYPES.PAYMENT_CARD_DELETE_FORM:
+    case MODAL_ACTION_TYPES.PAYMENT_CARD_DELETE_FORM:
       return {
         ...state,
         paymentCardDeleteFormModalRequested: true,
       }
-    case MODAL_TYPES.PAYMENT_CARD_LINKING_SUCCESS:
+    case MODAL_ACTION_TYPES.PAYMENT_CARD_LINKING_SUCCESS:
       return {
         ...state,
         paymentCardLinkingSuccessModalRequested: true,
       }
-    case MODAL_TYPES.PAYMENT_CARD_LINKING_ERROR:
+    case MODAL_ACTION_TYPES.PAYMENT_CARD_LINKING_ERROR:
       return {
         ...state,
         paymentCardLinkingErrorModalRequested: true,
       }
-    case MODAL_TYPES.MEMBERSHIP_CARD_HERO:
+    case MODAL_ACTION_TYPES.MEMBERSHIP_CARD_HERO:
       return {
         ...state,
         membershipCardHeroModalRequested: true,
       }
-    case MODAL_TYPES.MEMBERSHIP_CARD_TRANSACTIONS:
+    case MODAL_ACTION_TYPES.MEMBERSHIP_CARD_TRANSACTIONS:
       return {
         ...state,
         membershipCardTransactionsModalRequested: true,
       }
-    case MODAL_TYPES.MEMBERSHIP_CARD_NO_TRANSACTIONS:
+    case MODAL_ACTION_TYPES.MEMBERSHIP_CARD_NO_TRANSACTIONS:
       return {
         ...state,
         membershipCardNoTransactionsModalRequested: true,
       }
-    case MODAL_TYPES.MEMBERSHIP_CARD_NO_REWARDS:
+    case MODAL_ACTION_TYPES.MEMBERSHIP_CARD_NO_REWARDS:
       return {
         ...state,
         membershipCardNoRewardsModalRequested: true,
       }
-    case MODAL_TYPES.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS:
+    case MODAL_ACTION_TYPES.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS:
       return {
         ...state,
         membershipCardNonActiveVouchersModalRequested: true,
       }
-    case MODAL_TYPES.MEMBERSHIP_CARD_DELETE:
+    case MODAL_ACTION_TYPES.MEMBERSHIP_CARD_DELETE:
       return {
         ...state,
         membershipCardDeleteModalRequested: true,
       }
-    case MODAL_TYPES.VOUCHER:
+    case MODAL_ACTION_TYPES.VOUCHER:
       return {
         ...state,
         voucherModalRequested: true,
       }
-    case MODAL_TYPES.ACCOUNT_MENU:
+    case MODAL_ACTION_TYPES.ACCOUNT_MENU:
       return {
         ...state,
         accountMenuModalRequested: true,
       }
-    case MODAL_TYPES.MODALS_CLOSED:
+    case MODAL_ACTION_TYPES.MODALS_CLOSED:
       return initialState
     default:
       return state
@@ -154,8 +153,5 @@ export const selectors = {
 export const actions = {
   requestModal: (type) => dispatch => {
     dispatch({ type })
-  },
-  requestModalsClosed: () => dispatch => {
-    dispatch({ type: MODAL_TYPES.MODALS_CLOSED })
   },
 }

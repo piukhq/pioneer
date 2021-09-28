@@ -4,21 +4,23 @@ import { actions as modalActions, selectors as modalSelectors } from 'ducks/moda
 export const useModals = () => {
   const dispatch = useDispatch()
 
+  const dispatchModal = (modalType) => dispatch(modalActions.requestModal(modalType))
+
   // configure action to set modal state
-  const closeModals = () => dispatch(modalActions.requestModalsClosed())
-  const requestPaymentCardLimitModal = () => dispatch(modalActions.requestModal('PAYMENT_CARD_LIMIT'))
-  const requestPaymentCardAddFormModal = () => dispatch(modalActions.requestModal('PAYMENT_CARD_ADD_FORM'))
-  const requestPaymentCardDeleteFormModal = () => dispatch(modalActions.requestModal('PAYMENT_CARD_DELETE_FORM'))
-  const requestPaymentCardLinkingSuccessModal = () => dispatch(modalActions.requestModal('PAYMENT_CARD_LINKING_SUCCESS'))
-  const requestPaymentCardLinkingErrorModal = () => dispatch(modalActions.requestModal('PAYMENT_CARD_LINKING_FAILURE'))
-  const requestMembershipCardHeroModal = () => dispatch(modalActions.requestModal('MEMBERSHIP_CARD_HERO'))
-  const requestMembershipCardTransactionsModal = () => dispatch(modalActions.requestModal('MEMBERSHIP_CARD_TRANSACTIONS'))
-  const requestMembershipCardNoTransactionsModal = () => dispatch(modalActions.requestModal('MEMBERSHIP_CARD_NO_TRANSACTIONS'))
-  const requestMembershipCardNoRewardsModal = () => dispatch(modalActions.requestModal('MEMBERSHIP_CARD_NO_REWARDS'))
-  const requestMembershipCardNonActiveVouchersModal = () => dispatch(modalActions.requestModal('MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS'))
-  const requestMembershipCardDeleteModal = () => dispatch(modalActions.requestModal('MEMBERSHIP_CARD_DELETE'))
-  const requestVoucherModal = () => dispatch(modalActions.requestModal('VOUCHER'))
-  const requestAccountMenuModal = () => dispatch(modalActions.requestModal('ACCOUNT_MENU'))
+  const closeModals = () => dispatchModal('MODALS_CLOSED')
+  const requestPaymentCardLimitModal = () => dispatchModal('PAYMENT_CARD_LIMIT')
+  const requestPaymentCardAddFormModal = () => dispatchModal('PAYMENT_CARD_ADD_FORM')
+  const requestPaymentCardDeleteFormModal = () => dispatchModal('PAYMENT_CARD_DELETE_FORM')
+  const requestPaymentCardLinkingSuccessModal = () => dispatchModal('PAYMENT_CARD_LINKING_SUCCESS')
+  const requestPaymentCardLinkingErrorModal = () => dispatchModal('PAYMENT_CARD_LINKING_FAILURE')
+  const requestMembershipCardHeroModal = () => dispatchModal('MEMBERSHIP_CARD_HERO')
+  const requestMembershipCardTransactionsModal = () => dispatchModal('MEMBERSHIP_CARD_TRANSACTIONS')
+  const requestMembershipCardNoTransactionsModal = () => dispatchModal('MEMBERSHIP_CARD_NO_TRANSACTIONS')
+  const requestMembershipCardNoRewardsModal = () => dispatchModal('MEMBERSHIP_CARD_NO_REWARDS')
+  const requestMembershipCardNonActiveVouchersModal = () => dispatchModal('MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS')
+  const requestMembershipCardDeleteModal = () => dispatchModal('MEMBERSHIP_CARD_DELETE')
+  const requestVoucherModal = () => dispatchModal('VOUCHER')
+  const requestAccountMenuModal = () => dispatchModal('ACCOUNT_MENU')
 
   // selectors to get modal state
 
