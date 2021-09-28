@@ -37,13 +37,15 @@ const MultichannelMembershipCards = () => {
   }
 
   const getBalanceString = (card) => {
-    const voucher = card?.vouchers.find(voucher => voucher.state === 'inprogress')
+    const voucher = card.vouchers.find(voucher => voucher.state === 'inprogress')
 
-    if (voucher && voucher?.state === 'inprogress') {
+    if (voucher && voucher.state === 'inprogress') {
       const { type, prefix, value: earnValue, target_value: earnTargetValue, suffix } = voucher?.earn
 
       // If voucher is an accumulator, the values must be formatted to 2 decimal places
-      const [value, targetValue] = [earnValue, earnTargetValue].map(value => type === 'accumulator' ? formatValueToDecimalPlace(value, 2) : value)
+      const [value, targetValue] = [earnValue, earnTargetValue].map(value =>
+        type === 'accumulator' ? formatValueToDecimalPlace(value, 2) : value,
+      )
 
       return `${prefix ?? ''}${value}/${prefix ?? ''}${targetValue} ${suffix ?? ''}`
     }
@@ -64,8 +66,8 @@ const MultichannelMembershipCards = () => {
     if (membershipCards.length > 0) {
       return (
         membershipCards.map(card => {
-          const { companyName = 'Company Name', planName = 'Plan Name', colour, secondaryColour, iconImage } = getPlanInfo(card?.membership_plan)
-          const { state, reason_codes } = card?.status
+          const { companyName = 'Company Name', planName = 'Plan Name', colour, secondaryColour, iconImage } = getPlanInfo(card.membership_plan)
+          const { state, reason_codes } = card.status
           return (
             <div key={card.id} className={styles.root__card}>
               <button className={styles['root__delete-button']} onClick={() => setDeleteModalMembershipCard(card)}>DELETE</button>
