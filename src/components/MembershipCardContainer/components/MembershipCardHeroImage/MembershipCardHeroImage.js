@@ -12,7 +12,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
 
-  const { requestMembershipCardHeroModal, isMembershipCardHeroModalRequested } = useModals()
+  const { requestMembershipCardHeroModal, shouldMembershipCardHeroModalRender } = useModals()
 
   const shouldRenderHeroImage = () => {
     // If wasabi, use custom asset
@@ -34,7 +34,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
           </div>
         )}
       </div>
-      {isMembershipCardHeroModalRequested && <MembershipCardHeroModal membershipCard={membershipCard} />}
+      {shouldMembershipCardHeroModalRender && <MembershipCardHeroModal membershipCard={membershipCard} />}
     </>
   )
 }

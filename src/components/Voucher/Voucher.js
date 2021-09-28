@@ -8,7 +8,7 @@ import { useModals } from 'hooks/useModals'
 import styles from './Voucher.module.scss'
 
 const Voucher = ({ voucher, plan }) => {
-  const { requestVoucherModal, isVoucherModalRequested } = useModals()
+  const { requestVoucherModal, shouldVoucherModalRender } = useModals()
   const isVoucherIssued = voucher.state === 'issued'
 
   const handleVoucherClick = useCallback(() => {
@@ -20,7 +20,7 @@ const Voucher = ({ voucher, plan }) => {
   const { state = null } = voucher
   return (
     <>
-      { isVoucherModalRequested && voucher && (
+      { shouldVoucherModalRender && voucher && (
         <div data-testid='voucher-modal'>
           <VoucherModal voucher={voucher} plan={plan} />
         </div>

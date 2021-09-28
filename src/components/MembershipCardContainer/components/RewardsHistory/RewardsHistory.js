@@ -23,13 +23,13 @@ const RewardsHistory = ({ membershipCard, state }) => {
   const {
     requestPaymentCardAddFormModal,
     requestMembershipCardTransactionsModal,
-    isMembershipCardTransactionsModalRequested,
+    shouldMembershipCardTransactionsModalRender,
     requestMembershipCardNoTransactionsModal,
-    isMembershipCardNoTransactionsModalRequested,
+    shouldMembershipCardNoTransactionsModalRender,
     requestMembershipCardNoRewardsModal,
-    isMembershipCardNoRewardsModalRequested,
+    shouldMembershipCardNoRewardsModalRender,
     requestMembershipCardNonActiveVouchersModal,
-    isMembershipCardNonActiveVouchersModalRequested,
+    shouldMembershipCardNonActiveVouchersModalRender,
   } = useModals()
 
   return (
@@ -45,7 +45,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
                 <div className={styles.root__explainer}>View history</div>
               </div>
 
-              { isMembershipCardTransactionsModalRequested && (
+              { shouldMembershipCardTransactionsModalRender && (
                 <div data-testid='transaction-modal'>
                   <TransactionsModal membershipCardId={membershipCardId}/>
                 </div>
@@ -58,7 +58,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
                 <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
               </div>
-              { isMembershipCardNoTransactionsModalRequested && (
+              { shouldMembershipCardNoTransactionsModalRender && (
                 <div data-testid='no-transaction-history-modal'>
                   <TransactionsRewardsEmptyStateModal
                     title='Transaction History'
@@ -77,7 +77,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
                 <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
               </div>
-              { isMembershipCardNonActiveVouchersModalRequested && (
+              { shouldMembershipCardNonActiveVouchersModalRender && (
                 <div data-testid='non-active-vouchers-modal'>
                   <NonActiveVouchersModal membershipCardId={membershipCardId}/>
                 </div>
@@ -90,7 +90,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
                 <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
               </div>
-              { isMembershipCardNoRewardsModalRequested && (
+              { shouldMembershipCardNoRewardsModalRender && (
                   <div data-testid='no-non-active-vouchers-modal'>
                     <TransactionsRewardsEmptyStateModal
                       title='Reward History'

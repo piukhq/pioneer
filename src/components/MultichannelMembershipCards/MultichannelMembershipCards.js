@@ -14,7 +14,7 @@ import styles from './MultichannelMembershipCards.module.scss'
 
 const MultichannelMembershipCards = () => {
   const { membershipCards, loading } = useMembershipCardsState()
-  const { requestMembershipCardDeleteModal, isMembershipCardDeleteModalRequested } = useModals()
+  const { requestMembershipCardDeleteModal, shouldMembershipCardDeleteModalRender } = useModals()
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
 
   // Stores membership card that delete modal is associated with
@@ -115,7 +115,7 @@ const MultichannelMembershipCards = () => {
 
   return (
     <div className={styles.root}>
-      {isMembershipCardDeleteModalRequested && <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard.id} planString={getPlanString()}/>}
+      {shouldMembershipCardDeleteModalRender && <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard.id} planString={getPlanString()}/>}
 
       <AccountMenu />
       <h1 className={cx(styles.root__heading)}>Membership Cards</h1>

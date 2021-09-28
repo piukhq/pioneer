@@ -11,11 +11,11 @@ import { useModals } from 'hooks/useModals'
 import styles from './AccountMenu.module.scss'
 
 const AccountMenu = () => {
-  const { requestAccountMenuModal, isAccountMenuModalRequested } = useModals()
+  const { requestAccountMenuModal, shouldAccountMenuModalRender } = useModals()
   return (
     <>
       <AccountMenuButton onClick={requestAccountMenuModal}/>
-      { isAccountMenuModalRequested && (
+      { shouldAccountMenuModalRender && (
        <AccountMenuModal/>
       )}
     </>

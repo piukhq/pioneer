@@ -22,47 +22,47 @@ export const useModals = () => {
 
   // selectors to get modal state
 
-  const isPaymentCardLimitModalRequested = useSelector(state => modalSelectors.isPaymentCardLimitModalRequested(state))
-  const isPaymentCardAddFormModalRequested = useSelector(state => modalSelectors.isPaymentCardAddFormModalRequested(state))
-  const isPaymentCardDeleteFormModalRequested = useSelector(state => modalSelectors.isPaymentCardDeleteFormModalRequested(state))
-  const isPaymentCardLinkingSuccessModalRequested = useSelector(state => modalSelectors.isPaymentCardLinkingSuccessModalRequested(state))
-  const isPaymentCardLinkingErrorModalRequested = useSelector(state => modalSelectors.isPaymentCardLinkingErrorModalRequested(state))
-  const isMembershipCardHeroModalRequested = useSelector(state => modalSelectors.isMembershipCardHeroModalRequested(state))
-  const isMembershipCardTransactionsModalRequested = useSelector(state => modalSelectors.isMembershipCardTransactionsModalRequested(state))
-  const isMembershipCardNoTransactionsModalRequested = useSelector(state => modalSelectors.isMembershipCardNoTransactionsModalRequested(state))
-  const isMembershipCardNoRewardsModalRequested = useSelector(state => modalSelectors.isMembershipCardNoRewardsModalRequested(state))
-  const isMembershipCardNonActiveVouchersModalRequested = useSelector(state => modalSelectors.isMembershipCardNonActiveVouchersModalRequested(state))
-  const isMembershipCardDeleteModalRequested = useSelector(state => modalSelectors.isMembershipCardDeleteModalRequested(state))
-  const isVoucherModalRequested = useSelector(state => modalSelectors.isVoucherModalRequested(state))
-  const isAccountMenuModalRequested = useSelector(state => modalSelectors.isAccountMenuModalRequested(state))
+  const shouldPaymentCardLimitModalRender = useSelector(state => modalSelectors.shouldPaymentCardLimitModalRender(state))
+  const shouldPaymentCardAddFormModalRender = useSelector(state => modalSelectors.shouldPaymentCardAddFormModalRender(state))
+  const shouldPaymentCardDeleteFormModalRender = useSelector(state => modalSelectors.shouldPaymentCardDeleteFormModalRender(state))
+  const shouldPaymentCardLinkingSuccessModalRender = useSelector(state => modalSelectors.shouldPaymentCardLinkingSuccessModalRender(state))
+  const shouldPaymentCardLinkingErrorModalRender = useSelector(state => modalSelectors.shouldPaymentCardLinkingErrorModalRequested(state))
+  const shouldMembershipCardHeroModalRender = useSelector(state => modalSelectors.shouldMembershipCardHeroModalRender(state))
+  const shouldMembershipCardTransactionsModalRender = useSelector(state => modalSelectors.shouldMembershipCardTransactionsModalRender(state))
+  const shouldMembershipCardNoTransactionsModalRender = useSelector(state => modalSelectors.shouldMembershipCardNoTransactionsModalRender(state))
+  const shouldMembershipCardNoRewardsModalRender = useSelector(state => modalSelectors.shouldMembershipCardNoRewardsModalRender(state))
+  const shouldMembershipCardNonActiveVouchersModalRender = useSelector(state => modalSelectors.shouldMembershipCardNonActiveVouchersModalRender(state))
+  const shouldMembershipCardDeleteModalRender = useSelector(state => modalSelectors.shouldMembershipCardDeleteModalRender(state))
+  const shouldVoucherModalRender = useSelector(state => modalSelectors.shouldVoucherModalRender(state))
+  const shouldAccountMenuModalRender = useSelector(state => modalSelectors.shouldAccountMenuModalRender(state))
 
   return {
     closeModals,
     requestPaymentCardLimitModal,
-    isPaymentCardLimitModalRequested,
+    shouldPaymentCardLimitModalRender,
     requestPaymentCardAddFormModal,
-    isPaymentCardAddFormModalRequested,
+    shouldPaymentCardAddFormModalRender,
     requestPaymentCardDeleteFormModal,
-    isPaymentCardDeleteFormModalRequested,
+    shouldPaymentCardDeleteFormModalRender,
     requestPaymentCardLinkingSuccessModal,
-    isPaymentCardLinkingSuccessModalRequested,
+    shouldPaymentCardLinkingSuccessModalRender,
     requestPaymentCardLinkingErrorModal,
-    isPaymentCardLinkingErrorModalRequested,
+    shouldPaymentCardLinkingErrorModalRender,
     requestMembershipCardHeroModal,
-    isMembershipCardHeroModalRequested,
+    shouldMembershipCardHeroModalRender,
     requestMembershipCardTransactionsModal,
-    isMembershipCardTransactionsModalRequested,
+    shouldMembershipCardTransactionsModalRender,
     requestMembershipCardNoTransactionsModal,
-    isMembershipCardNoTransactionsModalRequested,
+    shouldMembershipCardNoTransactionsModalRender,
     requestMembershipCardNoRewardsModal,
-    isMembershipCardNoRewardsModalRequested,
+    shouldMembershipCardNoRewardsModalRender,
     requestMembershipCardNonActiveVouchersModal,
-    isMembershipCardNonActiveVouchersModalRequested,
+    shouldMembershipCardNonActiveVouchersModalRender,
     requestMembershipCardDeleteModal,
-    isMembershipCardDeleteModalRequested,
+    shouldMembershipCardDeleteModalRender,
     requestVoucherModal,
-    isVoucherModalRequested,
+    shouldVoucherModalRender,
     requestAccountMenuModal,
-    isAccountMenuModalRequested,
+    shouldAccountMenuModalRender,
   }
 }

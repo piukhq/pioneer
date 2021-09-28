@@ -30,7 +30,7 @@ const initialState = {
   membershipCardNonActiveVouchersModalRequested: false,
   membershipCardDeleteModalRequested: false,
   voucherModalRequested: false,
-  AccountMenuModalRequested: false,
+  accountMenuModalRequested: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -109,62 +109,58 @@ const reducer = (state = initialState, action) => {
 
 export default reducer
 
-const modalSelector = state => state?.modals
+const modalSelector = state => state.modals
 
 export const selectors = {
-  isAnyModalRequested: createSelector(
-    modalSelector,
-    (modals) => modals?.some(modal => true), // TODO: Is some ok?
-  ),
-  isPaymentCardLimitModalRequested: createSelector(
+  shouldPaymentCardLimitModalRender: createSelector(
     modalSelector,
     (modals) => modals?.paymentCardLimitModalRequested,
   ),
-  isPaymentCardAddFormModalRequested: createSelector(
+  shouldPaymentCardAddFormModalRender: createSelector(
     modalSelector,
     (modals) => modals?.paymentCardAddFormModalRequested,
   ),
-  isPaymentCardDeleteFormModalRequested: createSelector(
+  shouldPaymentCardDeleteFormModalRender: createSelector(
     modalSelector,
     (modals) => modals?.paymentCardDeleteFormModalRequested,
   ),
-  isPaymentCardLinkingSuccessModalRequested: createSelector(
+  shouldPaymentCardLinkingSuccessModalRender: createSelector(
     modalSelector,
     (modals) => modals?.paymentCardLinkingSuccessModalRequested,
   ),
-  isPaymentCardLinkingErrorModalRequested: createSelector(
+  shouldPaymentCardLinkingErrorModalRender: createSelector(
     modalSelector,
     (modals) => modals?.paymentCardLinkingErrorModalRequested,
   ),
-  isMembershipCardHeroModalRequested: createSelector(
+  shouldMembershipCardHeroModalRender: createSelector(
     modalSelector,
     (modals) => modals?.membershipCardHeroModalRequested,
   ),
-  isMembershipCardTransactionsModalRequested: createSelector(
+  shouldMembershipCardTransactionsModalRender: createSelector(
     modalSelector,
     (modals) => modals?.membershipCardTransactionsModalRequested,
   ),
-  isMembershipCardNoTransactionsModalRequested: createSelector(
+  shouldMembershipCardNoTransactionsModalRender: createSelector(
     modalSelector,
     (modals) => modals?.membershipCardNoTransactionsModalRequested,
   ),
-  isMembershipCardNoRewardsModalRequested: createSelector(
+  shouldMembershipCardNoRewardsModalRender: createSelector(
     modalSelector,
     (modals) => modals?.membershipCardNoRewardsModalRequested,
   ),
-  isMembershipCardNonActiveVouchersModalRequested: createSelector(
+  shouldMembershipCardNonActiveVouchersModalRender: createSelector(
     modalSelector,
     (modals) => modals?.membershipCardNonActiveVouchersModalRequested,
   ),
-  isMembershipCardDeleteModalRequested: createSelector(
+  shouldMembershipCardDeleteModalRender: createSelector(
     modalSelector,
     (modals) => modals?.membershipCardDeleteModalRequested,
   ),
-  isVoucherModalRequested: createSelector(
+  shouldVoucherModalRender: createSelector(
     modalSelector,
     (modals) => modals?.voucherModalRequested,
   ),
-  isAccountMenuModalRequested: createSelector(
+  shouldAccountMenuRender: createSelector(
     modalSelector,
     (modals) => modals?.accountMenuModalRequested,
   ),

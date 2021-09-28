@@ -10,7 +10,7 @@ jest.mock('hooks/useModals', () => ({
   useModals: jest.fn(),
 }))
 const useModalsDefaultValues = {
-  isVoucherModalRequested: false,
+  shouldVoucherModalRender: false,
   requestVoucherModal: jest.fn(),
 }
 
@@ -38,7 +38,7 @@ describe('Test Voucher', () => {
 
     it('should render voucher modal', () => {
       useModals.mockImplementation(() => ({
-        isVoucherModalRequested: true,
+        shouldVoucherModalRender: true,
         requestVoucherModal: jest.fn(),
       }))
       const { queryByTestId } = render(voucherComponent)

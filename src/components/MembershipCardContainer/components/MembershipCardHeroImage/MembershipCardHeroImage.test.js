@@ -15,7 +15,7 @@ jest.mock('utils/enums', () => ({
 }))
 
 const useModalsDefaultValues = {
-  isMembershipCardHeroModalRequested: false,
+  shouldMembershipCardHeroModalRender: false,
   requestMembershipCardHeroModal: jest.fn(),
 }
 

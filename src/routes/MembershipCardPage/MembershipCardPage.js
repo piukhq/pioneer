@@ -34,15 +34,15 @@ const MembershipCardPage = () => {
   const {
     closeModals,
     requestPaymentCardLimitModal,
-    isPaymentCardLimitModalRequested,
+    shouldPaymentLimitModalRender,
     requestPaymentCardAddFormModal,
-    isPaymentCardAddFormModalRequested,
+    shouldPaymentCardAddFormModalRender,
     requestPaymentCardDeleteFormModal,
-    isPaymentCardDeleteFormModalRequested,
+    shouldPaymentCardDeleteFormModalRender,
     requestPaymentCardLinkingSuccessModal,
-    isPaymentCardLinkingSuccessModalRequested,
+    shouldPaymentCardLinkingSuccessModalRender,
     requestPaymentCardLinkingErrorModal,
-    isPaymentCardLinkingErrorModalRequested,
+    shouldPaymentCardLinkingErrorModalRender,
   } = useModals()
 
   // Log user out if account is no longer active
@@ -111,15 +111,15 @@ const MembershipCardPage = () => {
   }
 
   const shouldRenderModalOverlay = () => {
-    if (isPaymentCardLinkingErrorModalRequested) {
+    if (shouldPaymentCardLinkingErrorModalRender) {
       return <LinkCardsErrorModal paymentCardId={cardIdToBeDeleted}/>
-    } else if (isPaymentCardLinkingSuccessModalRequested) {
+    } else if (shouldPaymentCardLinkingSuccessModalRender) {
       return <LinkCardsSuccessModal />
-    } else if (isPaymentCardLimitModalRequested) {
+    } else if (shouldPaymentLimitModalRender) {
       return <PaymentCardLimitModal />
-    } else if (isPaymentCardAddFormModalRequested) {
+    } else if (shouldPaymentCardAddFormModalRender) {
       return <PaymentCardAddForm onClose={ closeModals }/>
-    } else if (isPaymentCardDeleteFormModalRequested) {
+    } else if (shouldPaymentCardDeleteFormModalRender) {
       return (
         <PaymentCardDeleteForm
         paymentCardId={cardIdToBeDeleted}
