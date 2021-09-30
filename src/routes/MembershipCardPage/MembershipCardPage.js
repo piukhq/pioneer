@@ -10,6 +10,7 @@ import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import PaymentCards from 'components/PaymentCards'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
@@ -60,24 +61,24 @@ const MembershipCardPage = () => {
 
   const handleLinkingError = useCallback((card) => {
     setCardIdToBeDeleted(card?.id)
-    dispatchModal('PAYMENT_CARD_LINKING_ERROR')
+    dispatchModal(modalEnum.PAYMENT_CARD_LINKING_ERROR)
   }, [dispatchModal])
 
   const handleLinkingSuccess = useCallback(() => {
-    dispatchModal('PAYMENT_CARD_LINKING_SUCCESS')
+    dispatchModal(modalEnum.PAYMENT_CARD_LINKING_SUCCESS)
   }, [dispatchModal])
 
   const handleDeletePaymentCard = useCallback(async (card) => {
     setCardIdToBeDeleted(card.id)
-    dispatchModal('PAYMENT_CARD_DELETE_FORM')
+    dispatchModal(modalEnum.PAYMENT_CARD_DELETE_FORM)
   }, [setCardIdToBeDeleted, dispatchModal])
 
   const handleCloseDeletePaymentCardForm = useCallback(() => {
     setCardIdToBeDeleted(null)
-    dispatchModal('NO_MODAL')
+    dispatchModal(modalEnum.NO_MODAL)
   }, [dispatchModal])
   const handleCloseAddPaymentCardForm = useCallback(() => {
-    dispatchModal('NO_MODAL')
+    dispatchModal(modalEnum.NO_MODAL)
   }, [dispatchModal])
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
@@ -136,8 +137,6 @@ const MembershipCardPage = () => {
           <PaymentCards
             handleLinkingSuccess={handleLinkingSuccess}
             handleLinkingError={handleLinkingError}
-            setPaymentCardLimitModalVisible={ () => dispatchModal('PAYMENT_CARD_LIMIT')}
-            handleAddPaymentCard={ () => dispatchModal('PAYMENT_CARD_ADD_FORM')}
             handleDeletePaymentCard={handleDeletePaymentCard}
           />
           {/* todo: temporary for dev purposes only. It will display only in dev mode though */}

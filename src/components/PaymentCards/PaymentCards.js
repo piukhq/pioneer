@@ -10,6 +10,7 @@ import PaymentCardRefresher from 'components/PaymentCardRefresher'
 
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
@@ -18,7 +19,7 @@ import { isPaymentCardExpired, isPaymentCardPending, areCardsLinked } from 'util
 
 import styles from './PaymentCards.module.scss'
 
-const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, handleAddPaymentCard, handleDeletePaymentCard }) => {
+const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, handleDeletePaymentCard }) => {
   const { id: membershipCardId } = useParams()
 
   const membershipCard = useSelector(state => state.membershipCards.cards[membershipCardId])
@@ -59,7 +60,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, handleAddPayme
         handleDeletePaymentCard(card)
       } else if (numberOfCardsInLinkedSection >= 5) {
         // card can be linked but too many cards are already linked
-        dispatchModal('PAYMENT_CARD_LIMIT')
+        dispatchModal(modalEnum.PAYMENT_CARD_LIMIT)
       } else {
         // card is not linked as is not expired
         linkCard(card)
@@ -69,13 +70,14 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, handleAddPayme
     }
   }, [membershipCard, linkCard, handleDeletePaymentCard, numberOfCardsInLinkedSection, dispatchModal])
 
-  const handlePaymentCardLimitAddClick = useCallback(() => { dispatchModal('PAYMENT_CARD_LIMIT') }, [dispatchModal])
+  const handlePaymentCardLimitAddClick = useCallback(() => { dispatchModal(modalEnum.PAYMENT_CARD_LIMIT) }, [dispatchModal])
+  const handlePaymentCardAddClick = useCallback(() => { dispatchModal(modalEnum.PAYMENT_CARD_ADD_FORM) }, [dispatchModal])
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
       return <PaymentCardLimitAdd onClick={ handlePaymentCardLimitAddClick} />
     }
-    return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={handleAddPaymentCard} /> : <PaymentCardAdd onClick={handleAddPaymentCard} />
+    return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={handlePaymentCardAddClick} /> : <PaymentCardAdd onClick={handlePaymentCardAddClick} />
   }
 
   const isActivating = (card) => isPaymentCardPending(card) && !isPaymentCardExpired(card)

@@ -2,12 +2,13 @@ import React, { useCallback } from 'react'
 import Modal from 'components/Modal'
 import Button from 'components/Button'
 import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import styles from './LinkedCardsSuccessModal.module.scss'
 
 const LinkCardsSuccessModal = ({ onClose }) => {
   const { dispatchModal } = useModals()
-  const handleDismissButtonClick = useCallback(() => { dispatchModal('NO_MODAL') }, [dispatchModal])
+  const handleDismissButtonClick = useCallback(() => { dispatchModal(modalEnum.NO_MODAL) }, [dispatchModal])
   return (
     <Modal onClose={onClose}>
       <Modal.Header>Card linked</Modal.Header>

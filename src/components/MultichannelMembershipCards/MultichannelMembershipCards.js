@@ -7,6 +7,7 @@ import MembershipCardDeleteModal from 'components/Modals/MembershipCardDeleteMod
 import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 import { ReactComponent as FuelGaugeSvg } from 'images/fuel.svg'
 import { formatValueToDecimalPlace } from 'utils/format'
 
@@ -56,7 +57,7 @@ const MultichannelMembershipCards = () => {
 
   const handleDeleteButtonClick = useCallback((card) => {
     setDeleteModalMembershipCard(card)
-    dispatchModal('MEMBERSHIP_CARD_DELETE')
+    dispatchModal(modalEnum.MEMBERSHIP_CARD_DELETE)
   }, [dispatchModal])
 
   // Separate to getPlanInfo as that function returns additional info we are not interested in

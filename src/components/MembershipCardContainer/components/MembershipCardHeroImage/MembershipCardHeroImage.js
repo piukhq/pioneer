@@ -3,7 +3,8 @@ import cx from 'classnames'
 
 import MembershipCardHeroModal from 'components/Modals/MembershipCardHeroModal'
 import { useModals } from 'hooks/useModals'
-import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
+
+import { MEMBERSHIP_CARD_IMAGE_TYPES, MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import styles from './MembershipCardHeroImage.module.scss'
 
@@ -14,7 +15,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
 
   const { dispatchModal, modalToRender } = useModals()
 
-  const handleMembershipCardHeroImageClick = useCallback(() => { dispatchModal('MEMBERSHIP_CARD_HERO') }, [dispatchModal])
+  const handleMembershipCardHeroImageClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_HERO), [dispatchModal])
 
   const shouldRenderHeroImage = () => {
     // If wasabi, use custom asset

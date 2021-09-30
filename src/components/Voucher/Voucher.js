@@ -4,6 +4,7 @@ import VoucherModal from 'components/Modals/VoucherModal'
 import AccumulatorVoucher from './components/AccumulatorVoucher'
 import StampVoucher from './components/StampVoucher'
 import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import styles from './Voucher.module.scss'
 
@@ -12,7 +13,7 @@ const Voucher = ({ voucher, plan }) => {
   const isVoucherIssued = voucher.state === 'issued'
 
   const handleVoucherClick = useCallback(() => {
-    isVoucherIssued && dispatchModal('VOUCHER')
+    isVoucherIssued && dispatchModal(modalEnum.VOUCHER)
   }, [isVoucherIssued, dispatchModal])
 
   const isAccumulatorVoucher = voucher?.earn?.type === 'accumulator'

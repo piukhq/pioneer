@@ -6,6 +6,7 @@ import TransactionsModal from 'components/Modals/TransactionsModal'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
 import { ReactComponent as StateAuthorisedGreySvg } from 'images/state-authorised-grey.svg'
 import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
@@ -21,11 +22,11 @@ const RewardsHistory = ({ membershipCard, state }) => {
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
 
   const { dispatchModal, modalToRender } = useModals()
-  const handleTransactionHistoryClick = useCallback(() => { dispatchModal('MEMBERSHIP_CARD_TRANSACTIONS') }, [dispatchModal])
-  const handleNoTransactionHistoryClick = useCallback(() => { dispatchModal('MEMBERSHIP_CARD_NO_TRANSACTIONS') }, [dispatchModal])
-  const handleNonActiveVouchersClick = useCallback(() => { dispatchModal('MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS') }, [dispatchModal])
-  const handleNoNonActiveVouchersClick = useCallback(() => { dispatchModal('MEMBERSHIP_CARD_NO_REWARDS') }, [dispatchModal])
-  const handleNoPaymentCardsClick = useCallback(() => { dispatchModal('PAYMENT_CARD_ADD_FORM') }, [dispatchModal])
+  const handleTransactionHistoryClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_TRANSACTIONS), [dispatchModal])
+  const handleNoTransactionHistoryClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS), [dispatchModal])
+  const handleNonActiveVouchersClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS), [dispatchModal])
+  const handleNoNonActiveVouchersClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_REWARDS), [dispatchModal])
+  const handleNoPaymentCardsClick = useCallback(() => dispatchModal(modalEnum.PAYMENT_CARD_ADD_FORM), [dispatchModal])
 
   return (
     <>

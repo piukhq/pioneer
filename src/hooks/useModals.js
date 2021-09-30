@@ -4,7 +4,7 @@ import { actions as modalActions, selectors as modalSelectors } from 'ducks/moda
 export const useModals = () => {
   const dispatch = useDispatch()
 
-  const dispatchModal = (modalType) => dispatch(modalActions.requestModal(modalType))
+  const dispatchModal = (modalType) => dispatch(modalActions.requestModal(modalType.split('/')[1])) // removes the 'modals/' prefix from the string
   const modalToRender = useSelector(state => modalSelectors.modalToRender(state))
 
   return {

@@ -7,13 +7,14 @@ import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
 
 import useLogout from './hooks/useLogout'
 import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import styles from './AccountMenu.module.scss'
 
 const AccountMenu = () => {
   const { dispatchModal, modalToRender } = useModals()
 
-  const handleAccountMenuClick = useCallback(() => { dispatchModal('ACCOUNT_MENU') }, [dispatchModal])
+  const handleAccountMenuClick = useCallback(() => { dispatchModal(modalEnum.ACCOUNT_MENU) }, [dispatchModal])
 
   return (
     <>
