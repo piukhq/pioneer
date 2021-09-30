@@ -5,7 +5,7 @@ import RewardsHistory from './components/RewardsHistory'
 
 import styles from './MembershipCardContainer.module.scss'
 
-const MembershipCardContainer = ({ membershipCard, addPaymentCardClickHandler = () => {} }) => {
+const MembershipCardContainer = ({ membershipCard }) => {
   const { payment_cards: paymentCards = [] } = membershipCard
 
   // possible states: authorised, failed, pending, suggested, unauthorised
@@ -22,7 +22,7 @@ const MembershipCardContainer = ({ membershipCard, addPaymentCardClickHandler = 
       styles[`root--${state}`],
     )}>
       <MembershipCardHeroImage membershipCard={membershipCard} />
-      <RewardsHistory membershipCard={membershipCard} state={state} addPaymentCardClickHandler={addPaymentCardClickHandler} />
+      <RewardsHistory membershipCard={membershipCard} state={state} />
     </section>
   )
 }

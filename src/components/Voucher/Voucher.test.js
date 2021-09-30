@@ -1,44 +1,40 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-
+import { useModals } from 'hooks/useModals'
 import Voucher from './Voucher'
 
 jest.mock('components/Modals/VoucherModal', () => () => null)
+jest.mock('hooks/useModals', () => ({
+  useModals: jest.fn(),
+}))
+const useModalsDefaultValues = {
+  dispatchModal: jest.fn(),
+  modalToRender: 'NO_MODAL',
+}
+
+const voucherComponent = (<Voucher voucher={{}}/>)
 
 describe('Test Voucher', () => {
   it('should render voucher container', () => {
-    const { queryByTestId } = render(
-      <Voucher
-        voucher={{}}
-      />,
-    )
+    useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
+    const { queryByTestId } = render(voucherComponent)
     expect(queryByTestId('voucher-container')).toBeInTheDocument()
   })
 
   describe('Test Voucher Modal render', () => {
-    const mockSetVoucherModalVisible = jest.fn()
-
     beforeEach(() => {
       jest.clearAllMocks()
     })
 
     it('should render voucher modal', () => {
-      React.useState = jest.fn().mockReturnValue([true, mockSetVoucherModalVisible])
-      const { queryByTestId } = render(
-        <Voucher
-          voucher={{}}
-        />,
-      )
+      useModals.mockImplementation(() => ({ modalToRender: 'VOUCHER' }))
+      const { queryByTestId } = render(voucherComponent)
       expect(queryByTestId('voucher-modal')).toBeInTheDocument()
     })
 
     it('should not render voucher modal', () => {
-      React.useState = jest.fn().mockReturnValue([false, mockSetVoucherModalVisible])
-      const { queryByTestId } = render(
-        <Voucher
-          voucher={{}}
-        />,
-      )
+      useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
+      const { queryByTestId } = render(voucherComponent)
       expect(queryByTestId('voucher-modal')).not.toBeInTheDocument()
     })
   })

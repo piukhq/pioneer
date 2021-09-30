@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 
 import Modal from 'components/Modal'
 import Button from 'components/Button'
@@ -6,16 +6,21 @@ import { ReactComponent as RightChevronSvg } from 'images/right-chevron.svg'
 import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
 
 import useLogout from './hooks/useLogout'
+import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import styles from './AccountMenu.module.scss'
 
 const AccountMenu = () => {
-  const [accountMenuModalVisible, setAccountMenuModalVisible] = useState(false)
+  const { dispatchModal, modalToRender } = useModals()
+
+  const handleAccountMenuClick = useCallback(() => { dispatchModal(modalEnum.ACCOUNT_MENU) }, [dispatchModal])
+
   return (
     <>
-      <AccountMenuButton onClick={() => setAccountMenuModalVisible(true)}/>
-      { accountMenuModalVisible && (
-        <AccountMenuModal onClose={() => setAccountMenuModalVisible(false)}/>
+      <AccountMenuButton onClick={ handleAccountMenuClick }/>
+      { modalToRender === modalEnum.ACCOUNT_MENU && (
+       <AccountMenuModal/>
       )}
     </>
   )
@@ -31,11 +36,11 @@ const AccountMenuButton = ({ onClick }) => (
   </div>
 )
 
-const AccountMenuModal = ({ onClose }) => {
+const AccountMenuModal = () => {
   const { logout } = useLogout()
   const { planTitle, urls: { merchantFaq, termsAndConditions, binkFaq } } = Config
   return (
-    <Modal onClose={onClose}>
+    <Modal>
       <Modal.Header>{ Config.accountTitle }</Modal.Header>
       <div className={styles.root}>
         <div className={styles['root__modal-body']}>

@@ -9,6 +9,8 @@ import BinkPaymentCardAdd from 'components/BinkPaymentCardAdd'
 import PaymentCardRefresher from 'components/PaymentCardRefresher'
 
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
@@ -17,7 +19,7 @@ import { isPaymentCardExpired, isPaymentCardPending, areCardsLinked } from 'util
 
 import styles from './PaymentCards.module.scss'
 
-const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCardLimitModalVisible, handleAddPaymentCard, handleDeletePaymentCard }) => {
+const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, handleDeletePaymentCard }) => {
   const { id: membershipCardId } = useParams()
 
   const membershipCard = useSelector(state => state.membershipCards.cards[membershipCardId])
@@ -34,6 +36,8 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     state => membershipCardsSelectors.newlyPendingPaymentCard(state),
   )
 
+  const { dispatchModal } = useModals()
+
   const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = React.useState(false)
 
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
@@ -49,14 +53,14 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     setIsPaymentCardLimitReached(paymentCardLimitReached)
   }, [numberOfCardsInLinkedSection, unlinkedPaymentCards, newlyPendingPaymentCard, setIsPaymentCardLimitReached])
 
-  const handleClickOnPaymentCard = useCallback(async (card) => {
+  const handlePaymentCardClick = useCallback(async (card) => {
     if (!areCardsLinked(card, membershipCard)) {
       if (isPaymentCardExpired(card)) {
         // card is not liked but is expired
         handleDeletePaymentCard(card)
       } else if (numberOfCardsInLinkedSection >= 5) {
         // card can be linked but too many cards are already linked
-        setPaymentCardLimitModalVisible(true)
+        dispatchModal(modalEnum.PAYMENT_CARD_LIMIT)
       } else {
         // card is not linked as is not expired
         linkCard(card)
@@ -64,13 +68,16 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
     } else {
     // card is linked. should do nothing if clicked
     }
-  }, [membershipCard, linkCard, handleDeletePaymentCard, numberOfCardsInLinkedSection, setPaymentCardLimitModalVisible])
+  }, [membershipCard, linkCard, handleDeletePaymentCard, numberOfCardsInLinkedSection, dispatchModal])
+
+  const handlePaymentCardLimitAddClick = useCallback(() => { dispatchModal(modalEnum.PAYMENT_CARD_LIMIT) }, [dispatchModal])
+  const handlePaymentCardAddClick = useCallback(() => { dispatchModal(modalEnum.PAYMENT_CARD_ADD_FORM) }, [dispatchModal])
 
   const renderAddPaymentCardButton = () => {
     if (isPaymentCardLimitReached) {
-      return <PaymentCardLimitAdd onClick={() => setPaymentCardLimitModalVisible(true)} />
+      return <PaymentCardLimitAdd onClick={ handlePaymentCardLimitAddClick} />
     }
-    return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={handleAddPaymentCard} /> : <PaymentCardAdd onClick={handleAddPaymentCard} />
+    return Config.theme === 'bink' ? <BinkPaymentCardAdd onClick={handlePaymentCardAddClick} /> : <PaymentCardAdd onClick={handlePaymentCardAddClick} />
   }
 
   const isActivating = (card) => isPaymentCardPending(card) && !isPaymentCardExpired(card)
@@ -106,14 +113,13 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
             <div data-testid={`newly-pending-payment-card-${newlyPendingPaymentCard.id}`}>
               <PaymentCard
                 id={newlyPendingPaymentCard.id}
-                onClick={handleClickOnPaymentCard}
+                onClick={handlePaymentCardClick}
                 key={newlyPendingPaymentCard.id}
                 expired={isPaymentCardExpired(newlyPendingPaymentCard)}
                 activating={isActivating(newlyPendingPaymentCard)}
               />
             </div>
           )}
-
           {renderAddPaymentCardButton()}
         </div>
       </section>
@@ -133,7 +139,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, setPaymentCard
                 <div data-testid='unlinked-payment-card' key={paymentCard.id}>
                   <PaymentCard
                     id={paymentCard.id}
-                    onClick={handleClickOnPaymentCard}
+                    onClick={handlePaymentCardClick}
                     key={paymentCard.id}
                     expired={isPaymentCardExpired(paymentCard)}
                     activating={isActivating(paymentCard)}

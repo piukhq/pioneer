@@ -6,11 +6,11 @@ import dayjs from 'dayjs'
 
 import styles from './TransactionsModal.module.scss'
 
-const TransactionsModal = ({ membershipCardId, onClose }) => {
+const TransactionsModal = ({ membershipCardId }) => {
   const { transactions } = useMembershipCardStateById(membershipCardId)
 
   return (
-    <Modal onClose={onClose} className={styles.root}>
+    <Modal className={styles.root}>
       <Modal.Header>Transaction history</Modal.Header>
       { transactions?.length > 0 ? (
         <>

@@ -1,9 +1,9 @@
 import React from 'react'
 import * as reactRedux from 'react-redux'
 import { render } from '@testing-library/react'
-
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
+import { useModals } from 'hooks/useModals'
 
 import PaymentCards from './PaymentCards'
 
@@ -24,6 +24,13 @@ jest.mock('./hooks/useLinkPaymentCard', () => ({
 jest.mock('components/PaymentCardRefresher', () => () => null)
 jest.mock('components/PaymentCard', () => () => null)
 
+jest.mock('hooks/useModals', () => ({
+  useModals: jest.fn(),
+}))
+const useModalsDefaultValues = {
+  dispatchModal: jest.fn(),
+}
+
 describe('Test PaymentCards', () => {
   const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
   const mockSetState = jest.fn()
@@ -35,13 +42,13 @@ describe('Test PaymentCards', () => {
   const mockHandleDeletePaymentCard = jest.fn()
 
   const paymentCardsComponent = (
-    <PaymentCards
-      handleLinkingSuccess={mockHandleLinkingSuccess}
-      handleLinkingError={mockHandleLinkingError}
-      setPaymentCardLimitModalVisible={mockSetPaymentCardLimitModalVisible}
-      handleAddPaymentCard={mockHandleAddPaymentCard}
-      handleDeletePaymentCard={mockHandleDeletePaymentCard}
-    />
+      <PaymentCards
+        handleLinkingSuccess={mockHandleLinkingSuccess}
+        handleLinkingError={mockHandleLinkingError}
+        setPaymentCardLimitModalVisible={mockSetPaymentCardLimitModalVisible}
+        handleAddPaymentCard={mockHandleAddPaymentCard}
+        handleDeletePaymentCard={mockHandleDeletePaymentCard}
+      />
   )
 
   const mockMembershipCard = {}
@@ -67,6 +74,7 @@ describe('Test PaymentCards', () => {
     useLinkPaymentCard.mockImplementation(() => ({
       linkCard: jest.fn(),
     }))
+    useModals.mockImplementation(() => ({ useModalsDefaultValues }))
 
     useMembershipCardDetailsByCardId.mockImplementation(() => ({
       planName: mockPlanName,

@@ -31,7 +31,7 @@ const PaymentCardAddForm = ({ onClose }) => {
   } = usePaymentCardAddForm(onClose)
 
   return (
-    <Modal onClose={onClose} isLoading={isLoading}>
+    <Modal isLoading={isLoading}>
       <Modal.Header>Add credit/debit card</Modal.Header>
       <div className={styles.root__paragraph}>Enter details below to add your credit/debit card.</div>
 
