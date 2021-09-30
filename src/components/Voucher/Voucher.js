@@ -21,7 +21,7 @@ const Voucher = ({ voucher, plan }) => {
   const { state = null } = voucher
   return (
     <>
-      { modalToRender === 'VOUCHER' && voucher && (
+      { modalToRender === modalEnum.VOUCHER && voucher && (
         <div data-testid='voucher-modal'>
           <VoucherModal voucher={voucher} plan={plan} />
         </div>

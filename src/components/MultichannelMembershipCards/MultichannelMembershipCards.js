@@ -116,7 +116,7 @@ const MultichannelMembershipCards = () => {
 
   return (
     <div className={styles.root}>
-      {modalToRender === 'MEMBERSHIP_CARD_DELETE' && <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard.id} planString={getPlanString()}/>}
+      {modalToRender === modalEnum.MEMBERSHIP_CARD_DELETE && <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard.id} planString={getPlanString()}/>}
 
       <AccountMenu />
       <h1 className={cx(styles.root__heading)}>Membership Cards</h1>

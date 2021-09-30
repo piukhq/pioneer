@@ -102,15 +102,15 @@ const MembershipCardPage = () => {
   }
 
   const shouldRenderModalOverlay = () => {
-    if (modalToRender === 'PAYMENT_CARD_LINKING_ERROR') {
+    if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_ERROR) {
       return <LinkCardsErrorModal paymentCardId={cardIdToBeDeleted}/>
-    } else if (modalToRender === 'PAYMENT_CARD_LINKING_SUCCESS') {
+    } else if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_SUCCESS) {
       return <LinkCardsSuccessModal />
-    } else if (modalToRender === 'PAYMENT_CARD_LIMIT') {
+    } else if (modalToRender === modalEnum.PAYMENT_CARD_LIMIT) {
       return <PaymentCardLimitModal />
-    } else if (modalToRender === 'PAYMENT_CARD_ADD_FORM') {
+    } else if (modalToRender === modalEnum.PAYMENT_CARD_ADD_FORM) {
       return <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm}/>
-    } else if (modalToRender === 'PAYMENT_CARD_DELETE_FORM') {
+    } else if (modalToRender === modalEnum.PAYMENT_CARD_DELETE_FORM) {
       return (
         <PaymentCardDeleteForm
         paymentCardId={cardIdToBeDeleted}

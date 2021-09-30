@@ -40,7 +40,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
                 <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
                 <div className={styles.root__explainer}>View history</div>
               </div>
-              { modalToRender === 'MEMBERSHIP_CARD_TRANSACTIONS' && (
+              { modalToRender === modalEnum.MEMBERSHIP_CARD_TRANSACTIONS && (
                 <div data-testid='transaction-modal'>
                   <TransactionsModal membershipCardId={membershipCardId}/>
                 </div>
@@ -53,7 +53,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
                 <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
               </div>
-              { modalToRender === 'MEMBERSHIP_CARD_NO_TRANSACTIONS' && (
+              { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS && (
                 <div data-testid='no-transaction-history-modal'>
                   <TransactionsRewardsEmptyStateModal
                     title='Transaction History'
@@ -72,7 +72,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
                 <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
               </div>
-              { modalToRender === 'MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS' && (
+              { modalToRender === modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS && (
                 <div data-testid='non-active-vouchers-modal'>
                   <NonActiveVouchersModal membershipCardId={membershipCardId}/>
                 </div>
@@ -85,7 +85,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
                 <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
                 <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
               </div>
-              { modalToRender === 'MEMBERSHIP_CARD_NO_REWARDS' && (
+              { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_REWARDS && (
                   <div data-testid='no-non-active-vouchers-modal'>
                     <TransactionsRewardsEmptyStateModal
                       title='Reward History'

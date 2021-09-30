@@ -19,7 +19,7 @@ const AccountMenu = () => {
   return (
     <>
       <AccountMenuButton onClick={ handleAccountMenuClick }/>
-      { modalToRender === 'ACCOUNT_MENU' && (
+      { modalToRender === modalEnum.ACCOUNT_MENU' && (
        <AccountMenuModal/>
       )}
     </>
