@@ -1,8 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { useModals } from 'hooks/useModals'
-import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
 import Voucher from './Voucher'
 
 jest.mock('components/Modals/VoucherModal', () => () => null)
@@ -10,19 +8,11 @@ jest.mock('hooks/useModals', () => ({
   useModals: jest.fn(),
 }))
 const useModalsDefaultValues = {
-  shouldVoucherModalRender: false,
-  requestVoucherModal: jest.fn(),
+  dispatchModal: jest.fn(),
+  modalToRender: 'NO_MODAL',
 }
 
-const mockStore = configureMockStore([])
-const store = mockStore()
-const voucherComponent = (
-  <Provider store={store}>
-    <Voucher
-      voucher={{}}
-    />,
-  </Provider>
-)
+const voucherComponent = (<Voucher voucher={{}}/>)
 
 describe('Test Voucher', () => {
   it('should render voucher container', () => {
@@ -37,10 +27,7 @@ describe('Test Voucher', () => {
     })
 
     it('should render voucher modal', () => {
-      useModals.mockImplementation(() => ({
-        shouldVoucherModalRender: true,
-        requestVoucherModal: jest.fn(),
-      }))
+      useModals.mockImplementation(() => ({ modalToRender: 'VOUCHER' }))
       const { queryByTestId } = render(voucherComponent)
       expect(queryByTestId('voucher-modal')).toBeInTheDocument()
     })

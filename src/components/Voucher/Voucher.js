@@ -8,19 +8,19 @@ import { useModals } from 'hooks/useModals'
 import styles from './Voucher.module.scss'
 
 const Voucher = ({ voucher, plan }) => {
-  const { requestVoucherModal, shouldVoucherModalRender } = useModals()
+  const { dispatchModal, modalToRender } = useModals()
   const isVoucherIssued = voucher.state === 'issued'
 
   const handleVoucherClick = useCallback(() => {
-    isVoucherIssued && requestVoucherModal()
-  }, [isVoucherIssued, requestVoucherModal])
+    isVoucherIssued && dispatchModal('VOUCHER')
+  }, [isVoucherIssued, dispatchModal])
 
   const isAccumulatorVoucher = voucher?.earn?.type === 'accumulator'
 
   const { state = null } = voucher
   return (
     <>
-      { shouldVoucherModalRender && voucher && (
+      { modalToRender === 'VOUCHER' && voucher && (
         <div data-testid='voucher-modal'>
           <VoucherModal voucher={voucher} plan={plan} />
         </div>

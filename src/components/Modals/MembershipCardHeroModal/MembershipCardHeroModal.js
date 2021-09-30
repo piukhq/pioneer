@@ -12,7 +12,7 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
 
   return (
     <Modal className={styles.root}>
-      <div className={styles.root__container}>
+      <div data-testid='membership-card-hero-modal' className={styles.root__container}>
         <div className={styles['root__image-container']} style={{ backgroundColor }}>
           <img src={imageUrl} className={styles.root__image} alt='' />
         </div>

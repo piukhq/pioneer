@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import Modal from 'components/Modal'
 import Button from 'components/Button'
@@ -11,11 +11,14 @@ import { useModals } from 'hooks/useModals'
 import styles from './AccountMenu.module.scss'
 
 const AccountMenu = () => {
-  const { requestAccountMenuModal, shouldAccountMenuModalRender } = useModals()
+  const { dispatchModal, modalToRender } = useModals()
+
+  const handleAccountMenuClick = useCallback(() => { dispatchModal('ACCOUNT_MENU') }, [dispatchModal])
+
   return (
     <>
-      <AccountMenuButton onClick={requestAccountMenuModal}/>
-      { shouldAccountMenuModalRender && (
+      <AccountMenuButton onClick={ handleAccountMenuClick }/>
+      { modalToRender === 'ACCOUNT_MENU' && (
        <AccountMenuModal/>
       )}
     </>

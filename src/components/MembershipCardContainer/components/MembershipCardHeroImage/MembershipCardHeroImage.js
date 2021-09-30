@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import cx from 'classnames'
 
 import MembershipCardHeroModal from 'components/Modals/MembershipCardHeroModal'
@@ -12,7 +12,9 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
 
-  const { requestMembershipCardHeroModal, shouldMembershipCardHeroModalRender } = useModals()
+  const { dispatchModal, modalToRender } = useModals()
+
+  const handleMembershipCardHeroImageClick = useCallback(() => { dispatchModal('MEMBERSHIP_CARD_HERO') }, [dispatchModal])
 
   const shouldRenderHeroImage = () => {
     // If wasabi, use custom asset
@@ -26,7 +28,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
 
   return (
     <>
-      <div className={styles['root__image-section']} style={{ backgroundColor }} onClick={requestMembershipCardHeroModal}>
+      <div className={styles['root__image-section']} style={{ backgroundColor }} onClick={handleMembershipCardHeroImageClick}>
         {shouldRenderHeroImage()}
         { membershipId && (
           <div className={styles['root__card-number']}>
@@ -34,7 +36,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
           </div>
         )}
       </div>
-      {shouldMembershipCardHeroModalRender && <MembershipCardHeroModal membershipCard={membershipCard} />}
+      {modalToRender === 'MEMBERSHIP_CARD_HERO' && <MembershipCardHeroModal membershipCard={membershipCard} />}
     </>
   )
 }

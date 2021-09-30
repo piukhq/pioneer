@@ -27,15 +27,8 @@ jest.mock('hooks/useModals', () => ({
 }))
 
 const useModalsDefaultValues = {
-  requestPaymentCardAddFormModal: jest.fn(),
-  requestMembershipCardTransactionsModal: jest.fn(),
-  shouldMembershipCardTransactionsModalRender: false,
-  requestMembershipCardNoTransactionsModal: jest.fn(),
-  shouldMembershipCardNoTransactionsModalRender: false,
-  requestMembershipCardNoRewardsModal: jest.fn(),
-  shouldMembershipCardNoRewardsModalRender: false,
-  requestMembershipCardNonActiveVouchersModal: jest.fn(),
-  shouldMembershipCardNonActiveVouchersModalRender: false,
+  dispatchModal: jest.fn(),
+  modalToRender: 'NO_MODAL',
 }
 
 describe('Test RewardsHistory', () => {
@@ -89,7 +82,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render the transactions modal', () => {
-        useModals.mockImplementation(() => ({ shouldMembershipCardTransactionsModalRender: true }))
+        useModals.mockImplementation(() => ({ modalToRender: 'MEMBERSHIP_CARD_TRANSACTIONS' }))
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('transaction-modal')).toBeInTheDocument()
       })
@@ -127,7 +120,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render the no transaction history modal', () => {
-        useModals.mockImplementation(() => ({ shouldMembershipCardNoTransactionsModalRender: true }))
+        useModals.mockImplementation(() => ({ modalToRender: 'MEMBERSHIP_CARD_NO_TRANSACTIONS' }))
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('no-transaction-history-modal')).toBeInTheDocument()
       })
@@ -174,7 +167,7 @@ describe('Test RewardsHistory', () => {
       })
 
       it('should render non active vouchers modal', () => {
-        useModals.mockImplementation(() => ({ shouldMembershipCardNonActiveVouchersModalRender: true }))
+        useModals.mockImplementation(() => ({ modalToRender: 'MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS' }))
 
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('non-active-vouchers-modal')).toBeInTheDocument()
@@ -228,7 +221,7 @@ describe('Test RewardsHistory', () => {
           transactions: [{}],
           nonActiveVouchers: [],
         }))
-        useModals.mockImplementation(() => ({ shouldMembershipCardNoRewardsModalRender: true }))
+        useModals.mockImplementation(() => ({ modalToRender: 'MEMBERSHIP_CARD_NO_REWARDS' }))
         const { queryByTestId } = render(authorisedRewardsHistoryComponent)
         expect(queryByTestId('no-non-active-vouchers-modal')).toBeInTheDocument()
       })

@@ -8,12 +8,12 @@ import styles from './Modal.module.scss'
 
 const Modal = ({ children, className, isLoading, onClose, noCloseModal }) => {
   useModalSetup()
-  const { closeModals } = useModals()
+  const { dispatchModal } = useModals()
   const [opacity, scrollRef, scrollableRef] = useScrollFader()
 
   const handleClose = () => {
     onClose && onClose()
-    closeModals()
+    dispatchModal('NO_MODAL')
   }
 
   return (

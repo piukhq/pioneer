@@ -13,10 +13,11 @@ jest.mock('utils/enums', () => ({
     HERO: 'mock_hero_enum',
   },
 }))
+jest.mock('components/HighVisibilityLabel', () => () => null)
 
 const useModalsDefaultValues = {
-  shouldMembershipCardHeroModalRender: false,
-  requestMembershipCardHeroModal: jest.fn(),
+  dispatchModal: jest.fn(),
+  modalToRender: 'NO_MODAL',
 }
 
 const mockMembershipId = 'mock_membership_id'
@@ -58,6 +59,12 @@ describe('Test MembershipCardHeroImage', () => {
       useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
       const { queryByText } = render(<MembershipCardHeroImage />)
       expect(queryByText(`Card number: ${mockMembershipId}`)).not.toBeInTheDocument()
+    })
+
+    it('should render the hero modal', () => {
+      useModals.mockImplementation(() => ({ modalToRender: 'MEMBERSHIP_CARD_HERO' }))
+      const { queryByTestId } = render(<MembershipCardHeroImage />)
+      expect(queryByTestId('membership-card-hero-modal')).toBeInTheDocument()
     })
   })
 })

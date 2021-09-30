@@ -31,19 +31,7 @@ const MembershipCardPage = () => {
   const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
 
-  const {
-    closeModals,
-    requestPaymentCardLimitModal,
-    shouldPaymentLimitModalRender,
-    requestPaymentCardAddFormModal,
-    shouldPaymentCardAddFormModalRender,
-    requestPaymentCardDeleteFormModal,
-    shouldPaymentCardDeleteFormModalRender,
-    requestPaymentCardLinkingSuccessModal,
-    shouldPaymentCardLinkingSuccessModalRender,
-    requestPaymentCardLinkingErrorModal,
-    shouldPaymentCardLinkingErrorModalRender,
-  } = useModals()
+  const { dispatchModal, modalToRender } = useModals()
 
   // Log user out if account is no longer active
   useEffect(() => {
@@ -72,21 +60,25 @@ const MembershipCardPage = () => {
 
   const handleLinkingError = useCallback((card) => {
     setCardIdToBeDeleted(card?.id)
-    requestPaymentCardLinkingErrorModal()
-  }, [requestPaymentCardLinkingErrorModal])
+    dispatchModal('PAYMENT_CARD_LINKING_ERROR')
+  }, [dispatchModal])
 
   const handleLinkingSuccess = useCallback(() => {
-    requestPaymentCardLinkingSuccessModal()
-  }, [requestPaymentCardLinkingSuccessModal])
+    dispatchModal('PAYMENT_CARD_LINKING_SUCCESS')
+  }, [dispatchModal])
 
   const handleDeletePaymentCard = useCallback(async (card) => {
     setCardIdToBeDeleted(card.id)
-    requestPaymentCardDeleteFormModal()
-  }, [setCardIdToBeDeleted, requestPaymentCardDeleteFormModal])
+    dispatchModal('PAYMENT_CARD_DELETE_FORM')
+  }, [setCardIdToBeDeleted, dispatchModal])
 
   const handleCloseDeletePaymentCardForm = useCallback(() => {
     setCardIdToBeDeleted(null)
-  }, [])
+    dispatchModal('NO_MODAL')
+  }, [dispatchModal])
+  const handleCloseAddPaymentCardForm = useCallback(() => {
+    dispatchModal('NO_MODAL')
+  }, [dispatchModal])
 
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
@@ -110,15 +102,15 @@ const MembershipCardPage = () => {
   }
 
   const shouldRenderModalOverlay = () => {
-    if (shouldPaymentCardLinkingErrorModalRender) {
+    if (modalToRender === 'PAYMENT_CARD_LINKING_ERROR') {
       return <LinkCardsErrorModal paymentCardId={cardIdToBeDeleted}/>
-    } else if (shouldPaymentCardLinkingSuccessModalRender) {
+    } else if (modalToRender === 'PAYMENT_CARD_LINKING_SUCCESS') {
       return <LinkCardsSuccessModal />
-    } else if (shouldPaymentLimitModalRender) {
+    } else if (modalToRender === 'PAYMENT_CARD_LIMIT') {
       return <PaymentCardLimitModal />
-    } else if (shouldPaymentCardAddFormModalRender) {
-      return <PaymentCardAddForm onClose={ closeModals }/>
-    } else if (shouldPaymentCardDeleteFormModalRender) {
+    } else if (modalToRender === 'PAYMENT_CARD_ADD_FORM') {
+      return <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm}/>
+    } else if (modalToRender === 'PAYMENT_CARD_DELETE_FORM') {
       return (
         <PaymentCardDeleteForm
         paymentCardId={cardIdToBeDeleted}
@@ -139,17 +131,16 @@ const MembershipCardPage = () => {
           {shouldRenderModalOverlay()}
 
           <AccountMenu />
-          <MembershipCardContainer membershipCard={membershipCard} addPaymentCardClickHandler={requestPaymentCardAddFormModal} />
+          <MembershipCardContainer membershipCard={membershipCard} />
           {shouldRenderVoucherSection()}
 
           <PaymentCards
             handleLinkingSuccess={handleLinkingSuccess}
             handleLinkingError={handleLinkingError}
-            setPaymentCardLimitModalVisible={requestPaymentCardLimitModal}
-            handleAddPaymentCard={requestPaymentCardAddFormModal}
+            setPaymentCardLimitModalVisible={ () => dispatchModal('PAYMENT_CARD_LIMIT')}
+            handleAddPaymentCard={ () => dispatchModal('PAYMENT_CARD_ADD_FORM')}
             handleDeletePaymentCard={handleDeletePaymentCard}
           />
-
           {/* todo: temporary for dev purposes only. It will display only in dev mode though */}
           <DevDeleteMembershipCard cardId={membershipCard.id} />
         </>

@@ -1,11 +1,9 @@
 import React from 'react'
 import * as reactRedux from 'react-redux'
 import { render } from '@testing-library/react'
-import { Provider } from 'react-redux'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLinkPaymentCard } from './hooks/useLinkPaymentCard'
 import { useModals } from 'hooks/useModals'
-import configureMockStore from 'redux-mock-store'
 
 import PaymentCards from './PaymentCards'
 
@@ -30,7 +28,7 @@ jest.mock('hooks/useModals', () => ({
   useModals: jest.fn(),
 }))
 const useModalsDefaultValues = {
-  requestPaymentCardLimitModal: jest.fn(),
+  dispatchModal: jest.fn(),
 }
 
 describe('Test PaymentCards', () => {
@@ -43,10 +41,7 @@ describe('Test PaymentCards', () => {
   const mockHandleAddPaymentCard = jest.fn()
   const mockHandleDeletePaymentCard = jest.fn()
 
-  const mockStore = configureMockStore([])
-  const store = mockStore()
   const paymentCardsComponent = (
-    <Provider store={store}>
       <PaymentCards
         handleLinkingSuccess={mockHandleLinkingSuccess}
         handleLinkingError={mockHandleLinkingError}
@@ -54,7 +49,6 @@ describe('Test PaymentCards', () => {
         handleAddPaymentCard={mockHandleAddPaymentCard}
         handleDeletePaymentCard={mockHandleDeletePaymentCard}
       />
-    </Provider>
   )
 
   const mockMembershipCard = {}
