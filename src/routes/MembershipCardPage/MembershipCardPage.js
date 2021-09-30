@@ -79,7 +79,6 @@ const MembershipCardPage = () => {
   const handleCloseAddPaymentCardForm = useCallback(() => {
     dispatchModal('NO_MODAL')
   }, [dispatchModal])
-
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
     if (serviceLoading || serviceError || membershipCard?.status?.state === 'pending') {
