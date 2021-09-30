@@ -6,7 +6,7 @@ import Button from 'components/Button'
 
 import styles from './LinkedCardsErrorModal.module.scss'
 
-const LinkCardsErrorModal = ({ onClose, paymentCardId }) => {
+const LinkCardsErrorModal = ({ paymentCardId }) => {
   const { contactSupport } = useContactSupport()
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
@@ -14,12 +14,12 @@ const LinkCardsErrorModal = ({ onClose, paymentCardId }) => {
     error,
     loading,
     handleDelete,
-  } = usePaymentCardDelete(paymentCardId, onClose)
+  } = usePaymentCardDelete(paymentCardId)
 
   const errorMessage = error ? 'There was an error, please try again.' : null
 
   return (
-  <Modal onClose={onClose}>
+  <Modal>
     <Modal.Header>Card cannot be linked</Modal.Header>
     <div className={styles.root__paragraph}>
       Your credit/debit card cannot be linked to your {planName} {planNameSuffix}. This usually happens when you have already linked it to a different {planName} {planNameSuffix}.

@@ -3,7 +3,7 @@ import Modal from 'components/Modal'
 
 import styles from './TransactionsRewardsEmptyStateModal.module.scss'
 
-const TransactionsRewardsEmptyStateModal = ({ setIsModalOpenState, title, description, balance }) => {
+const TransactionsRewardsEmptyStateModal = ({ title, description, balance }) => {
   const calculateLastUpdatedValue = () => {
     const lastUpdatedTime = new Date(0) // The 0 there is the key, which sets the date to the epoch
     lastUpdatedTime.setUTCSeconds(balance?.updated_at)
@@ -29,7 +29,7 @@ const TransactionsRewardsEmptyStateModal = ({ setIsModalOpenState, title, descri
   }
 
   return (
-  <Modal onClose={() => setIsModalOpenState(false)}>
+  <Modal>
     <Modal.Header>{title}</Modal.Header>
     <div className={styles.root__paragraph}>{description}</div>
     <div className={styles['root__last-updated-text']}>Last updated {calculateLastUpdatedValue()} ago</div>

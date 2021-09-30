@@ -14,7 +14,7 @@ const MembershipCardDeleteModal = ({ onClose, cardId, planString }) => {
   }
 
   return (
-    <Modal onClose={onClose}>
+    <Modal>
       <div className={styles.root__paragraph}>Are you sure you want to delete your {planString}?</div>
       <Button tertiary className={styles.root__button} onClick={handleCardDelete}>Delete</Button>
     </Modal>

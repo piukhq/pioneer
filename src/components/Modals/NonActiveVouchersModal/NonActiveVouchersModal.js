@@ -5,11 +5,11 @@ import { useMembershipCardStateById } from 'hooks/membershipCards'
 
 import styles from './NonActiveVouchersModal.module.scss'
 
-const NonActiveVouchersModal = ({ membershipCardId, onClose }) => {
+const NonActiveVouchersModal = ({ membershipCardId }) => {
   const { nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
 
   return (
-    <Modal onClose={onClose} className={styles.root}>
+    <Modal className={styles.root}>
       <Modal.Header>Rewards history</Modal.Header>
       <div className={styles.root__description}>Your past rewards</div>
       { nonActiveVouchers?.length > 0 ? (

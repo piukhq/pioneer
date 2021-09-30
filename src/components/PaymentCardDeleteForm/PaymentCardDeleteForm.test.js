@@ -1,5 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
 import { usePaymentCardDeleteForm } from './hooks/usePaymentCardDeleteForm'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import PaymentCardDeleteForm from 'components/PaymentCardDeleteForm'
@@ -32,12 +34,17 @@ const useMembershipCardDetailsByCardIdDefaultValues = {
   planNameSuffix: mockPlanNameSuffix,
 }
 
+const mockStore = configureMockStore([])
+const store = mockStore()
+
 const paymentCardDeleteFormComponent = (
-  <PaymentCardDeleteForm
-    paymentCardId={mockPaymentCardId}
-    membershipCardId={mockMembershipCardId}
-    onClose={mockOnClose}
-  />
+  <Provider store={store}>
+    <PaymentCardDeleteForm
+      paymentCardId={mockPaymentCardId}
+      membershipCardId={mockMembershipCardId}
+      onClose={mockOnClose}
+    />
+  </Provider>
 )
 
 describe('Test PaymentCardDeleteForm', () => {

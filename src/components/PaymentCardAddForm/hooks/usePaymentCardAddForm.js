@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actions as paymentCardsActions } from 'ducks/paymentCards'
 import { isValidName, isValidExpiry } from 'utils/validation'
 
-export const usePaymentCardAddForm = (onClose) => {
+export const usePaymentCardAddForm = (onClose) => { // TODO: move onClose functionality inside component as part of refactor. Causes card number styling issue doing so atm.
   const [fullName, setFullName] = useState('')
   const [expiry, setExpiry] = useState({ MM: undefined, YY: undefined })
   const [fullNameError, setFullNameError] = useState(undefined)

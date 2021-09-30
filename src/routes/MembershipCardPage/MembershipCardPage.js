@@ -9,6 +9,8 @@ import {
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
+import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import PaymentCards from 'components/PaymentCards'
 import PaymentCardAddForm from 'components/PaymentCardAddForm'
@@ -27,9 +29,10 @@ import useCheckSessionEnded from 'hooks/useCheckSessionEnded'
 const MembershipCardPage = () => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
   const history = useHistory()
-
   const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
+
+  const { dispatchModal, modalToRender } = useModals()
 
   // Log user out if account is no longer active
   useEffect(() => {
@@ -54,39 +57,29 @@ const MembershipCardPage = () => {
     dispatch(allActions.fullRefresh())
   }, [dispatch])
 
-  const [paymentCardAddFormVisible, setPaymentCardAddFormVisible] = useState(false)
-  const [paymentCardLimitModalVisible, setPaymentCardLimitModalVisible] = useState(false)
-  const [deleteFormVisible, setDeleteFormVisible] = useState(false)
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = useState(null)
-  const [linkingSuccessModalVisible, setLinkingSuccessModalVisible] = useState(false)
-  const [linkingErrorModalVisible, setLinkingErrorModalVisible] = useState(false)
-
-  const handleLinkingSuccess = useCallback(() => {
-    setLinkingSuccessModalVisible(true)
-  }, [setLinkingSuccessModalVisible])
 
   const handleLinkingError = useCallback((card) => {
     setCardIdToBeDeleted(card?.id)
-    setLinkingErrorModalVisible(true)
-  }, [setLinkingErrorModalVisible])
+    dispatchModal(modalEnum.PAYMENT_CARD_LINKING_ERROR)
+  }, [dispatchModal])
 
-  const handleCloseAddPaymentCardForm = useCallback(() => {
-    setPaymentCardAddFormVisible(false)
-  }, [setPaymentCardAddFormVisible])
+  const handleLinkingSuccess = useCallback(() => {
+    dispatchModal(modalEnum.PAYMENT_CARD_LINKING_SUCCESS)
+  }, [dispatchModal])
 
   const handleDeletePaymentCard = useCallback(async (card) => {
     setCardIdToBeDeleted(card.id)
-    setDeleteFormVisible(true)
-  }, [setCardIdToBeDeleted, setDeleteFormVisible])
+    dispatchModal(modalEnum.PAYMENT_CARD_DELETE_FORM)
+  }, [setCardIdToBeDeleted, dispatchModal])
 
   const handleCloseDeletePaymentCardForm = useCallback(() => {
-    setDeleteFormVisible(false)
     setCardIdToBeDeleted(null)
-  }, [])
-  const handlePaymentCardAddFormVisible = useCallback(() => {
-    setPaymentCardAddFormVisible(true)
-  }, [])
-
+    dispatchModal(modalEnum.NO_MODAL)
+  }, [dispatchModal])
+  const handleCloseAddPaymentCardForm = useCallback(() => {
+    dispatchModal(modalEnum.NO_MODAL)
+  }, [dispatchModal])
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
     if (serviceLoading || serviceError || membershipCard?.status?.state === 'pending') {
@@ -109,24 +102,21 @@ const MembershipCardPage = () => {
   }
 
   const shouldRenderModalOverlay = () => {
-    if (linkingErrorModalVisible) {
-      return (
-        <LinkCardsErrorModal
-          paymentCardId={cardIdToBeDeleted}
-          onClose={() => setLinkingErrorModalVisible(false)} />
-      )
-    } else if (linkingSuccessModalVisible) {
-      return <LinkCardsSuccessModal onClose={() => setLinkingSuccessModalVisible(false)} />
-    } else if (paymentCardLimitModalVisible) {
-      return <PaymentCardLimitModal onClose={() => setPaymentCardLimitModalVisible(false)} />
-    } else if (paymentCardAddFormVisible) {
-      return <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm} />
-    } else if (deleteFormVisible) {
+    if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_ERROR) {
+      return <LinkCardsErrorModal paymentCardId={cardIdToBeDeleted}/>
+    } else if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_SUCCESS) {
+      return <LinkCardsSuccessModal />
+    } else if (modalToRender === modalEnum.PAYMENT_CARD_LIMIT) {
+      return <PaymentCardLimitModal />
+    } else if (modalToRender === modalEnum.PAYMENT_CARD_ADD_FORM) {
+      return <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm}/>
+    } else if (modalToRender === modalEnum.PAYMENT_CARD_DELETE_FORM) {
       return (
         <PaymentCardDeleteForm
-          paymentCardId={cardIdToBeDeleted}
-          membershipCardId={id}
-          onClose={ handleCloseDeletePaymentCardForm } />
+        paymentCardId={cardIdToBeDeleted}
+        membershipCardId={id}
+        onClose={ handleCloseDeletePaymentCardForm }
+        />
       )
     }
     return null
@@ -141,17 +131,14 @@ const MembershipCardPage = () => {
           {shouldRenderModalOverlay()}
 
           <AccountMenu />
-          <MembershipCardContainer membershipCard={membershipCard} addPaymentCardClickHandler={setPaymentCardAddFormVisible} />
+          <MembershipCardContainer membershipCard={membershipCard} />
           {shouldRenderVoucherSection()}
 
           <PaymentCards
             handleLinkingSuccess={handleLinkingSuccess}
             handleLinkingError={handleLinkingError}
-            setPaymentCardLimitModalVisible={setPaymentCardLimitModalVisible}
-            handleAddPaymentCard={handlePaymentCardAddFormVisible}
             handleDeletePaymentCard={handleDeletePaymentCard}
           />
-
           {/* todo: temporary for dev purposes only. It will display only in dev mode though */}
           <DevDeleteMembershipCard cardId={membershipCard.id} />
         </>

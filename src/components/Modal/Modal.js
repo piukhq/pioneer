@@ -2,18 +2,26 @@ import React from 'react'
 import cx from 'classnames'
 import useModalSetup from './hooks/useModalSetup'
 import useScrollFader from './hooks/useScrollFader'
+import { useModals } from 'hooks/useModals'
+import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 import { ReactComponent as ModalCloseSvg } from 'images/modal-close.svg'
 import styles from './Modal.module.scss'
 
-const Modal = ({ children, onClose, className, isLoading }) => {
+const Modal = ({ children, className, isLoading, onClose, noCloseModal }) => {
   useModalSetup()
+  const { dispatchModal } = useModals()
   const [opacity, scrollRef, scrollableRef] = useScrollFader()
+
+  const handleClose = () => {
+    onClose && onClose()
+    dispatchModal(modalEnum.NO_MODAL)
+  }
 
   return (
     <>
-      <div className={styles.root__overlay} onClick={onClose}></div>
+      <div className={styles.root__overlay} onClick={handleClose}></div>
       <div className={cx(styles.root__box, className)}>
-        {onClose && <Modal.CloseButton onClick={onClose} disabled={isLoading} />}
+        {!noCloseModal && <Modal.CloseButton onClick={handleClose} disabled={isLoading} />}
         <div className={styles.root__body} ref={scrollRef}>
           <div className={styles.root__scrollable} ref={scrollableRef}>
             {children}

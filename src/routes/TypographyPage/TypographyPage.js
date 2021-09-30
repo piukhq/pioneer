@@ -7,7 +7,7 @@ import ModalExample from './ModalExample'
 import TextInputGroupExample from 'routes/TypographyPage/TextInputGroupExample'
 import SelectboxGroupExample from 'routes/TypographyPage/SelectboxGroupExample'
 import PageTransitionLoadingIndicatorExample from 'routes/TypographyPage/PageTransitionLoadingIndicatorExample'
-import PaymentCardInputGroupExample from 'routes/TypographyPage/PaymentCardInputGroupExample'
+// import PaymentCardInputGroupExample from 'routes/TypographyPage/PaymentCardInputGroupExample' // TODO: Readd once component has been refactored
 
 const TypographyPage = () => (
   <>
@@ -16,7 +16,7 @@ const TypographyPage = () => (
     <NoteExample />
     <PageTransitionLoadingIndicatorExample />
     <ButtonExample />
-    <PaymentCardInputGroupExample />
+    {/* <PaymentCardInputGroupExample /> */}
     <TextInputGroupExample />
     <SelectboxGroupExample />
     <ModalExample />

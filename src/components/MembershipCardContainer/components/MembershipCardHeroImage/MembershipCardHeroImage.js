@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 import cx from 'classnames'
-import MembershipCardModal from 'components/Modals/MembershipCardModal'
 
-import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
+import MembershipCardHeroModal from 'components/Modals/MembershipCardHeroModal'
+import { useModals } from 'hooks/useModals'
+
+import { MEMBERSHIP_CARD_IMAGE_TYPES, MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 import styles from './MembershipCardHeroImage.module.scss'
 
@@ -11,11 +13,9 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
   const backgroundColor = membershipCard?.card?.colour
   const membershipId = membershipCard?.card?.membership_id
 
-  const [isMembershipCardModalOpen, setIsMembershipCardModalOpen] = useState(false)
+  const { dispatchModal, modalToRender } = useModals()
 
-  const handleMembershipCardClick = () => {
-    setIsMembershipCardModalOpen(true)
-  }
+  const handleMembershipCardHeroImageClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_HERO), [dispatchModal])
 
   const shouldRenderHeroImage = () => {
     // If wasabi, use custom asset
@@ -29,7 +29,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
 
   return (
     <>
-      <div className={styles['root__image-section']} style={{ backgroundColor }} onClick={handleMembershipCardClick}>
+      <div className={styles['root__image-section']} style={{ backgroundColor }} onClick={handleMembershipCardHeroImageClick}>
         {shouldRenderHeroImage()}
         { membershipId && (
           <div className={styles['root__card-number']}>
@@ -37,9 +37,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
           </div>
         )}
       </div>
-      {isMembershipCardModalOpen && (
-        <MembershipCardModal onClose={() => setIsMembershipCardModalOpen(false)} membershipCard={membershipCard} />
-      )}
+      {modalToRender === modalEnum.MEMBERSHIP_CARD_HERO && <MembershipCardHeroModal membershipCard={membershipCard} />}
     </>
   )
 }
