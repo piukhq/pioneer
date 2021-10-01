@@ -35,7 +35,7 @@ const PaymentCardAddForm = ({ onClose }) => {
       <Modal.Header>Add credit/debit card</Modal.Header>
       <div className={styles.root__paragraph}>Enter details below to add your credit/debit card.</div>
 
-      <form className={styles.root}>
+      <form className={styles.root} autocomplete='on'>
         <div className={styles.root__groups}>
           <PaymentCardInputGroup
             className={styles['root__number-group']}
