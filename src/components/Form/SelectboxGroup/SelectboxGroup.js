@@ -15,6 +15,25 @@ const SelectboxGroup = ({
   error,
   disabled,
 }) => {
+  const getAutocompleteValue = (key, name) => {
+    let prefix, suffix
+    if (name === 'payment-card-expiry') {
+      prefix = 'cc-exp-'
+    } else if (name === 'date_of_birth') {
+      prefix = 'bday-'
+    } else {
+      prefix = 'on'
+    }
+    if (key === 'DD') {
+      suffix = 'day'
+    } else if (key === 'MM') {
+      suffix = 'month'
+    } else if (key === 'YY' || key === 'YYYY') {
+      suffix = 'year'
+    }
+    return `${prefix}${suffix}`
+  }
+
   return (
     <div className={cx(
       styles.root,
@@ -46,7 +65,6 @@ const SelectboxGroup = ({
                   error && styles['root__down-arrow--error'],
                 )} />
               </div>
-
               <select
                 className={cx(
                   styles.root__input,
@@ -54,8 +72,10 @@ const SelectboxGroup = ({
                 )}
                 onChange={(event) => onChange(key, event)}
                 onBlur={(event) => onBlur(key, event)}
-                name={key}
+                name={getAutocompleteValue(key, name)}
                 key={key}
+                autoComplete={getAutocompleteValue(key, name)}
+                title={key}
                 defaultValue=""
                 id={`bink-form-field-${name}-${key}`}
                 disabled={disabled}
