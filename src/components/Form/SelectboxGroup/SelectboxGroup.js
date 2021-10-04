@@ -50,6 +50,7 @@ const SelectboxGroup = ({
 
       <div className={styles.root__container}>
         {Object.keys(values).map(key => {
+          const autocompleteValue = getAutocompleteValue(key, name)
           return (
             <div className={styles['root__select-container']} key={key}>
               {/* This will render on top of the select element and display our own styled placeholder and arrow icon */}
@@ -72,9 +73,9 @@ const SelectboxGroup = ({
                 )}
                 onChange={(event) => onChange(key, event)}
                 onBlur={(event) => onBlur(key, event)}
-                name={getAutocompleteValue(key, name)}
+                name={autocompleteValue}
                 key={key}
-                autoComplete={getAutocompleteValue(key, name)}
+                autoComplete={autocompleteValue}
                 title={key}
                 defaultValue=""
                 id={`bink-form-field-${name}-${key}`}
