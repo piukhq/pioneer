@@ -22,7 +22,7 @@ const SelectboxGroup = ({
     } else if (name === 'date_of_birth') {
       prefix = 'bday-'
     } else {
-      prefix = 'on'
+      return 'on' // if there is no recognised prefix just set autocomplete to 'on' for this field
     }
     if (key === 'DD') {
       suffix = 'day'
