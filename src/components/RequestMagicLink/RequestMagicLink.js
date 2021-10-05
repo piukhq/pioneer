@@ -88,6 +88,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           <TextInputGroup
             className={styles['root__email-field']}
             placeholder='Enter email address'
+            autocomplete='email'
             value={email}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -136,6 +137,7 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
           <TextInputGroup
             className={styles['root__email-field']}
             placeholder='Enter email address'
+            autocomplete='email'
             value={email}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -163,6 +165,7 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
           <TextInputGroup
             className={styles['root__email-field']}
             placeholder='Enter email address'
+            autocomplete='email'
             value={email}
             onChange={handleChange}
             onBlur={handleBlur}
