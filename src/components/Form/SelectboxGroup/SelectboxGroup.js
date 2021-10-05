@@ -15,14 +15,15 @@ const SelectboxGroup = ({
   error,
   disabled,
 }) => {
-  const getAutocompleteValue = (key, name) => {
+  const getAutocompleteValue = (key, name) => { // sets correct autocomplete for recognised fields, defaulting to 'on' when values are blank or not recognised.
+    if (!key || !name) return 'on'
     let prefix, suffix
     if (name === 'payment-card-expiry') {
       prefix = 'cc-exp-'
     } else if (name === 'date_of_birth') {
       prefix = 'bday-'
     } else {
-      return 'on' // if there is no recognised prefix just set autocomplete to 'on' for this field
+      return 'on'
     }
     if (key === 'DD') {
       suffix = 'day'
@@ -30,6 +31,8 @@ const SelectboxGroup = ({
       suffix = 'month'
     } else if (key === 'YY' || key === 'YYYY') {
       suffix = 'year'
+    } else {
+      return 'on'
     }
     return `${prefix}${suffix}`
   }
