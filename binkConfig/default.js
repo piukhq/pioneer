@@ -148,7 +148,7 @@ module.exports = {
       case 'fatface': return 'bink_web_fatface_1@bink.com'
     }
   })(),
-  supportDebugLogin: true,
+  devOnlyToolsEnabled: true,
   spreedlyEnvironmentKey: 'Yc7xn3gDP73PPOQLEB2BYpv31EV',
   spreedlyCardNumberStyle: (() => {
     switch (process.env.THEME) {

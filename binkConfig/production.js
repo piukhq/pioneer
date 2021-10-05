@@ -16,7 +16,7 @@ module.exports = {
       case 'fatface': return null
     }
   })(),
-  supportDebugLogin: false,
+  devOnlyToolsEnabled: false,
   spreedlyEnvironmentKey: '1Lf7DiKgkcx5Anw7QxWdDxaKtTa',
   disabledPersistentSessions: true, // TODO: Temporary measure for web-464
 }

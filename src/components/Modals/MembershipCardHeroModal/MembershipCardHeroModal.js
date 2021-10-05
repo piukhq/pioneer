@@ -43,8 +43,6 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
     }
   }, [cardId, barcodeIndex, barcodeArray])
 
-  console.log(process.env.NODE_ENV)
-
   return (
     <Modal className={styles.root}>
       <div data-testid='membership-card-hero-modal' className={styles.root__container}>
@@ -59,7 +57,7 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
         )}
 
         {/* TODO: Dev environment dependancy only needed until there is a way to view merchant cards with barcodes */}
-        {process.env.NODE_ENV === 'development' && (
+        {Config.devOnlyToolsEnabled && (
           <div className={cx('dev-only', styles['root__barcode-container'], styles['root__dev-only'])}>
             <canvas id="barcode" hidden={barcodeError}></canvas>
 
