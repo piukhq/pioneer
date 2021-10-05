@@ -15,7 +15,7 @@ const SelectboxGroup = ({
   error,
   disabled,
 }) => {
-  const getAutocompleteValue = (key, name) => { // sets correct autocomplete for recognised fields, defaulting to 'on' when values are blank or not recognised.
+  const getAutocompleteValue = (key) => { // sets correct autocomplete for recognised fields, defaulting to 'on' when values are blank or not recognised.
     if (!key || !name) return 'on'
     let prefix, suffix
     if (name === 'payment-card-expiry') {
@@ -53,7 +53,7 @@ const SelectboxGroup = ({
 
       <div className={styles.root__container}>
         {Object.keys(values).map(key => {
-          const autocompleteValue = getAutocompleteValue(key, name)
+          const autocompleteValue = getAutocompleteValue(key)
           return (
             <div className={styles['root__select-container']} key={key}>
               {/* This will render on top of the select element and display our own styled placeholder and arrow icon */}
