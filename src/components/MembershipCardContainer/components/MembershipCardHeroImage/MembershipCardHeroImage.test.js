@@ -15,6 +15,9 @@ jest.mock('utils/enums', () => ({
   MODAL_ACTION_TYPES: {
     MEMBERSHIP_CARD_HERO: 'MEMBERSHIP_CARD_HERO',
   },
+  BARCODE_TYPES: {
+    QR_CODE: 'QR_CODE',
+  },
 }))
 jest.mock('components/HighVisibilityLabel', () => () => null)
 
