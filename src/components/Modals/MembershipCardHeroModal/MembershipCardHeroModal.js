@@ -43,6 +43,8 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
     }
   }, [cardId, barcodeIndex, barcodeArray])
 
+  console.log(process.env.NODE_ENV)
+
   return (
     <Modal className={styles.root}>
       <div data-testid='membership-card-hero-modal' className={styles.root__container}>
