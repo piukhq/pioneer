@@ -15,27 +15,29 @@ const SelectboxGroup = ({
   error,
   disabled,
 }) => {
-  const getAutocompleteValue = (key) => { // sets correct autocomplete for recognised fields, defaulting to 'on' when values are blank or not recognised.
-    if (!key || !name) return 'on'
-    let prefix, suffix
+  const getAutocompletePrefix = () => {
+    let prefix = 'on'
     if (name === 'payment-card-expiry') {
       prefix = 'cc-exp-'
     } else if (name === 'date_of_birth') {
       prefix = 'bday-'
-    } else {
-      return 'on'
     }
+    return prefix
+  }
+
+  const getAutocompleteSuffix = (key) => {
+    let suffix
     if (key === 'DD') {
       suffix = 'day'
     } else if (key === 'MM') {
       suffix = 'month'
     } else if (key === 'YY' || key === 'YYYY') {
       suffix = 'year'
-    } else {
-      return 'on'
     }
-    return `${prefix}${suffix}`
+    return suffix
   }
+
+  const prefix = getAutocompletePrefix()
 
   return (
     <div className={cx(
@@ -50,10 +52,9 @@ const SelectboxGroup = ({
         )}
         htmlFor={`bink-form-field-${name}`}
       >{label}</label>
-
       <div className={styles.root__container}>
         {Object.keys(values).map(key => {
-          const autocompleteValue = getAutocompleteValue(key)
+          const autocompleteValue = `${prefix}${getAutocompleteSuffix(key)}`
           return (
             <div className={styles['root__select-container']} key={key}>
               {/* This will render on top of the select element and display our own styled placeholder and arrow icon */}
