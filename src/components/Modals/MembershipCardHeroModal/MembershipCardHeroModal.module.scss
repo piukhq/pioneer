@@ -28,4 +28,19 @@
     text-align: center;
     font-size: 22px;
   }
+
+  &__barcode-container {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__dev-only {
+    padding: 10px;
+  }
+
+  &__cycle-button {
+    margin: 10px;
+  }
 }

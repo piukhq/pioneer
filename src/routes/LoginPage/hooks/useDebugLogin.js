@@ -8,7 +8,7 @@ const useDebugLogin = () => {
   if (queryDebugLogin === 'true') {
     localStorage.setItem('debugLogin', 'true')
   }
-  const debugLogin = Config.supportDebugLogin && localStorage.getItem('debugLogin')
+  const debugLogin = Config.devOnlyToolsEnabled && localStorage.getItem('debugLogin')
   const hideDebugLogin = () => {
     localStorage.removeItem('debugLogin')
     history.replace('/')
