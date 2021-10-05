@@ -12,6 +12,7 @@ const TextInputGroup = ({
   onBlur,
   error,
   disabled,
+  autocomplete,
   type = 'text',
   ...rest
 }) => {
@@ -44,6 +45,7 @@ const TextInputGroup = ({
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled}
+        autoComplete={autocomplete}
         {...rest}
       />
       { error && (

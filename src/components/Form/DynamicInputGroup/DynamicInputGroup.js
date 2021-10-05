@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import SelectboxGroup from 'components/Form/SelectboxGroup'
 import CheckboxGroup from 'components/Form/CheckboxGroup'
@@ -23,6 +23,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
 
   const [dateOfBirth, setDateOfBirth] = useState({})
   const [isInvalidDateOfBirth, setIsInvalidDateOfBirth] = useState(false)
+  const [textAutocompleteAttribute, setTextAutocompleteAttribute] = useState('on')
 
   const isDOBField = type === 0 && common_name === 'date_of_birth'
 
@@ -88,6 +89,14 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
     return error || isInvalidDateOfBirth ? 'Invalid date' : ''
   }, [error, isInvalidDateOfBirth])
 
+  useEffect(() => {
+    if (column === 'First name') {
+      setTextAutocompleteAttribute('given-name')
+    } else if (column === 'Last name') {
+      setTextAutocompleteAttribute('family-name')
+    }
+  }, [setTextAutocompleteAttribute, column])
+
   switch (inputType) {
     case types.TEXT_INPUT:
       return (
@@ -100,6 +109,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           name={common_name}
           label={column}
           placeholder={description}
+          autocomplete={textAutocompleteAttribute}
           {...rest}
         />
       )
@@ -115,6 +125,7 @@ const DynamicInputGroup = ({ className, data, fieldType, value, onChange, onBlur
           label={column}
           placeholder={description}
           type='password'
+          autocomplete='current-password'
           {...rest}
         />
       )

@@ -63,6 +63,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             label='Name on card'
             placeholder='Name on card'
             name='payment-card-cardholder-name'
+            autoComplete='cc-name'
             value={fullName}
             onChange={handleNameChange}
             onBlur={handleNameBlur}
