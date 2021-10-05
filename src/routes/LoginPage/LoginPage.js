@@ -24,6 +24,8 @@ const LoginPage = () => {
     hideDebugLogin,
   } = useDebugLogin()
 
+  console.log(process.env.NODE_ENV)
+
   return (
     <div>
       <RequestMagicLink />
