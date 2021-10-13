@@ -3,6 +3,7 @@ import cx from 'classnames'
 import useLogout from 'hooks/useLogout'
 import useContactSupport from 'hooks/useContactSupport'
 import { useMerchantMembershipCards } from './hooks/useMerchantMembershipCards'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import MultichannelMembershipCards from 'components/MultichannelMembershipCards'
 import Button from 'components/Button'
 import HangTight from 'components/HangTight'
@@ -13,6 +14,7 @@ import styles from './MerchantMembershipCards.module.scss'
 const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
   const { tooManyCardsError, shouldDisplayWeFoundYou, membershipCard, isMembershipCardPending } = useMerchantMembershipCards()
 
@@ -38,7 +40,11 @@ const MerchantMembershipCards = () => {
   if (shouldDisplayWeFoundYou) {
     return (
       <div data-testid='we-found-you'>
-        <WeFoundYou />
+        <WeFoundYou
+          heading='We found you'
+          paragraphOne={`You already have a ${planName} ${planNameSuffix}.`}
+          paragraphTwoPrefix= 'To view your card details'
+        />
       </div>
     )
   }

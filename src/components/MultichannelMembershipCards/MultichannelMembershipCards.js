@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
 import AccountMenu from 'components/AccountMenu'
 import LoadingIndicator from 'components/LoadingIndicator'
 import MembershipCardDeleteModal from 'components/Modals/MembershipCardDeleteModal'
+import WeFoundYou from 'components/WeFoundYou'
 import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import { useModals } from 'hooks/useModals'
@@ -14,12 +15,15 @@ import { formatValueToDecimalPlace } from 'utils/format'
 import styles from './MultichannelMembershipCards.module.scss'
 
 const MultichannelMembershipCards = () => {
+  const { error: serviceError } = useSelector(state => state.service)
   const { membershipCards, loading } = useMembershipCardsState()
   const { dispatchModal, modalToRender } = useModals()
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
 
   // Stores membership card that delete modal is associated with
   const [deleteModalMembershipCard, setDeleteModalMembershipCard] = React.useState(null)
+  const [shouldRenderNewUserWeFoundYou, setShouldRenderNewUserWeFoundYou] = React.useState(false)
+  const [shouldRenderExistingUserWeFoundYou, setShouldRenderExistingUserWeFoundYou] = React.useState(false)
 
   const getPlanInfo = (planId) => {
     if (planId && plans.length > 0) {
@@ -59,6 +63,31 @@ const MultichannelMembershipCards = () => {
     setDeleteModalMembershipCard(card)
     dispatchModal(modalEnum.MEMBERSHIP_CARD_DELETE)
   }, [dispatchModal])
+
+  useEffect(() => {
+    if (serviceError && !membershipCards.length === 0) {
+      setShouldRenderNewUserWeFoundYou(true)
+    } else if (serviceError) {
+      setShouldRenderExistingUserWeFoundYou(true)
+    }
+  }, [setShouldRenderNewUserWeFoundYou, setShouldRenderExistingUserWeFoundYou, membershipCards, serviceError])
+
+  if (shouldRenderNewUserWeFoundYou) {
+    return <WeFoundYou
+      heading='Welcome to Bink'
+      paragraphOne={null}
+      paragraphTwoPrefix= 'To use Bink services,'
+    />
+  } else if (shouldRenderExistingUserWeFoundYou) {
+    return <WeFoundYou
+      heading='We found you'
+      paragraphOne='You already have an account with Bink.'
+      paragraphTwoPrefix= 'To login to your account,'
+    />
+  }
+
+  // TODO: Give this a good testing via POSTMAN.
+  // TODO: See if the hang tight is needed for the loading of membership cards (which should probably check for service)
 
   // Separate to getPlanInfo as that function returns additional info we are not interested in
   const getPlanString = () => {
