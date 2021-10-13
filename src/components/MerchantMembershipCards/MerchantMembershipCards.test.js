@@ -1,5 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import * as reactRedux from 'react-redux'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useMerchantMembershipCards } from './hooks/useMerchantMembershipCards'
 import MerchantMembershipCards from './MerchantMembershipCards'
 
@@ -18,10 +20,24 @@ jest.mock('./hooks/useMerchantMembershipCards', () => ({
 jest.mock('components/WeFoundYou', () => () => null)
 jest.mock('components/PreparingYourCard', () => () => null)
 jest.mock('components/MultichannelMembershipCards', () => () => null)
+const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
+jest.mock('hooks/useMembershipCardDetailsByCardId', () => ({
+  useMembershipCardDetailsByCardId: jest.fn(),
+}))
+
+const mockMembershipCards = [{
+  id: 'mock_membership_card_id',
+}]
 
 describe('Test MerchantMembershipCards', () => {
   beforeEach(() => {
+    useSelectorMock.mockClear()
     jest.clearAllMocks()
+    useSelectorMock.mockReturnValue(mockMembershipCards)
+    useMembershipCardDetailsByCardId.mockImplementation(() => ({
+      planName: 'mockPlanName',
+      planNameSuffix: 'mockPlanNameSuffix',
+    }))
   })
 
   describe('Test too many cards error scenario', () => {
