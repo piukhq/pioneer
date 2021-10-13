@@ -65,7 +65,7 @@ const MultichannelMembershipCards = () => {
   }, [dispatchModal])
 
   useEffect(() => {
-    if (serviceError && !membershipCards.length === 0) {
+    if (serviceError && membershipCards.length === 0) {
       setShouldRenderNewUserWeFoundYou(true)
     } else if (serviceError) {
       setShouldRenderExistingUserWeFoundYou(true)
