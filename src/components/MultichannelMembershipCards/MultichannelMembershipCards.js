@@ -86,9 +86,6 @@ const MultichannelMembershipCards = () => {
     />
   }
 
-  // TODO: Give this a good testing via POSTMAN.
-  // TODO: See if the hang tight is needed for the loading of membership cards (which should probably check for service)
-
   // Separate to getPlanInfo as that function returns additional info we are not interested in
   const getPlanString = () => {
     const plan = plans.find(plan => plan.id === deleteModalMembershipCard.membership_plan)
