@@ -15,10 +15,10 @@ import { formatValueToDecimalPlace } from 'utils/format'
 import styles from './MultichannelMembershipCards.module.scss'
 
 const MultichannelMembershipCards = () => {
-  const { error: serviceError } = useSelector(state => state.service)
   const { membershipCards, loading } = useMembershipCardsState()
   const { dispatchModal, modalToRender } = useModals()
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
+  const { error: serviceError } = useSelector(state => state.service)
 
   // Stores membership card that delete modal is associated with
   const [deleteModalMembershipCard, setDeleteModalMembershipCard] = React.useState(null)
@@ -88,7 +88,7 @@ const MultichannelMembershipCards = () => {
 
   // Separate to getPlanInfo as that function returns additional info we are not interested in
   const getPlanString = () => {
-    const plan = plans.find(plan => plan.id === deleteModalMembershipCard.membership_plan)
+    const plan = plans.find(plan => plan.id === deleteModalMembershipCard?.membership_plan)
     if (plan) {
       const { plan_name: planName, plan_name_card: planNameCard } = plan?.account
       return `${planName} ${planNameCard}`
@@ -144,7 +144,7 @@ const MultichannelMembershipCards = () => {
     <div className={styles.root} data-testid='root-container' id='multichannel-membership-cards-container'>
       {modalToRender === modalEnum.MEMBERSHIP_CARD_DELETE && (
         <div data-testid='membership-card-delete-modal'>
-          <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard.id} planString={getPlanString()}/>
+          <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard?.id} planString={getPlanString()}/>
         </div>
       )}
 
