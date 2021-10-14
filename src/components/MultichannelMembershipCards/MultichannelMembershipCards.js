@@ -65,10 +65,12 @@ const MultichannelMembershipCards = () => {
   }, [dispatchModal])
 
   useEffect(() => {
-    if (serviceError && membershipCards.length === 0) {
-      setShouldRenderNewUserTermsAndConditionsCheck(true)
-    } else if (serviceError) {
-      setShouldRenderExistingUserTermsAndConditionsCheck(true)
+    if (serviceError) {
+      if (membershipCards.length === 0) {
+        setShouldRenderNewUserTermsAndConditionsCheck(true)
+      } else {
+        setShouldRenderExistingUserTermsAndConditionsCheck(true)
+      }
     }
   }, [setShouldRenderNewUserTermsAndConditionsCheck, setShouldRenderExistingUserTermsAndConditionsCheck, membershipCards, serviceError])
 
