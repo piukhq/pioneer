@@ -75,7 +75,6 @@ const MultichannelMembershipCards = () => {
   if (shouldRenderNewUserTermsAndConditionsCheck) {
     return <TermsAndConditionsCheck
       heading='Welcome to Bink'
-      paragraphOne={null}
       paragraphTwoPrefix= 'To use Bink services,'
     />
   } else if (shouldRenderExistingUserTermsAndConditionsCheck) {
