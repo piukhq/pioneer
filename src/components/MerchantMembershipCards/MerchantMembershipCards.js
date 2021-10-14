@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import useLogout from 'hooks/useLogout'
+import { useLogout } from 'hooks/useLogout'
 import useContactSupport from 'hooks/useContactSupport'
 import { useMerchantMembershipCards } from './hooks/useMerchantMembershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'

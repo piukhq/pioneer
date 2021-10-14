@@ -24,7 +24,7 @@ import Vouchers from 'components/Vouchers'
 import MembershipCardContainer from 'components/MembershipCardContainer'
 
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
-import useCheckSessionEnded from 'hooks/useCheckSessionEnded'
+import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 
 const MembershipCardPage = () => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
