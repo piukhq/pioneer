@@ -42,6 +42,14 @@ describe('Test TermsAndConditionsCheck', () => {
     const { getByTestId } = render(termsAndConditionsCheckComponent)
     expect(getByTestId('paragraphTwo')).toContainHTML(`${mockParagraphTwoPrefix} you need to accept the`)
   })
+  it('should render continue button', () => {
+    const { getByRole } = render(termsAndConditionsCheckComponent)
+    expect(getByRole('button', { name: /continue/i })).toBeInTheDocument()
+  })
+  it('should render cancel button', () => {
+    const { getByRole } = render(termsAndConditionsCheckComponent)
+    expect(getByRole('button', { name: /cancel/i })).toBeInTheDocument()
+  })
 })
 
 // buttons
