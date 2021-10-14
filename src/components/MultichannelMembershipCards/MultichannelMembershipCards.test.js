@@ -8,7 +8,7 @@ import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 import MultichannelMembershipCards from './MultichannelMembershipCards'
 
 jest.mock('components/Modals/MembershipCardDeleteModal', () => () => null)
-jest.mock('components/WeFoundYou', () => () => null)
+jest.mock('components/TermsAndConditionsCheck', () => () => null)
 
 jest.mock('hooks/membershipCards', () => ({
   useMembershipCardsState: jest.fn(),

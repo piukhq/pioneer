@@ -8,7 +8,7 @@ import MultichannelMembershipCards from 'components/MultichannelMembershipCards'
 import Button from 'components/Button'
 import HangTight from 'components/HangTight'
 import PreparingYourCard from 'components/PreparingYourCard'
-import WeFoundYou from 'components/WeFoundYou'
+import TermsAndConditionsCheck from 'components/TermsAndConditionsCheck'
 import styles from './MerchantMembershipCards.module.scss'
 
 const MerchantMembershipCards = () => {
@@ -16,7 +16,7 @@ const MerchantMembershipCards = () => {
   const { logout } = useLogout()
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
-  const { tooManyCardsError, shouldDisplayWeFoundYou, membershipCard, isMembershipCardPending } = useMerchantMembershipCards()
+  const { tooManyCardsError, shouldDisplayTermsAndConditionsCheck, membershipCard, isMembershipCardPending } = useMerchantMembershipCards()
 
   if (tooManyCardsError) {
     return (
@@ -37,10 +37,10 @@ const MerchantMembershipCards = () => {
     )
   }
 
-  if (shouldDisplayWeFoundYou) {
+  if (shouldDisplayTermsAndConditionsCheck) {
     return (
       <div data-testid='we-found-you'>
-        <WeFoundYou
+        <TermsAndConditionsCheck
           heading='We found you'
           paragraphOne={`You already have a ${planName} ${planNameSuffix}.`}
           paragraphTwoPrefix= 'To view your card details'

@@ -4,7 +4,7 @@ import cx from 'classnames'
 import AccountMenu from 'components/AccountMenu'
 import LoadingIndicator from 'components/LoadingIndicator'
 import MembershipCardDeleteModal from 'components/Modals/MembershipCardDeleteModal'
-import WeFoundYou from 'components/WeFoundYou'
+import TermsAndConditionsCheck from 'components/TermsAndConditionsCheck'
 import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import { useModals } from 'hooks/useModals'
@@ -22,8 +22,8 @@ const MultichannelMembershipCards = () => {
 
   // Stores membership card that delete modal is associated with
   const [deleteModalMembershipCard, setDeleteModalMembershipCard] = React.useState(null)
-  const [shouldRenderNewUserWeFoundYou, setShouldRenderNewUserWeFoundYou] = React.useState(false)
-  const [shouldRenderExistingUserWeFoundYou, setShouldRenderExistingUserWeFoundYou] = React.useState(false)
+  const [shouldRenderNewUserTermsAndConditionsCheck, setShouldRenderNewUserTermsAndConditionsCheck] = React.useState(false)
+  const [shouldRenderExistingUserTermsAndConditionsCheck, setShouldRenderExistingUserTermsAndConditionsCheck] = React.useState(false)
 
   const getPlanInfo = (planId) => {
     if (planId && plans.length > 0) {
@@ -66,20 +66,20 @@ const MultichannelMembershipCards = () => {
 
   useEffect(() => {
     if (serviceError && membershipCards.length === 0) {
-      setShouldRenderNewUserWeFoundYou(true)
+      setShouldRenderNewUserTermsAndConditionsCheck(true)
     } else if (serviceError) {
-      setShouldRenderExistingUserWeFoundYou(true)
+      setShouldRenderExistingUserTermsAndConditionsCheck(true)
     }
-  }, [setShouldRenderNewUserWeFoundYou, setShouldRenderExistingUserWeFoundYou, membershipCards, serviceError])
+  }, [setShouldRenderNewUserTermsAndConditionsCheck, setShouldRenderExistingUserTermsAndConditionsCheck, membershipCards, serviceError])
 
-  if (shouldRenderNewUserWeFoundYou) {
-    return <WeFoundYou
+  if (shouldRenderNewUserTermsAndConditionsCheck) {
+    return <TermsAndConditionsCheck
       heading='Welcome to Bink'
       paragraphOne={null}
       paragraphTwoPrefix= 'To use Bink services,'
     />
-  } else if (shouldRenderExistingUserWeFoundYou) {
-    return <WeFoundYou
+  } else if (shouldRenderExistingUserTermsAndConditionsCheck) {
+    return <TermsAndConditionsCheck
       heading='We found you'
       paragraphOne='You already have an account with Bink.'
       paragraphTwoPrefix= 'To login to your account,'
