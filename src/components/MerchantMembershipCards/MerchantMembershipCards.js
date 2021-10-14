@@ -42,7 +42,7 @@ const MerchantMembershipCards = () => {
       <div data-testid='we-found-you'>
         <TermsAndConditionsCheck
           heading='We found you'
-          paragraphOne={`You’re already a member of the ${planName}`}
+          paragraphOne={`You’re already a member of the ${planName}!`}
           paragraphTwoPrefix= 'To view your card details here'
         />
       </div>
