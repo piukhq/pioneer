@@ -14,7 +14,7 @@ import styles from './MerchantMembershipCards.module.scss'
 const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
-  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
+  const { planName } = useMembershipCardDetailsByCardId()
 
   const { tooManyCardsError, shouldDisplayTermsAndConditionsCheck, membershipCard, isMembershipCardPending } = useMerchantMembershipCards()
 
@@ -42,8 +42,8 @@ const MerchantMembershipCards = () => {
       <div data-testid='we-found-you'>
         <TermsAndConditionsCheck
           heading='We found you'
-          paragraphOne={`You already have a ${planName} ${planNameSuffix}.`}
-          paragraphTwoPrefix= 'To view your card details'
+          paragraphOne={`You’re already a member of the ${planName}`}
+          paragraphTwoPrefix= 'To view your card details here'
         />
       </div>
     )
