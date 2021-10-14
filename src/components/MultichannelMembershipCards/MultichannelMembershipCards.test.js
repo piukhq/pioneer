@@ -183,6 +183,11 @@ describe('Test MultichannelMembershipCards', () => {
 
   describe('Test membership card delete modal render', () => {
     it('should render the delete card modal', () => {
+      React.useState = jest.fn()
+        .mockReturnValueOnce([{ id: 'mock_card_id' }, jest.fn()])
+        .mockReturnValueOnce([false, jest.fn()])
+        .mockReturnValueOnce([false, jest.fn()])
+
       useMembershipCardsState.mockImplementation(() => ({
         membershipCards: [mockCard],
       }))
