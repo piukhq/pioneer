@@ -8,6 +8,7 @@ import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 import MultichannelMembershipCards from './MultichannelMembershipCards'
 
 jest.mock('components/Modals/MembershipCardDeleteModal', () => () => null)
+jest.mock('components/TermsAndConditionsCheck', () => () => null)
 
 jest.mock('hooks/membershipCards', () => ({
   useMembershipCardsState: jest.fn(),
@@ -182,7 +183,10 @@ describe('Test MultichannelMembershipCards', () => {
 
   describe('Test membership card delete modal render', () => {
     it('should render the delete card modal', () => {
-      React.useState = jest.fn().mockReturnValue([{ id: 'mock_card_id' }, jest.fn()])
+      React.useState = jest.fn()
+        .mockReturnValueOnce([{ id: 'mock_card_id' }, jest.fn()])
+        .mockReturnValueOnce([false, jest.fn()])
+        .mockReturnValueOnce([false, jest.fn()])
 
       useMembershipCardsState.mockImplementation(() => ({
         membershipCards: [mockCard],

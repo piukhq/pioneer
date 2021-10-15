@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
 import AccountMenu from 'components/AccountMenu'
 import LoadingIndicator from 'components/LoadingIndicator'
 import MembershipCardDeleteModal from 'components/Modals/MembershipCardDeleteModal'
+import TermsAndConditionsCheck from 'components/TermsAndConditionsCheck'
 import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import { useModals } from 'hooks/useModals'
@@ -17,9 +18,11 @@ const MultichannelMembershipCards = () => {
   const { membershipCards, loading } = useMembershipCardsState()
   const { dispatchModal, modalToRender } = useModals()
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
+  const { error: serviceError } = useSelector(state => state.service)
+  const [shouldRenderTermsAndConditionsCheck, setShouldRenderTermsAndConditionsCheck] = useState(false)
 
   // Stores membership card that delete modal is associated with
-  const [deleteModalMembershipCard, setDeleteModalMembershipCard] = React.useState(null)
+  const [deleteModalMembershipCard, setDeleteModalMembershipCard] = useState(null)
 
   const getPlanInfo = (planId) => {
     if (planId && plans.length > 0) {
@@ -60,9 +63,33 @@ const MultichannelMembershipCards = () => {
     dispatchModal(modalEnum.MEMBERSHIP_CARD_DELETE)
   }, [dispatchModal])
 
+  useEffect(() => {
+    if (serviceError) {
+      setShouldRenderTermsAndConditionsCheck(true)
+    }
+  }, [setShouldRenderTermsAndConditionsCheck, serviceError])
+
+  const getTermsAndConditionsProps = () => {
+    if (membershipCards.length === 0) {
+      return {
+        heading: 'Welcome to Bink',
+        paragraphTwoPrefix: 'To use Bink services,',
+      }
+    }
+    return {
+      heading: 'We found you',
+      paragraphOne: 'You already have an account with Bink.',
+      paragraphTwoPrefix: 'To login to your account,',
+    }
+  }
+
+  if (shouldRenderTermsAndConditionsCheck) {
+    return <TermsAndConditionsCheck {...getTermsAndConditionsProps()} />
+  }
+
   // Separate to getPlanInfo as that function returns additional info we are not interested in
   const getPlanString = () => {
-    const plan = plans.find(plan => plan.id === deleteModalMembershipCard.membership_plan)
+    const plan = plans.find(plan => plan.id === deleteModalMembershipCard?.membership_plan)
     if (plan) {
       const { plan_name: planName, plan_name_card: planNameCard } = plan?.account
       return `${planName} ${planNameCard}`
@@ -118,7 +145,7 @@ const MultichannelMembershipCards = () => {
     <div className={styles.root} data-testid='root-container' id='multichannel-membership-cards-container'>
       {modalToRender === modalEnum.MEMBERSHIP_CARD_DELETE && (
         <div data-testid='membership-card-delete-modal'>
-          <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard.id} planString={getPlanString()}/>
+          <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard?.id} planString={getPlanString()}/>
         </div>
       )}
 

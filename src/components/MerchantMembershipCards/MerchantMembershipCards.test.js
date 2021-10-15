@@ -1,11 +1,13 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import * as reactRedux from 'react-redux'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
+import { useLogout } from 'hooks/useLogout'
 import { useMerchantMembershipCards } from './hooks/useMerchantMembershipCards'
 import MerchantMembershipCards from './MerchantMembershipCards'
 
 jest.mock('hooks/useLogout', () => ({
-  __esModule: true,
-  default: () => jest.fn(),
+  useLogout: jest.fn(),
 }))
 jest.mock('hooks/useContactSupport', () => ({
   __esModule: true,
@@ -15,13 +17,30 @@ jest.mock('./hooks/useMerchantMembershipCards', () => ({
   useMerchantMembershipCards: jest.fn(),
 }))
 
-jest.mock('components/WeFoundYou', () => () => null)
+jest.mock('components/TermsAndConditionsCheck', () => () => null)
 jest.mock('components/PreparingYourCard', () => () => null)
 jest.mock('components/MultichannelMembershipCards', () => () => null)
+const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
+jest.mock('hooks/useMembershipCardDetailsByCardId', () => ({
+  useMembershipCardDetailsByCardId: jest.fn(),
+}))
+
+const mockMembershipCards = [{
+  id: 'mock_membership_card_id',
+}]
 
 describe('Test MerchantMembershipCards', () => {
   beforeEach(() => {
+    useSelectorMock.mockClear()
     jest.clearAllMocks()
+    useSelectorMock.mockReturnValue(mockMembershipCards)
+    useMembershipCardDetailsByCardId.mockImplementation(() => ({
+      planName: 'mockPlanName',
+      planNameSuffix: 'mockPlanNameSuffix',
+    }))
+    useLogout.mockImplementation(() => ({
+      logout: jest.fn(),
+    }))
   })
 
   describe('Test too many cards error scenario', () => {
@@ -54,7 +73,7 @@ describe('Test MerchantMembershipCards', () => {
   describe('Test We Found You scenario', () => {
     it('should render We Found You', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
-        shouldDisplayWeFoundYou: true,
+        shouldDisplayTermsAndConditionsCheck: true,
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)
@@ -63,7 +82,7 @@ describe('Test MerchantMembershipCards', () => {
 
     it('should not render We Found You', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
-        shouldDisplayWeFoundYou: false,
+        shouldDisplayTermsAndConditionsCheck: false,
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)
@@ -98,7 +117,7 @@ describe('Test MerchantMembershipCards', () => {
     it('should render Hang Tight', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
         tooManyCardsError: false,
-        shouldDisplayWeFoundYou: false,
+        shouldDisplayTermsAndConditionsCheck: false,
         isMembershipCardPending: false,
       }))
 
@@ -109,7 +128,7 @@ describe('Test MerchantMembershipCards', () => {
     it('should not render Hang Tight', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
         tooManyCardsError: true,
-        shouldDisplayWeFoundYou: true,
+        shouldDisplayTermsAndConditionsCheck: true,
         isMembershipCardPending: true,
       }))
 
