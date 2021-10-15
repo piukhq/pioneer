@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
 import AccountMenu from 'components/AccountMenu'
@@ -19,11 +19,10 @@ const MultichannelMembershipCards = () => {
   const { dispatchModal, modalToRender } = useModals()
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
   const { error: serviceError } = useSelector(state => state.service)
+  const [shouldRenderTermsAndConditionsCheck, setShouldRenderTermsAndConditionsCheck] = useState(false)
 
   // Stores membership card that delete modal is associated with
-  const [deleteModalMembershipCard, setDeleteModalMembershipCard] = React.useState(null)
-  const [shouldRenderNewUserTermsAndConditionsCheck, setShouldRenderNewUserTermsAndConditionsCheck] = React.useState(false)
-  const [shouldRenderExistingUserTermsAndConditionsCheck, setShouldRenderExistingUserTermsAndConditionsCheck] = React.useState(false)
+  const [deleteModalMembershipCard, setDeleteModalMembershipCard] = useState(null)
 
   const getPlanInfo = (planId) => {
     if (planId && plans.length > 0) {
@@ -66,25 +65,26 @@ const MultichannelMembershipCards = () => {
 
   useEffect(() => {
     if (serviceError) {
-      if (membershipCards.length === 0) {
-        setShouldRenderNewUserTermsAndConditionsCheck(true)
-      } else {
-        setShouldRenderExistingUserTermsAndConditionsCheck(true)
+      setShouldRenderTermsAndConditionsCheck(true)
+    }
+  }, [setShouldRenderTermsAndConditionsCheck, serviceError])
+
+  const getTermsAndConditionsProps = () => {
+    if (membershipCards.length === 0) {
+      return {
+        heading: 'Welcome to Bink',
+        paragraphTwoPrefix: 'To use Bink services,',
       }
     }
-  }, [setShouldRenderNewUserTermsAndConditionsCheck, setShouldRenderExistingUserTermsAndConditionsCheck, membershipCards, serviceError])
+    return {
+      heading: 'We found you',
+      paragraphOne: 'You already have an account with Bink.',
+      paragraphTwoPrefix: 'To login to your account,',
+    }
+  }
 
-  if (shouldRenderNewUserTermsAndConditionsCheck) {
-    return <TermsAndConditionsCheck
-      heading='Welcome to Bink'
-      paragraphTwoPrefix= 'To use Bink services,'
-    />
-  } else if (shouldRenderExistingUserTermsAndConditionsCheck) {
-    return <TermsAndConditionsCheck
-      heading='We found you'
-      paragraphOne='You already have an account with Bink.'
-      paragraphTwoPrefix= 'To login to your account,'
-    />
+  if (shouldRenderTermsAndConditionsCheck) {
+    return <TermsAndConditionsCheck {...getTermsAndConditionsProps()} />
   }
 
   // Separate to getPlanInfo as that function returns additional info we are not interested in
