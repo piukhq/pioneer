@@ -1,7 +1,11 @@
 import { useEffect, useState, useMemo } from 'react'
+import { useDispatch } from 'react-redux'
+import { actions as paymentCardsActions } from 'ducks/paymentCards'
 
-const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, setCardNumberValidation) => {
+const useSpreedly = (setCardNumberValidation, handleErrors, handleSuccess) => {
   const Spreedly = window.Spreedly
+
+  const dispatch = useDispatch()
   const [length, setLength] = useState(0)
   const [focus, setFocus] = useState(false)
   const [isIframeReady, setIframeReady] = useState(false)
@@ -10,27 +14,6 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
   const [hasBlurredFirstTime, setHasBlurredFirstTime] = useState(false) // Mechanism to prevent error messages appearing till the card number field is unfocused first time around.
   const [errorMessage, setErrorMessage] = useState(false)
   const validCardTypes = useMemo(() => ['visa', 'master', 'american_express'], [])
-
-  useEffect(() => {
-    const Spreedly = window.Spreedly
-
-    const onSpreedlyReady = () => {
-      Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
-      Spreedly.setPlaceholder('number', placeholder)
-      onReady && onReady()
-    }
-    window.addEventListener('bink.spreedly.ready', onSpreedlyReady)
-    return () => window.removeEventListener('bink.spreedly.ready', onSpreedlyReady)
-  }, [onReady, placeholder])
-
-  useEffect(() => {
-    const onSpreedlyBlur = () => {
-      onBlur && onBlur(isNumberInvalid, isTypeInvalid)
-    }
-    setCardNumberValidation(!isNumberInvalid && !isTypeInvalid && length) // The length check here prevents a card number with no length (which is not considered invalid yet, consider refactoring) enabling the submit button.
-    window.addEventListener('bink.spreedly.blur', onSpreedlyBlur)
-    return () => window.removeEventListener('bink.spreedly.blur', onSpreedlyBlur)
-  }, [onBlur, isNumberInvalid, isTypeInvalid, setCardNumberValidation, length])
 
   const handleLabelClick = () => {
     Spreedly.transferFocus('number')
@@ -53,18 +36,37 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
 
   useEffect(() => {
     const Spreedly = window.Spreedly
+
+    // Triggered whenever the user provided input changes
+    const handleInput = (length, cardType) => {
+      setLength(length)
+      const validLength = cardType === 'american_express' ? 15 : 16
+
+      // Card number is considered invalid if it is not the correct length
+      if (length < validLength) {
+        setCardNumberValidation(false)
+      } else {
+        Spreedly.validate()
+      }
+    }
+
     Spreedly.on('ready', function () {
       setIframeReady(true)
-      window.dispatchEvent(new CustomEvent('bink.spreedly.ready'))
+
+      // Sets the default field placeholder
+      Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
+      Spreedly.setPlaceholder('number', 'Card number')
     })
 
     Spreedly.on('validation', function (inputProperties) {
       const { validNumber, cardType, numberLength } = inputProperties
       setLength(numberLength)
+      const isValidCardType = validCardTypes.includes(cardType)
       setIsNumberInvalid(!validNumber)
-      if (numberLength >= 8) { // the maximum amount of digits used to identify a card type in card numbers
-        setIsTypeInvalid(!validCardTypes.includes(cardType))
-      }
+      setIsTypeInvalid(!isValidCardType)
+
+      // Sent to the usePaymentCardAddForm hook to state whether this field is valid or not
+      setCardNumberValidation(validNumber && isValidCardType)
     })
 
     Spreedly.on('fieldEvent', function (name, type, activeEl, inputProperties) {
@@ -72,9 +74,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
       if (name === 'number') {
         switch (type) {
           case 'input':
-            setLength(numberLength)
-            window.dispatchEvent(new CustomEvent('bink.spreedly.input', { detail: inputProperties }))
-            if (numberLength >= 16 || (numberLength === 15 && cardType === 'american_express')) Spreedly.validate() // To support enable an immediate validation when correcting a wrong card number on completion
+            handleInput(numberLength, cardType)
             break
           case 'focus':
             setFocus(true)
@@ -82,12 +82,37 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
           case 'blur':
             Spreedly.validate()
             setFocus(false)
-            window.dispatchEvent(new CustomEvent('bink.spreedly.blur'))
             setHasBlurredFirstTime(true)
             break
           default:
         }
       }
+    })
+
+    Spreedly.on('paymentMethod', async function (token, pmData) {
+      const successfulResponse = await dispatch(paymentCardsActions.addPaymentCard(
+        token,
+        pmData.last_four_digits,
+        pmData.first_six_digits,
+        pmData.month,
+        pmData.year,
+        pmData.country,
+        pmData.currency_code,
+        pmData.full_name,
+        pmData.card_type,
+        pmData.payment_method_type,
+        pmData.fingerprint,
+      ))
+
+      if (successfulResponse) {
+        // Sent to the usePaymentCardAddForm hook to act upon successful payment card addition
+        handleSuccess()
+      }
+    })
+
+    Spreedly.on('errors', function (errors) {
+      // Sent to the usePaymentCardAddForm hook to handle form errors
+      handleErrors(errors)
     })
 
     try {
@@ -102,7 +127,7 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
     return () => {
       Spreedly.removeHandlers()
     }
-  }, [validCardTypes])
+  }, [dispatch, validCardTypes, handleErrors, handleSuccess, setCardNumberValidation])
 
   return {
     focus,
@@ -112,4 +137,4 @@ const useSpreedlyCardNumber = (placeholder, error, onChange, onBlur, onReady, se
   }
 }
 
-export default useSpreedlyCardNumber
+export default useSpreedly
