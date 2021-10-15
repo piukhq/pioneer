@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import TermsAndConditionsCheck from './TermsAndConditionsCheck'
-import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 import { useLogout } from 'hooks/useLogout'
 import { useTermsAndConditionsCheck } from './hooks/useTermsAndConditionsCheck'
 
@@ -26,30 +25,34 @@ describe('Test TermsAndConditionsCheck', () => {
     useTermsAndConditionsCheck.mockImplementation(() => ({ acceptTerms: jest.fn(), postError: false }))
     useLogout.mockImplementation(() => ({ logout: jest.fn() }))
   })
+
   it('should render Heading', () => {
     const { queryByText } = render(termsAndConditionsCheckComponent)
     expect(queryByText(mockParagraphHeading)).toBeInTheDocument()
   })
+
   it('should render first paragraph', () => {
     const { queryByText } = render(termsAndConditionsCheckComponent)
     expect(queryByText(mockParagraphOne)).toBeInTheDocument()
   })
+
   it('should not render first paragraph', () => {
     const { queryByText } = render(<TermsAndConditionsCheck />)
     expect(queryByText(mockParagraphOne)).not.toBeInTheDocument()
   })
+
   it('should render second paragraph with both dynamic and static elements', () => {
     const { getByTestId } = render(termsAndConditionsCheckComponent)
     expect(getByTestId('paragraphTwo')).toContainHTML(`${mockParagraphTwoPrefix} you need to accept the`)
   })
+
   it('should render continue button', () => {
     const { getByRole } = render(termsAndConditionsCheckComponent)
     expect(getByRole('button', { name: /continue/i })).toBeInTheDocument()
   })
+
   it('should render cancel button', () => {
     const { getByRole } = render(termsAndConditionsCheckComponent)
     expect(getByRole('button', { name: /cancel/i })).toBeInTheDocument()
   })
 })
-
-// buttons
