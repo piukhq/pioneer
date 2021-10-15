@@ -15,17 +15,6 @@ const useSpreedly = (setCardNumberValidation, handleErrors, handleSuccess) => {
   const [errorMessage, setErrorMessage] = useState(false)
   const validCardTypes = useMemo(() => ['visa', 'master', 'american_express'], [])
 
-  useEffect(() => {
-    const Spreedly = window.Spreedly
-
-    const onSpreedlyReady = () => {
-      Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
-      Spreedly.setPlaceholder('number', 'Card number')
-    }
-    window.addEventListener('bink.spreedly.ready', onSpreedlyReady)
-    return () => window.removeEventListener('bink.spreedly.ready', onSpreedlyReady)
-  }, [])
-
   const handleLabelClick = () => {
     Spreedly.transferFocus('number')
   }
@@ -48,10 +37,12 @@ const useSpreedly = (setCardNumberValidation, handleErrors, handleSuccess) => {
   useEffect(() => {
     const Spreedly = window.Spreedly
 
+    // Triggered whenever the user provided input changes
     const handleInput = (length, cardType) => {
       setLength(length)
       const validLength = cardType === 'american_express' ? 15 : 16
 
+      // Card number is considered invalid if it is not the correct length
       if (length < validLength) {
         setCardNumberValidation(false)
       } else {
@@ -61,7 +52,10 @@ const useSpreedly = (setCardNumberValidation, handleErrors, handleSuccess) => {
 
     Spreedly.on('ready', function () {
       setIframeReady(true)
-      window.dispatchEvent(new CustomEvent('bink.spreedly.ready'))
+
+      // Sets the default field placeholder
+      Spreedly.setStyle('number', Config.spreedlyCardNumberStyle.default)
+      Spreedly.setPlaceholder('number', 'Card number')
     })
 
     Spreedly.on('validation', function (inputProperties) {
@@ -71,6 +65,7 @@ const useSpreedly = (setCardNumberValidation, handleErrors, handleSuccess) => {
       setIsNumberInvalid(!validNumber)
       setIsTypeInvalid(!isValidCardType)
 
+      // Sent to the usePaymentCardAddForm hook to state whether this field is valid or not
       setCardNumberValidation(validNumber && isValidCardType)
     })
 
@@ -110,11 +105,13 @@ const useSpreedly = (setCardNumberValidation, handleErrors, handleSuccess) => {
       ))
 
       if (successfulResponse) {
+        // Sent to the usePaymentCardAddForm hook to act upon successful payment card addition
         handleSuccess()
       }
     })
 
     Spreedly.on('errors', function (errors) {
+      // Sent to the usePaymentCardAddForm hook to handle form errors
       handleErrors(errors)
     })
 

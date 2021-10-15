@@ -12,7 +12,8 @@ export const usePaymentCardAddForm = (onClose) => { // TODO: move onClose functi
   const [genericSpreedlyError, setGenericSpreedlyError] = useState(false)
   const [isSpreedlyNumberValid, setIsSpreedlyNumberValid] = useState(false)
 
-  const spreedlyNumberValidation = useCallback((isValid) => { // passed to useSpreedly for response
+  // passed to useSpreedly and used to help determine overall form validation
+  const spreedlyNumberValidation = useCallback((isValid) => {
     setIsSpreedlyNumberValid(isValid)
   }, [])
 
@@ -102,6 +103,7 @@ export const usePaymentCardAddForm = (onClose) => { // TODO: move onClose functi
     const Spreedly = window.Spreedly
     const { MM, YY } = expiry
 
+    // useSpreedly hook will detect and act upon this action
     Spreedly.tokenizeCreditCard({
       month: MM,
       year: `20${YY}`,
