@@ -25,7 +25,6 @@ const TermsAndConditionsCheck = ({ heading, paragraphOne, paragraphTwoPrefix }) 
       <div className={styles.root__buttons}>
         <Button
           primary
-          name='continue'
           className={styles.root__button}
           onClick={acceptTerms}
           error={errorMessage}
@@ -33,7 +32,6 @@ const TermsAndConditionsCheck = ({ heading, paragraphOne, paragraphTwoPrefix }) 
 
         <Button
           secondary
-          name='cancel'
           className={styles.root__button}
           onClick={logout}
         >Cancel</Button>
