@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { actions as serviceActions } from 'ducks/service'
 
-const useBinkTermsAndConditions = () => {
+export const useTermsAndConditionsCheck = () => {
   const dispatch = useDispatch()
   const acceptTerms = () => {
     dispatch(serviceActions.postService())
@@ -13,5 +13,3 @@ const useBinkTermsAndConditions = () => {
     postError,
   }
 }
-
-export default useBinkTermsAndConditions

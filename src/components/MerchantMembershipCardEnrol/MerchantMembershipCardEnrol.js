@@ -6,7 +6,7 @@ import useLoadMembershipCardsReenrol from './hooks/useLoadMembershipCardsReenrol
 import MembershipCardForm from 'components/MembershipCardForm'
 
 import useContactSupport from 'hooks/useContactSupport'
-import useLogout from 'hooks/useLogout'
+import { useLogout } from 'hooks/useLogout'
 import Button from 'components/Button'
 
 import styles from './MerchantMembershipCardEnrol.module.scss'

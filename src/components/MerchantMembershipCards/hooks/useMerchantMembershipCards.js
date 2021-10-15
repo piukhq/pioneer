@@ -15,7 +15,7 @@ export const useMerchantMembershipCards = () => {
   const isReenrolRequired = useSelector(state => membershipCardsSelectors.isReenrolRequired(state))
   const isReaddRequired = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
 
-  const [shouldDisplayWeFoundYou, setShouldDisplayWeFoundYou] = useState(false)
+  const [shouldDisplayTermsAndConditionsCheck, setShouldDisplayTermsAndConditionsCheck] = useState(false)
 
   const history = useHistory()
   const { success } = useSelector(state => state.membershipCards)
@@ -32,7 +32,7 @@ export const useMerchantMembershipCards = () => {
           } else if ((serviceSuccess || postServiceSuccess) && !isMembershipCardPending) {
             history.replace(`/membership-card/${membershipCards[0].id}`)
           } else if (serviceError) {
-            setShouldDisplayWeFoundYou(true)
+            setShouldDisplayTermsAndConditionsCheck(true)
           }
           // otherwise do nothing. Means that the `service` endpoint is still pending
           break
@@ -44,7 +44,7 @@ export const useMerchantMembershipCards = () => {
 
   return {
     tooManyCardsError: membershipCards.length > 1,
-    shouldDisplayWeFoundYou,
+    shouldDisplayTermsAndConditionsCheck,
     membershipCard,
     isMembershipCardPending,
   }

@@ -1,28 +1,25 @@
 import React from 'react'
 import Button from 'components/Button'
-import useBinkTermsAndConditions from './hooks/useBinkTermsAndConditions'
-import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
-import useLogout from 'hooks/useLogout'
-import useCheckSessionEnded from 'hooks/useCheckSessionEnded'
-import styles from './WeFoundYou.module.scss'
+import { useTermsAndConditionsCheck } from './hooks/useTermsAndConditionsCheck'
+import { useLogout } from 'hooks/useLogout'
+import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
+import styles from './TermsAndConditionsCheck.module.scss'
 
 // TODO: Check with Jack determine whether to display 'a' or 'an' either as a result from the API
 // or using a library to determine string variations
-const WeFoundYou = () => {
+const TermsAndConditionsCheck = ({ heading, paragraphOne, paragraphTwoPrefix }) => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
 
-  const { acceptTerms, postError } = useBinkTermsAndConditions()
-  const { planName } = useMembershipCardDetailsByCardId()
+  const { acceptTerms, postError } = useTermsAndConditionsCheck()
   const { logout } = useLogout()
 
   const errorMessage = postError ? 'Something went wrong. Please try again.' : null
-
   return (
     <div className={styles.root}>
-      <h1 className={styles.root__heading}>We found you</h1>
+      <h1 className={styles.root__heading}>{heading}</h1>
       <div className={styles.root__description}>
-        <div className={styles.root__paragraph}>You’re already a member of the {planName}!</div>
-        <div className={styles.root__paragraph}>To view your card details here you need to accept the <a className={styles.root__url} href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Bink Terms & Conditions.</a> You only need to do this once.</div>
+        {paragraphOne && <div className={styles.root__paragraph}>{paragraphOne}</div>}
+        <div className={styles.root__paragraph} data-testid='paragraphTwo'>{paragraphTwoPrefix} you need to accept the <a className={styles.root__url} href='https://bink.com/terms-and-conditions/' target='_blank' rel='noreferrer'>Bink Terms & Conditions.</a> You only need to do this once.</div>
         <div className={styles.root__paragraph}>Please also read the <a className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Bink Privacy Policy</a> for further details on how your data will be processed.</div>
       </div>
       <div className={styles.root__buttons}>
@@ -43,4 +40,4 @@ const WeFoundYou = () => {
   )
 }
 
-export default WeFoundYou
+export default TermsAndConditionsCheck

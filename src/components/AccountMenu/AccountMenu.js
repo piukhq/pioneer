@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import { ReactComponent as RightChevronSvg } from 'images/right-chevron.svg'
 import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
 
-import useLogout from './hooks/useLogout'
+import { useLogout } from 'hooks/useLogout'
 import { useModals } from 'hooks/useModals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 

@@ -5,7 +5,7 @@ import { selectors as usersSelectors } from 'ducks/users'
 import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
 
 import useContactSupport from 'hooks/useContactSupport'
-import useLogout from 'hooks/useLogout'
+import { useLogout } from 'hooks/useLogout'
 import Button from 'components/Button'
 import MembershipCardForm from 'components/MembershipCardForm'
 
