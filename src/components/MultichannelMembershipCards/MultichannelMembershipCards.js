@@ -18,7 +18,7 @@ const MultichannelMembershipCards = () => {
   const { membershipCards, loading } = useMembershipCardsState()
   const { dispatchModal, modalToRender } = useModals()
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
-  const { error: serviceError } = useSelector(state => state.service)
+  const { error: serviceError, post: postService } = useSelector(state => state.service)
   const [shouldRenderTermsAndConditionsCheck, setShouldRenderTermsAndConditionsCheck] = useState(false)
 
   // Stores membership card that delete modal is associated with
@@ -67,7 +67,10 @@ const MultichannelMembershipCards = () => {
     if (serviceError) {
       setShouldRenderTermsAndConditionsCheck(true)
     }
-  }, [setShouldRenderTermsAndConditionsCheck, serviceError])
+    if (postService?.success) {
+      setShouldRenderTermsAndConditionsCheck(false)
+    }
+  }, [setShouldRenderTermsAndConditionsCheck, serviceError, postService])
 
   const getTermsAndConditionsProps = () => {
     if (membershipCards.length === 0) {
