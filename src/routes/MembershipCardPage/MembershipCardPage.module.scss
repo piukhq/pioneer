@@ -1,0 +1,13 @@
+.root {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+
+  &__left-arrow {
+    height: 24px;
+    width: 27px;
+    cursor: pointer;
+  }
+}

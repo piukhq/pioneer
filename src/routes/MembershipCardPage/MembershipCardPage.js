@@ -26,6 +26,10 @@ import MembershipCardContainer from 'components/MembershipCardContainer'
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
 import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 
+import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
+
+import styles from './MembershipCardPage.module.scss'
+
 const MembershipCardPage = () => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
   const history = useHistory()
@@ -122,6 +126,13 @@ const MembershipCardPage = () => {
     return null
   }
 
+  const shouldRenderBackButton = () => {
+    if (!Config.isMerchantChannel) {
+      return <LeftChevronSvg className={styles['root__left-arrow']} onClick={() => history.replace('/membership-cards')} />
+    }
+    return null
+  }
+
   // Membership card active path
   return (
     <>
@@ -130,7 +141,11 @@ const MembershipCardPage = () => {
           {/* Render the various overlay modals  */}
           {shouldRenderModalOverlay()}
 
-          <AccountMenu />
+          <div className={styles.root__header}>
+            <AccountMenu />
+            {shouldRenderBackButton()}
+          </div>
+
           <MembershipCardContainer membershipCard={membershipCard} />
           {shouldRenderVoucherSection()}
 
