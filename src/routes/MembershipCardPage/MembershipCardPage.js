@@ -108,7 +108,7 @@ const MembershipCardPage = () => {
   }
   const shouldRenderOffersSection = () => {
     if (planOffers && membershipCard?.payment_cards?.length !== 0) {
-      return <Offers membershipCardId={id} planOffers={planOffers} />
+      return <Offers planOffers={planOffers} />
     }
   }
 
