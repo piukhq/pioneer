@@ -22,4 +22,8 @@ describe('Test Offers', () => {
     const { getByText } = render(offersComponent)
     expect(getByText('Offers')).toBeInTheDocument()
   })
+  it('should render offers container', () => {
+    const { getByTestId } = render(offersComponent)
+    expect(getByTestId('offers-container')).toBeInTheDocument()
+  })
 })
