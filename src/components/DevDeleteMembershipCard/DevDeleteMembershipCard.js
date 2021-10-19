@@ -6,7 +6,7 @@ import styles from './DevDeleteMembershipCard.module.scss'
 const DevDeleteMembershipCard = ({ cardId }) => {
   const { deleteMembershipCard } = useMembershipCardsDispatch()
   return (
-    process.env.NODE_ENV === 'development' ? (
+    Config.devOnlyToolsEnabled ? (
       <button className={cx(styles.root, 'dev-only')} onClick={() => deleteMembershipCard(cardId)}>Delete card with id {cardId}</button>
     ) : null
   )

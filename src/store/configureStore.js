@@ -35,7 +35,7 @@ export default function configureAppStore (preloadedState) {
     enhancers: [sentryReduxEnhancer],
   })
 
-  if (process.env.NODE_ENV !== 'production' && module.hot) {
+  if (Config.devOnlyToolsEnabled && module.hot) {
     module.hot.accept('./reducers', () => store.replaceReducer(rootReducer))
   }
 
