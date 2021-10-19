@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { useMembershipCardsState } from 'hooks/membershipCards'
+import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
 
 export const useMembershipCardDetailsByCardId = () => {
   const { membershipCards } = useMembershipCardsState()
@@ -16,7 +17,7 @@ export const useMembershipCardDetailsByCardId = () => {
 
   const planOffers = useSelector(
     state => membershipCardsSelectors.plan(state, membershipCardId)?.images,
-  )?.filter(image => image.type === 2)
+  )?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.OFFER)
 
   return {
     planName,

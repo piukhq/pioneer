@@ -110,6 +110,7 @@ const MembershipCardPage = () => {
     if (planOffers && membershipCard?.payment_cards?.length !== 0) {
       return <Offers planOffers={planOffers} />
     }
+    return null
   }
 
   const shouldRenderModalOverlay = () => {

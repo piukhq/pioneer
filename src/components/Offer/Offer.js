@@ -11,7 +11,7 @@ const Offer = ({ offer, index }) => (
         offer.cta_url && styles['root__hover-enabled'],
       )}
       src={offer.url}
-      alt={`Offer ${index}`}
+      alt={`Offer ${index + 1}`}
     />
   </a>
 )
