@@ -1,0 +1,37 @@
+@import "src/sass/mixins";
+
+.root {
+  @include section-style;
+
+  &__active-offers {
+    display: grid;
+    grid-template-columns: repeat(1, 300px);
+    gap: 20px;
+
+    @media (min-width: 630px) {
+      grid-template-columns: repeat(2, 300px);
+    }
+
+    @media (min-width: 910px) {
+      grid-template-columns: repeat(3, 300px);
+    }
+  }
+
+  &__offer {
+    &__hover-enabled {
+      @include base-hover-style;
+
+      cursor: pointer;
+
+      &:hover {
+        @include hover-style;
+      }
+    }
+
+    width: 280px;
+    height: 280px;
+    box-shadow: 0 10px 40px 0 $transparent-90-percent;
+    border: none;
+    border-radius: 20px;
+  }
+}

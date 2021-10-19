@@ -9,6 +9,7 @@ import {
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
+import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useModals } from 'hooks/useModals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
@@ -21,6 +22,7 @@ import LinkCardsErrorModal from 'components/Modals/LinkCardsErrorModal'
 import LinkCardsSuccessModal from 'components/Modals/LinkCardsSuccessModal'
 import PaymentCardLimitModal from 'components/Modals/PaymentCardLimitModal'
 import Vouchers from 'components/Vouchers'
+import Offers from 'components/Offers'
 import MembershipCardContainer from 'components/MembershipCardContainer'
 
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
@@ -35,7 +37,6 @@ const MembershipCardPage = () => {
   const history = useHistory()
   const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
-
   const { dispatchModal, modalToRender } = useModals()
 
   // Log user out if account is no longer active
@@ -55,6 +56,7 @@ const MembershipCardPage = () => {
   const { loading: serviceLoading, error: serviceError } = useSelector(state => state.service)
 
   const { activeVouchers, redeemableVouchers } = useMembershipCardStateById(id)
+  const { planOffers } = useMembershipCardDetailsByCardId()
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -104,6 +106,11 @@ const MembershipCardPage = () => {
     }
     return <Vouchers membershipCardId={id} />
   }
+  const shouldRenderOffersSection = () => {
+    if (planOffers && membershipCard?.payment_cards?.length !== 0) {
+      return <Offers membershipCardId={id} planOffers={planOffers} />
+    }
+  }
 
   const shouldRenderModalOverlay = () => {
     if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_ERROR) {
@@ -148,6 +155,7 @@ const MembershipCardPage = () => {
 
           <MembershipCardContainer membershipCard={membershipCard} />
           {shouldRenderVoucherSection()}
+          {shouldRenderOffersSection()}
 
           <PaymentCards
             handleLinkingSuccess={handleLinkingSuccess}

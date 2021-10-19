@@ -14,8 +14,13 @@ export const useMembershipCardDetailsByCardId = () => {
     state => membershipCardsSelectors.plan(state, membershipCardId)?.account?.plan_name_card,
   )?.toLowerCase()
 
+  const planOffers = useSelector(
+    state => membershipCardsSelectors.plan(state, membershipCardId)?.images,
+  )?.filter(image => image.type === 2)
+
   return {
     planName,
     planNameSuffix,
+    planOffers,
   }
 }
