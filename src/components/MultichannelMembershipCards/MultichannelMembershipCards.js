@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import AccountMenu from 'components/AccountMenu'
 import LoadingIndicator from 'components/LoadingIndicator'
@@ -15,6 +16,7 @@ import { formatValueToDecimalPlace } from 'utils/format'
 import styles from './MultichannelMembershipCards.module.scss'
 
 const MultichannelMembershipCards = () => {
+  const history = useHistory()
   const { membershipCards, loading } = useMembershipCardsState()
   const { dispatchModal, modalToRender } = useModals()
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
@@ -56,6 +58,10 @@ const MultichannelMembershipCards = () => {
       return `${prefix ?? ''}${value}/${prefix ?? ''}${targetValue} ${suffix ?? ''}`
     }
     return null
+  }
+
+  const handleCardClick = (card) => {
+    history.replace(`/membership-card/${card.id}`)
   }
 
   const handleDeleteButtonClick = useCallback((card) => {
@@ -107,7 +113,7 @@ const MultichannelMembershipCards = () => {
           const { companyName = 'Company Name', planName = 'Plan Name', colour, secondaryColour, iconImage } = getPlanInfo(card.membership_plan)
           const { state, reason_codes } = card.status
           return (
-            <div key={card.id} className={styles.root__card} data-testid='membership-card'>
+            <div key={card.id} className={cx(styles.root__card, styles['root--hover'])} data-testid='membership-card' onClick={() => handleCardClick(card)}>
               <button className={styles['root__delete-button']} onClick={handleDeleteButtonClick}>DELETE</button>
 
               <div className={styles['root__content-container']}>
@@ -156,7 +162,7 @@ const MultichannelMembershipCards = () => {
         <AccountMenu />
       </div>
 
-      <h1 className={cx(styles.root__heading)}>Membership Cards</h1>
+      <h1 className={styles.root__heading}>Membership Cards</h1>
 
       <div className={styles['root__cards-container']} data-testid='cards-container'>
         {renderMembershipCardsContent()}

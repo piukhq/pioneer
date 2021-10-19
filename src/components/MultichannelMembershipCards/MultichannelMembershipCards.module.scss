@@ -31,6 +31,14 @@
     align-items: center;
   }
 
+  &--hover {
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
+  }
+
   &__card {
     max-width: calc(100% - 16px);
     min-width: 250px;
@@ -40,6 +48,7 @@
     width: 470px;
     padding: 7px;
     margin-bottom: 30px;
+    cursor: pointer;
   }
 
   &__delete-button {

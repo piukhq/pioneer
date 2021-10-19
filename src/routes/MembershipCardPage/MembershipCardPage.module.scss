@@ -1,0 +1,15 @@
+.root {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  &__left-arrow {
+    height: 24px;
+    width: 27px;
+    cursor: pointer;
+  }
+}
