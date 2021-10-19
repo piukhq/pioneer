@@ -28,7 +28,7 @@ const MerchantMembershipCards = () => {
         <Button onClick={contactSupport} className={styles.root__button}>Get in touch</Button>
         <Button onClick={logout} className={styles.root__button} secondary>Logout</Button>
         {/* used for development */}
-        { process.env.NODE_ENV === 'development' && (
+        { Config.devOnlyToolsEnabled && (
           <div className="dev-only">
             <MultichannelMembershipCards/>
           </div>
