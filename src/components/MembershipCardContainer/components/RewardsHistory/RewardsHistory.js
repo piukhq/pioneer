@@ -100,8 +100,10 @@ const RewardsHistory = ({ membershipCard, state }) => {
               )}
             </>
           )}
+
         </>
-      ) }
+      )}
+
       { state === 'no-payment-cards' && (
         <div data-testid='no-payment-cards' className={styles['root__no-payment-card-state']} onClick={handleNoPaymentCardsClick}>
           <StateFailedSvg key={state} />
