@@ -7,7 +7,7 @@ const Offers = ({ planOffers }) => (
   <section className={styles.root}>
     <h2 className={styles.root__headline}>Offers</h2>
     <div data-testid='offers-container' className={styles['root__active-offers']}>
-      {planOffers.map?.((offer, index) => (
+      {planOffers.map((offer, index) => (
         <Offer offer={offer} index={index} key={index} />
       ))}
     </div>
