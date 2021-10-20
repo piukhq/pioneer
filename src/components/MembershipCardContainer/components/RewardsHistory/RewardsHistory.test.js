@@ -55,6 +55,7 @@ describe('Test RewardsHistory', () => {
 
     useMembershipCardDetailsByCardId.mockImplementation(() => ({
       planName: mockPlanName,
+      planHasVouchers: true,
     }))
 
     useCalculateWindowDimensions.mockImplementation(() => ({
@@ -214,6 +215,16 @@ describe('Test RewardsHistory', () => {
         expect(queryByText('No vouchers to show')).not.toBeInTheDocument()
         const notAvailableTextArray = getAllByText('Not available')
         expect(notAvailableTextArray.length).toBeGreaterThan(0)
+      })
+
+      it('should not render reward history tile for non-voucher plans', () => {
+        useMembershipCardDetailsByCardId.mockImplementation(() => ({
+          planName: mockPlanName,
+          planHasVouchers: false,
+        }))
+        const { queryByTestId } = render(authorisedRewardsHistoryComponent)
+        expect(queryByTestId('no-non-active-vouchers')).not.toBeInTheDocument()
+        expect(queryByTestId('non-active-vouchers')).not.toBeInTheDocument()
       })
 
       it('should render the no non active vouchers modal', () => {

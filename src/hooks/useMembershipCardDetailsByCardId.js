@@ -19,9 +19,14 @@ export const useMembershipCardDetailsByCardId = () => {
     state => membershipCardsSelectors.plan(state, membershipCardId)?.images,
   )?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.OFFER)
 
+  const planHasVouchers = useSelector(
+    state => membershipCardsSelectors.plan(state, membershipCardId)?.feature_set?.has_vouchers,
+  )
+
   return {
     planName,
     planNameSuffix,
     planOffers,
+    planHasVouchers,
   }
 }
