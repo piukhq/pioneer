@@ -108,6 +108,8 @@
   &--hover-enabled {
     @include base-hover-style;
 
+    cursor: pointer;
+
     &:hover {
       @include hover-style;
     }
