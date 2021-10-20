@@ -15,7 +15,7 @@ export const useMembershipCardDetailsByCardId = () => {
     state => membershipCardsSelectors.plan(state, membershipCardId)?.account?.plan_name_card,
   )?.toLowerCase()
 
-  const planOffers = useSelector(
+  const planOffers = useSelector( // TODO: Update this if offers are moved to its own section in a future version of the API.
     state => membershipCardsSelectors.plan(state, membershipCardId)?.images,
   )?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.OFFER)
 
