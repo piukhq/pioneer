@@ -18,7 +18,7 @@ const RewardsHistory = ({ membershipCard, state }) => {
   const membershipCardId = membershipCard?.id
   const balance = membershipCard?.balances?.[0]
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
-  const { planName } = useMembershipCardDetailsByCardId()
+  const { planName, planHasVouchers } = useMembershipCardDetailsByCardId()
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
 
   const { dispatchModal, modalToRender } = useModals()
@@ -65,39 +65,45 @@ const RewardsHistory = ({ membershipCard, state }) => {
             </>
           ) }
 
-          { nonActiveVouchers?.length > 0 ? (
+          { planHasVouchers && (
             <>
-              <div data-testid='non-active-vouchers' className={styles['root__voucher-history']} onClick={handleNonActiveVouchersClick}>
-                <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
-                <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
-                <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
-              </div>
-              { modalToRender === modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS && (
-                <div data-testid='non-active-vouchers-modal'>
-                  <NonActiveVouchersModal membershipCardId={membershipCardId}/>
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])} onClick={handleNoNonActiveVouchersClick}>
-                <StateAuthorisedGreySvg key={state} />
-                <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
-                <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
-              </div>
-              { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_REWARDS && (
-                  <div data-testid='no-non-active-vouchers-modal'>
-                    <TransactionsRewardsEmptyStateModal
-                      title='Reward History'
-                      description='No past rewards available to display.'
-                      balance={balance}
-                    />
+              { nonActiveVouchers?.length > 0 ? (
+                <>
+                  <div data-testid='non-active-vouchers' className={styles['root__voucher-history']} onClick={handleNonActiveVouchersClick}>
+                    <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
+                    <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
+                    <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
                   </div>
+                  { modalToRender === modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS && (
+                    <div data-testid='non-active-vouchers-modal'>
+                      <NonActiveVouchersModal membershipCardId={membershipCardId}/>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--disabled'])} onClick={handleNoNonActiveVouchersClick}>
+                    <StateAuthorisedGreySvg key={state} />
+                    <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
+                    <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
+                  </div>
+                  { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_REWARDS && (
+                      <div data-testid='no-non-active-vouchers-modal'>
+                        <TransactionsRewardsEmptyStateModal
+                          title='Reward History'
+                          description='No past rewards available to display.'
+                          balance={balance}
+                        />
+                      </div>
+                  )}
+                </>
               )}
             </>
-          ) }
+          )}
+
         </>
-      ) }
+      )}
+
       { state === 'no-payment-cards' && (
         <div data-testid='no-payment-cards' className={styles['root__no-payment-card-state']} onClick={handleNoPaymentCardsClick}>
           <StateFailedSvg key={state} />
