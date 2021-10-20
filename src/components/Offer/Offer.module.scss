@@ -1,0 +1,19 @@
+@import "src/sass/mixins";
+
+.root {
+  &__hover-enabled {
+    @include base-hover-style;
+
+    cursor: pointer;
+
+    &:hover {
+      @include hover-style;
+    }
+  }
+
+  width: 280px;
+  height: 280px;
+  box-shadow: 0 10px 40px 0 $transparent-90-percent;
+  border: none;
+  border-radius: 20px;
+}
