@@ -5,9 +5,9 @@ import {
   actions as paymentCardsActions,
 } from 'ducks/paymentCards'
 import { actions as serviceActions } from 'ducks/service'
-import { serializeError } from 'serialize-error'
-
+import { MEMBERSHIP_CARD_REASON_CODES } from 'utils/enums'
 import { isPaymentCardExpired } from 'utils/paymentCards'
+import { serializeError } from 'serialize-error'
 
 export const types = {
   MEMBERSHIP_CARDS_REQUEST: 'membershipCards/MEMBERSHIP_CARDS_REQUEST',
@@ -218,20 +218,18 @@ export const selectors = {
   ),
   isAccountActive: createSelector(
     membershipCardReasonCodeSelector,
-    (membershipCardReasonCode) => membershipCardReasonCode === 'X300',
+    (membershipCardReasonCode) => membershipCardReasonCode === MEMBERSHIP_CARD_REASON_CODES.AUTHORISED_CODE,
   ),
   isReenrolRequired: createSelector(
     membershipCardReasonCodeSelector,
     (membershipCardReasonCode) => {
-      const reenrolCodes = ['X101', 'X201']
-      return (reenrolCodes.includes(membershipCardReasonCode) && Config.isMerchantChannel)
+      return (MEMBERSHIP_CARD_REASON_CODES.REENROL_CODES.includes(membershipCardReasonCode) && Config.isMerchantChannel)
     },
   ),
   isReaddRequired: createSelector(
     membershipCardReasonCodeSelector,
     (membershipCardReasonCodes) => {
-      const readdCodes = ['X102', 'X104', 'X202', 'X302', 'X303', 'X304']
-      return (readdCodes.includes(membershipCardReasonCodes) && Config.isMerchantChannel)
+      return (MEMBERSHIP_CARD_REASON_CODES.READD_CODES.includes(membershipCardReasonCodes) && Config.isMerchantChannel)
     },
   ),
 

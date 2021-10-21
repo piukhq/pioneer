@@ -41,7 +41,7 @@ const MembershipCardPage = () => {
 
   // Log user out if account is no longer active
   useEffect(() => {
-    if ((reasonCode && !isAccountActive)) {
+    if (reasonCode && !isAccountActive && Config.isMerchantChannel) {
       history.replace('/')
     }
   }, [history, reasonCode, isAccountActive])
