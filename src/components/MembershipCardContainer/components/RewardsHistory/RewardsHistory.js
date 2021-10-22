@@ -15,7 +15,7 @@ import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 
 import styles from './RewardsHistory.module.scss'
 
-// TODO: Refactor componnet into small pieces
+// TODO: Refactor component into small pieces
 const RewardsHistory = ({ membershipCard, state }) => {
   const membershipCardId = membershipCard?.id
   const balance = membershipCard?.balances?.[0]
@@ -36,8 +36,18 @@ const RewardsHistory = ({ membershipCard, state }) => {
         { transactions?.length > 0 ? (
           <>
             {/* todo: would there ever be an unhappy path ever where balance is missing? */}
-            <div data-testid='transaction-history' className={cx(styles['root__transaction-history'], styles['root__click-event-enabled'])} onClick={handleTransactionHistoryClick}>
-              <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
+            <div data-testid='transaction-history' onClick={handleTransactionHistoryClick}
+              className={cx(
+                styles['root__transaction-history'],
+                styles['root__click-event-enabled'],
+              )}
+            >
+              <StateAuthorisedSvg key={state}
+                className={cx(
+                  styles['root__authorised-svg'],
+                  styles[`root__authorised-svg--${Config.theme}`],
+                )}
+              />
               <div className={styles.root__subtitle}>{balance?.prefix} {balance?.value} {balance?.suffix}</div>
               <div className={styles.root__explainer}>View history</div>
             </div>
@@ -49,10 +59,16 @@ const RewardsHistory = ({ membershipCard, state }) => {
           </>
         ) : (
           <>
-            <div data-testid='no-transaction-history' className={cx(styles['root__transaction-history'], styles['root__transaction-history--greyed'], styles['root__click-event-enabled'])} onClick={handleNoTransactionHistoryClick}>
+            <div data-testid='no-transaction-history' onClick={handleNoTransactionHistoryClick}
+              className={cx(
+                styles['root__transaction-history'],
+                styles['root__transaction-history--greyed'],
+                styles['root__click-event-enabled'],
+              )}
+            >
               <StateAuthorisedGreySvg key={state} />
               <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
-              <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
+              <div className={styles.root__explainer}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
             </div>
             { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS && (
               <div data-testid='no-transaction-history-modal'>
@@ -70,10 +86,20 @@ const RewardsHistory = ({ membershipCard, state }) => {
           <>
             { nonActiveVouchers?.length > 0 ? (
               <>
-                <div data-testid='non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__click-event-enabled'])} onClick={handleNonActiveVouchersClick}>
-                  <StateAuthorisedSvg key={state} className={cx(styles['root__authorised-svg'], styles[`root__authorised-svg--${Config.theme}`])} />
-                  <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
-                  <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
+                <div data-testid='non-active-vouchers' onClick={handleNonActiveVouchersClick}
+                  className={cx(
+                    styles['root__voucher-history'],
+                    styles['root__click-event-enabled'],
+                  )}
+                >
+                  <StateAuthorisedSvg key={state}
+                    className={cx(
+                      styles['root__authorised-svg'],
+                      styles[`root__authorised-svg--${Config.theme}`],
+                    )}
+                  />
+                  <div className={styles.root__subtitle}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
+                  <div className={styles.root__explainer}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
                 </div>
                 { modalToRender === modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS && (
                   <div data-testid='non-active-vouchers-modal'>
@@ -83,10 +109,16 @@ const RewardsHistory = ({ membershipCard, state }) => {
               </>
             ) : (
               <>
-                <div data-testid='no-non-active-vouchers' className={cx(styles['root__voucher-history'], styles['root__voucher-history--greyed'], styles['root__click-event-enabled'])} onClick={handleNoNonActiveVouchersClick}>
+                <div data-testid='no-non-active-vouchers' onClick={handleNoNonActiveVouchersClick}
+                  className={cx(
+                    styles['root__voucher-history'],
+                    styles['root__voucher-history--greyed'],
+                    styles['root__click-event-enabled'],
+                  )}
+                >
                   <StateAuthorisedGreySvg key={state} />
-                  <div className={cx(styles.root__subtitle)}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
-                  <div className={cx(styles.root__explainer)}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
+                  <div className={styles.root__subtitle}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
+                  <div className={styles.root__explainer}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
                 </div>
                 { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_REWARDS && (
                     <div data-testid='no-non-active-vouchers-modal'>
@@ -107,7 +139,12 @@ const RewardsHistory = ({ membershipCard, state }) => {
 
   const renderNoPaymentCardsState = () => {
     return (
-      <div data-testid='no-payment-cards' className={cx(styles['root__no-payment-card-state'], styles['root__click-event-enabled'])} onClick={handleNoPaymentCardsClick}>
+      <div data-testid='no-payment-cards' onClick={handleNoPaymentCardsClick}
+        className={cx(
+          styles['root__no-payment-card-state'],
+          styles['root__click-event-enabled'],
+        )}
+      >
         <StateFailedSvg key={state} />
         <div className={styles.root__subtitle}>Add a credit/debit card</div>
         <div className={styles.root__explainer}>
