@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
@@ -60,15 +60,6 @@ const MultichannelMembershipCards = () => {
     return null
   }
 
-  const handleCardClick = (card) => {
-    history.replace(`/membership-card/${card.id}`)
-  }
-
-  const handleDeleteButtonClick = useCallback((card) => {
-    setDeleteModalMembershipCard(card)
-    dispatchModal(modalEnum.MEMBERSHIP_CARD_DELETE)
-  }, [dispatchModal])
-
   useEffect(() => {
     if (serviceError) {
       setShouldRenderTermsAndConditionsCheck(true)
@@ -112,8 +103,20 @@ const MultichannelMembershipCards = () => {
         membershipCards.map(card => {
           const { companyName = 'Company Name', planName = 'Plan Name', colour, secondaryColour, iconImage } = getPlanInfo(card.membership_plan)
           const { state, reason_codes } = card.status
+
+          const handleCardClick = () => {
+            history.replace(`/membership-card/${card.id}`)
+          }
+
+          const handleDeleteButtonClick = (event) => {
+            // This will stop the click event from bubbling up to the parent i.e. the card click event
+            event.stopPropagation()
+            setDeleteModalMembershipCard(card)
+            dispatchModal(modalEnum.MEMBERSHIP_CARD_DELETE)
+          }
+
           return (
-            <div key={card.id} className={cx(styles.root__card, styles['root--hover'])} data-testid='membership-card' onClick={() => handleCardClick(card)}>
+            <div key={card.id} className={cx(styles.root__card, styles['root--hover'])} data-testid='membership-card' onClick={handleCardClick}>
               <button className={styles['root__delete-button']} onClick={handleDeleteButtonClick}>DELETE</button>
 
               <div className={styles['root__content-container']}>

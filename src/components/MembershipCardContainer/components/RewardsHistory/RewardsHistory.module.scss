@@ -25,30 +25,19 @@
   }
 
   &__no-payment-card-state {
-    cursor: pointer;
-    grid-area: no-payment-card-state;
+    grid-area: details-tile;
 
     @include state-box;
-    @include base-hover-style;
-
-    &:hover {
-      @include hover-style;
-    }
   }
 
   &__failed-state {
-    grid-area: failed-state;
+    grid-area: details-tile;
 
     @include state-box;
-    @include base-hover-style;
-
-    &:hover {
-      @include hover-style;
-    }
   }
 
   &__pending-state {
-    grid-area: pending-state;
+    grid-area: details-tile;
 
     @include state-box;
   }
@@ -64,7 +53,7 @@
       @include hover-style;
     }
 
-    &--disabled {
+    &--greyed {
       color: $disabled-color-dark;
     }
   }
@@ -80,7 +69,7 @@
       @include hover-style;
     }
 
-    &--disabled {
+    &--greyed {
       color: $disabled-color-dark;
     }
   }
@@ -90,6 +79,16 @@
 
     &--bink {
       fill: url(#linearGradient-1);
+    }
+  }
+
+  &__click-event-enabled {
+    cursor: pointer;
+
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
     }
   }
 }

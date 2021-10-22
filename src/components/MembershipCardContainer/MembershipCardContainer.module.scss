@@ -5,9 +5,7 @@
 
   display: grid;
 
-  &--authorised,
-  &--failed,
-  &--pending {
+  &--authorised {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     row-gap: 15px;
@@ -36,56 +34,21 @@
     }
   }
 
-  &--no-payment-cards {
+  &--no-payment-cards,
+  &--unauthorised {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     row-gap: 15px;
     grid-template-areas:
       "image image"
-      "no-payment-card-state no-payment-card-state";
+      "details-tile details-tile";
 
     @media (min-width: 730px) {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: auto 1fr;
       column-gap: 20px;
       grid-template-areas:
-        "image no-payment-card-state"
-        "image .";
-    }
-  }
-
-  &--failed {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    row-gap: 15px;
-    grid-template-areas:
-      "image image"
-      "failed-state failed-state";
-
-    @media (min-width: 730px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto 1fr;
-      column-gap: 20px;
-      grid-template-areas:
-        "image failed-state"
-        "image .";
-    }
-  }
-
-  &--pending {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    row-gap: 15px;
-    grid-template-areas:
-      "image image"
-      "pending-state pending-state";
-
-    @media (min-width: 730px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto 1fr;
-      column-gap: 20px;
-      grid-template-areas:
-        "image pending-state"
+        "image details-tile"
         "image .";
     }
   }
