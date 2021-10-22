@@ -6,14 +6,15 @@ import RewardsHistory from './components/RewardsHistory'
 import styles from './MembershipCardContainer.module.scss'
 
 const MembershipCardContainer = ({ membershipCard }) => {
-  const { payment_cards: paymentCards = [] } = membershipCard
-
-  // possible states: authorised, failed, pending, suggested, unauthorised
   let state = membershipCard?.status?.state
-  if (state === 'suggested' || state === 'unauthorised') {
-    state = 'failed'
-  } else if (paymentCards.length === 0) {
-    state = 'no-payment-cards'
+  if (state === 'authorised') {
+    const { payment_cards: paymentCards = [] } = membershipCard
+
+    if (paymentCards.length === 0) {
+      state = 'no-payment-cards'
+    }
+  } else {
+    state = 'unauthorised'
   }
 
   return (
