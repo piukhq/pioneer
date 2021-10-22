@@ -97,6 +97,11 @@ const MultichannelMembershipCards = () => {
     return 'card'
   }
 
+  const handleDeleteModalClose = () => {
+    setDeleteModalMembershipCard(null)
+    dispatchModal(modalEnum.NO_MODAL)
+  }
+
   const renderMembershipCardsContent = () => {
     if (membershipCards.length > 0) {
       return (
@@ -157,7 +162,7 @@ const MultichannelMembershipCards = () => {
     <div className={styles.root} data-testid='root-container' id='multichannel-membership-cards-container'>
       {modalToRender === modalEnum.MEMBERSHIP_CARD_DELETE && (
         <div data-testid='membership-card-delete-modal'>
-          <MembershipCardDeleteModal onClose={() => setDeleteModalMembershipCard(null)} cardId={deleteModalMembershipCard?.id} planString={getPlanString()}/>
+          <MembershipCardDeleteModal onClose={handleDeleteModalClose} cardId={deleteModalMembershipCard?.id} planString={getPlanString()}/>
         </div>
       )}
 
