@@ -18,6 +18,14 @@ module.exports = {
       case 'fatface': return true
     }
   })(),
+  displayFooter: (() => {
+    // note: if overwritten then all cases must be kept
+    switch (process.env.THEME) {
+      case 'bink': return false
+      case 'wasabi': return false
+      case 'fatface': return true
+    }
+  })(),
   magicLinkSlug: (() => {
     switch (process.env.THEME) {
       case 'bink': return null
