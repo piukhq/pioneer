@@ -18,7 +18,7 @@ module.exports = {
       case 'fatface': return true
     }
   })(),
-  displayFooter: (() => {
+  shouldDisplayLogoFooter: (() => {
     // note: if overwritten then all cases must be kept
     switch (process.env.THEME) {
       case 'bink': return false
@@ -137,7 +137,7 @@ module.exports = {
   magicLinkRequestFormFooterLink: (() => {
     switch (process.env.THEME) {
       case 'bink': return null
-      case 'wasabi': return 'Terms and Conditions apply'
+      case 'wasabi': return 'Terms & Conditions apply'
       case 'fatface': return null
     }
   })(),

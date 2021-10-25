@@ -56,7 +56,7 @@ function App () {
           </Route>
         </Switch>
       </Router>
-      {Config.displayFooter && <Footer />}
+      {Config.shouldDisplayLogoFooter && <Footer />}
     </div>
   )
 }
