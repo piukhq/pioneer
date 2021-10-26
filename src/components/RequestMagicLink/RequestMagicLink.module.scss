@@ -41,6 +41,10 @@
     &--bold {
       font-weight: bold;
     }
+
+    &--grey {
+      color: $grey-30-percent;
+    }
   }
 
   &__link {
@@ -48,6 +52,10 @@
 
     &--bold {
       font-weight: bold;
+    }
+
+    &--grey {
+      color: $grey-30-percent;
     }
   }
 
@@ -61,7 +69,7 @@
   }
 
   &__footerNote {
-    margin-top: 10px;
+    margin-top: 25px;
   }
   // todo: Check with Jack remove if icons no longer needed
   // &__icon {

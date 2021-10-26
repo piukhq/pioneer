@@ -68,6 +68,7 @@ const MagicLinkRequestSuccess = ({ email }) => (
         <span className={styles['root__note--bold']}>Note: </span>
         The device you open the link on will be the device you are signed in on.
       </div>
+      <MagicLinkFooter />
     </div>
   </div>
 )
@@ -104,17 +105,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
                 styles.root__link,
               )} href={Config.urls.termsAndConditions} target="_blank" rel="noreferrer">{Config.magicLinkRequestFormFooterLink}.</a>
             </div>
-
-            <div className={styles.root__footerNote}>
-              <span className={styles.root__note}>**Bink is technology that makes loyalty simpler.
-                By connecting your loyalty account to your payment card you can earn rewards every time you shop.
-                Find out more about how our site works and how we put you in control by viewing </span>
-              {/* TODO: Should be merchant specific url? */}
-              <a className={cx(
-                styles.root__note,
-                styles.root__link,
-              )} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.</a>
-            </div>
+            <MagicLinkFooter />
           </>
         )}
       </form>
@@ -174,3 +165,38 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
     </div>
   )
 }
+
+const MagicLinkFooter = () => {
+  if (Config.theme === 'wasabi') {
+    return (
+      <div className={styles.root__footerNote}>
+        <div className={cx(
+          styles.root__note,
+          styles['root__note--grey'],
+        )}>This service is Powered by Bink. Full details can be found in Bink’s [<NoteAnchorTag elementModifier='grey' link='https://bink.com/privacy-policy/' text='Privacy Policy'/>] and <br />[<NoteAnchorTag elementModifier='grey' link='https://bink.com/user-terms-conditions/' text='Terms & Conditions'/>].</div>
+        <div className={cx(
+          styles.root__note,
+          styles['root__note--grey'],
+        )}>Bink uses cookies to provide this service. [<NoteAnchorTag elementModifier='grey' link='https://policies.gb.bink.com/web/wasabi-cp.html' text="View Bink's Cookie Policy here"/>].</div>
+      </div>
+    )
+  } else {
+    return (
+      <div className={styles.root__footerNote}>
+        <span className={styles.root__note}>Bink is technology that makes loyalty simpler.
+        By connecting your loyalty account to your payment card you can earn rewards every time you shop.
+        Find out more about how our site works and how we put you in control by viewing </span>
+        {/* TODO: Should be merchant specific url? */}
+        <NoteAnchorTag link='https://policies.gb.bink.com/web/wasabi-cp.html' text="Bink's Cookies Policy."/>
+      </div>
+    )
+  }
+}
+
+const NoteAnchorTag = ({ link, text, elementModifier }) => (
+  <a className={cx(
+    styles.root__note,
+    styles.root__link,
+    elementModifier && styles[`root__link--${elementModifier}`],
+  )} href={ link } target="_blank" rel="noreferrer">{text}</a>
+)
