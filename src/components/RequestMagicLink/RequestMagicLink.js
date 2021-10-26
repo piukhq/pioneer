@@ -167,17 +167,7 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
 }
 
 const MagicLinkFooter = () => {
-  if (Config.shouldDisplayLogoFooter) {
-    return (
-      <div className={styles.root__footerNote}>
-        <span className={styles.root__note}>✝︎Bink is technology that makes loyalty simpler.
-        By connecting your loyalty account to your payment card you can earn rewards every time you shop.
-        Find out more about how our site works and how we put you in control by viewing </span>
-        {/* TODO: Should be merchant specific url? */}
-        <NoteAnchorTag link='https://policies.gb.bink.com/web/wasabi-cp.html' text="Bink's Cookies Policy."/>
-      </div>
-    )
-  } else {
+  if (Config.theme === 'wasabi') {
     return (
       <div className={styles.root__footerNote}>
         <div className={cx(
@@ -188,6 +178,16 @@ const MagicLinkFooter = () => {
           styles.root__note,
           styles['root__note--grey'],
         )}>Bink uses cookies to provide this service. [<NoteAnchorTag elementModifier='grey' link='https://policies.gb.bink.com/web/wasabi-cp.html' text="View Bink's Cookie Policy here"/>].</div>
+      </div>
+    )
+  } else {
+    return (
+      <div className={styles.root__footerNote}>
+        <span className={styles.root__note}>Bink is technology that makes loyalty simpler.
+        By connecting your loyalty account to your payment card you can earn rewards every time you shop.
+        Find out more about how our site works and how we put you in control by viewing </span>
+        {/* TODO: Should be merchant specific url? */}
+        <NoteAnchorTag link='https://policies.gb.bink.com/web/wasabi-cp.html' text="Bink's Cookies Policy."/>
       </div>
     )
   }
