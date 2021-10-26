@@ -115,7 +115,7 @@ module.exports = {
         return [
           'Receive a £7 Off Meal Voucher when you collect 7 stamps!*',
           'If you would like to register/login to the Wasabi Club please enter your email address.',
-          'Once you enter your email address Bink will check if you already have an account.**',
+          'Once you enter your email address Bink will check if you already have an account.',
         ]
       }
       case 'fatface': {
