@@ -208,9 +208,7 @@ export const actions = {
         fingerprint,
       )
       dispatch(actions.addPaymentCardSuccess(response.data))
-      // refresh payment and membership cards
       await dispatch(actions.getPaymentCards())
-      dispatch(membershipCardsActions.getMembershipCards())
       return response.data
     } catch (e) {
       dispatch(actions.addPaymentCardFailure(e))
