@@ -81,6 +81,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, handleDeletePa
   }
 
   const isActivating = (card) => isPaymentCardPending(card) && !isPaymentCardExpired(card)
+
   return (
     <>
       {/* Only mount component if there is a newly added payment card in a pending state */}

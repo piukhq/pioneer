@@ -46,6 +46,7 @@ export const useMembershipCardStateById = (id) => {
 export const useMembershipCardsDispatch = () => {
   const dispatch = useDispatch()
   return {
+    getMembershipCards: () => dispatch(membershipCardsActions.getMembershipCards()),
     deleteMembershipCard: (id) => dispatch(membershipCardsActions.deleteMembershipCard(id)),
     addMembershipCard: (accountData, planId) => dispatch(membershipCardsActions.addMembershipCard(accountData, planId)),
     addMembershipCardOnMerchantChannel: (accountData, planId) => dispatch(membershipCardsActions.addMembershipCardOnMerchantChannel(accountData, planId)),
