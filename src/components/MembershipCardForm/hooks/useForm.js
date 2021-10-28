@@ -5,7 +5,7 @@ import usePlanDocumentsValues from './usePlanDocumentsValues'
 import useRedirectToNewMembershipCard from './useRedirectToNewMembershipCard'
 import { useSelector } from 'react-redux'
 
-const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
+export const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
   useRedirectToNewMembershipCard()
   const [values, setValues] = useState(null)
   const [errors, setErrors] = useState(null)
@@ -201,5 +201,3 @@ const useForm = (plan, planId, fieldTypes, linkingFeature, initialValues) => {
     submitLoading,
   }
 }
-
-export default useForm
