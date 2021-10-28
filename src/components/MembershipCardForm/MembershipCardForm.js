@@ -159,7 +159,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
                 target='_blank'
                 rel='noreferrer'
                 className={styles['root__wasabi-enrol-box-content--link']}
-              >Bink terms & conditions</a>.
+              >Bink terms & conditions.</a>
             </>
           }
         />
