@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
+import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'

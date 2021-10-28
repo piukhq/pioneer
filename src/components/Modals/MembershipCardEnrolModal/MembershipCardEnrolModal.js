@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import Modal from 'components/Modal'
-import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
+import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
 import useCloseModalOnSuccess from './hooks/useCloseModalOnSuccess'
 import LoadingIndicator from 'components/LoadingIndicator'
 import MembershipCardForm from 'components/MembershipCardForm'

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { selectors as usersSelectors } from 'ducks/users'
-import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
+import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
 import useLoadMembershipCardsReenrol from './hooks/useLoadMembershipCardsReenrol'
 import MembershipCardForm from 'components/MembershipCardForm'
 

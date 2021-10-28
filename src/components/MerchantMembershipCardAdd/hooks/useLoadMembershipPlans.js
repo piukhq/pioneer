@@ -5,7 +5,7 @@ import {
   useMembershipPlansDispatch,
 } from 'hooks/membershipPlans'
 
-const useLoadMembershipPlans = (planId) => {
+export const useLoadMembershipPlans = (planId) => {
   const {
     membershipPlanById: plan,
     loading,
@@ -24,4 +24,3 @@ const useLoadMembershipPlans = (planId) => {
   }
 }
 
-export default useLoadMembershipPlans
