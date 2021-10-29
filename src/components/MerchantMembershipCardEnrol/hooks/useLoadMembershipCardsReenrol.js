@@ -5,7 +5,7 @@ import {
   actions as membershipCardsActions,
 } from 'ducks/membershipCards'
 
-const useLoadMembershipCardsReenrol = () => {
+export const useLoadMembershipCardsReenrol = () => {
   const dispatch = useDispatch()
   const [reenrolFormVisible, setReenrolFormVisible] = useState(false)
 
@@ -24,5 +24,3 @@ const useLoadMembershipCardsReenrol = () => {
     reenrolFormVisible,
   }
 }
-
-export default useLoadMembershipCardsReenrol

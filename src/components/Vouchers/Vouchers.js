@@ -1,6 +1,6 @@
 import React from 'react'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
-import useLoadMembershipPlans from './hooks/useLoadMembershipPlans'
+import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
 import Voucher from 'components/Voucher'
 
 import styles from './Vouchers.module.scss'
