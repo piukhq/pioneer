@@ -67,7 +67,7 @@ describe('Test MembershipCardForm', () => {
     expect(queryByTestId(`input-field-${mockFieldType}-${mockFieldDescriptionColumn}`)).toBeInTheDocument()
   })
 
-  describe('Test Button', () => {
+  describe('Test submit form button', () => {
     it('should render the Button component', () => {
       const { queryByTestId } = render(<MembershipCardForm {...mockProps} />)
       expect(queryByTestId('membership-card-form-button')).toBeInTheDocument()
@@ -78,8 +78,8 @@ describe('Test MembershipCardForm', () => {
         ...mockProps,
         submittingCaption: mockSubmittingCaption,
       }
-      const { getByText } = render(<MembershipCardForm {...props} />)
-      expect(getByText(mockSubmittingCaption)).toBeInTheDocument()
+      const { getByRole } = render(<MembershipCardForm {...props} />)
+      expect(getByRole('button')).toHaveTextContent(mockSubmittingCaption) 
     })
 
     it('should render the submit caption text', () => {
@@ -92,8 +92,8 @@ describe('Test MembershipCardForm', () => {
         ...mockProps,
         submitCaption: mockSubmitCaption,
       }
-      const { getByText } = render(<MembershipCardForm {...props} />)
-      expect(getByText(mockSubmitCaption)).toBeInTheDocument()
+      const { getByRole } = render(<MembershipCardForm {...props} />)
+      expect(getByRole('button')).toHaveTextContent(mockSubmitCaption) 
     })
 
     it('should render the default button text', () => {
@@ -102,8 +102,8 @@ describe('Test MembershipCardForm', () => {
         submitLoading: false,
       }))
 
-      const { getByText } = render(<MembershipCardForm {...mockProps} />)
-      expect(getByText('Add my card')).toBeInTheDocument()
+      const { getByRole } = render(<MembershipCardForm {...mockProps} />)
+      expect(getByRole('button')).toHaveTextContent('Add my card') 
     })
   })
 
