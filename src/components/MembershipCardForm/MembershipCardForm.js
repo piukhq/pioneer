@@ -31,8 +31,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
 
   const isAddForm = useSelector(state => membershipCardsSelectors.isReaddRequired(state))
 
-  const isNonWasabiWhitelabel = Config.isMerchantChannel && Config.theme !== 'wasabi'
-  const isWasabiWhitelabel = Config.isMerchantChannel && Config.theme === 'wasabi'
+  const isWasabiTheme = Config.theme === 'wasabi'
 
   const planDocuments = plan?.account?.plan_documents
     ?.filter(document => document?.display?.includes(linkingFeature))
@@ -99,27 +98,32 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     </div>
   )
 
+  const renderBinkTermsAndConditionsCheckbox = () => (
+    <CheckboxGroup
+      className={cx(
+        styles.root__group,
+        styles['root__group--full-width'],
+        isWasabiTheme && styles['root__wasabi-enrol-box-content'],
+      )}
+      value={binkTermsValue}
+      onChange={handleBinkTermsChange}
+      label={
+        <>
+          I accept the {' '}
+          <a
+            href='https://bink.com/terms-and-conditions/'
+            target='_blank'
+            rel='noreferrer'
+            className={styles[isWasabiTheme ? 'root__wasabi-enrol-box-content--link' : 'root__link']}
+          >Bink terms & conditions.</a>
+        </>
+      }
+    />
+  )
+
   const renderNonWasabiEnrolFormSection = () => (
     <>
-      <CheckboxGroup
-        className={cx(
-          styles.root__group,
-          styles['root__group--full-width'],
-        )}
-        value={binkTermsValue}
-        onChange={handleBinkTermsChange}
-        label={
-          <>
-            I accept the{' '}
-            <a
-              href='https://bink.com/terms-and-conditions/'
-              target='_blank'
-              rel='noreferrer'
-              className={styles.root__link}
-            >Bink terms & conditions</a>.
-          </>
-        }
-     />
+      { renderBinkTermsAndConditionsCheckbox()}
       { planDocuments.map(document => document.checkbox ? renderCheckboxDocument(document) : renderNonCheckboxDocument(document))}
       <div className={cx(
         styles.root__group,
@@ -141,28 +145,11 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         styles['root__wasabi-enrol-box'],
       )}>
         <div className={styles['root__wasabi-enrol-box-content']}>
-          Wasabi Club is powered by <a className={styles['root__wasabi-enrol-box-content--link']} href='https://bink.com' target='_blank' rel='noreferrer'>Bink</a> technology. To find out more, please read Bink's <a className={styles['root__wasabi-enrol-box-content--link']} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Privacy Policy</a> and <a className={styles['root__wasabi-enrol-box-content--link']} href='https://policies.gb.bink.com/web/wasabi-cp.html' target='_blank' rel='noreferrer'>Cookie Policy</a>.
+          Wasabi Club is powered by <a className={styles['root__wasabi-enrol-box-content--link']} href='https://bink.com' target='_blank' rel='noreferrer'>Bink</a> technology. To find out more, please read Bink's{' '}
+          <a className={styles['root__wasabi-enrol-box-content--link']} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Privacy Policy</a> and{' '}
+          <a className={styles['root__wasabi-enrol-box-content--link']} href='https://policies.gb.bink.com/web/wasabi-cp.html' target='_blank' rel='noreferrer'>Cookie Policy</a>.
         </div>
-        <CheckboxGroup
-          className={cx(
-            styles.root__group,
-            styles['root__group--full-width'],
-            styles['root__wasabi-enrol-box-content'],
-          )}
-          value={binkTermsValue}
-          onChange={handleBinkTermsChange}
-          label={
-            <>
-              I accept the {' '}
-              <a
-                href='https://bink.com/terms-and-conditions/'
-                target='_blank'
-                rel='noreferrer'
-                className={styles['root__wasabi-enrol-box-content--link']}
-              >Bink terms & conditions.</a>
-            </>
-          }
-        />
+        { renderBinkTermsAndConditionsCheckbox()}
       </div>
     </>
   )
@@ -187,8 +174,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         )}
       >
         {renderFormFields()}
-        { !isAddForm && isNonWasabiWhitelabel && renderNonWasabiEnrolFormSection() }
-        { !isAddForm && isWasabiWhitelabel && renderWasabiEnrolFormSection() }
+        { !isAddForm && isWasabiTheme ? renderWasabiEnrolFormSection() : renderNonWasabiEnrolFormSection() }
         { renderSubmitButton()}
       </form>
     ) : null
