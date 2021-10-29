@@ -174,7 +174,9 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         )}
       >
         {renderFormFields()}
-        { !isAddForm && isWasabiTheme ? renderWasabiEnrolFormSection() : renderNonWasabiEnrolFormSection() }
+        { !isAddForm && (
+          isWasabiTheme ? renderWasabiEnrolFormSection() : renderNonWasabiEnrolFormSection()
+        )}
         { renderSubmitButton()}
       </form>
     ) : null
