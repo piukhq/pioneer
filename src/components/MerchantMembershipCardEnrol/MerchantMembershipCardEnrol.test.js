@@ -1,6 +1,5 @@
 import React from 'react'
 import * as reactRedux from 'react-redux'
-// import Config from 'Config'
 import { render, fireEvent } from '@testing-library/react'
 import { useContactSupport } from 'hooks/useContactSupport'
 import { useLogout } from 'hooks/useLogout'
@@ -13,18 +12,17 @@ const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
 jest.mock('hooks/useLogout', () => ({
   useLogout: jest.fn(),
 }))
-
 jest.mock('hooks/useContactSupport', () => ({
   useContactSupport: jest.fn(),
 }))
-
 jest.mock('./hooks/useLoadMembershipPlans', () => ({
   useLoadMembershipPlans: jest.fn(),
 }))
-
 jest.mock('./hooks/useLoadMembershipCardsReenrol', () => ({
   useLoadMembershipCardsReenrol: jest.fn(),
 }))
+
+jest.mock('components/MembershipCardForm', () => () => null)
 
 const useLoadMembershipPlansDefaultValues = {
   plan: {
@@ -38,7 +36,6 @@ const useLoadMembershipPlansDefaultValues = {
   },
 }
 
-jest.mock('components/MembershipCardForm', () => () => null)
 const mockPlanId = 'mock_plan_id'
 const mockUserId = 'mock_user_id'
 const mockContactSupport = jest.fn()
