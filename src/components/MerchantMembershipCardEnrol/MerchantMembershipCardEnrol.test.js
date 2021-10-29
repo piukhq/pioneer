@@ -58,6 +58,7 @@ describe('Test MerchantMembershipCardEnrol', () => {
       }
       useLoadMembershipCardsReenrol.mockImplementation(() => ({ reenrolFormVisible: false }))
     })
+
     it('should render the header with correct copy', () => {
       const { getByRole, getByText } = render(merchantMembershipCardEnrolComponent)
       expect(getByRole('heading')).toBeInTheDocument()
@@ -95,6 +96,7 @@ describe('Test MerchantMembershipCardEnrol', () => {
     beforeEach(() => {
       useLoadMembershipCardsReenrol.mockImplementation(() => ({ reenrolFormVisible: true }))
     })
+
     it('should render the header with correct copy', () => {
       const { getByRole, getByText } = render(merchantMembershipCardEnrolComponent)
       expect(getByRole('heading')).toBeInTheDocument()
