@@ -1,4 +1,4 @@
-import useContactSupport from 'hooks/useContactSupport'
+import { useContactSupport } from 'hooks/useContactSupport'
 import usePaymentCardDelete from './hooks/usePaymentCardDelete'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import Modal from 'components/Modal'

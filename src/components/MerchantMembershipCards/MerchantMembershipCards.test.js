@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import * as reactRedux from 'react-redux'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useLogout } from 'hooks/useLogout'
+import { useContactSupport } from 'hooks/useContactSupport'
 import { useMerchantMembershipCards } from './hooks/useMerchantMembershipCards'
 import MerchantMembershipCards from './MerchantMembershipCards'
 
@@ -10,8 +11,7 @@ jest.mock('hooks/useLogout', () => ({
   useLogout: jest.fn(),
 }))
 jest.mock('hooks/useContactSupport', () => ({
-  __esModule: true,
-  default: () => jest.fn(),
+  useContactSupport: jest.fn(),
 }))
 jest.mock('./hooks/useMerchantMembershipCards', () => ({
   useMerchantMembershipCards: jest.fn(),
@@ -40,6 +40,9 @@ describe('Test MerchantMembershipCards', () => {
     }))
     useLogout.mockImplementation(() => ({
       logout: jest.fn(),
+    }))
+    useContactSupport.mockImplementation(() => ({
+      contactSupport: jest.fn(),
     }))
   })
 

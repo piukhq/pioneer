@@ -1,4 +1,4 @@
-const useContactSupport = () => {
+export const useContactSupport = () => {
   const contactSupport = () => {
     const win = window.open(Config.urls.support, '_blank')
     win.focus()
@@ -7,5 +7,3 @@ const useContactSupport = () => {
     contactSupport,
   }
 }
-
-export default useContactSupport
