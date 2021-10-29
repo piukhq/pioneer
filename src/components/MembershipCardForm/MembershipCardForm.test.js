@@ -79,7 +79,7 @@ describe('Test MembershipCardForm', () => {
         submittingCaption: mockSubmittingCaption,
       }
       const { getByRole } = render(<MembershipCardForm {...props} />)
-      expect(getByRole('button')).toHaveTextContent(mockSubmittingCaption) 
+      expect(getByRole('button')).toHaveTextContent(mockSubmittingCaption)
     })
 
     it('should render the submit caption text', () => {
@@ -93,7 +93,7 @@ describe('Test MembershipCardForm', () => {
         submitCaption: mockSubmitCaption,
       }
       const { getByRole } = render(<MembershipCardForm {...props} />)
-      expect(getByRole('button')).toHaveTextContent(mockSubmitCaption) 
+      expect(getByRole('button')).toHaveTextContent(mockSubmitCaption)
     })
 
     it('should render the default button text', () => {
@@ -103,7 +103,7 @@ describe('Test MembershipCardForm', () => {
       }))
 
       const { getByRole } = render(<MembershipCardForm {...mockProps} />)
-      expect(getByRole('button')).toHaveTextContent('Add my card') 
+      expect(getByRole('button')).toHaveTextContent('Add my card')
     })
   })
 
