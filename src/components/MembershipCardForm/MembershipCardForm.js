@@ -56,7 +56,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
           fieldDescription.description = 'Check this box to receive the latest news and offers from Wasabi - if you change your mind, you can opt out any time.'
         }
         return (
-          <>
+          <React.Fragment key={fieldDescription.column}>
             { fieldDescription.column === 'Wasabi Channel' && renderWasabiTermsAndConditionsCheckbox()}
             <DynamicInputGroup
               className={cx(
@@ -73,7 +73,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
               fieldType={fieldType}
               disabled={disabledFields?.[fieldType]?.[fieldDescription?.column]}
             />
-          </>
+          </React.Fragment>
         )
       })
     ))
@@ -126,6 +126,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         isWasabiTheme && styles['root__wasabi-enrol-box-content'],
       )}
       value={binkTermsValue}
+      key={binkTermsValue}
       onChange={handleBinkTermsChange}
       label={
         <>
