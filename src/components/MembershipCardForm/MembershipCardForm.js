@@ -79,36 +79,28 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     ))
   )
 
-  const renderCheckboxDocument = (document) => (
+  const renderCheckboxDocument = (document, customLabel) => (
     <CheckboxGroup
       className={cx(
         styles.root__group,
         styles['root__group--full-width'],
       )}
       key={document.name}
-      label={renderDocumentText(document)}
+      label={customLabel || renderDocumentText(document)}
       name={document.name}
       value={documentValues[document.name]}
       onChange={event => handleDocumentChange(event, document.name)}
     />
   )
 
-  const renderWasabiTermsAndConditionsCheckbox = () => { // overrides API values with Wasabi-specific changes. TODO: Remove when API values are updated.
+  const renderWasabiTermsAndConditionsCheckbox = () => { // overrides API values with Wasabi-specific changes.
     const termsAndConditions = planDocuments.find(document => document.name === 'Retailer terms & conditions')
     const privacyPolicyUrl = planDocuments.find(document => document.name === 'Wasabi privacy policy').url
-
     if (termsAndConditions && privacyPolicyUrl) {
-      return <CheckboxGroup
-        className={cx(
-          styles.root__group,
-          styles['root__group--full-width'],
-        )}
-        key={termsAndConditions.name}
-        label={<span>I accept the Wasabi <a className={styles.root__link} href={termsAndConditions.url}>Terms & Conditions</a>. Please see the Wasabi <a className={styles.root__link} href={privacyPolicyUrl}>Privacy Policy</a> for more information.</span>}
-        name={termsAndConditions.name}
-        value={documentValues[termsAndConditions.name]}
-        onChange={event => handleDocumentChange(event, termsAndConditions.name)}
-      />
+      const wasabiLabel = (
+        <span>I accept the Wasabi <a className={styles.root__link} href={termsAndConditions.url}>Terms & Conditions</a>. Please see the Wasabi <a className={styles.root__link} href={privacyPolicyUrl}>Privacy Policy</a> for more information.</span>
+      )
+      return renderCheckboxDocument(termsAndConditions, wasabiLabel)
     }
     return null
   }
