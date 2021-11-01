@@ -51,23 +51,31 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
 
   const renderFormFields = () => (
     fieldTypes.map(fieldType => (
-      plan.account[fieldType].map(fieldDescription => (
-        <DynamicInputGroup
-          className={cx(
-            styles.root__group,
-            styles['root__group--dynamic-field'],
-            fieldDescription.type === 3 && styles['root__group--full-width'], // span checkboxes across 2 columns
-          )}
-          key={fieldDescription.column}
-          value={values[fieldType][fieldDescription.column]}
-          error={errors[fieldType][fieldDescription.column]}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          data={fieldDescription}
-          fieldType={fieldType}
-          disabled={disabledFields?.[fieldType]?.[fieldDescription?.column]}
-        />
-      ))
+      plan.account[fieldType].map(fieldDescription => {
+        if (fieldDescription.column === 'Wasabi Channel') {
+          fieldDescription.description = 'Check this box to receive the latest news and offers from Wasabi - if you change your mind, you can opt out any time.'
+        }
+        return (
+          <>
+            { fieldDescription.column === 'Wasabi Channel' && renderWasabiTermsAndConditionsCheckbox()}
+            <DynamicInputGroup
+              className={cx(
+                styles.root__group,
+                styles['root__group--dynamic-field'],
+                fieldDescription.type === 3 && styles['root__group--full-width'], // span checkboxes across 2 columns
+              )}
+              key={fieldDescription.column}
+              value={values[fieldType][fieldDescription.column]}
+              error={errors[fieldType][fieldDescription.column]}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              data={fieldDescription}
+              fieldType={fieldType}
+              disabled={disabledFields?.[fieldType]?.[fieldDescription?.column]}
+            />
+          </>
+        )
+      })
     ))
   )
 
@@ -84,6 +92,26 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
       onChange={event => handleDocumentChange(event, document.name)}
     />
   )
+
+  const renderWasabiTermsAndConditionsCheckbox = () => { // overrides API values with Wasabi-specific changes. TODO: Remove when API values are updated.
+    const termsAndConditions = planDocuments.find(document => document.name === 'Retailer terms & conditions')
+    const privacyPolicyUrl = planDocuments.find(document => document.name === 'Wasabi privacy policy').url
+
+    if (termsAndConditions && privacyPolicyUrl) {
+      return <CheckboxGroup
+        className={cx(
+          styles.root__group,
+          styles['root__group--full-width'],
+        )}
+        key={termsAndConditions.name}
+        label={<span>I accept the Wasabi <a className={styles.root__link} href={termsAndConditions.url}>Terms & Conditions</a>. Please see the Wasabi <a className={styles.root__link} href={privacyPolicyUrl}>Privacy Policy</a> for more information.</span>}
+        name={termsAndConditions.name}
+        value={documentValues[termsAndConditions.name]}
+        onChange={event => handleDocumentChange(event, termsAndConditions.name)}
+      />
+    }
+    return null
+  }
 
   const renderNonCheckboxDocument = (document) => (
     <div
@@ -115,7 +143,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
             target='_blank'
             rel='noreferrer'
             className={styles[isWasabiTheme ? 'root__wasabi-enrol-box-content--link' : 'root__link']}
-          >Bink terms & conditions.</a>
+          >Bink Terms & Conditions.</a>
         </>
       }
     />
@@ -135,9 +163,8 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     </>
   )
 
-  const renderWasabiEnrolFormSection = () => (
+  const renderWasabiEnrolBox = () => (
     <>
-      { planDocuments.map(document => document.checkbox && renderCheckboxDocument(document))}
       <div className={cx(
         styles.root__group,
         styles['root__group--text-only'],
@@ -175,7 +202,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
       >
         {renderFormFields()}
         { !isAddForm && (
-          isWasabiTheme ? renderWasabiEnrolFormSection() : renderNonWasabiEnrolFormSection()
+          isWasabiTheme ? renderWasabiEnrolBox() : renderNonWasabiEnrolFormSection()
         )}
         { renderSubmitButton()}
       </form>
