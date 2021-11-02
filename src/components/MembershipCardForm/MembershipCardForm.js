@@ -52,12 +52,12 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
   const renderFormFields = () => (
     fieldTypes.map(fieldType => (
       plan.account[fieldType].map(fieldDescription => {
-        if (fieldDescription.column === 'Wasabi Channel') {
+        if (fieldDescription.column === Config.enrolEmailOptInSlug) {
           fieldDescription.description = 'Check this box to receive the latest news and offers from Wasabi - if you change your mind, you can opt out any time.'
         }
         return (
           <React.Fragment key={fieldDescription.column}>
-            { fieldDescription.column === 'Wasabi Channel' && renderWasabiTermsAndConditionsCheckbox()}
+            { fieldDescription.column === Config.enrolEmailOptInSlug && renderWasabiTermsAndConditionsCheckbox()}
             <DynamicInputGroup
               className={cx(
                 styles.root__group,
@@ -94,11 +94,13 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
   )
 
   const renderWasabiTermsAndConditionsCheckbox = () => { // overrides API values with Wasabi-specific changes.
-    const termsAndConditions = planDocuments.find(document => document.name === 'Retailer terms & conditions')
-    const privacyPolicyUrl = planDocuments.find(document => document.name === 'Wasabi privacy policy').url
-    if (termsAndConditions && privacyPolicyUrl) {
+    const [termsAndConditions, privacyPolicy] = ['Retailer terms & conditions', 'Wasabi privacy policy'].map(matchingName => (
+      planDocuments.find(document => document.name === matchingName)
+    ))
+
+    if (termsAndConditions && privacyPolicy) {
       const wasabiLabel = (
-        <span>I accept the Wasabi <a className={styles.root__link} href={termsAndConditions.url}>Terms & Conditions</a>. Please see the Wasabi <a className={styles.root__link} href={privacyPolicyUrl}>Privacy Policy</a> for more information.</span>
+        <span>I accept the Wasabi <a className={styles.root__link} href={termsAndConditions.url}>Terms & Conditions</a>. Please see the Wasabi <a className={styles.root__link} href={privacyPolicy.url}>Privacy Policy</a> for more information.</span>
       )
       return renderCheckboxDocument(termsAndConditions, wasabiLabel)
     }
@@ -157,7 +159,6 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
   )
 
   const renderWasabiEnrolBox = () => (
-    <>
       <div className={cx(
         styles.root__group,
         styles['root__group--text-only'],
@@ -171,7 +172,6 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         </div>
         { renderBinkTermsAndConditionsCheckbox()}
       </div>
-    </>
   )
 
   const renderSubmitButton = () => (
