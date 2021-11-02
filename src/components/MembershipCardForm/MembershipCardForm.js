@@ -52,9 +52,6 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
   const renderFormFields = () => (
     fieldTypes.map(fieldType => (
       plan.account[fieldType].map(fieldDescription => {
-        if (fieldDescription.column === Config.enrolEmailOptInSlug) {
-          fieldDescription.description = 'Check this box to receive the latest news and offers from Wasabi - if you change your mind, you can opt out any time.'
-        }
         return (
           <React.Fragment key={fieldDescription.column}>
             { fieldDescription.column === Config.enrolEmailOptInSlug && renderWasabiTermsAndConditionsCheckbox()}
