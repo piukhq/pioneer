@@ -54,7 +54,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
       plan.account[fieldType].map(fieldDescription => {
         return (
           <React.Fragment key={fieldDescription.column}>
-            { fieldDescription.column === Config.enrolEmailOptInSlug && isWasabiTheme && renderWasabiTermsAndConditionsCheckbox()}
+            { fieldDescription.column === Config.enrolEmailOptInSlug && !isWasabiTheme && renderWasabiTermsAndConditionsCheckbox()}
             <DynamicInputGroup
               className={cx(
                 styles.root__group,
