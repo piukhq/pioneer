@@ -33,6 +33,13 @@ module.exports = {
       case 'fatface': return 'fatface'
     }
   })(),
+  enrolEmailOptInSlug: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return 'Wasabi Channel'
+      case 'fatface': return 'FatFace Channel'
+    }
+  })(),
   clientId: null,
   bundleId: (() => {
     switch (process.env.THEME) {
