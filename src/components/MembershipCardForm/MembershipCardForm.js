@@ -51,39 +51,58 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
 
   const renderFormFields = () => (
     fieldTypes.map(fieldType => (
-      plan.account[fieldType].map(fieldDescription => (
-        <DynamicInputGroup
-          className={cx(
-            styles.root__group,
-            styles['root__group--dynamic-field'],
-            fieldDescription.type === 3 && styles['root__group--full-width'], // span checkboxes across 2 columns
-          )}
-          key={fieldDescription.column}
-          value={values[fieldType][fieldDescription.column]}
-          error={errors[fieldType][fieldDescription.column]}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          data={fieldDescription}
-          fieldType={fieldType}
-          disabled={disabledFields?.[fieldType]?.[fieldDescription?.column]}
-        />
-      ))
+      plan.account[fieldType].map(fieldDescription => {
+        return (
+          <React.Fragment key={fieldDescription.column}>
+            { fieldDescription.column === Config.enrolEmailOptInSlug && isWasabiTheme && renderWasabiTermsAndConditionsCheckbox()}
+            <DynamicInputGroup
+              className={cx(
+                styles.root__group,
+                styles['root__group--dynamic-field'],
+                fieldDescription.type === 3 && styles['root__group--full-width'], // span checkboxes across 2 columns
+              )}
+              key={fieldDescription.column}
+              value={values[fieldType][fieldDescription.column]}
+              error={errors[fieldType][fieldDescription.column]}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              data={fieldDescription}
+              fieldType={fieldType}
+              disabled={disabledFields?.[fieldType]?.[fieldDescription?.column]}
+            />
+          </React.Fragment>
+        )
+      })
     ))
   )
 
-  const renderCheckboxDocument = (document) => (
+  const renderCheckboxDocument = (document, customLabel) => (
     <CheckboxGroup
       className={cx(
         styles.root__group,
         styles['root__group--full-width'],
       )}
       key={document.name}
-      label={renderDocumentText(document)}
+      label={customLabel || renderDocumentText(document)}
       name={document.name}
       value={documentValues[document.name]}
       onChange={event => handleDocumentChange(event, document.name)}
     />
   )
+
+  const renderWasabiTermsAndConditionsCheckbox = () => { // overrides API values with Wasabi-specific changes.
+    const [termsAndConditions, privacyPolicy] = ['Retailer terms & conditions', 'Wasabi privacy policy'].map(matchingName => (
+      planDocuments.find(document => document.name === matchingName)
+    ))
+
+    if (termsAndConditions && privacyPolicy) {
+      const wasabiLabel = (
+        <span>I accept the Wasabi <a className={styles.root__link} href={termsAndConditions.url}>Terms & Conditions</a>. Please see the Wasabi <a className={styles.root__link} href={privacyPolicy.url}>Privacy Policy</a> for more information.</span>
+      )
+      return renderCheckboxDocument(termsAndConditions, wasabiLabel)
+    }
+    return null
+  }
 
   const renderNonCheckboxDocument = (document) => (
     <div
@@ -106,6 +125,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         isWasabiTheme && styles['root__wasabi-enrol-box-content'],
       )}
       value={binkTermsValue}
+      key={binkTermsValue}
       onChange={handleBinkTermsChange}
       label={
         <>
@@ -115,7 +135,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
             target='_blank'
             rel='noreferrer'
             className={styles[isWasabiTheme ? 'root__wasabi-enrol-box-content--link' : 'root__link']}
-          >Bink terms & conditions.</a>
+          >Bink Terms & Conditions.</a>
         </>
       }
     />
@@ -135,9 +155,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
     </>
   )
 
-  const renderWasabiEnrolFormSection = () => (
-    <>
-      { planDocuments.map(document => document.checkbox && renderCheckboxDocument(document))}
+  const renderWasabiEnrolBox = () => (
       <div className={cx(
         styles.root__group,
         styles['root__group--text-only'],
@@ -151,7 +169,6 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
         </div>
         { renderBinkTermsAndConditionsCheckbox()}
       </div>
-    </>
   )
 
   const renderSubmitButton = () => (
@@ -175,7 +192,7 @@ const MembershipCardForm = ({ plan, planId, fieldTypes, linkingFeature, initialV
       >
         {renderFormFields()}
         { !isAddForm && (
-          isWasabiTheme ? renderWasabiEnrolFormSection() : renderNonWasabiEnrolFormSection()
+          isWasabiTheme ? renderWasabiEnrolBox() : renderNonWasabiEnrolFormSection()
         )}
         { renderSubmitButton()}
       </form>
