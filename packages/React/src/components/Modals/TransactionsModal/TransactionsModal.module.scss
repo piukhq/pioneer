@@ -1,0 +1,47 @@
+@import "src/sass/variables";
+
+.root {
+  width: 420px;
+
+  &__description {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  &__transaction {
+    padding: 15px 0;
+    border-bottom: 1px solid $list-divider-color;
+
+    &--positive {
+      background: url("/images/transaction-positive.png") 100% 50% no-repeat;
+    }
+
+    &--neutral {
+      background: url("/images/transaction-neutral.png") 100% 50% no-repeat;
+    }
+
+    &--negative {
+      background: url("/images/transaction-negative.png") 100% 50% no-repeat;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &__value {
+    font-size: 18px;
+    font-weight: 800;
+
+    &--positive {
+      color: $positive;
+    }
+  }
+
+  &__date,
+  &__transaction-description {
+    font-size: 14px;
+  }
+}

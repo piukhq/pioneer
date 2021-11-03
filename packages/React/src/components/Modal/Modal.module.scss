@@ -1,0 +1,17 @@
+@import "src/sass/mixins";
+
+.root {
+  @include modal;
+
+  &__close-button {
+    &--disabled {
+      cursor: default;
+      fill: $disabled-color;
+    }
+  }
+}
+
+:global(html.modal--no-scroll),
+:global(html.modal--no-scroll body) {
+  overflow: hidden;
+}

@@ -1,0 +1,64 @@
+@import "src/sass/mixins";
+
+.root {
+  &__paragraph {
+    @include body-font-style;
+    @include paragraph-spacing-styling;
+  }
+
+  &__groups {
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "card-number card-expiry"
+      "name-on-card name-on-card";
+
+    @media (max-width: 630px) {
+      grid-template-areas:
+        "card-number"
+        "card-expiry"
+        "name-on-card";
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__number-group {
+    grid-area: card-number;
+  }
+
+  &__expiry-group {
+    grid-area: card-expiry;
+  }
+
+  &__name-group {
+    grid-area: name-on-card;
+  }
+
+  &__generic-error {
+    text-align: center;
+    color: $error-color;
+    margin: 30px;
+  }
+
+  &__button-container {
+    display: flex;
+  }
+
+  &__button {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__url {
+    @include link;
+
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+  }
+}

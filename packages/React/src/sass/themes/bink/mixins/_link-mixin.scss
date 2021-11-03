@@ -1,0 +1,6 @@
+@import "src/sass/variables";
+
+@mixin link {
+  color: $link-color;
+  text-decoration: underline;
+}

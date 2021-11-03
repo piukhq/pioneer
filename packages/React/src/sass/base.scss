@@ -1,0 +1,11 @@
+@import "src/sass/variables";
+@import "src/sass/mixins";
+@import "~sassThemeFolder/fonts/font-definitions";
+
+@include base-styling;
+
+// dev only, used to highlight components on a page that should be visible only by devs
+.dev-only {
+  border: 1px dashed #006bcd;
+  background-color: #c3e9ff;
+}

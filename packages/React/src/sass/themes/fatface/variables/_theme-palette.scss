@@ -1,0 +1,58 @@
+// Theme palette
+$primary-color: #57595b;
+$primary-color-highlight: #707375;
+$primary-color-alternative1: #646668;
+$primary-color-alternative2: #48494b;
+$primary-color-alternative3: #c9c9c9;
+$primary-color-alternative4: #949494;
+$primary-color-alternative5: #dbdbdb;
+
+$secondary-color: transparent;
+$secondary-color-highlight: #252627;
+
+$disabled-button-color: #f0f0f0;
+$disabled-button-text-color: #bebfc1;
+
+// Theme General Intents
+$background-color: $white;
+$background-color-light-transparency: $white-20-percent-transparency;
+$page-background-color: $background-color;
+$page-background-color-light-transparency: $background-color-light-transparency;
+
+// Theme Layout Intents
+$text-color: $primary-color;
+$text-color-inverse: $background-color;
+$body-font-color: $text-color;
+$heading-font-color: $text-color;
+$note-font-color: $text-color;
+$link-color: $text-color;
+$modal-title-font-color: $text-color;
+$modal-body-font-color: $text-color;
+
+// Theme Form Intents
+$text-input-title-color--default: $primary-color;
+$text-input-title-color--error: $primary-color;
+$text-input-title-color--disabled: $primary-color;
+
+$text-input-border-color--default: $primary-color-alternative4;
+$text-input-border-color--focused: $primary-color;
+$text-input-border-color--error: $error-red;
+$text-input-border-color--disabled: $primary-color;
+
+$text-input-background-color--default: $background-color;
+$text-input-background-color--error: $background-color;
+
+$text-input-text-color--default: $primary-color;
+$text-input-text-color--error:  $primary-color;
+$text-input-text-color--disabled:  $primary-color;
+
+$text-input-placeholder-color--default: $primary-color-alternative3;
+$text-input-placeholder-color--focused: $primary-color-alternative3;
+$text-input-placeholder-color--error: $primary-color-alternative3;
+
+$text-input-error-color: $error-red;
+
+// Checkbox Intents
+$checkbox-background-color: $white;
+$checkbox-border-color: $primary-color-alternative5;
+$checkmark-color: $black;

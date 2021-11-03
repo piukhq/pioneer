@@ -1,0 +1,72 @@
+
+@mixin button-style {
+  border-radius: 5px;
+  font-size: 24px;
+  line-height: 32px;
+  padding: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border: none;
+  // set a min-height for cases where there is only an svg (e.g spinner) that might be block an not have a line-height
+  // min-height = line-height + 2 * padding
+  min-height: 56px;
+
+  &--primary {
+    @include base-hover-style;
+
+    background-color: $primary-color;
+    color: $text-color-inverse;
+    width: 100%;
+    transition: 0.3s ease;
+
+    &:hover {
+      @include hover-style-large-element;
+
+      background-color: $primary-color-highlight;
+      transition: 0.3s ease;
+    }
+  }
+
+  &--secondary {
+    @include base-hover-style;
+
+    color: $text-color;
+    background-color: transparent;
+
+    &:hover {
+      @include hover-style-large-element;
+    }
+  }
+
+  &--tertiary {
+    @include base-hover-style;
+
+    background-color: $tertiary-color;
+    color: $text-color-inverse;
+    transition: 0.3s ease;
+
+    &:hover {
+      @include hover-style-large-element;
+
+      background-color: $tertiary-color-highlight;
+      transition: 0.3s ease;
+    }
+  }
+
+  &--disabled {
+    background-color: $disabled-color;
+    color: $text-color-inverse;
+  }
+
+  &--disabled:hover {
+    @include no-hover-style; //overrides hover when disabled
+
+    background-color: $disabled-color;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}

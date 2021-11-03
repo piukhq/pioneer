@@ -1,0 +1,86 @@
+
+@mixin button-style {
+  font-family: $font-scotch;
+  border-radius: 0;
+  font-size: 16px;
+  line-height: 40px;
+  padding: 0 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+  border: none;
+  height: 40px;
+
+  &--primary {
+    @include base-hover-style;
+
+    border: 1px solid $primary-color;
+    background-color: $primary-color;
+    color: $text-color-inverse;
+
+    &:focus {
+      background-color: $primary-color-highlight;
+    }
+
+    &:hover {
+      @include hover-style-large-element;
+
+      background-color: $primary-color-alternative1;
+    }
+
+    &:active {
+      background-color: $primary-color-alternative2;
+    }
+  }
+
+  &--secondary {
+    @include base-hover-style;
+
+    border: 1px solid $primary-color;
+    color: $primary-color;
+    background-color: transparent;
+
+    &:focus,
+    &:hover {
+      @include hover-style-large-element;
+
+      border: 1px solid $secondary-color-highlight;
+      color: $secondary-color-highlight;
+    }
+
+    &:active {
+      border: 1px solid $primary-color-alternative2;
+      color: $primary-color-alternative2;
+    }
+  }
+
+  &--tertiary {
+    @include base-hover-style;
+
+    border: 1px solid $tertiary-color;
+    background-color: $tertiary-color;
+    color: $text-color-inverse;
+
+    &:hover {
+      @include hover-style-large-element;
+    }
+  }
+
+  &--disabled {
+    border: 1px solid $disabled-button-color;
+    background-color: $disabled-button-color;
+    color: $disabled-button-text-color;
+
+    &:hover,
+    &:active {
+      @include hover-style-large-element;
+
+      background-color: $disabled-button-color;
+    }
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}

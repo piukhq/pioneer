@@ -1,0 +1,20 @@
+@import "src/sass/variables";
+@import "src/sass/mixins";
+
+.root {
+  @include base-hover-style;
+
+  cursor: pointer;
+  height: 120px;
+  background: transparent;
+  border: 4px dashed $add-payment-card-color;
+  fill: $add-payment-card-color;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    @include hover-style;
+  }
+}

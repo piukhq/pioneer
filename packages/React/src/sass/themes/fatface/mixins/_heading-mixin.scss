@@ -1,0 +1,14 @@
+@mixin heading-font-style {
+  font-family: $font-giorgio;
+  text-transform: uppercase;
+  font-weight: $heading-font-weight;
+  font-size: $heading-font-size;
+  color: $heading-font-color;
+  line-height: $heading-line-height;
+  margin: 0 0 $heading-margin-bottom;
+
+  @media (max-width: 630px) {
+    font-size: $heading-font-size-small;
+    line-height: $heading-line-height-small;
+  }
+}

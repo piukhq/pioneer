@@ -1,0 +1,71 @@
+@import "src/sass/mixins";
+
+.root {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &__form {
+    max-width: 100%;
+    width: 570px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__form-ui {
+    max-width: 100%;
+    width: 480px;
+  }
+
+  &__headline {
+    @include heading-font-style;
+  }
+
+  &__description {
+    @include body-font-style;
+
+    max-width: 100%;
+    width: 570px;
+  }
+
+  &__paragraph {
+    @include paragraph-spacing-styling;
+  }
+
+  &__note {
+    @include note-font-style;
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
+  &__link {
+    @include link;
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
+  &__email {
+    font-weight: bold;
+  }
+
+  &__email-field {
+    width: 100%;
+    min-height: 82px; // reserves whitespace for blank error message
+  }
+
+  &__footerNote {
+    margin-top: 10px;
+  }
+  // todo: Check with Jack remove if icons no longer needed
+  // &__icon {
+  //   display: block;
+  //   margin: 0 auto 20px;
+  // }
+}

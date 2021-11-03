@@ -1,0 +1,41 @@
+@import "src/sass/variables";
+
+.root {
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    height: 87px;
+    width: 41px;
+    justify-content: center;
+    background-color: $grey-12-percent;
+
+    &--opacity-applied {
+      background-color: $high-visibility-opacity-gray;
+    }
+  }
+
+  &__character {
+    align-self: center;
+    color: $black;
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 12px;
+    margin-bottom: 5px;
+  }
+
+  &__index {
+    align-self: center;
+    font-size: 10px;
+    letter-spacing: 0.11px;
+  }
+}

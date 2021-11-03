@@ -1,0 +1,26 @@
+@import "src/sass/themes/_default/variables/global-layout-variables";
+
+$theme-font-family: "Nunito Sans", sans-serif;
+$default-font-weight: 400;
+
+// body font
+$body-font-size: 14px;
+
+//heading font
+$heading-font-size: 30px;
+$heading-font-weight: bold;
+$heading-line-height: 1.1em;
+$heading-margin-bottom: 0.2em;
+
+// heading font changes for smaller viewports
+$heading-font-size-small: $heading-font-size;
+$heading-line-height-small: $heading-line-height;
+
+// note font
+$note-font-size: 12px;
+
+// modal styling
+$modal-border-radius: 0;
+$modal-title-font-size: 20px;
+$modal-title-font-weight: bold;
+$modal-body-font-size: 16px;

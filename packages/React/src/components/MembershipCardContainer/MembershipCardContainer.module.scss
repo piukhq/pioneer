@@ -1,0 +1,55 @@
+@import "src/sass/mixins";
+
+.root {
+  @include section-style;
+
+  display: grid;
+
+  &--authorised {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    row-gap: 15px;
+    column-gap: 20px;
+    grid-template-areas:
+      "image image"
+      "transaction-history voucher-history";
+
+    @media (min-width: 730px) {
+      grid-template-columns: 1fr 1fr 1fr;
+      row-gap: 20px;
+      column-gap: 20px;
+      grid-template-areas:
+        "image image transaction-history"
+        "image image voucher-history";
+    }
+
+    @media (min-width: 910px) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 2fr 1fr;
+      row-gap: 20px;
+      column-gap: 20px;
+      grid-template-areas:
+        "image image transaction-history voucher-history"
+        "image image . .";
+    }
+  }
+
+  &--no-payment-cards,
+  &--unauthorised {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    row-gap: 15px;
+    grid-template-areas:
+      "image image"
+      "details-tile details-tile";
+
+    @media (min-width: 730px) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr;
+      column-gap: 20px;
+      grid-template-areas:
+        "image details-tile"
+        "image .";
+    }
+  }
+}

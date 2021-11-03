@@ -1,0 +1,22 @@
+@import "src/sass/mixins";
+
+.root {
+  &__error {
+    color: $error-color;
+    margin: 20px 0;
+  }
+
+  &__paragraph {
+    @include paragraph-spacing-styling;
+  }
+
+  &__input {
+    margin-bottom: 13px;
+  }
+
+  &__button {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
