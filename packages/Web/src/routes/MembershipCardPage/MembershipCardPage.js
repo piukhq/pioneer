@@ -8,7 +8,9 @@ import {
 } from 'ducks/all'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
-import { useMembershipCardStateById } from 'hooks/membershipCards'
+import { useMembershipCardStateById, useMembershipCardsDispatch } from 'hooks/membershipCards'
+import { useGetPaymentCardsDispatch } from 'hooks/paymentCards'
+import { useUserState } from 'hooks/users'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useModals } from 'hooks/useModals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
@@ -31,6 +33,8 @@ import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
 
 import styles from './MembershipCardPage.module.scss'
+import { getAuthToken } from 'utils/storage'
+import { getVersion } from 'utils/version'
 
 const MembershipCardPage = () => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
@@ -49,6 +53,35 @@ const MembershipCardPage = () => {
   const { id } = useParams()
 
   useMembershipCardRefresher(id)
+<<<<<<< HEAD:packages/Web/src/routes/MembershipCardPage/MembershipCardPage.js
+=======
+  const { apiKey } = useUserState()
+  const { getMembershipCards, getMembershipPlans } = useMembershipCardsDispatch()
+  const { getPaymentCards } = useGetPaymentCardsDispatch()
+
+  const handleOnIdle = () => {
+    console.log('OK user is idle')
+    getVersion()
+    if (!apiKey || apiKey !== getAuthToken()) {
+      console.log('invalid token')
+      history.replace('/')
+    } else if (!isAccountActive) { // new version check
+      history.replace('/')
+    } else { // update plans and cards - OK
+      getMembershipPlans()
+      getMembershipCards()
+      getPaymentCards()
+    }
+  }
+
+  console.log('reload check')
+
+  useIdleTimer({
+    timeout: 3000,
+    onIdle: handleOnIdle,
+    debounce: 1000,
+  })
+>>>>>>> c17f7ae (initial implementation of idle behaviour):src/routes/MembershipCardPage/MembershipCardPage.js
 
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
