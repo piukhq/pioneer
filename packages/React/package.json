@@ -232,7 +232,6 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "^5.1.2",
-    "husky": "^7.0.1"
+    "@testing-library/react-hooks": "^5.1.2"
   }
 }

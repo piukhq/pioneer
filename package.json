@@ -14,5 +14,8 @@
       "**/react-native",
       "**/react-native/**"
     ]
+  },
+  "devDependencies": {
+    "husky": "^7.0.1"
   }
 }
