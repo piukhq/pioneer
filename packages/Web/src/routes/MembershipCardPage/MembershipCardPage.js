@@ -8,8 +8,7 @@ import {
 } from 'ducks/all'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
-import { useMembershipCardStateById, useMembershipCardsDispatch } from 'hooks/membershipCards'
-import { useGetPaymentCardsDispatch } from 'hooks/paymentCards'
+import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useUserState } from 'hooks/users'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useModals } from 'hooks/useModals'
@@ -29,12 +28,14 @@ import MembershipCardContainer from 'components/MembershipCardContainer'
 
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
 import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
+import { useLogout } from 'hooks/useLogout'
 
 import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
 
 import styles from './MembershipCardPage.module.scss'
 import { getAuthToken } from 'utils/storage'
-import { getVersion } from 'utils/version'
+import { getServerVersionNumber } from 'utils/version'
+import { convertMinutesToMilliseconds } from 'utils/format'
 
 const MembershipCardPage = () => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
@@ -51,33 +52,39 @@ const MembershipCardPage = () => {
   }, [history, reasonCode, isAccountActive])
 
   const { id } = useParams()
-
   useMembershipCardRefresher(id)
 <<<<<<< HEAD:packages/Web/src/routes/MembershipCardPage/MembershipCardPage.js
+<<<<<<< HEAD:packages/Web/src/routes/MembershipCardPage/MembershipCardPage.js
 =======
-  const { apiKey } = useUserState()
-  const { getMembershipCards, getMembershipPlans } = useMembershipCardsDispatch()
-  const { getPaymentCards } = useGetPaymentCardsDispatch()
+=======
 
-  const handleOnIdle = () => {
-    console.log('OK user is idle')
-    getVersion()
+>>>>>>> 1ef5666 (2nd iteration with placeholders to test on MR branch):src/routes/MembershipCardPage/MembershipCardPage.js
+  const { apiKey } = useUserState()
+  const { logout } = useLogout()
+
+  // Store Bink Web version upon initial load
+  const [clientVersionNumber, setClientVersionNumber] = useState(null)
+  useEffect(() => {
+    setClientVersionNumber(getServerVersionNumber())
+  }, [setClientVersionNumber])
+
+  const handleOnIdle = async () => {
+    const serverVersionNumber = await getServerVersionNumber()
+    console.log(`Client version Number: ${clientVersionNumber} - Server Version: ${serverVersionNumber}`)
     if (!apiKey || apiKey !== getAuthToken()) {
-      console.log('invalid token')
-      history.replace('/')
-    } else if (!isAccountActive) { // new version check
+      console.error('Invalid Token -  Logging out')
+      logout()
+    } else if (clientVersionNumber && serverVersionNumber && clientVersionNumber !== serverVersionNumber) { // new version check
+      console.log('Version Mismatch - Refreshing Page')
       history.replace('/')
     } else { // update plans and cards - OK
-      getMembershipPlans()
-      getMembershipCards()
-      getPaymentCards()
+      console.info(('User and Version Correct - Refreshing Data'))
+      dispatch(allActions.fullRefresh())
     }
   }
 
-  console.log('reload check')
-
   useIdleTimer({
-    timeout: 3000,
+    timeout: 3000, // convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
     onIdle: handleOnIdle,
     debounce: 1000,
   })

@@ -15,5 +15,5 @@ module.exports = {
       case 'fatface': return 'com.fatface.bink.web'
     }
   })(),
-  idleTimeoutSeconds: 5,
+  idleTimeoutMinutes: 5,
 }

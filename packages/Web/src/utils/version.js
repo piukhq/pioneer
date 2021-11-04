@@ -1,10 +1,27 @@
 
 import axios from 'axios'
-export const getVersion = () => {
-  axios('version.json')
-    .then(response => response.json())
-    .then(json => console.log(json))
-    .catch((error) => {
-      console.error('Error:', error)
-    })
+export const getServerVersionNumber = async () => {
+  const { env, theme } = Config
+  if (env !== 'development') {
+    return null
+  } else {
+    const versionFilePath = `/mr-316/${theme}/version.json`
+    return axios(versionFilePath)
+      .then(response => response.json())
+      .then(json => json.tag)
+      .catch((e) => console.error(e))
+  }
 }
+
+// export const getServerVersionNumber = async () => {
+//   const { env, theme } = Config
+//   if (env === 'development') {
+//     return null
+//   } else {
+//     const versionFilePath = `/${env}/${theme}/version.json`
+//     return axios(versionFilePath)
+//       .then(response => response.json())
+//       .then(json => json.tag)
+//       .catch((e) => console.error(e))
+//   }
+// }
