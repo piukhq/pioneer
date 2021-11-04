@@ -7,10 +7,12 @@ export const getServerVersionNumber = async () => {
   } else {
     const versionFilePath = `/mr-316/${theme}/version.json` // test line, TODO: use commented version below
     console.log(versionFilePath)
-    return axios(versionFilePath)
+    const versionFile = axios(versionFilePath)
       .then(response => response.json())
-      .then(json => json.tag)
+      .then(json => json)
       .catch((e) => console.error(e))
+    console.log(versionFile)
+    return versionFile?.tag
   }
 }
 
