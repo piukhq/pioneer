@@ -9,5 +9,8 @@ export const getServerVersionNumber = async () => {
     .then(response => response.json())
     .then(json => json.tag)
     .catch((e) => console.error(e))
+  if (env === 'development') { // placeholder for MR testing
+    return 'development'
+  }
   return tag
 }
