@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 export const getServerVersionNumber = async () => {
-  const { env, theme } = Config
+  const { theme } = Config
   const versionFilePath = `/mr-316/${theme}/version.json` // test line, TODO: use commented version below
   console.log(versionFilePath)
   const versionFile = await axios(versionFilePath)
