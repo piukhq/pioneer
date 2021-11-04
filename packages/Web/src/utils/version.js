@@ -5,7 +5,7 @@ export const getServerVersionNumber = async () => {
   if (env !== 'development') {
     return null
   } else {
-    const versionFilePath = `/mr-316/${theme}/version.json`
+    const versionFilePath = `/mr-316/${theme}/version.json` // test line, TODO: use commented version below
     return axios(versionFilePath)
       .then(response => response.json())
       .then(json => json.tag)

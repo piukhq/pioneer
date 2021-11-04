@@ -35,7 +35,7 @@ import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
 import styles from './MembershipCardPage.module.scss'
 import { getAuthToken } from 'utils/storage'
 import { getServerVersionNumber } from 'utils/version'
-import { convertMinutesToMilliseconds } from 'utils/format'
+// import { convertMinutesToMilliseconds } from 'utils/format'
 
 const MembershipCardPage = () => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
