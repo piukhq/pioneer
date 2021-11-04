@@ -35,7 +35,7 @@ import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
 import styles from './MembershipCardPage.module.scss'
 import { getAuthToken } from 'utils/storage'
 import { getServerVersionNumber } from 'utils/version'
-// import { convertMinutesToMilliseconds } from 'utils/format'
+import { convertMinutesToMilliseconds } from 'utils/format'
 
 const MembershipCardPage = () => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
@@ -73,7 +73,7 @@ const MembershipCardPage = () => {
 
   const handleOnIdle = async () => {
     const serverVersionNumber = await getServerVersionNumber()
-    console.log(`Client version Number: ${clientVersionNumber} - Server Version: ${serverVersionNumber}`)
+    console.log(`Client version Number: ${clientVersionNumber} - Server Version: ${serverVersionNumber}`) // TODO: Remove before final MR
     if (!apiKey || apiKey !== getAuthToken()) {
       logout()
     } else if (clientVersionNumber && serverVersionNumber && clientVersionNumber !== serverVersionNumber) {
@@ -84,7 +84,7 @@ const MembershipCardPage = () => {
   }
 
   useIdleTimer({
-    timeout: 3000, // convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
+    timeout: convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
     onIdle: handleOnIdle,
     debounce: 1000,
   })
@@ -186,6 +186,7 @@ const MembershipCardPage = () => {
   // Membership card active path
   return (
     <>
+      { Config.devOnlyToolsEnabled && <button onClick={handleOnIdle}>Temporary Button - Force Idle status</button> /* TODO: Remove this line prior to MR finish */ }
       { membershipCard && (
         <>
           {/* Render the various overlay modals  */}
