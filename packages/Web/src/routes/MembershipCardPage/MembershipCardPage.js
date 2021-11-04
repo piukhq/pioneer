@@ -65,7 +65,10 @@ const MembershipCardPage = () => {
   // Store Bink Web version upon initial load
   const [clientVersionNumber, setClientVersionNumber] = useState(null)
   useEffect(() => {
-    setClientVersionNumber(getServerVersionNumber())
+    async function setInitialVersionNumber () {
+      setClientVersionNumber(await getServerVersionNumber())
+    }
+    setInitialVersionNumber()
   }, [setClientVersionNumber])
 
   const handleOnIdle = async () => {
