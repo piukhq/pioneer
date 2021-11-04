@@ -12,10 +12,15 @@
     ],
     "nohoist": [
       "**/react-native",
-      "**/react-native/**"
+      "**/react-native/**",
+      "**/jest-circus",
+      "**/jest-circus/**"
     ]
   },
   "devDependencies": {
-    "husky": "^7.0.1"
+    "husky": "^7.0.0"
+  },
+  "scripts": {
+    "prepare": "husky install"
   }
 }
