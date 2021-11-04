@@ -6,7 +6,7 @@ export const getServerVersionNumber = async () => {
   console.log(versionFilePath)
   return await axios(versionFilePath)
     .then(response => response.json())
-    .then(json => json.tag)
+    .then(json => json?.sha)
     .catch((e) => console.error(e))
 }
 
