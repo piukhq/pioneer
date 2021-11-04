@@ -1,10 +1,6 @@
 {
   "name": "pioneer",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@git.bink.com:canaveral/pioneer.git",
-  "author": "George <godonnell@bink.com>",
-  "license": "MIT",
   "private": true,
   "workspaces": {
     "packages": [
