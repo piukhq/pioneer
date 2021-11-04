@@ -1,11 +1,13 @@
 
 export const getServerVersionNumber = async () => {
-  const { theme } = Config
-  const versionFilePath = `/mr-316/${theme}/version.json`
-  console.log(versionFilePath)
+  const { env, theme } = Config
+  let versionFilePath = `/${env}/${theme}/version.json`
+  if (env === 'development') { // in real version, this function will return 'development for this conditional'
+    versionFilePath = `/mr-316/${theme}/version.json`
+  }
   const tag = await fetch(versionFilePath)
     .then(response => response.json())
-    .then(json => json?.sha)
+    .then(json => json.tag)
     .catch((e) => console.error(e))
   return tag
 }

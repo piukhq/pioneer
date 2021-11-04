@@ -75,13 +75,10 @@ const MembershipCardPage = () => {
     const serverVersionNumber = await getServerVersionNumber()
     console.log(`Client version Number: ${clientVersionNumber} - Server Version: ${serverVersionNumber}`)
     if (!apiKey || apiKey !== getAuthToken()) {
-      console.error('Invalid Token -  Logging out')
       logout()
-    } else if (clientVersionNumber && serverVersionNumber && clientVersionNumber !== serverVersionNumber) { // new version check
-      console.log('Version Mismatch - Refreshing Page')
+    } else if (clientVersionNumber && serverVersionNumber && clientVersionNumber !== serverVersionNumber) {
       history.replace('/')
-    } else { // update plans and cards - OK
-      console.info(('User and Version Correct - Refreshing Data'))
+    } else {
       dispatch(allActions.fullRefresh())
     }
   }
