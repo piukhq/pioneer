@@ -1,10 +1,9 @@
 
-import axios from 'axios'
 export const getServerVersionNumber = async () => {
   const { theme } = Config
   const versionFilePath = `/mr-316/${theme}/version.json` // test line, TODO: use commented version below
   console.log(versionFilePath)
-  const sha = await axios(versionFilePath)
+  const sha = await fetch(versionFilePath)
     .then(response => response.json())
     .then(json => json?.sha)
     .catch((e) => console.error(e))
