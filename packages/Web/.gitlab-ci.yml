@@ -12,6 +12,7 @@ build: &build
   before_script:
     - export NODE_CONFIG_ENV=development
     - export URL_PREFIX=/develop
+    - cd packages/Web
   script:
     - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
     - npm ci
