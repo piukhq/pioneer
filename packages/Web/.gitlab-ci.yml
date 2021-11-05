@@ -15,9 +15,9 @@ build: &build
     - cd packages/Web
   script:
     - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
-    - npm ci
-    - npm run lint-js
-    - npm run lint-css
+    - yarn ci
+    - yarn run lint-js
+    - yarn run lint-css
     # build bink theme
     - PUBLIC_URL=$URL_PREFIX/bink THEME=bink npm run build
     - cp version.json build/
