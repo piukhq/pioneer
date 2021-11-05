@@ -69,6 +69,7 @@ build-mr:
   before_script:
     - export NODE_CONFIG_ENV=development
     - export URL_PREFIX=/mr-$CI_MERGE_REQUEST_IID
+    - cd packages/Web
   artifacts:
     paths:
       - build*.tar.gz
@@ -126,6 +127,7 @@ build-staging:
   before_script:
     - export NODE_CONFIG_ENV=staging
     - export URL_PREFIX=/staging
+    - cd packages/Web
   after_script:
     # build wasabi theme for sandbox
     - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/wasabi THEME=wasabi npm run build
@@ -194,6 +196,7 @@ build-prod:
   before_script:
     - export NODE_CONFIG_ENV=production
     - export URL_PREFIX=
+    - cd packages/Web
   artifacts:
     paths:
       - build*.tar.gz
