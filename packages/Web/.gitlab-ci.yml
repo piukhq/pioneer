@@ -45,6 +45,8 @@ build: &build
 deploy-dev:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy bink theme
     - mkdir bink
@@ -80,6 +82,8 @@ build-mr:
 deploy-mr:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy bink theme
     - mkdir bink
@@ -144,6 +148,8 @@ build-staging:
 deploy-staging-bink:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy bink theme
     - mkdir bink
@@ -156,6 +162,8 @@ deploy-staging-bink:
 deploy-staging-wasabi:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy wasabi theme
     - mkdir wasabi
@@ -168,6 +176,8 @@ deploy-staging-wasabi:
 deploy-sandbox-wasabi:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy wasabi theme for sandbox
     - mkdir sandbox
@@ -180,6 +190,8 @@ deploy-sandbox-wasabi:
 deploy-staging-fatface:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy fatface theme
     - mkdir fatface
@@ -208,6 +220,8 @@ build-prod:
 deploy-prod-bink:
   stage: prod-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy bink theme
     - mkdir bink
@@ -222,6 +236,8 @@ deploy-prod-bink:
 deploy-prod-wasabi:
   stage: prod-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy wasabi theme
     - mkdir wasabi
@@ -236,6 +252,8 @@ deploy-prod-wasabi:
 deploy-prod-fatface:
   stage: prod-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
+  before_script:
+    - cd packages/Web
   script:
     # deploy fatface theme
     - mkdir fatface
