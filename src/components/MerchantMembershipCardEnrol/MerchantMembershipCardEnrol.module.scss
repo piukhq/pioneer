@@ -1,9 +1,0 @@
-@import "src/sass/mixins";
-
-.root {
-  @include join-enrol-form-styling;
-
-  &__summary {
-    max-width: 480px;
-  }
-}

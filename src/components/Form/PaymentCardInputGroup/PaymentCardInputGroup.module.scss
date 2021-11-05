@@ -1,9 +1,0 @@
-@import "src/sass/mixins";
-
-.root {
-  @include text-input-group;
-
-  &__cvv {
-    display: none;
-  }
-}

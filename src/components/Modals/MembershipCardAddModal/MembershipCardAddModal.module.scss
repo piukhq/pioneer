@@ -1,7 +1,0 @@
-@import "src/sass/mixins";
-
-.root {
-  &__paragraph {
-    @include paragraph-spacing-styling;
-  }
-}
