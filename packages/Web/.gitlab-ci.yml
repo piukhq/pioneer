@@ -21,23 +21,23 @@ build: &build
     # build bink theme
     - PUBLIC_URL=$URL_PREFIX/bink THEME=bink npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-bink-$NODE_CONFIG_ENV.tar.gz .
+    - tar -C build -zcvf ../../build-bink-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
 
     # build wasabi theme
     - PUBLIC_URL=$URL_PREFIX/wasabi THEME=wasabi npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-wasabi-$NODE_CONFIG_ENV.tar.gz .
+    - tar -C build -zcvf ../../build-wasabi-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
 
     # build fatface theme
     - PUBLIC_URL=$URL_PREFIX/fatface THEME=fatface npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-fatface-$NODE_CONFIG_ENV.tar.gz .
+    - tar -C build -zcvf ../../build-fatface-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
   artifacts:
     paths:
-      - packages/Web/build*.tar.gz
+      - build*.tar.gz
     expire_in: 1 week
   only:  # "only" defaults to not include MRs
     - develop
@@ -72,7 +72,7 @@ build-mr:
     - cd packages/Web
   artifacts:
     paths:
-      - packages/Web/build*.tar.gz
+      - build*.tar.gz
     expire_in: 1 hour
   only:
     - merge_requests
@@ -132,11 +132,11 @@ build-staging:
     # build wasabi theme for sandbox
     - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/wasabi THEME=wasabi npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-wasabi-sandbox.tar.gz .
+    - tar -C build -zcvf ../../build-wasabi-sandbox.tar.gz .
     - rm -rf build
   artifacts:
     paths:
-      - packages/Web/build*.tar.gz
+      - build*.tar.gz
     expire_in: 3 weeks
   only:
     - tags
@@ -199,7 +199,7 @@ build-prod:
     - cd packages/Web
   artifacts:
     paths:
-      - packages/Web/build*.tar.gz
+      - build*.tar.gz
     expire_in: 3 weeks
   when: manual
   only:
