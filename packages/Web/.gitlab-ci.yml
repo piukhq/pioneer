@@ -37,7 +37,7 @@ build: &build
     - rm -rf build
   artifacts:
     paths:
-      - build*.tar.gz
+      - packages/Web/build*.tar.gz
     expire_in: 1 week
   only:  # "only" defaults to not include MRs
     - develop
@@ -45,8 +45,6 @@ build: &build
 deploy-dev:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy bink theme
     - mkdir bink
@@ -74,7 +72,7 @@ build-mr:
     - cd packages/Web
   artifacts:
     paths:
-      - build*.tar.gz
+      - packages/Web/build*.tar.gz
     expire_in: 1 hour
   only:
     - merge_requests
@@ -82,8 +80,6 @@ build-mr:
 deploy-mr:
   stage: dev
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy bink theme
     - mkdir bink
@@ -140,7 +136,7 @@ build-staging:
     - rm -rf build
   artifacts:
     paths:
-      - build*.tar.gz
+      - packages/Web/build*.tar.gz
     expire_in: 3 weeks
   only:
     - tags
@@ -148,8 +144,6 @@ build-staging:
 deploy-staging-bink:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy bink theme
     - mkdir bink
@@ -162,8 +156,6 @@ deploy-staging-bink:
 deploy-staging-wasabi:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy wasabi theme
     - mkdir wasabi
@@ -176,8 +168,6 @@ deploy-staging-wasabi:
 deploy-sandbox-wasabi:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy wasabi theme for sandbox
     - mkdir sandbox
@@ -190,8 +180,6 @@ deploy-sandbox-wasabi:
 deploy-staging-fatface:
   stage: staging-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy fatface theme
     - mkdir fatface
@@ -211,7 +199,7 @@ build-prod:
     - cd packages/Web
   artifacts:
     paths:
-      - build*.tar.gz
+      - packages/Web/build*.tar.gz
     expire_in: 3 weeks
   when: manual
   only:
@@ -220,8 +208,6 @@ build-prod:
 deploy-prod-bink:
   stage: prod-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy bink theme
     - mkdir bink
@@ -236,8 +222,6 @@ deploy-prod-bink:
 deploy-prod-wasabi:
   stage: prod-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy wasabi theme
     - mkdir wasabi
@@ -252,8 +236,6 @@ deploy-prod-wasabi:
 deploy-prod-fatface:
   stage: prod-deploy
   image: binkcore.azurecr.io/copy2blobstorage:latest
-  before_script:
-    - cd packages/Web
   script:
     # deploy fatface theme
     - mkdir fatface
