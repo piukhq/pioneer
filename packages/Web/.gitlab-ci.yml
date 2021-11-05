@@ -15,7 +15,7 @@ build: &build
     - cd packages/Web
   script:
     - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
-    - yarn ci
+    - yarn install --frozen-lockfile
     - yarn run lint-js
     - yarn run lint-css
     # build bink theme
