@@ -6,7 +6,7 @@ import Button from 'components/Button'
 
 import styles from './LinkedCardsErrorModal.module.scss'
 
-const LinkCardsErrorModal = ({ paymentCardId }) => {
+const LinkCardsErrorModal = ({ paymentCardId, onClose }) => {
   const { contactSupport } = useContactSupport()
   const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
 
@@ -14,7 +14,7 @@ const LinkCardsErrorModal = ({ paymentCardId }) => {
     error,
     loading,
     handleDelete,
-  } = usePaymentCardDelete(paymentCardId)
+  } = usePaymentCardDelete(paymentCardId, onClose)
 
   const errorMessage = error ? 'There was an error, please try again.' : null
 
