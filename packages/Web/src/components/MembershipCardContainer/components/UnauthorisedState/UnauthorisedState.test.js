@@ -42,75 +42,74 @@ describe('Test UnauthorisedState', () => {
         reason_codes: [pendingCode],
       },
     }
-    console.log(pendingMembershipCard)
-    const { queryByTestId, getByText, debug } = render(<UnauthorisedState membershipCard={pendingMembershipCard} />)
-    debug()
+
+    const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={pendingMembershipCard} />)
     expect(queryByTestId('pending-state')).toBeInTheDocument()
     expect(getByText('Pending')).toBeInTheDocument()
     expect(getByText('Please wait')).toBeInTheDocument()
   })
 
-  // it('should render generic error message', () => {
-  //   const errorCode = MEMBERSHIP_CARD_REASON_CODES.GENERIC_ERROR_CODES[0]
-  //   const erroredMembershipCard = {
-  //     ...mockMembershipCard,
-  //     status: {
-  //       reason_codes: [errorCode],
-  //     },
-  //   }
-  //   const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={erroredMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
-  //   expect(queryByTestId('failed-state')).toBeInTheDocument()
-  //   expect(getByText('Error')).toBeInTheDocument()
-  //   expect(getByText('Try again later')).toBeInTheDocument()
-  // })
+  it('should render generic error message', () => {
+    const errorCode = MEMBERSHIP_CARD_REASON_CODES.GENERIC_ERROR_CODES[0]
+    const erroredMembershipCard = {
+      ...mockMembershipCard,
+      status: {
+        reason_codes: [errorCode],
+      },
+    }
+    const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={erroredMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
+    expect(queryByTestId('failed-state')).toBeInTheDocument()
+    expect(getByText('Error')).toBeInTheDocument()
+    expect(getByText('Try again later')).toBeInTheDocument()
+  })
 
-  // it('should render "Account not registered" message', () => {
-  //   const accountNotRegisteredCode = MEMBERSHIP_CARD_REASON_CODES.ACCOUNT_NOT_REGISTERED_CODE
-  //   const erroredMembershipCard = {
-  //     ...mockMembershipCard,
-  //     status: {
-  //       reason_codes: [accountNotRegisteredCode],
-  //     },
-  //   }
-  //   const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={erroredMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
-  //   expect(queryByTestId('failed-state')).toBeInTheDocument()
-  //   expect(getByText('Account not registered')).toBeInTheDocument()
-  //   expect(getByText('Try again later')).toBeInTheDocument()
-  // })
+  it('should render "Account not registered" message', () => {
+    const accountNotRegisteredCode = MEMBERSHIP_CARD_REASON_CODES.ACCOUNT_NOT_REGISTERED_CODE
+    const erroredMembershipCard = {
+      ...mockMembershipCard,
+      status: {
+        reason_codes: [accountNotRegisteredCode],
+      },
+    }
+    const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={erroredMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
+    expect(queryByTestId('failed-state')).toBeInTheDocument()
+    expect(getByText('Account not registered')).toBeInTheDocument()
+    expect(getByText('Try again later')).toBeInTheDocument()
+  })
 
-  // it('should render "Enrol rejected" message', () => {
-  //   const enrolRejectedCode = MEMBERSHIP_CARD_REASON_CODES.ENROL_REJECTED_CODE
-  //   const erroredMembershipCard = {
-  //     ...mockMembershipCard,
-  //     status: {
-  //       reason_codes: [enrolRejectedCode],
-  //     },
-  //   }
-  //   const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={erroredMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
-  //   expect(queryByTestId('failed-state')).toBeInTheDocument()
-  //   expect(getByText('Enrol failed')).toBeInTheDocument()
-  //   expect(getByText('Contact support')).toBeInTheDocument()
-  // })
+  it('should render "Enrol rejected" message', () => {
+    const enrolRejectedCode = MEMBERSHIP_CARD_REASON_CODES.ENROL_REJECTED_CODE
+    const erroredMembershipCard = {
+      ...mockMembershipCard,
+      status: {
+        reason_codes: [enrolRejectedCode],
+      },
+    }
+    const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={erroredMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
+    expect(queryByTestId('failed-state')).toBeInTheDocument()
+    expect(getByText('Enrol failed')).toBeInTheDocument()
+    expect(getByText('Contact support')).toBeInTheDocument()
+  })
 
-  // it('should render "Account already exists" message', () => {
-  //   const accountAlreadyExistsCode = MEMBERSHIP_CARD_REASON_CODES.ACCOUNT_ALREADY_EXISTS_CODE
-  //   const erroredMembershipCard = {
-  //     ...mockMembershipCard,
-  //     status: {
-  //       reason_codes: [accountAlreadyExistsCode],
-  //     },
-  //   }
-  //   const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={erroredMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
-  //   expect(queryByTestId('failed-state')).toBeInTheDocument()
-  //   expect(getByText('Account already exists')).toBeInTheDocument()
-  //   expect(getByText('Contact support')).toBeInTheDocument()
-  // })
+  it('should render "Account already exists" message', () => {
+    const accountAlreadyExistsCode = MEMBERSHIP_CARD_REASON_CODES.ACCOUNT_ALREADY_EXISTS_CODE
+    const erroredMembershipCard = {
+      ...mockMembershipCard,
+      status: {
+        reason_codes: [accountAlreadyExistsCode],
+      },
+    }
+    const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={erroredMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
+    expect(queryByTestId('failed-state')).toBeInTheDocument()
+    expect(getByText('Account already exists')).toBeInTheDocument()
+    expect(getByText('Contact support')).toBeInTheDocument()
+  })
 
-  // it('should render default error message', () => {
-  //   const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={mockMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
-  //   expect(queryByTestId('failed-state')).toBeInTheDocument()
-  //   expect(getByText("Something's not right")).toBeInTheDocument()
-  //   expect(getByText('There was a problem setting up your account.')).toBeInTheDocument()
-  //   expect(getByText('We need some additional information to resolve this.')).toBeInTheDocument()
-  // })
+  it('should render default error message', () => {
+    const { queryByTestId, getByText } = render(<UnauthorisedState membershipCard={mockMembershipCard} state='unauthorised' addPaymentCardClickHandler={mockClickHandler} />)
+    expect(queryByTestId('failed-state')).toBeInTheDocument()
+    expect(getByText("Something's not right")).toBeInTheDocument()
+    expect(getByText('There was a problem setting up your account.')).toBeInTheDocument()
+    expect(getByText('We need some additional information to resolve this.')).toBeInTheDocument()
+  })
 })

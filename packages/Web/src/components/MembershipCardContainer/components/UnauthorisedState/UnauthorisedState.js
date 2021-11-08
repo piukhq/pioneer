@@ -5,7 +5,7 @@ import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
 
 import styles from './UnauthorisedState.module.scss'
 
-const UnauthorisedState = (membershipCard, state) => {
+const UnauthorisedState = ({ membershipCard, state }) => {
   const {
     PENDING_CODES: pendingCodes,
     GENERIC_ERROR_CODES: errorCodes,
@@ -14,7 +14,6 @@ const UnauthorisedState = (membershipCard, state) => {
     ACCOUNT_ALREADY_EXISTS_CODE: accountAlreadyExists,
   } = MEMBERSHIP_CARD_REASON_CODES
 
-  console.log(membershipCard)
   const reasonCode = membershipCard?.status?.reason_codes[0]
 
   const renderPendingState = () => (
