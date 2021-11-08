@@ -15,25 +15,25 @@ build: &build
     - cd packages/Web
   script:
     - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
-    - npm ci
-    - npm run lint-js
-    - npm run lint-css
+    - yarn install --frozen-lockfile
+    - yarn run lint-js
+    - yarn run lint-css
     # build bink theme
     - PUBLIC_URL=$URL_PREFIX/bink THEME=bink npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-bink-$NODE_CONFIG_ENV.tar.gz .
+    - tar -C build -zcvf ../../build-bink-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
 
     # build wasabi theme
     - PUBLIC_URL=$URL_PREFIX/wasabi THEME=wasabi npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-wasabi-$NODE_CONFIG_ENV.tar.gz .
+    - tar -C build -zcvf ../../build-wasabi-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
 
     # build fatface theme
     - PUBLIC_URL=$URL_PREFIX/fatface THEME=fatface npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-fatface-$NODE_CONFIG_ENV.tar.gz .
+    - tar -C build -zcvf ../../build-fatface-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
   artifacts:
     paths:
@@ -132,7 +132,7 @@ build-staging:
     # build wasabi theme for sandbox
     - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/wasabi THEME=wasabi npm run build
     - cp version.json build/
-    - tar -C build -zcvf build-wasabi-sandbox.tar.gz .
+    - tar -C build -zcvf ../../build-wasabi-sandbox.tar.gz .
     - rm -rf build
   artifacts:
     paths:
