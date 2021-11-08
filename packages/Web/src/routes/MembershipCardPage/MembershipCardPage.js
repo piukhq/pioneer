@@ -83,9 +83,11 @@ const MembershipCardPage = () => {
     setCardIdToBeDeleted(null)
     dispatchModal(modalEnum.NO_MODAL)
   }, [dispatchModal])
-  const handleCloseAddPaymentCardForm = useCallback(() => {
+
+  const handleCloseModal = useCallback(() => {
     dispatchModal(modalEnum.NO_MODAL)
   }, [dispatchModal])
+
   // Scroll screen into display if major page re-render event occurs
   useEffect(() => {
     if (serviceLoading || serviceError || membershipCard?.status?.state === 'pending') {
@@ -115,13 +117,13 @@ const MembershipCardPage = () => {
 
   const shouldRenderModalOverlay = () => {
     if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_ERROR) {
-      return <LinkCardsErrorModal paymentCardId={cardIdToBeDeleted}/>
+      return <LinkCardsErrorModal paymentCardId={cardIdToBeDeleted} onClose={handleCloseModal} />
     } else if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_SUCCESS) {
       return <LinkCardsSuccessModal />
     } else if (modalToRender === modalEnum.PAYMENT_CARD_LIMIT) {
       return <PaymentCardLimitModal />
     } else if (modalToRender === modalEnum.PAYMENT_CARD_ADD_FORM) {
-      return <PaymentCardAddForm onClose={handleCloseAddPaymentCardForm}/>
+      return <PaymentCardAddForm onClose={handleCloseModal}/>
     } else if (modalToRender === modalEnum.PAYMENT_CARD_DELETE_FORM) {
       return (
         <PaymentCardDeleteForm
