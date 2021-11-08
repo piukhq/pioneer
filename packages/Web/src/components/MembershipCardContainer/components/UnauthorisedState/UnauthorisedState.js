@@ -14,8 +14,8 @@ const UnauthorisedState = (membershipCard, state) => {
     ACCOUNT_ALREADY_EXISTS_CODE: accountAlreadyExists,
   } = MEMBERSHIP_CARD_REASON_CODES
 
-  const { reason_codes: reasonCodes } = membershipCard.status
-  const reasonCode = reasonCodes[0]
+  console.log(membershipCard)
+  const reasonCode = membershipCard?.status?.reason_codes[0]
 
   const renderPendingState = () => (
     <div data-testid='pending-state' className={styles['root__pending-state']}>
