@@ -28,7 +28,7 @@ export function useHandleOnIdle () {
   const serverVersionNumber = async () => await getServerVersion()
   const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
 
-  const handleOnIdle = async (cv) => {
+  const handleOnIdle = async () => {
     const currentServerVersion = await serverVersionNumber()
     console.log(`Client version Number: ${clientVersion} - Server Version: ${currentServerVersion}`)
     if (!apiKey || apiKey !== getAuthToken()) {

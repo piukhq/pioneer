@@ -7,6 +7,7 @@ import {
   selectors as allSelectors,
 } from 'ducks/all'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
+import { selectors as versionSelectors } from 'ducks/version'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 
@@ -55,15 +56,14 @@ const MembershipCardPage = () => {
 
   const { handleOnIdle } = useHandleOnIdle()
   const { clientVersion } = useSetClientVersion()
+  console.log('In component: ' + clientVersion)
 
-  // const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
-  const onIdle = useCallback(() => { // temporary function to test bug
-    console.log(clientVersion) /// WHY IS THIS NULL???
-    handleOnIdle(clientVersion)
-  }, [clientVersion, handleOnIdle])
-
+  const onIdle = () => {
+    console.log('now idle')
+  }
   useIdleTimer({
     ...idleTimerSettings,
+    onActive: handleOnIdle,
     onIdle: onIdle,
   })
 
