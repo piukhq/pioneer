@@ -9,7 +9,7 @@ import {
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
-import { useUserState } from 'hooks/users'
+
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useModals } from 'hooks/useModals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
@@ -28,14 +28,14 @@ import MembershipCardContainer from 'components/MembershipCardContainer'
 
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
 import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
-import { useLogout } from 'hooks/useLogout'
+
+import { useIdleTimer } from 'react-idle-timer'
+import { useHandleOnIdle, useSetClientVersion, idleTimerSettings } from 'hooks/useCheckIdle'
+import { selectors as versionSelectors } from 'ducks/version'
 
 import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
 
 import styles from './MembershipCardPage.module.scss'
-import { getAuthToken } from 'utils/storage'
-import { getServerVersionNumber } from 'utils/version'
-import { convertMinutesToMilliseconds } from 'utils/format'
 
 const MembershipCardPage = () => {
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
@@ -44,13 +44,14 @@ const MembershipCardPage = () => {
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
   const { dispatchModal, modalToRender } = useModals()
 
-  // Log user out if account is no longer active
+  // // Log user out if account is no longer active
   useEffect(() => {
     if (reasonCode && !isAccountActive && Config.isMerchantChannel) {
       history.replace('/')
     }
   }, [history, reasonCode, isAccountActive])
 
+<<<<<<< HEAD:packages/Web/src/routes/MembershipCardPage/MembershipCardPage.js
   const { id } = useParams()
   useMembershipCardRefresher(id)
 <<<<<<< HEAD:packages/Web/src/routes/MembershipCardPage/MembershipCardPage.js
@@ -61,34 +62,27 @@ const MembershipCardPage = () => {
 >>>>>>> 1ef5666 (2nd iteration with placeholders to test on MR branch):src/routes/MembershipCardPage/MembershipCardPage.js
   const { apiKey } = useUserState()
   const { logout } = useLogout()
+=======
+  const { handleOnIdle } = useHandleOnIdle()
+  const { clientVersion } = useSetClientVersion()
+>>>>>>> bbbafd1 (limited functionality update):src/routes/MembershipCardPage/MembershipCardPage.js
 
-  // Store Bink Web version upon initial load
-  const [clientVersionNumber, setClientVersionNumber] = useState(null)
-  useEffect(() => {
-    async function setInitialVersionNumber () {
-      setClientVersionNumber(await getServerVersionNumber())
-    }
-    setInitialVersionNumber()
-  }, [setClientVersionNumber])
-
-  const handleOnIdle = async () => {
-    const serverVersionNumber = await getServerVersionNumber()
-    console.log(`Client version Number: ${clientVersionNumber} - Server Version: ${serverVersionNumber}`) // TODO: Remove before final MR
-    if (!apiKey || apiKey !== getAuthToken()) {
-      logout()
-    } else if (clientVersionNumber && serverVersionNumber && clientVersionNumber !== serverVersionNumber) {
-      history.replace('/')
-    } else {
-      dispatch(allActions.fullRefresh())
-    }
-  }
+  // const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
+  const onIdle = useCallback(() => { // temporary function to test bug
+    console.log(clientVersion) /// WHY IS THIS NULL???
+    handleOnIdle(clientVersion)
+  }, [clientVersion])
 
   useIdleTimer({
-    timeout: convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
-    onIdle: handleOnIdle,
-    debounce: 1000,
+    ...idleTimerSettings,
+    onIdle: onIdle,
   })
 >>>>>>> c17f7ae (initial implementation of idle behaviour):src/routes/MembershipCardPage/MembershipCardPage.js
+
+  const { id } = useParams()
+  useMembershipCardRefresher(id)
+
+  // Store Bink Web version upon initial load
 
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
@@ -186,7 +180,6 @@ const MembershipCardPage = () => {
   // Membership card active path
   return (
     <>
-      { Config.devOnlyToolsEnabled && <button onClick={handleOnIdle}>Temporary Button - Force Idle status</button> /* TODO: Remove this line prior to MR finish */ }
       { membershipCard && (
         <>
           {/* Render the various overlay modals  */}

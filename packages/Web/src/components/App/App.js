@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   MemoryRouter,
   BrowserRouter,
@@ -20,11 +20,17 @@ import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 import Footer from 'components/Footer'
+import { useSetClientVersion } from 'hooks/useCheckIdle'
 
 import styles from './App.module.scss'
 
 function App () {
   const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
+  const { setClientVersion } = useSetClientVersion()
+
+  useEffect(() => {
+    setClientVersion()
+  })
 
   return (
     <div className={cx('bink-app', styles.root)}>

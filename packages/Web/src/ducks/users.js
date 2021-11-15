@@ -71,7 +71,6 @@ const reducer = (state = getInitialState(), action) => {
           api_key: null,
         },
       }
-
     case types.REQUEST_MAGIC_LINK_REQUEST:
       return {
         ...state,
