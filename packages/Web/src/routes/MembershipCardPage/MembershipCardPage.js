@@ -50,36 +50,22 @@ const MembershipCardPage = () => {
     }
   }, [history, reasonCode, isAccountActive])
 
-<<<<<<< HEAD:packages/Web/src/routes/MembershipCardPage/MembershipCardPage.js
   const { id } = useParams()
   useMembershipCardRefresher(id)
-<<<<<<< HEAD:packages/Web/src/routes/MembershipCardPage/MembershipCardPage.js
-<<<<<<< HEAD:packages/Web/src/routes/MembershipCardPage/MembershipCardPage.js
-=======
-=======
 
->>>>>>> 1ef5666 (2nd iteration with placeholders to test on MR branch):src/routes/MembershipCardPage/MembershipCardPage.js
-  const { apiKey } = useUserState()
-  const { logout } = useLogout()
-=======
   const { handleOnIdle } = useHandleOnIdle()
   const { clientVersion } = useSetClientVersion()
->>>>>>> bbbafd1 (limited functionality update):src/routes/MembershipCardPage/MembershipCardPage.js
 
   // const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
   const onIdle = useCallback(() => { // temporary function to test bug
     console.log(clientVersion) /// WHY IS THIS NULL???
     handleOnIdle(clientVersion)
-  }, [clientVersion])
+  }, [clientVersion, handleOnIdle])
 
   useIdleTimer({
     ...idleTimerSettings,
     onIdle: onIdle,
   })
->>>>>>> c17f7ae (initial implementation of idle behaviour):src/routes/MembershipCardPage/MembershipCardPage.js
-
-  const { id } = useParams()
-  useMembershipCardRefresher(id)
 
   // Store Bink Web version upon initial load
 
