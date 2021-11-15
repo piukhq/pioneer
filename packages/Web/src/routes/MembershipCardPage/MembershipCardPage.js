@@ -31,7 +31,6 @@ import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 
 import { useIdleTimer } from 'react-idle-timer'
 import { useHandleOnIdle, useSetClientVersion, idleTimerSettings } from 'hooks/useCheckIdle'
-import { selectors as versionSelectors } from 'ducks/version'
 
 import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
 
