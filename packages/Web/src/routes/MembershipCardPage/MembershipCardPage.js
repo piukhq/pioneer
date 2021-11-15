@@ -7,7 +7,6 @@ import {
   selectors as allSelectors,
 } from 'ducks/all'
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
-import { selectors as versionSelectors } from 'ducks/version'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
 
@@ -56,14 +55,14 @@ const MembershipCardPage = () => {
 
   const { handleOnIdle } = useHandleOnIdle()
   const { clientVersion } = useSetClientVersion()
-  console.log('In component: ' + clientVersion)
+  console.log('In component: ' + clientVersion) // The component sees the current version after rerender
 
   const onIdle = () => {
     console.log('now idle')
   }
   useIdleTimer({
     ...idleTimerSettings,
-    onActive: handleOnIdle,
+    onActive: handleOnIdle, // The sector in this hook holds the old value when instantiated
     onIdle: onIdle,
   })
 
