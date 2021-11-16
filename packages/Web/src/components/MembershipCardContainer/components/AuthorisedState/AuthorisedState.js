@@ -20,7 +20,6 @@ const AuthorisedState = ({ membershipCard, state }) => {
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
   const { planHasVouchers } = useMembershipCardDetailsByCardId()
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
-
   const { dispatchModal, modalToRender } = useModals()
 
   const requestModal = (modalName) => {
