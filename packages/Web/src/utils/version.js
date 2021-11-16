@@ -1,9 +1,9 @@
 
 export const getServerVersion = async () => {
   const { env, theme } = Config
-  if (env === 'development') { // placeholder for MR testing
-    return 'development'
-  }
+  // if (env === 'development') { // placeholder for MR testing
+  //   return 'development'
+  // }
   // console.log(window.location.href)
   let versionFilePath = `/${env}/${theme}/version.json`
   if (env === 'development') {

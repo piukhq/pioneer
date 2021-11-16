@@ -29,9 +29,6 @@ import MembershipCardContainer from 'components/MembershipCardContainer'
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
 import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 
-import { useIdleTimer } from 'react-idle-timer'
-import { useHandleOnIdle, useSetClientVersion, idleTimerSettings } from 'hooks/useCheckIdle'
-
 import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
 
 import styles from './MembershipCardPage.module.scss'
@@ -52,19 +49,6 @@ const MembershipCardPage = () => {
 
   const { id } = useParams()
   useMembershipCardRefresher(id)
-
-  const { handleOnIdle } = useHandleOnIdle()
-  const { clientVersion } = useSetClientVersion()
-  console.log('In component: ' + clientVersion) // The component sees the current version after rerender
-
-  const onIdle = () => {
-    console.log('now idle')
-  }
-  useIdleTimer({
-    ...idleTimerSettings,
-    onActive: handleOnIdle, // The sector in this hook holds the old value when instantiated
-    onIdle: onIdle,
-  })
 
   // Store Bink Web version upon initial load
 

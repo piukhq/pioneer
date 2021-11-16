@@ -20,17 +20,31 @@ import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 import Footer from 'components/Footer'
-import { useSetClientVersion } from 'hooks/useCheckIdle'
+import { useSelector } from 'react-redux'
+import { selectors as versionSelectors } from 'ducks/version'
+
+import { useIdleTimer } from 'react-idle-timer'
+import { useSetStatus, idleTimerSettings, useHandleOnActive } from 'hooks/useCheckIdle'
 
 import styles from './App.module.scss'
 
 function App () {
   const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
-  const { setClientVersion } = useSetClientVersion()
 
-  useEffect(() => {
-    setClientVersion()
+  const { setIdle, setActive } = useSetStatus()
+
+  useIdleTimer({
+    ...idleTimerSettings,
+    onActive: setActive,
+    onIdle: setIdle,
   })
+
+  const isIdle = useSelector(state => versionSelectors.isIdle(state))
+  const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
+  const { handleOnActive } = useHandleOnActive()
+  useEffect(() => {
+    !isIdle && clientVersion && handleOnActive()
+  }, [isIdle, clientVersion, handleOnActive])
 
   return (
     <div className={cx('bink-app', styles.root)}>
