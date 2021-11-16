@@ -43,7 +43,7 @@ function App () {
   const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
   const { handleOnActive } = useHandleOnActive()
   useEffect(() => {
-    !isIdle && clientVersion && handleOnActive()
+    !isIdle && typeof clientVersion === 'string' && handleOnActive()
   }, [isIdle, clientVersion, handleOnActive])
 
   return (

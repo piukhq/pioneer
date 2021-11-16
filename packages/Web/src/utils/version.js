@@ -6,6 +6,7 @@ export const getServerVersion = async () => {
   // }
   // console.log(window.location.href)
   let versionFilePath = `/${env}/${theme}/version.json`
+  console.log(versionFilePath)
   if (env === 'development') {
     versionFilePath = `/mr-316/${theme}/version.json`
   }
