@@ -22,15 +22,15 @@ const AuthorisedState = ({ membershipCard, state }) => {
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
 
   const { dispatchModal, modalToRender } = useModals()
-  const handleTransactionHistoryClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_TRANSACTIONS), [dispatchModal])
-  const handleNoTransactionHistoryClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS), [dispatchModal])
-  const handleNonActiveVouchersClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS), [dispatchModal])
-  const handleNoNonActiveVouchersClick = useCallback(() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_REWARDS), [dispatchModal])
+
+  const requestModal = (modalName) => {
+    return dispatchModal(modalEnum[modalName])
+  }
 
   const renderTransactionHistoryTile = () => (
     <>
       {/* todo: would there ever be an unhappy path ever where balance is missing? */}
-      <div data-testid='transaction-history' onClick={handleTransactionHistoryClick}
+      <div data-testid='transaction-history' onClick={() => requestModal('MEMBERSHIP_CARD_TRANSACTIONS')}
         className={cx(
           styles['root__transaction-history'],
           styles['root__click-event-enabled'],
@@ -55,7 +55,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
 
   const renderNoTransactionHistoryTile = () => (
     <>
-    <div data-testid='no-transaction-history' onClick={handleNoTransactionHistoryClick}
+    <div data-testid='no-transaction-history' onClick={() => requestModal('MEMBERSHIP_CARD_NO_TRANSACTIONS')}
       className={cx(
         styles['root__transaction-history'],
         styles['root__transaction-history--greyed'],
@@ -80,7 +80,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
 
   const renderNonActiveVouchersTile = () => (
     <>
-      <div data-testid='non-active-vouchers' onClick={handleNonActiveVouchersClick}
+      <div data-testid='non-active-vouchers' onClick={() => requestModal('MEMBERSHIP_CARD_NO_REWARDS')}
         className={cx(
           styles['root__voucher-history'],
           styles['root__click-event-enabled'],
@@ -105,7 +105,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
 
   const renderNoNonActiveVouchersTile = () => (
     <>
-      <div data-testid='no-non-active-vouchers' onClick={handleNoNonActiveVouchersClick}
+      <div data-testid='no-non-active-vouchers' onClick={() => requestModal('MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS')}
         className={cx(
           styles['root__voucher-history'],
           styles['root__voucher-history--greyed'],
