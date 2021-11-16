@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import NonActiveVouchersModal from 'components/Modals/NonActiveVouchersModal'
 import TransactionsRewardsEmptyStateModal from 'components/Modals/TransactionsRewardsEmptyStateModal'
