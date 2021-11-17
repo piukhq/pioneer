@@ -4,12 +4,11 @@ import { render } from '@testing-library/react'
 import MembershipCardContainer from './MembershipCardContainer'
 
 jest.mock('./components/MembershipCardHeroImage', () => () => null)
-jest.mock('./components/RewardsHistory', () => () => null)
 
 describe('Test MembershipCardContainer', () => {
   const mockMembershipCard = {
     payment_cards: [],
-    status: { state: 'mock_state' },
+    status: { reason_codes: ['mock_status_code'] },
   }
 
   it('should render the membership card rewards history section', () => {
