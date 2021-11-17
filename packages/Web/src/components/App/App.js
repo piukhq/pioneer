@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   MemoryRouter,
   BrowserRouter,
@@ -20,11 +20,9 @@ import MembershipCardAddPage from 'routes/MembershipCardAddPage'
 import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 import Footer from 'components/Footer'
-import { useSelector } from 'react-redux'
-import { selectors as versionSelectors } from 'ducks/version'
 
 import { useIdleTimer } from 'react-idle-timer'
-import { useActivityStatus, idleTimerSettings, useHandleOnActive } from 'hooks/useActivityMonitoring'
+import { useActivityStatus, useInitialVersionCheck, idleTimerSettings } from 'hooks/useActivityMonitoring'
 
 import styles from './App.module.scss'
 
@@ -33,19 +31,12 @@ function App () {
 
   // Inactivity Monitoring
   const { setIdle, setActive } = useActivityStatus()
-  const { handleOnActive } = useHandleOnActive()
-  const isIdle = useSelector(state => versionSelectors.isIdle(state))
-  const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
-
   useIdleTimer({
     ...idleTimerSettings,
     onActive: setActive,
     onIdle: setIdle,
   })
-
-  useEffect(() => {
-    !isIdle && clientVersion && handleOnActive() // clientVersion check here prevents running of hook prior to user going idle and also is useful to prevent running on development as there is no tag
-  }, [isIdle, clientVersion, handleOnActive])
+  useInitialVersionCheck()
 
   return (
     <div className={cx('bink-app', styles.root)}>

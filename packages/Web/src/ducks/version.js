@@ -1,12 +1,11 @@
 import { createSelector } from 'reselect'
-import { getServerVersion } from 'utils/version'
+import { getServerVersion } from 'api/version'
 
 const initialState = { clientVersion: null, isIdle: false }
 
 export const types = {
   VERSION_REQUEST: 'version/VERSION_REQUEST',
-  SET_ACTIVE: 'version/SET_ACTIVE',
-  SET_IDLE: 'version/SET_IDLE',
+  SET_IS_IDLE_STATUS: 'version/SET_IS_IDLE_STATUS',
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,15 +15,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         clientVersion: action.payload,
       }
-    case types.SET_IDLE:
+    case types.SET_IS_IDLE_STATUS:
       return {
         ...state,
-        isIdle: true,
-      }
-    case types.SET_ACTIVE:
-      return {
-        ...state,
-        isIdle: false,
+        isIdle: action.payload,
       }
     default:
       return state
@@ -51,11 +45,7 @@ export const actions = {
     const response = await getServerVersion()
     dispatch({ type: types.VERSION_REQUEST, payload: response })
   },
-  setIdle: () => async dispatch => {
-    dispatch(actions.getServerVersion())
-    dispatch({ type: types.SET_IDLE })
-  },
-  setActive: () => dispatch => {
-    dispatch({ type: types.SET_ACTIVE })
+  setIsIdleStatus: (isIdle) => dispatch => {
+    dispatch({ type: types.SET_IS_IDLE_STATUS, payload: isIdle })
   },
 }
