@@ -20,7 +20,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isIdle: true,
-        clientVersion: action.payload,
       }
     case types.SET_ACTIVE:
       return {
@@ -52,13 +51,15 @@ export const actions = {
     const response = await getServerVersion()
     dispatch({ type: types.VERSION_REQUEST, payload: response })
   },
+  // setIdle: () => async dispatch => {
+  //   const response = await getServerVersion()
+  //   dispatch({ type: types.SET_IDLE, payload: response })
+  // },
   setIdle: () => async dispatch => {
-    console.log('ducks idle')
-    const response = await getServerVersion()
-    dispatch({ type: types.SET_IDLE, payload: response })
+    dispatch(actions.getServerVersion())
+    dispatch({ type: types.SET_IDLE })
   },
   setActive: () => dispatch => {
-    console.log('ducks active')
     dispatch({ type: types.SET_ACTIVE })
   },
 }

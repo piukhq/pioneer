@@ -32,6 +32,9 @@ function App () {
   const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
 
   const { setIdle, setActive } = useSetStatus()
+  const { handleOnActive } = useHandleOnActive()
+  const isIdle = useSelector(state => versionSelectors.isIdle(state))
+  const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
 
   useIdleTimer({
     ...idleTimerSettings,
@@ -39,11 +42,8 @@ function App () {
     onIdle: setIdle,
   })
 
-  const isIdle = useSelector(state => versionSelectors.isIdle(state))
-  const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
-  const { handleOnActive } = useHandleOnActive()
   useEffect(() => {
-    !isIdle && typeof clientVersion === 'string' && handleOnActive()
+    !isIdle && clientVersion && handleOnActive()
   }, [isIdle, clientVersion, handleOnActive])
 
   return (
