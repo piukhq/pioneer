@@ -44,7 +44,7 @@ function App () {
   })
 
   useEffect(() => {
-    !isIdle && clientVersion && handleOnActive()
+    !isIdle && clientVersion && handleOnActive() // clientVersion check here prevents running of hook prior to user going idle and also is useful to prevent running on development as there is no tag
   }, [isIdle, clientVersion, handleOnActive])
 
   return (
