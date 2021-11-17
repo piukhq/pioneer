@@ -51,10 +51,6 @@ export const actions = {
     const response = await getServerVersion()
     dispatch({ type: types.VERSION_REQUEST, payload: response })
   },
-  // setIdle: () => async dispatch => {
-  //   const response = await getServerVersion()
-  //   dispatch({ type: types.SET_IDLE, payload: response })
-  // },
   setIdle: () => async dispatch => {
     dispatch(actions.getServerVersion())
     dispatch({ type: types.SET_IDLE })

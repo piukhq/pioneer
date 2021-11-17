@@ -24,14 +24,15 @@ import { useSelector } from 'react-redux'
 import { selectors as versionSelectors } from 'ducks/version'
 
 import { useIdleTimer } from 'react-idle-timer'
-import { useSetStatus, idleTimerSettings, useHandleOnActive } from 'hooks/useCheckIdle'
+import { useActivityStatus, idleTimerSettings, useHandleOnActive } from 'hooks/useActivityMonitoring'
 
 import styles from './App.module.scss'
 
 function App () {
   const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
 
-  const { setIdle, setActive } = useSetStatus()
+  // Inactivity Monitoring
+  const { setIdle, setActive } = useActivityStatus()
   const { handleOnActive } = useHandleOnActive()
   const isIdle = useSelector(state => versionSelectors.isIdle(state))
   const clientVersion = useSelector(state => versionSelectors.clientVersion(state))

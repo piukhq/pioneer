@@ -11,7 +11,7 @@ import {
 } from 'ducks/all'
 // import { convertMinutesToMilliseconds } from 'utils/format'
 
-export const useSetStatus = () => {
+export const useActivityStatus = () => {
   const dispatch = useDispatch()
   const setIdle = () => dispatch(versionActions.setIdle())
   const setActive = async () => {
