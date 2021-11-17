@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useUserState } from 'hooks/users'
 import { useLogout } from 'hooks/useLogout'
+import { usePrevious } from 'hooks/usePrevious'
 import { getAuthToken } from 'utils/storage'
 import { getServerVersion } from 'api/version'
 
@@ -10,7 +11,7 @@ import { selectors as versionSelectors, actions as versionActions } from 'ducks/
 import {
   actions as allActions,
 } from 'ducks/all'
-// import { convertMinutesToMilliseconds } from 'utils/format'
+import { convertMinutesToMilliseconds } from 'utils/format'
 
 export const useInitialVersionCheck = () => {
   const dispatch = useDispatch()
@@ -25,44 +26,40 @@ export const useActivityStatus = () => {
   return { setIdle, setActive }
 }
 
-export function useHandleOnActive () {
+export function useOnActiveCheck () {
   const { apiKey } = useUserState()
   const { logout } = useLogout()
   const dispatch = useDispatch()
 
   const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
   const isIdle = useSelector(state => versionSelectors.isIdle(state))
+  const previousClientVersion = usePrevious(clientVersion)
 
-  const handleOnActive = useCallback(async () => {
+  const onActiveCheck = useCallback(async () => {
     const currentServerVersion = await getServerVersion()
     console.log(`Client version Number: ${clientVersion} - Server Version: ${currentServerVersion}`)
 
     if (!apiKey || apiKey !== getAuthToken()) {
-      console.log('user is bad')
       logout()
     } else if (clientVersion !== currentServerVersion) {
-      console.log('client server mismatch')
       window.location.reload(true)
     } else {
-      console.log('user and versions OK. Refreshing')
       dispatch(allActions.fullRefresh())
     }
   }, [apiKey, clientVersion, dispatch, logout])
 
   useEffect(() => {
-    console.log(clientVersion)
-    if (!isIdle && clientVersion) {
-      console.log('handle on active')
-      handleOnActive()
+    if (!isIdle && previousClientVersion) {
+      onActiveCheck()
     }
-  }, [isIdle, handleOnActive, clientVersion])
+  }, [isIdle, onActiveCheck, previousClientVersion])
 
   return {
-    handleOnActive,
+    onActiveCheck,
   }
 }
 
 export const idleTimerSettings = {
-  timeout: 4000, // convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
+  timeout: convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
   crossTab: true,
 }

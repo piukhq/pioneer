@@ -22,7 +22,7 @@ import TypographyPage from 'routes/TypographyPage'
 import Footer from 'components/Footer'
 
 import { useIdleTimer } from 'react-idle-timer'
-import { useActivityStatus, useInitialVersionCheck, idleTimerSettings } from 'hooks/useActivityMonitoring'
+import { useActivityStatus, useInitialVersionCheck, idleTimerSettings, useOnActiveCheck } from 'hooks/useActivityMonitoring'
 
 import styles from './App.module.scss'
 
@@ -37,6 +37,7 @@ function App () {
     onIdle: setIdle,
   })
   useInitialVersionCheck()
+  useOnActiveCheck()
 
   return (
     <div className={cx('bink-app', styles.root)}>

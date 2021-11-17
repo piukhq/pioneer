@@ -1,9 +1,6 @@
 
 export const getServerVersion = async () => {
   const { env, theme } = Config
-  if (env === 'development') { // Temp placeholder for MR Testing, delete for final version
-    return 'dev'
-  }
   let versionFilePath = `/${env}/${theme}/version.json`
   if (env === 'development') { // Temp placeholder for MR Testing, delete for final version
     versionFilePath = `/mr-316/${theme}/version.json`
