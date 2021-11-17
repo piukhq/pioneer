@@ -1,9 +1,11 @@
 import React from 'react'
 import cx from 'classnames'
 import MembershipCardHeroImage from './components/MembershipCardHeroImage'
-import RewardsHistory from './components/RewardsHistory'
 
 import styles from './MembershipCardContainer.module.scss'
+import AuthorisedState from './components/AuthorisedState'
+import NoPaymentCardsState from './components/NoPaymentCardsState'
+import UnauthorisedState from './components/UnauthorisedState'
 
 const MembershipCardContainer = ({ membershipCard }) => {
   let state = membershipCard?.status?.state
@@ -17,13 +19,21 @@ const MembershipCardContainer = ({ membershipCard }) => {
     state = 'unauthorised'
   }
 
+  const renderTileContents = () => {
+    switch (state) {
+      case 'authorised': return <AuthorisedState membershipCard={membershipCard} state={state} />
+      case 'no-payment-cards': return <NoPaymentCardsState state={state} />
+      default: return <UnauthorisedState membershipCard={membershipCard} state={state} />
+    }
+  }
+
   return (
     <section data-testid='membership-card-rewards-history-section' className={cx(
       styles.root,
       styles[`root--${state}`],
     )}>
       <MembershipCardHeroImage membershipCard={membershipCard} />
-      <RewardsHistory membershipCard={membershipCard} state={state} />
+      {renderTileContents()}
     </section>
   )
 }

@@ -1,0 +1,42 @@
+@import "src/sass/mixins";
+
+.root {
+  &__subtitle {
+    margin: 5px 0;
+    font-size: 18px;
+    line-height: 1.2em;
+    font-weight: 800;
+  }
+
+  &__explainer {
+    font-size: 18px;
+    line-height: 1.2em;
+
+    &-paragraph {
+      margin: 0 0 1em;
+    }
+  }
+
+  @mixin state-box {
+    padding: 20px;
+    background: $page-background-color;
+    border-radius: 20px;
+    box-shadow: 0 3px 22px 0 $transparent-90-percent;
+  }
+
+  &__no-payment-card-state {
+    grid-area: details-tile;
+
+    @include state-box;
+  }
+
+  &__click-event-enabled {
+    cursor: pointer;
+
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
+  }
+}
