@@ -37,7 +37,6 @@ export function useOnActiveCheck () {
 
   const onActiveCheck = useCallback(async () => {
     const currentServerVersion = await getServerVersion()
-    console.log(`Client version Number: ${clientVersion} - Server Version: ${currentServerVersion}`)
 
     if (!apiKey || apiKey !== getAuthToken()) {
       logout()
