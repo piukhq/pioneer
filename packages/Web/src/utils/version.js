@@ -11,7 +11,7 @@ export const getServerVersion = async () => {
   console.log(versionFilePath)
   const tag = await fetch(versionFilePath)
     .then(response => response.json())
-    .then(json => json.tag)
+    .then(json => json.sha)
     .catch((e) => console.error(e))
   return tag
 }
