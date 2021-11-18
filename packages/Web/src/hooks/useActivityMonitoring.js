@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useUserState } from 'hooks/users'
 import { useLogout } from 'hooks/useLogout'
@@ -6,35 +6,30 @@ import { usePrevious } from 'hooks/usePrevious'
 import { getAuthToken } from 'utils/storage'
 import { getServerVersion } from 'api/version'
 
-import { selectors as versionSelectors, actions as versionActions } from 'ducks/version'
-
+import { selectors as versionSelectors, actions as versionActions } from 'ducks/clientVersion'
 import {
   actions as allActions,
 } from 'ducks/all'
+
 import { convertMinutesToMilliseconds } from 'utils/format'
 
 export const useInitialVersionCheck = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(versionActions.getServerVersion())
+    dispatch(versionActions.setClientVersion())
   }, [dispatch])
 }
-export const useActivityStatus = () => {
-  const dispatch = useDispatch()
-  const setIdle = () => dispatch(versionActions.setIsIdleStatus(true))
-  const setActive = async () => dispatch(versionActions.setIsIdleStatus(false))
-  return { setIdle, setActive }
-}
-
-export function useOnActiveCheck () {
+export function useActivityCheck () {
+  const [isIdle, setIsIdle] = useState(false)
   const { apiKey } = useUserState()
   const { logout } = useLogout()
   const dispatch = useDispatch()
 
-  const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
-  const isIdle = useSelector(state => versionSelectors.isIdle(state))
-  const previousClientVersion = usePrevious(clientVersion)
+  const setIdle = () => setIsIdle(true)
+  const setActive = () => setIsIdle(false)
 
+  const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
+  const previousClientVersion = usePrevious(clientVersion)
   const onActiveCheck = useCallback(async () => {
     const currentServerVersion = await getServerVersion()
 
@@ -55,6 +50,8 @@ export function useOnActiveCheck () {
 
   return {
     onActiveCheck,
+    setIdle,
+    setActive,
   }
 }
 

@@ -5,7 +5,7 @@ import membershipCards from 'ducks/membershipCards'
 import membershipPlans from 'ducks/membershipPlans'
 import service from 'ducks/service'
 import modals from 'ducks/modals'
-import version from 'ducks/version'
+import clientVersion from 'ducks/clientVersion'
 import { removeAuthToken } from 'utils/storage' // TODO: Temporary measure for web-464
 
 const appReducer = combineReducers({
@@ -15,7 +15,7 @@ const appReducer = combineReducers({
   membershipPlans,
   modals,
   service,
-  version,
+  clientVersion,
 })
 
 const rootReducer = (state, action) => {

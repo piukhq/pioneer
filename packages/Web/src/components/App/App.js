@@ -22,7 +22,7 @@ import TypographyPage from 'routes/TypographyPage'
 import Footer from 'components/Footer'
 
 import { useIdleTimer } from 'react-idle-timer'
-import { useActivityStatus, useInitialVersionCheck, idleTimerSettings, useOnActiveCheck } from 'hooks/useActivityMonitoring'
+import { idleTimerSettings, useActivityCheck, useInitialVersionCheck } from 'hooks/useActivityMonitoring'
 
 import styles from './App.module.scss'
 
@@ -30,14 +30,14 @@ function App () {
   const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
 
   // Inactivity Monitoring
-  const { setIdle, setActive } = useActivityStatus()
+  useInitialVersionCheck()
+
+  const { setIdle, setActive } = useActivityCheck()
   useIdleTimer({
     ...idleTimerSettings,
     onActive: setActive,
     onIdle: setIdle,
   })
-  useInitialVersionCheck()
-  useOnActiveCheck()
 
   return (
     <div className={cx('bink-app', styles.root)}>
