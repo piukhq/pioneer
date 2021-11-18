@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { usePrevious } from 'react-use'
 import { useUserState } from 'hooks/users'
 import { useLogout } from 'hooks/useLogout'
-import { usePrevious } from 'hooks/usePrevious'
 import { getAuthToken } from 'utils/storage'
 import { getServerVersion } from 'api/version'
 
