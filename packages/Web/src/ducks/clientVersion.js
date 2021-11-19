@@ -32,7 +32,11 @@ export const selectors = {
 
 export const actions = {
   setClientVersion: () => async dispatch => {
-    const response = await getServerVersion()
-    dispatch({ type: types.VERSION_UPDATE, payload: response })
+    try {
+      const response = await getServerVersion()
+      dispatch({ type: types.VERSION_UPDATE, payload: response })
+    } catch (e) {
+      console.error('Error attempting to fetch JSON:', e)
+    }
   },
 }
