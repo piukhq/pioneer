@@ -9,6 +9,7 @@ import {
 import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 
 import { useMembershipCardStateById } from 'hooks/membershipCards'
+
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useModals } from 'hooks/useModals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
@@ -39,7 +40,7 @@ const MembershipCardPage = () => {
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))
   const { dispatchModal, modalToRender } = useModals()
 
-  // Log user out if account is no longer active
+  // // Log user out if account is no longer active
   useEffect(() => {
     if (reasonCode && !isAccountActive && Config.isMerchantChannel) {
       history.replace('/')
@@ -47,8 +48,9 @@ const MembershipCardPage = () => {
   }, [history, reasonCode, isAccountActive])
 
   const { id } = useParams()
-
   useMembershipCardRefresher(id)
+
+  // Store Bink Web version upon initial load
 
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))

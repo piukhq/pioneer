@@ -21,10 +21,23 @@ import MagicLinkPage from 'routes/MagicLinkPage'
 import TypographyPage from 'routes/TypographyPage'
 import Footer from 'components/Footer'
 
+import { useIdleTimer } from 'react-idle-timer'
+import { idleTimerSettings, useActivityCheck, useInitialVersionCheck } from 'hooks/useActivityMonitoring'
+
 import styles from './App.module.scss'
 
 function App () {
   const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
+
+  // Inactivity Monitoring
+  useInitialVersionCheck()
+
+  const { setIdle, setActive } = useActivityCheck()
+  useIdleTimer({
+    ...idleTimerSettings,
+    onActive: setActive,
+    onIdle: setIdle,
+  })
 
   return (
     <div className={cx('bink-app', styles.root)}>

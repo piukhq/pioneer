@@ -3,7 +3,7 @@ import { serializeError } from 'serialize-error'
 import { setTokenAsUsed } from 'utils/magicLink'
 import { createSelector } from 'reselect'
 import { getUserIdFromApiKey } from 'utils/users'
-import { getAuthToken } from '../utils/storage' // TODO: Temporary measure for Web-464
+import { getAuthToken } from 'utils/storage' // TODO: Temporary measure for Web-464
 
 const types = {
   LOGIN_REQUEST: 'users/LOGIN_REQUEST',
@@ -71,7 +71,6 @@ const reducer = (state = getInitialState(), action) => {
           api_key: null,
         },
       }
-
     case types.REQUEST_MAGIC_LINK_REQUEST:
       return {
         ...state,
