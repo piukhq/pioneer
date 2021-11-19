@@ -29,7 +29,7 @@ export function useActivityCheck () {
   const setActive = () => setIsIdle(false)
 
   const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
-  const previousClientVersion = usePrevious(clientVersion)
+  const previousIsIdle = usePrevious(isIdle)
   const onActiveCheck = useCallback(async () => {
     const currentServerVersion = await getServerVersion()
 
@@ -43,10 +43,10 @@ export function useActivityCheck () {
   }, [apiKey, clientVersion, dispatch, logout])
 
   useEffect(() => {
-    if (!isIdle && previousClientVersion) {
+    if (!isIdle && previousIsIdle) {
       onActiveCheck()
     }
-  }, [isIdle, onActiveCheck, previousClientVersion])
+  }, [isIdle, onActiveCheck, previousIsIdle])
 
   return {
     onActiveCheck,

@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
 
 export default reducer
 
-const versionSelector = state => state.version
+const versionSelector = state => state.clientVersion
 
 export const selectors = {
   clientVersion: createSelector(
