@@ -3,7 +3,10 @@ import * as reactRedux from 'react-redux'
 import { render, fireEvent } from '@testing-library/react'
 import { useContactSupport } from 'hooks/useContactSupport'
 import { useLogout } from 'hooks/useLogout'
-import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
+import {
+  useMembershipPlansState,
+  useMembershipPlansDispatch,
+} from 'hooks/membershipPlans'
 import MerchantMembershipCardAdd from 'components/MerchantMembershipCardAdd'
 
 const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
@@ -15,12 +18,13 @@ jest.mock('hooks/useContactSupport', () => ({
   useContactSupport: jest.fn(),
 }))
 
-jest.mock('./hooks/useLoadMembershipPlans', () => ({
-  useLoadMembershipPlans: jest.fn(),
+jest.mock('hooks/membershipPlans', () => ({
+  useMembershipPlansState: jest.fn(),
+  useMembershipPlansDispatch: jest.fn(),
 }))
 
 const useLoadMembershipPlansDefaultValues = {
-  plan: {
+  membershipPlanById: {
     id: 'mock_id',
     account: {
       add_fields: ['mock_add_field'],
@@ -42,7 +46,8 @@ const merchantMembershipCardAddComponent = (<MerchantMembershipCardAdd planId={m
 describe('Test MerchantMembershipCardAdd', () => {
   beforeEach(() => {
     useSelectorMock.mockReturnValueOnce(mockUserId)
-    useLoadMembershipPlans.mockImplementation(() => ({ ...useLoadMembershipPlansDefaultValues }))
+    useMembershipPlansState.mockImplementation(() => ({ ...useLoadMembershipPlansDefaultValues }))
+    useMembershipPlansDispatch.mockImplementation(() => ({ getMembershipPlans: jest.fn() }))
     useLogout.mockImplementation(() => ({ logout: mockLogout }))
     useContactSupport.mockImplementation(() => ({ contactSupport: mockContactSupport }))
   })

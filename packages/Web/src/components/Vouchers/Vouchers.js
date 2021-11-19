@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useMembershipCardStateById } from 'hooks/membershipCards'
-import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
+import { useMembershipPlansDispatch } from 'hooks/membershipPlans'
 import Voucher from 'components/Voucher'
 
 import styles from './Vouchers.module.scss'
 
 const Vouchers = ({ membershipCardId, displayRedeemableOnly = false }) => {
   const { activeVouchers, redeemableVouchers, plan } = useMembershipCardStateById(membershipCardId)
-  useLoadMembershipPlans()
+  const { getMembershipPlans } = useMembershipPlansDispatch()
+  useEffect(() => {
+    getMembershipPlans()
+  }, [getMembershipPlans])
 
   const renderVoucherPlanSummary = () => Config.voucherPlanSummary || plan?.account?.plan_summary
 

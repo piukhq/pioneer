@@ -1,8 +1,10 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectors as usersSelectors } from 'ducks/users'
-
-import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
+import {
+  useMembershipPlansState,
+  useMembershipPlansDispatch,
+} from 'hooks/membershipPlans'
 
 import { useContactSupport } from 'hooks/useContactSupport'
 import { useLogout } from 'hooks/useLogout'
@@ -12,8 +14,16 @@ import MembershipCardForm from 'components/MembershipCardForm'
 import styles from './MerchantMembershipCardAdd.module.scss'
 
 const MerchantMembershipCardAdd = ({ planId }) => {
+  const { getMembershipPlans } = useMembershipPlansDispatch()
+  useEffect(() => {
+    getMembershipPlans()
+  }, [getMembershipPlans])
+
+  const {
+    membershipPlanById: plan,
+  } = useMembershipPlansState(planId)
+
   const userId = useSelector(state => usersSelectors.accountUserId(state))
-  const { plan } = useLoadMembershipPlans(planId)
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
   const fieldTypes = useRef(['add_fields']).current
