@@ -22,14 +22,10 @@ const AuthorisedState = ({ membershipCard, state }) => {
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
   const { dispatchModal, modalToRender } = useModals()
 
-  const requestModal = (modalName) => {
-    return dispatchModal(modalName)
-  }
-
   const renderTransactionHistoryTile = () => (
     <>
       {/* todo: would there ever be an unhappy path ever where balance is missing? */}
-      <div data-testid='transaction-history' onClick={() => requestModal(modalEnum.MEMBERSHIP_CARD_TRANSACTIONS)}
+      <div data-testid='transaction-history' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_TRANSACTIONS)}
         className={cx(
           styles['root__transaction-history'],
           styles['root__click-event-enabled'],
@@ -54,7 +50,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
 
   const renderNoTransactionHistoryTile = () => (
     <>
-      <div data-testid='no-transaction-history' onClick={() => requestModal(modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS)}
+      <div data-testid='no-transaction-history' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS)}
         className={cx(
           styles['root__transaction-history'],
           styles['root__transaction-history--greyed'],
@@ -79,7 +75,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
 
   const renderNonActiveVouchersTile = () => (
     <>
-      <div data-testid='non-active-vouchers' onClick={() => requestModal(modalEnum.MEMBERSHIP_CARD_NO_REWARDS)}
+      <div data-testid='non-active-vouchers' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS)}
         className={cx(
           styles['root__voucher-history'],
           styles['root__click-event-enabled'],
@@ -104,7 +100,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
 
   const renderNoNonActiveVouchersTile = () => (
     <>
-      <div data-testid='no-non-active-vouchers' onClick={() => requestModal(modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS)}
+      <div data-testid='no-non-active-vouchers' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_REWARDS)}
         className={cx(
           styles['root__voucher-history'],
           styles['root__voucher-history--greyed'],
