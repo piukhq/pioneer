@@ -18,11 +18,26 @@ module.exports = {
       case 'fatface': return true
     }
   })(),
+  shouldDisplayLogoFooter: (() => {
+    // note: if overwritten then all cases must be kept
+    switch (process.env.THEME) {
+      case 'bink': return false
+      case 'wasabi': return false
+      case 'fatface': return true
+    }
+  })(),
   magicLinkSlug: (() => {
     switch (process.env.THEME) {
       case 'bink': return null
       case 'wasabi': return 'wasabi-club'
       case 'fatface': return 'fatface'
+    }
+  })(),
+  enrolEmailOptInSlug: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return null
+      case 'wasabi': return 'Wasabi Channel'
+      case 'fatface': return 'FatFace Channel'
     }
   })(),
   clientId: null,
@@ -107,7 +122,7 @@ module.exports = {
         return [
           'Receive a £7 Off Meal Voucher when you collect 7 stamps!*',
           'If you would like to register/login to the Wasabi Club please enter your email address.',
-          'Once you enter your email address Bink will check if you already have an account.**',
+          'Once you enter your email address Bink will check if you already have an account.',
         ]
       }
       case 'fatface': {
@@ -129,7 +144,7 @@ module.exports = {
   magicLinkRequestFormFooterLink: (() => {
     switch (process.env.THEME) {
       case 'bink': return null
-      case 'wasabi': return 'Terms and Conditions apply'
+      case 'wasabi': return 'Terms & Conditions apply'
       case 'fatface': return null
     }
   })(),

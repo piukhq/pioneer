@@ -31,7 +31,7 @@ const WeFoundYou = () => {
           className={styles.root__button}
           onClick={acceptTerms}
           error={errorMessage}
-        >Continue</Button>
+        >Accept and continue</Button>
 
         <Button
           secondary
