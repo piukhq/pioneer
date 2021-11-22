@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import useAddMembershipCard from './hooks/useAddMembershipCard'
 import useEnrolMembershipCard from './hooks/useEnrolMembershipCard'
-import { useMembershipPlansState } from 'hooks/membershipPlans'
+import { useMembershipPlansDispatch, useMembershipPlansState } from 'hooks/membershipPlans'
 import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 import Button from 'components/Button'
 import AccountMenu from 'components/AccountMenu'
@@ -22,9 +21,13 @@ import styles from './MembershipCardAddPage.module.scss'
 // todo: refactor in similar manner to MembershipCardPage
 
 const MembershipCardAddPage = () => {
+  const { getMembershipPlans } = useMembershipPlansDispatch()
+  useEffect(() => {
+    getMembershipPlans()
+  }, [getMembershipPlans])
+
   useCheckSessionEnded() // TODO: Temporary redirect for Web-464
 
-  useLoadMembershipPlans()
   const { loading: newMembershipCardLoading } = useMembershipCardsState().add
 
   const {

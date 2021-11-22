@@ -1,6 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import Modal from 'components/Modal'
-import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
+import {
+  useMembershipPlansState,
+  useMembershipPlansDispatch,
+} from 'hooks/membershipPlans'
 import useCloseModalOnSuccess from './hooks/useCloseModalOnSuccess'
 import LoadingIndicator from 'components/LoadingIndicator'
 import MembershipCardForm from 'components/MembershipCardForm'
@@ -9,7 +12,17 @@ import { useMembershipCardsState } from 'hooks/membershipCards'
 import styles from './MembershipCardEnrolModal.module.scss'
 
 const MembershipCardEnrolModal = ({ onClose, planId }) => {
-  const { plan, loading } = useLoadMembershipPlans(planId)
+  const { getMembershipPlans } = useMembershipPlansDispatch()
+
+  useEffect(() => {
+    getMembershipPlans()
+  }, [getMembershipPlans])
+
+  const {
+    membershipPlanById: plan,
+    loading,
+  } = useMembershipPlansState(planId)
+
   const { add: { loading: addLoading } } = useMembershipCardsState()
   useCloseModalOnSuccess(onClose)
   const fieldTypes = useRef(['enrol_fields']).current

@@ -52,7 +52,6 @@ export const useMembershipCardsDispatch = () => {
     addMembershipCardOnMerchantChannel: (accountData, planId) => dispatch(membershipCardsActions.addMembershipCardOnMerchantChannel(accountData, planId)),
     addMembershipCardResetSuccessStatus: () => dispatch(membershipCardsActions.addMembershipCardResetSuccessStatus()),
     linkPaymentCard: (paymentCardId, membershipCardId) => dispatch(membershipCardsActions.linkPaymentCard(paymentCardId, membershipCardId)),
-    getMembershipPlans: () => dispatch(membershipCardsActions.getMembershipCards()),
     // todo: should be removed before deployment to production
     unLinkPaymentCard: (paymentCardId, membershipCardId) => dispatch(membershipCardsActions.unLinkPaymentCard(paymentCardId, membershipCardId)),
   }

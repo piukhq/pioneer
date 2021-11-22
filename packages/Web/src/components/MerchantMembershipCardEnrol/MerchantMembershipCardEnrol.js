@@ -1,7 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectors as usersSelectors } from 'ducks/users'
-import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
+import {
+  useMembershipPlansState,
+  useMembershipPlansDispatch,
+} from 'hooks/membershipPlans'
+
 import { useLoadMembershipCardsReenrol } from './hooks/useLoadMembershipCardsReenrol'
 import MembershipCardForm from 'components/MembershipCardForm'
 
@@ -12,7 +16,15 @@ import Button from 'components/Button'
 import styles from './MerchantMembershipCardEnrol.module.scss'
 
 const MerchantMembershipCardEnrol = ({ planId }) => {
-  const { plan } = useLoadMembershipPlans(planId)
+  const { getMembershipPlans } = useMembershipPlansDispatch()
+  useEffect(() => {
+    getMembershipPlans()
+  }, [getMembershipPlans])
+
+  const {
+    membershipPlanById: plan,
+  } = useMembershipPlansState(planId)
+
   const { reenrolFormVisible } = useLoadMembershipCardsReenrol()
   const { logout } = useLogout()
   const fieldTypes = useRef(['enrol_fields']).current
