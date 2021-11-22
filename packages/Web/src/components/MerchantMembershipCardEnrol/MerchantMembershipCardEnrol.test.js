@@ -3,7 +3,10 @@ import * as reactRedux from 'react-redux'
 import { render, fireEvent } from '@testing-library/react'
 import { useContactSupport } from 'hooks/useContactSupport'
 import { useLogout } from 'hooks/useLogout'
-import { useLoadMembershipPlans } from './hooks/useLoadMembershipPlans'
+import {
+  useMembershipPlansState,
+  useMembershipPlansDispatch,
+} from 'hooks/membershipPlans'
 import { useLoadMembershipCardsReenrol } from './hooks/useLoadMembershipCardsReenrol'
 import MerchantMembershipCardEnrol from 'components/MerchantMembershipCardEnrol'
 
@@ -12,12 +15,16 @@ const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
 jest.mock('hooks/useLogout', () => ({
   useLogout: jest.fn(),
 }))
+
 jest.mock('hooks/useContactSupport', () => ({
   useContactSupport: jest.fn(),
 }))
-jest.mock('./hooks/useLoadMembershipPlans', () => ({
-  useLoadMembershipPlans: jest.fn(),
+
+jest.mock('hooks/membershipPlans', () => ({
+  useMembershipPlansState: jest.fn(),
+  useMembershipPlansDispatch: jest.fn(),
 }))
+
 jest.mock('./hooks/useLoadMembershipCardsReenrol', () => ({
   useLoadMembershipCardsReenrol: jest.fn(),
 }))
@@ -25,7 +32,7 @@ jest.mock('./hooks/useLoadMembershipCardsReenrol', () => ({
 jest.mock('components/MembershipCardForm', () => () => null)
 
 const useLoadMembershipPlansDefaultValues = {
-  plan: {
+  membershipPlanById: {
     id: 'mock_id',
     account: {
       enrol_fields: ['mock_enrol_field'],
@@ -46,7 +53,8 @@ const merchantMembershipCardEnrolComponent = (<MerchantMembershipCardEnrol planI
 describe('Test MerchantMembershipCardEnrol', () => {
   beforeEach(() => {
     useSelectorMock.mockReturnValueOnce(mockUserId)
-    useLoadMembershipPlans.mockImplementation(() => ({ ...useLoadMembershipPlansDefaultValues }))
+    useMembershipPlansState.mockImplementation(() => ({ ...useLoadMembershipPlansDefaultValues }))
+    useMembershipPlansDispatch.mockImplementation(() => ({ getMembershipPlans: jest.fn() }))
     useLogout.mockImplementation(() => ({ logout: mockLogout }))
     useContactSupport.mockImplementation(() => ({ contactSupport: mockContactSupport }))
   })
