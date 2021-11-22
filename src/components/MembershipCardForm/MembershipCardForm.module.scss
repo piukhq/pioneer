@@ -50,4 +50,23 @@
       grid-column: span 2;
     }
   }
+
+  &__wasabi-enrol-box {
+    padding: 12px;
+    border: 1px solid $grey-45-percent;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+  }
+
+  &__wasabi-enrol-box-content {
+    padding: 4px 0;
+    color: $grey-60-percent;
+
+    &--link {
+      @include link;
+
+      color: $grey-60-percent;
+    }
+  }
 }
