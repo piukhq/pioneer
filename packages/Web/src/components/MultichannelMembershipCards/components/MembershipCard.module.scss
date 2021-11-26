@@ -22,6 +22,21 @@
     box-shadow: 3px 5px 33px $transparent-90-percent;
   }
 
+  &__image-container {
+    grid-area: image;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-right: 15%;
+  }
+
+  &__image {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+  }
+
   &__primary-colour-layer {
     grid-area: info;
     position: relative;
@@ -38,21 +53,6 @@
     width: 50%;
     height: 99%;
     border-radius: 5px;
-  }
-
-  &__image-container {
-    grid-area: image;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding-right: 15%;
-  }
-
-  &__image {
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
   }
 
   &__info-container {
