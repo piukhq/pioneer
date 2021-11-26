@@ -44,7 +44,7 @@ export function useActivityCheck () {
       console.log('just refreshin')
       dispatch(allActions.fullRefresh())
     }
-  }, [apiKey, clientVersion, dispatch, logout])
+  }, [apiKey, clientVersion, dispatch, isIdle, logout])
 
   useEffect(() => {
     if (!isIdle && previousIsIdle) {
