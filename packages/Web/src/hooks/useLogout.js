@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { actions as usersActions } from 'ducks/users'
 
 export const useLogout = () => {
-  const { env, theme } = Config
+  const { theme } = Config
   const dispatch = useDispatch()
   const logout = () => {
     dispatch(usersActions.logout())
