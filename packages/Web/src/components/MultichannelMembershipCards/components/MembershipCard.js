@@ -2,8 +2,9 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
-import { formatValueToDecimalPlace } from 'utils/format'
 import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
+import { formatValueToDecimalPlace } from 'utils/format'
+import { determineTextColourBackgroundContrast } from 'utils/textColourBackgroundContrast'
 
 import styles from './MembershipCard.module.scss'
 
@@ -53,6 +54,8 @@ const MembershipCard = ({ card }) => {
     return null
   }
 
+  const textColour = determineTextColourBackgroundContrast(colour)
+
   return (
     <div className={cx(styles.root__card, styles['root--hover'])} data-testid='membership-card' onClick={handleCardClick}>
       <div className={styles['root__secondary-colour-layer']} style={{ backgroundColor: secondaryColour }} />
@@ -60,7 +63,7 @@ const MembershipCard = ({ card }) => {
       <div className={styles['root__image-container']}>
         <img src={iconImage?.url} className={styles.root__image} data-testid={`membership-card-image-${iconImage?.url}`} alt='' />
       </div>
-      <div className={styles['root__info-container']}>
+      <div className={styles['root__info-container']} style={{ color: textColour }}>
         <div className={styles['root__balance-string']}>{getBalanceString(card)}</div>
         <div className={styles['root__company-name']}>{companyName}</div>
         <div className={styles.root__state}>{state} - {reason_codes[0]}</div>
