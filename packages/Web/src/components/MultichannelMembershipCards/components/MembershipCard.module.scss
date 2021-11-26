@@ -36,23 +36,19 @@
     width: 100px;
     height: 100px;
   }
-
   &__primary-colour-layer {
     grid-area: info;
-    position: relative;
-    width: 115%;
-    height: 110%;
-    top: -10%;
-    transform: skewX(-13deg);
-    border-radius: 5px;
-  }
-
+    width: 120%;
+    transform: skewX(-11deg);
+    border-bottom-left-radius: 15px;
+    }
+    
   &__secondary-colour-layer {
     grid-area: info;
     transform: skewX(13deg);
-    width: 50%;
-    height: 99%;
-    border-radius: 5px;
+    width: 46px;
+    height: 210px;
+    border-top-left-radius: 15px;
   }
 
   &__info-container {
