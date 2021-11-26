@@ -60,6 +60,6 @@ export function useActivityCheck () {
 }
 
 export const idleTimerSettings = {
-  timeout: 50000, // convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
+  timeout: 250000, // convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
   crossTab: true,
 }
