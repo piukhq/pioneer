@@ -24,7 +24,10 @@ export function useActivityCheck () {
   const { apiKey } = useUserState()
   const { logout } = useLogout()
   const dispatch = useDispatch()
-  const setIdle = () => setIsIdle(true)
+  const setIdle = () => {
+    console.log('setIdle')
+    setIsIdle(true)
+  }
   const setActive = () => setIsIdle(false)
   console.log('useActivityCheck' + isIdle)
   const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
