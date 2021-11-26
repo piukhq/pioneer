@@ -68,14 +68,15 @@ describe('Test MembershipCard', () => {
     expect(getByTestId('membership-card')).toBeInTheDocument()
   })
 
-  // it('should render the correct card info', () => {
-  //   useMembershipCardState.mockImplementation(() => ({
-  //     membershipCards: [mockCard],
-  //   }))
-  //   const { getByText } = render(membershipCardComponent)
-  //   expect(getByText(mockCompanyName)).toBeInTheDocument()
-  //   expect(getByText(mockPlanName)).toBeInTheDocument()
-  //   expect(getByText(`${mockCardState} - ${mockReasonCode}`)).toBeInTheDocument()
-  //   expect(getByText(`${mockVoucherPrefix}${mockVoucherValue}/${mockVoucherPrefix}${mockVoucherTargetValue} ${mockVoucherSuffix}`)).toBeInTheDocument()
-  // })
+  it('should render the correct card image', () => {
+    const { getByRole } = render(membershipCardComponent)
+    expect(getByRole('img')).toHaveAttribute('src', mockImgUrl)
+  })
+
+  it('should render the correct card info', () => {
+    const { getByText } = render(membershipCardComponent)
+    expect(getByText(mockCompanyName)).toBeInTheDocument()
+    expect(getByText(`${mockCardState} - ${mockReasonCode}`)).toBeInTheDocument()
+    expect(getByText(`${mockVoucherPrefix}${mockVoucherValue}/${mockVoucherPrefix}${mockVoucherTargetValue} ${mockVoucherSuffix}`)).toBeInTheDocument()
+  })
 })

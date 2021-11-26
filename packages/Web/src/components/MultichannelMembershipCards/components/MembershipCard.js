@@ -54,7 +54,7 @@ const MembershipCard = ({ card }) => {
   }
 
   return (
-    <div key={card.id} className={cx(styles.root__card, styles['root--hover'])} data-testid='membership-card' onClick={handleCardClick}>
+    <div className={cx(styles.root__card, styles['root--hover'])} data-testid='membership-card' onClick={handleCardClick}>
       <div className={styles['root__secondary-colour-layer']} style={{ backgroundColor: secondaryColour }} />
       <div className={styles['root__primary-colour-layer']} style={{ backgroundColor: colour }} />
       <div className={styles['root__image-container']}>
