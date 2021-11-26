@@ -1,4 +1,4 @@
-
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
@@ -7,7 +7,7 @@ import { selectors as membershipPlansSelectors } from 'ducks/membershipPlans'
 
 import styles from './MembershipCard.module.scss'
 
-export const MembershipCard = (card) => {
+const MembershipCard = ({ card }) => {
   const history = useHistory()
 
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
@@ -68,3 +68,5 @@ export const MembershipCard = (card) => {
     </div>
   )
 }
+
+export default MembershipCard
