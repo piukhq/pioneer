@@ -6,7 +6,7 @@ export const useLogout = () => {
   const dispatch = useDispatch()
   const logout = () => {
     dispatch(usersActions.logout())
-    window.location.href = `/${env}/${theme}`
+    window.location.href = `/mr-327/${theme}`
   }
   return {
     logout,
