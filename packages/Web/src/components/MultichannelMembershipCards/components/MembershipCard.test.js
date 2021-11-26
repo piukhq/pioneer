@@ -8,14 +8,12 @@ describe('Test MembershipCard', () => {
   const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
 
   const mockCompanyName = 'mock_company_name'
-  const mockPlanName = 'mock_plan_name'
   const mockImgUrl = 'mock_image_url'
 
   const mockMembershipPlans = [{
     id: 'mock_plan_id',
     account: {
       company_name: mockCompanyName,
-      plan_name: mockPlanName,
     },
     card: {
       colour: 'mock_colour',
