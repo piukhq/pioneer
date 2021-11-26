@@ -1,0 +1,80 @@
+@import "src/sass/mixins";
+
+.root {
+  &--hover {
+    @include base-hover-style;
+
+    &:hover {
+      @include hover-style;
+    }
+  }
+
+  &__card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "image info";
+    width: 400px;
+    height: 220px;
+    border-radius: 20px;
+    margin: 0 auto;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 3px 5px 33px $transparent-90-percent;
+  }
+
+  &__image-container {
+    grid-area: image;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-right: 15%;
+  }
+
+  &__image {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+  }
+
+  &__primary-colour-layer {
+    grid-area: info;
+    width: 120%;
+    transform: skewX(-11deg);
+    border-bottom-left-radius: 10px;
+  }
+
+  &__secondary-colour-layer {
+    grid-area: info;
+    transform: skewX(13deg);
+    width: 46px;
+    height: 210px;
+    border-top-left-radius: 10px;
+  }
+
+  &__info-container {
+    grid-area: info;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-right: 30px;
+    color: $white;
+    text-align: end;
+  }
+
+  &__balance-string {
+    font-weight: bold;
+    font-size: 21px;
+  }
+
+  &__company-name {
+    font-weight: bold;
+    font-size: 26px;
+  }
+
+  &__state {
+    font-size: 19px;
+  }
+}
