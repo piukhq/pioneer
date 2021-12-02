@@ -37,7 +37,11 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
           </div>
         )}
       </div>
-      {modalToRender === modalEnum.MEMBERSHIP_CARD_HERO && <MembershipCardHeroModal membershipCard={membershipCard} />}
+      { modalToRender === modalEnum.MEMBERSHIP_CARD_HERO && (
+        <div data-testid='membership-card-hero-modal'>
+          <MembershipCardHeroModal membershipCard={membershipCard} />
+        </div>
+      ) }
     </>
   )
 }

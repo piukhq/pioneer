@@ -133,13 +133,6 @@ module.exports = {
       case 'fatface': return null
     }
   })(),
-  membershipCardModalText: (() => {
-    switch (process.env.THEME) {
-      case 'bink': return null
-      case 'wasabi': return null
-      case 'fatface': return 'Show this card number in-store just like you would a physical loyalty card.'
-    }
-  })(),
   // used for development
   devDefaultUser: (() => {
     switch (process.env.THEME) {
