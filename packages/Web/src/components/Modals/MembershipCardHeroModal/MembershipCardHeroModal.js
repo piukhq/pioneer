@@ -32,8 +32,7 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
     }
   }, [cardId, barcodeType, barcodeArray, barcodeNumber])
 
-  const [text1, text2] = shouldRenderBarcode ? ['Show', 'barcode'] : ['Share', 'number']
-  const text = `${text1} this ${text2} in-store just like you would a physical loyalty card.`
+  const prefixText = shouldRenderBarcode ? 'Show this barcode' : 'Share this number'
 
   return (
     <Modal className={styles.root}>
@@ -53,7 +52,7 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
           </>
         ) }
 
-        <div className={styles.root__text}>{text}</div>
+        <div className={styles.root__text}>{`${prefixText} in-store just like you would a physical loyalty card.`}</div>
 
         <HighVisibilityLabel value={cardId} title='Membership number' />
 
