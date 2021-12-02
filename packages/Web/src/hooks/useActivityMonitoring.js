@@ -26,6 +26,7 @@ export function useActivityCheck () {
   const dispatch = useDispatch()
   const setIdle = () => {
     console.log('setIdle')
+    console.log(window.location.origin)
     setIsIdle(true)
   }
   const setActive = () => setIsIdle(false)
@@ -36,12 +37,10 @@ export function useActivityCheck () {
     const currentServerVersion = await getServerVersion()
     console.log('on active check ' + isIdle)
     if (!apiKey || apiKey !== getAuthToken()) {
-      console.log('running logout code')
       logout()
     } else if (clientVersion !== currentServerVersion) {
       window.location.reload(true)
     } else {
-      console.log('just refreshin')
       dispatch(allActions.fullRefresh())
     }
   }, [apiKey, clientVersion, dispatch, isIdle, logout])
@@ -60,6 +59,6 @@ export function useActivityCheck () {
 }
 
 export const idleTimerSettings = {
-  timeout: 250000, // convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
+  timeout: 5000, // convertMinutesToMilliseconds(Config.idleTimeoutMinutes),
   crossTab: true,
 }
