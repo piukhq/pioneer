@@ -3,6 +3,13 @@
 .root {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+
+  &__title {
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
 
   &__container {
     display: flex;
