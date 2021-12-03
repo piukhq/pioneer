@@ -24,16 +24,26 @@ export function useActivityCheck () {
   const { apiKey } = useUserState()
   const { logout } = useLogout()
   const dispatch = useDispatch()
+
   const setIdle = () => {
-    console.log('setIdle')
-    console.log(window.location.origin)
+    console.log('Going Idle')
+    // console.log(window.location.origin)
     setIsIdle(true)
   }
-  const setActive = () => setIsIdle(false)
-  console.log('useActivityCheck' + isIdle)
+
+  const setActive = () => {
+    console.log('Becoming Active')
+    setIsIdle(false)
+  }
+
+  // console.log('useActivityCheck' + isIdle)
   const clientVersion = useSelector(state => versionSelectors.clientVersion(state))
   const previousIsIdle = usePrevious(isIdle)
+
   const onActiveCheck = useCallback(async () => {
+    console.log('Loggin out')
+    logout()
+
     const currentServerVersion = await getServerVersion()
     console.log('on active check ' + isIdle)
     if (!apiKey || apiKey !== getAuthToken()) {
