@@ -1,4 +1,3 @@
-
 import { useHistory } from 'react-router-dom'
 import { getAuthToken } from 'utils/storage'
 

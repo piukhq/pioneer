@@ -5,7 +5,6 @@ export const useLogout = () => {
   const dispatch = useDispatch()
   const logout = () => {
     dispatch(usersActions.logout())
-    window.location.href = '/'
   }
   return {
     logout,

@@ -34,7 +34,7 @@ import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
 import styles from './MembershipCardPage.module.scss'
 
 const MembershipCardPage = () => {
-  useCheckSessionEnded() // TODO: Temporary redirect for Web-464
+  useCheckSessionEnded() // TODO: Temporary - redirect for Web-464 and inactivity logout issue
   const history = useHistory()
   const isAccountActive = useSelector(state => membershipCardsSelectors.isAccountActive(state))
   const reasonCode = useSelector(state => membershipCardsSelectors.reasonCode(state))

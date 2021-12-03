@@ -26,7 +26,7 @@ const MembershipCardAddPage = () => {
     getMembershipPlans()
   }, [getMembershipPlans])
 
-  useCheckSessionEnded() // TODO: Temporary redirect for Web-464
+  useCheckSessionEnded() // TODO: Temporary redirect for Web-464 and inactivity logout issue
 
   const { loading: newMembershipCardLoading } = useMembershipCardsState().add
 
