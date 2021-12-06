@@ -71,7 +71,7 @@ module.exports = {
   })(),
   planTitle: (() => { // used by the login page
     switch (process.env.THEME) {
-      case 'bink': return 'Access your loyalty account'
+      case 'bink': return 'Bink Loyalty & Rewards Wallet'
       case 'wasabi': return 'Wasabi Club'
       case 'fatface': return 'FatFace Rewards'
     }
@@ -104,7 +104,7 @@ module.exports = {
   })(),
   magicLinkRequestFormDescription: (() => {
     switch (process.env.THEME) {
-      case 'bink': return ['Get a link sent to your inbox so you can register or login instantly!']
+      case 'bink': return ['Get a link sent to your inbox so you can register or access your account instantly!']
       case 'wasabi': {
         return [
           'Receive a £7 Off Meal Voucher when you collect 7 stamps!*',

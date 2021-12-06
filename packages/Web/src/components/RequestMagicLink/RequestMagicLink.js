@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import Button from 'components/Button'
 import LoadingIndicator from 'components/LoadingIndicator'
 import TextInputGroup from 'components/Form/TextInputGroup'
+import AppStoreBadges from 'components/AppStoreBadges'
 
 import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
@@ -77,48 +78,75 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
 
   return (
     <div className={styles.root}>
-      <h1 className={styles.root__headline}>{Config.planTitlePrefix} {Config.planTitle}{Config.planTitleSuffix}</h1>
-      <form onSubmit={handleSubmit} className={styles.root__form}>
-        <div className={styles.root__description}>
-          {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
-            <div className={styles.root__paragraph} key={index}>{paragraph}</div>
-          ))}
-        </div>
-        <div className={styles['root__form-ui']}>
-          <TextInputGroup
-            className={styles['root__email-field']}
-            placeholder='Enter email address'
-            autocomplete='email'
-            value={email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={isErrorDisplayed}
-          />
-          <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
-        </div>
-        { Config.magicLinkRequestFormFooterNote && (
-          <>
-            <div className={styles.root__footerNote}>
-              <span className={styles.root__note}>{Config.magicLinkRequestFormFooterNote}</span>
-              <a className={cx(
-                styles.root__note,
-                styles.root__link,
-              )} href={Config.urls.termsAndConditions} target="_blank" rel="noreferrer">{Config.magicLinkRequestFormFooterLink}.</a>
-            </div>
+      <div className={styles['root__content-wrapper']}>
+        { !Config.isMerchantChannel && <div className={styles.root__hero} />}
+        <h1 className={styles.root__headline}>{Config.planTitlePrefix} {Config.planTitle}{Config.planTitleSuffix}</h1>
+        <form onSubmit={handleSubmit} className={styles.root__form}>
+          <div className={styles.root__description}>
+            {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
+              <div className={styles.root__paragraph} key={index}>{paragraph}</div>
+            ))}
+            {!Config.isMerchantChannel && <div className={styles.root__paragraph}><strong>Note:</strong> We will send you a <a className={styles.root__link} href='https://help.bink.com/hc/en-gb/articles/4404303824786-Magic-Link'>Magic Link</a></div>}
+          </div>
+          <div className={styles['root__form-ui']}>
+            <TextInputGroup
+              className={styles['root__email-field']}
+              placeholder='Enter email address'
+              autocomplete='email'
+              value={email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={isErrorDisplayed}
+            />
+            <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+          </div>
+          { !Config.isMerchantChannel && (
+            <>
+              <div className={styles['root__secondary-description']}>
+                <div className={styles.root__description} >
+                  <div className={styles.root__paragraph}>This version of Bink Loyalty & Rewards Wallet is for a quick view of your account only </div>
+                </div>
+                <div className={styles.root__description}>
+                  <div className={styles.root__paragraph}><strong>Download the Bink app to take full control of loyalty</strong></div>
+                </div>
+              </div>
+            <AppStoreBadges />
+            </>
+          )}
+          { Config.magicLinkRequestFormFooterNote && (
+            <>
+              <div className={styles.root__footerNote}>
+                <span className={styles.root__note}>{Config.magicLinkRequestFormFooterNote}</span>
+                <a className={cx(
+                  styles.root__note,
+                  styles.root__link,
+                )} href={Config.urls.termsAndConditions} target="_blank" rel="noreferrer">{Config.magicLinkRequestFormFooterLink}.</a>
+              </div>
 
-            <div className={styles.root__footerNote}>
-              <span className={styles.root__note}>**Bink is technology that makes loyalty simpler.
-                By connecting your loyalty account to your credit/debit card you can earn rewards every time you shop.
-                Find out more about how our site works and how we put you in control by viewing </span>
-              {/* TODO: Should be merchant specific url? */}
-              <a className={cx(
-                styles.root__note,
-                styles.root__link,
-              )} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.</a>
-            </div>
-          </>
+              <div className={styles.root__footerNote}>
+                <span className={styles.root__note}>**Bink is technology that makes loyalty simpler.
+                  By connecting your loyalty account to your credit/debit card you can earn rewards every time you shop.
+                  Find out more about how our site works and how we put you in control by viewing </span>
+                {/* TODO: Should be merchant specific url? */}
+                <a className={cx(
+                  styles.root__note,
+                  styles.root__link,
+                )} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.</a>
+              </div>
+            </>
+          )}
+        </form>
+        </div>
+        { !Config.isMerchantChannel && (
+          <div className={styles['root__bink-footer']}>
+            <span>Bink makes loyalty simpler. By connecting your loyalty account to your credit/debit card you can earn rewards every time you shop. Find out more about how our site works and how we put you in control by viewing </span>
+            <a className={cx(
+              styles.root__note,
+              styles.root__link,
+            )} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.
+            </a>
+          </div>
         )}
-      </form>
     </div>
   )
 }

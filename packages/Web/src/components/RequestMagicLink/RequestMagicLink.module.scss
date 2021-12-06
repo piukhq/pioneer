@@ -1,11 +1,20 @@
 @import "src/sass/mixins";
 
 .root {
-  margin: 0 auto;
   display: flex;
+  min-height: calc( 100vh - 64px);
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   text-align: center;
+  align-items: center;
+
+  &__content-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   &__form {
     max-width: 100%;
@@ -20,6 +29,15 @@
     width: 480px;
   }
 
+  &__hero {
+    background: url("/images/logo-bink-hero.png");
+    background-size: cover;
+    width: 200px;
+    height: 200px;
+    margin: 30px;
+  }
+
+
   &__headline {
     @include heading-font-style;
   }
@@ -29,6 +47,19 @@
 
     max-width: 100%;
     width: 570px;
+    margin: 10px;
+  }
+
+  &__secondary-description {
+    @include body-font-style;
+
+    max-width: 100%;
+    width: 400px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    justify-content: space-between;
   }
 
   &__paragraph {
@@ -63,9 +94,11 @@
   &__footerNote {
     margin-top: 10px;
   }
-  // todo: Check with Jack remove if icons no longer needed
-  // &__icon {
-  //   display: block;
-  //   margin: 0 auto 20px;
-  // }
+
+  &__bink-footer {
+    @include note-font-style;
+
+    max-width: 100%;
+    width: 700px;
+  }
 }

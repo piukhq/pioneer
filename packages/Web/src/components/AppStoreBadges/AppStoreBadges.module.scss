@@ -1,0 +1,17 @@
+@import "src/sass/mixins";
+
+.root {
+  display: flex;
+  margin: 0 auto;
+
+  &__badge {
+    @include base-hover-style;
+
+    margin: 20px 0;
+    width: 140px;
+
+    &:hover {
+      @include hover-style;
+    }
+  }
+}
