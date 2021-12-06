@@ -6,7 +6,7 @@ import { osName } from 'react-device-detect'
 
 import styles from './AppStoreBadges.module.scss'
 
-const AppStoreBadges = () => (
+const AppStoreBadges = () => ( // TODO: App/Play store urls are used in account menu too, can be refactored to Config or util file?
   <div className={styles.root}>
     { osName !== osEnums.ANDROID && <a className={styles.root__badge} target="_blank" rel="noreferrer" href='https://apps.apple.com/gb/app/bink-loyalty-rewards-wallet/id1142153931'><AppStoreBadge /></a> }
     { osName !== osEnums.IOS && <a className={styles.root__badge} target="_blank" rel="noreferrer" href='https://play.google.com/store/apps/details?id=com.bink.wallet&hl=en_GB&gl=US'><PlayStoreBadge /></a> }
