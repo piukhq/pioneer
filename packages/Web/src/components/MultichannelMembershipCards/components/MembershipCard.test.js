@@ -21,6 +21,7 @@ describe('Test MembershipCard', () => {
     },
     feature_set: {
       card_type: 2,
+      has_vouchers: true,
     },
     images: [{
       type: 3,

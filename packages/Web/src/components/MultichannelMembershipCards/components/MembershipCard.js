@@ -22,7 +22,7 @@ const MembershipCard = ({ card }) => {
       const plan = plans.find(plan => plan.id === planId)
       const { company_name: companyName, plan_name: planName } = plan?.account
       const { colour, secondary_colour: secondaryColour } = plan?.card
-      const { card_type: cardType } = plan?.feature_set
+      const { card_type: cardType, has_vouchers: hasVouchers } = plan?.feature_set
       const iconImage = plan?.images.find(image => image.type === 3)
 
       return {
@@ -32,12 +32,14 @@ const MembershipCard = ({ card }) => {
         colour,
         secondaryColour,
         iconImage,
+        hasVouchers,
       }
     }
     return {}
   }
 
-  const { cardType, companyName = 'Company Name', colour, secondaryColour, iconImage } = getPlanInfo(card.membership_plan)
+  const { cardType, companyName = 'Company Name', colour, secondaryColour, iconImage, hasVouchers } = getPlanInfo(card.membership_plan)
+
   const { state } = card.status
 
   // Card type could be defined as an enum if there end up being multiple types to check against
@@ -50,6 +52,11 @@ const MembershipCard = ({ card }) => {
       } else if (state !== 'authorised') {
         // If state is not 'authorised' or 'pending'
         return 'Error'
+      }
+
+      if (!hasVouchers) {
+        const { prefix, value, suffix } = card.balances?.[0]
+        return `${prefix ?? ''}${value} ${suffix ?? ''}`
       }
 
       const voucher = card.vouchers?.find(voucher => voucher.state === 'inprogress')
