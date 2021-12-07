@@ -43,6 +43,11 @@ describe('Test AuthorisedState', () => {
     balances: [{ value: mockBalanceValue, suffix: mockBalanceSuffix }],
     status: { reason_codes: [] },
   }
+  const mockZeroBalanceMembershipCard = {
+    id: 'mock_membership_card_id',
+    balances: [{ value: 0, suffix: mockBalanceSuffix }],
+    status: { reason_codes: [] },
+  }
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -57,6 +62,7 @@ describe('Test AuthorisedState', () => {
     useMembershipCardDetailsByCardId.mockImplementation(() => ({
       planName: mockPlanName,
       planHasVouchers: true,
+      planTransactionsAvailable: true,
     }))
 
     useCalculateWindowDimensions.mockImplementation(() => ({
@@ -123,6 +129,15 @@ describe('Test AuthorisedState', () => {
       useModals.mockImplementation(() => ({ modalToRender: 'MEMBERSHIP_CARD_NO_TRANSACTIONS' }))
       const { queryByTestId } = render(authorisedRewardsHistoryComponent)
       expect(queryByTestId('no-transaction-history-modal')).toBeInTheDocument()
+    })
+
+    it('should not render Transaction history when no transactions available and zero balance', () => {
+      useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
+      useMembershipCardDetailsByCardId.mockImplementation(() => ({
+        planTransactionsAvailable: false,
+      }))
+      const { queryByTestId } = render(<AuthorisedState membershipCard={mockZeroBalanceMembershipCard} state='authorised' />)
+      expect(queryByTestId('no-transaction-history')).not.toBeInTheDocument()
     })
   })
 

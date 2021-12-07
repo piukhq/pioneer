@@ -18,7 +18,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
   const membershipCardId = membershipCard?.id
   const balance = membershipCard?.balances?.[0]
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
-  const { planHasVouchers } = useMembershipCardDetailsByCardId()
+  const { planHasVouchers, planTransactionsAvailable } = useMembershipCardDetailsByCardId()
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
   const { dispatchModal, modalToRender } = useModals()
 
@@ -48,30 +48,44 @@ const AuthorisedState = ({ membershipCard, state }) => {
     </>
   )
 
-  const renderNoTransactionHistoryTile = () => (
-    <>
-      <div data-testid='no-transaction-history' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS)}
-        className={cx(
-          styles['root__transaction-history'],
-          styles['root__transaction-history--greyed'],
-          styles['root__click-event-enabled'],
-        )}
-      >
-        <StateAuthorisedGreySvg key={state} />
-        <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
-        <div className={styles.root__explainer}>{isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'}</div>
-      </div>
-      { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS && (
-        <div data-testid='no-transaction-history-modal'>
-          <TransactionsRewardsEmptyStateModal
-            title='Transaction History'
-            description='No transactions available to display.'
-            balance={balance}
-          />
+  const renderNoTransactionHistoryTile = () => {
+    if (!planTransactionsAvailable && balance?.value === 0) {
+      return null
+    }
+    const renderExplainer = () => {
+      if (!planTransactionsAvailable) {
+        return null
+      } else if (isDesktopViewportDimensions) {
+        return 'No transactions to show'
+      } else {
+        return 'Not available'
+      }
+    }
+    return (
+      <>
+        <div data-testid='no-transaction-history' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS)}
+          className={cx(
+            styles['root__transaction-history'],
+            styles['root__transaction-history--greyed'],
+            styles['root__click-event-enabled'],
+          )}
+        >
+          <StateAuthorisedGreySvg key={state} />
+          <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
+          <div className={styles.root__explainer}>{renderExplainer()}</div>
         </div>
-      )}
-  </>
-  )
+        { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS && (
+          <div data-testid='no-transaction-history-modal'>
+            <TransactionsRewardsEmptyStateModal
+              title='Transaction History'
+              description='No transactions available to display.'
+              balance={balance}
+            />
+          </div>
+        )}
+      </>
+    )
+  }
 
   const renderNonActiveVouchersTile = () => (
     <>
