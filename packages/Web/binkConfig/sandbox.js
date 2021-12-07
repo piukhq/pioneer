@@ -16,5 +16,5 @@ module.exports = {
     }
   })(),
   disabledPersistentSessions: true, // TODO: Temporary measure for web-464
-  idleTimeoutMinutes: 60,
+  idleTimeoutMinutes: 15,
 }
