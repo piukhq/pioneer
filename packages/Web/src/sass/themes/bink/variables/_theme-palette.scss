@@ -5,7 +5,7 @@ $primary-color-alternative1: #385c68;
 $primary-color-gradient: linear-gradient(to right, $primary-color-highlight, $primary-color);
 $secondary-color: transparent;
 $tertiary-color: #c52b2b;
-$white-50-percent-transparency: rgba(255, 255, 255, 0.5);
+$white-50-percent-transparency: rgba($white, 0.5);
 
 // Theme General Intents
 
