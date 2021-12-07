@@ -22,11 +22,19 @@ export const useMembershipCardDetailsByCardId = () => {
   const planHasVouchers = useSelector(
     state => membershipCardsSelectors.plan(state, membershipCardId)?.feature_set?.has_vouchers,
   )
+  const planIsPLL = useSelector(
+    state => membershipCardsSelectors.plan(state, membershipCardId)?.feature_set?.card_type === 2,
+  )
+  const planTransactionsAvailable = useSelector(
+    state => membershipCardsSelectors.plan(state, membershipCardId)?.feature_set?.transactions_available,
+  )
 
   return {
     planName,
     planNameSuffix,
     planOffers,
     planHasVouchers,
+    planIsPLL,
+    planTransactionsAvailable,
   }
 }
