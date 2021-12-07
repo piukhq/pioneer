@@ -8,7 +8,6 @@ $tertiary-color: #c52b2b;
 $white-50-percent-transparency: rgba($white, 0.5);
 
 // Theme General Intents
-
 $background-color: $white;
 $background-color-light-transparency: $white-20-percent-transparency;
 $page-background-color: $background-color;
@@ -34,8 +33,8 @@ $modal-body-font-color: $text-color;
 // $text-input-border-color--error: $error-red;
 // $text-input-border-color--disabled: $primary-color;
 
-$text-input-border-color--default: none;
-$text-input-border-color--focused: none;
+$text-input-border-color--default: none; //placeholder
+$text-input-border-color--focused: none; //placeholder
 
 // $text-input-background-color--default: $background-color;
 // $text-input-background-color--error: $background-color;
