@@ -2,7 +2,7 @@
 
 @mixin modal {
   &__header {
-    font-size: 32px;
+    font-size: 25px;
     margin: 0;
   }
 
@@ -37,7 +37,7 @@
 
   &__close-button {
     position: absolute;
-    font-size: 32px;
+    font-size: 25px;
     line-height: 1em;
     right: 25px - 2px;
     top: 25px - 9px;
