@@ -52,15 +52,8 @@ const AuthorisedState = ({ membershipCard, state }) => {
     if (!planTransactionsAvailable && balance?.value === 0) {
       return null
     }
-    const renderExplainer = () => {
-      if (!planTransactionsAvailable) {
-        return null
-      } else if (isDesktopViewportDimensions) {
-        return 'No transactions to show'
-      } else {
-        return 'Not available'
-      }
-    }
+    const description = isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'
+
     return (
       <>
         <div data-testid='no-transaction-history' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS)}
@@ -72,7 +65,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
         >
           <StateAuthorisedGreySvg key={state} />
           <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
-          <div className={styles.root__explainer}>{renderExplainer()}</div>
+          { planTransactionsAvailable && <div className={styles.root__explainer}>{description}</div> }
         </div>
         { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS && (
           <div data-testid='no-transaction-history-modal'>
