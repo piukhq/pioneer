@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  &__app-link {
+    height: 38px;
+    background-size: cover;
+    margin: 8px;
+
+    &--ios-store {
+      width: 118px;
+      background-image: url("/images/app-store-badge.png");
+    }
+
+    &--android-store {
+      width: 130px;
+      background-image: url("/images/google-play-badge.png");
+    }
+  }
+}
