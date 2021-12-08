@@ -1,10 +1,11 @@
 // Theme palette
-$primary-color: #009;
-$primary-color-alternative1: #000;
-$primary-color-alternative2: #ccc;
-$primary-color-alternative3: #666;
-
+$primary-color: #274a52;
+$primary-color-highlight: #528d8d;
+$primary-color-alternative1: #385c68;
+$primary-color-gradient: linear-gradient(to right, $primary-color-highlight, $primary-color);
 $secondary-color: transparent;
+$tertiary-color: #c52b2b;
+$white-50-percent-transparency: rgba($white, 0.5);
 
 // Theme General Intents
 $background-color: $white;
@@ -13,12 +14,14 @@ $page-background-color: $background-color;
 $page-background-color-light-transparency: $background-color-light-transparency;
 
 // Theme Layout Intents
-$text-color: $primary-color-alternative1;
-$text-color-inverse: $background-color;
+$text-color: $black;
+$text-color-hover: $transparent-50-percent;
+$text-color-inverse-hover: $white-50-percent-transparency;
+$text-color-inverse: $white;
 $body-font-color: $text-color;
 $heading-font-color: $text-color;
 $note-font-color: $text-color;
-$link-color: $primary-color;
+$link-color: $primary-color-alternative1;
 $modal-title-font-color: $text-color;
 $modal-body-font-color: $text-color;
 
@@ -27,10 +30,11 @@ $modal-body-font-color: $text-color;
 // $text-input-title-color--error: $primary-color;
 // $text-input-title-color--disabled: $primary-color;
 
-$text-input-border-color--default: $primary-color-alternative2;
-$text-input-border-color--focused: $primary-color-alternative3;
 // $text-input-border-color--error: $error-red;
 // $text-input-border-color--disabled: $primary-color;
+
+$text-input-border-color--default: none; //placeholder
+$text-input-border-color--focused: none; //placeholder
 
 // $text-input-background-color--default: $background-color;
 // $text-input-background-color--error: $background-color;
