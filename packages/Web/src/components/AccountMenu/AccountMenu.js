@@ -43,10 +43,7 @@ const AccountMenuModal = () => {
   const { planTitle, urls: { merchantFaq, termsAndConditions, binkFaq } } = Config
 
   const renderBinkAppLink = () => {
-    const iosAppStoreLink = 'https://apps.apple.com/gb/app/bink-loyalty-rewards-wallet/id1142153931'
-    const androidPlayStoreLink = 'https://play.google.com/store/apps/details?id=com.bink.wallet&hl=en_GB&gl=US'
-
-    const link = osName === osEnums.IOS ? iosAppStoreLink : androidPlayStoreLink
+    const link = osName === osEnums.IOS ? Config.urls.iosStore : Config.urls.androidStore
 
     return (
       <AccountMenuModalItem label='Get the Bink App' link={link} />

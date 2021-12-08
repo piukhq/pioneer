@@ -21,6 +21,7 @@
     overflow: hidden;
     will-change: transform; // Hover & Border-radius fix for Safari browsers
     box-shadow: 3px 5px 33px $transparent-90-percent;
+    background-color: $white;
   }
 
   &__image-container {
