@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { isMobile, osName } from 'react-device-detect'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
 import AccountMenu from 'components/AccountMenu'
+import AppLinks from 'components/AppLinks'
 import LoadingIndicator from 'components/LoadingIndicator'
 import TermsAndConditionsCheck from 'components/TermsAndConditionsCheck'
 import MembershipCard from './components/MembershipCard'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import { ReactComponent as EmptyWalletSvg } from 'images/empty-wallet.svg'
-import { MOBILE_OS_NAMES as osEnums } from 'utils/enums'
 
 import styles from './MultichannelMembershipCards.module.scss'
 
@@ -42,31 +41,6 @@ const MultichannelMembershipCards = () => {
 
   if (shouldRenderTermsAndConditionsCheck) {
     return <TermsAndConditionsCheck {...getTermsAndConditionsProps()} />
-  }
-
-  const renderAppLinks = () => {
-    const iosLink = (
-      <a href='https://apps.apple.com/gb/app/bink-loyalty-rewards-wallet/id1142153931' target="_blank" rel="noreferrer">
-        <div className={cx(styles['root__app-link'], styles['root__app-link--ios-store'])} />
-      </a>
-    )
-
-    const androidLink = (
-      <a href='https://play.google.com/store/apps/details?id=com.bink.wallet&hl=en_GB&gl=US' target="_blank" rel="noreferrer">
-        <div className={cx(styles['root__app-link'], styles['root__app-link--android-store'])} />
-      </a>
-    )
-
-    if (isMobile) {
-      return osName === osEnums.IOS ? iosLink : androidLink
-    }
-
-    return (
-      <>
-        {iosLink}
-        {androidLink}
-      </>
-    )
   }
 
   const renderMembershipCardsContent = () => {
@@ -103,9 +77,7 @@ const MultichannelMembershipCards = () => {
             <div className={cx(styles['root__app-image'], styles['root__app-image--image-3'])} />
           </div>
 
-          <div className={styles['root__app-links-container']}>
-            { renderAppLinks() }
-          </div>
+          <AppLinks />
         </div>
       </div>
     )

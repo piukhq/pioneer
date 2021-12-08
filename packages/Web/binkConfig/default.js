@@ -44,6 +44,8 @@ module.exports = {
     switch (process.env.THEME) {
       case 'bink': return {
         support: 'https://bink.com/frequently-asked-questions/#shoppers',
+        iosStore: 'https://apps.apple.com/gb/app/bink-loyalty-rewards-wallet/id1142153931',
+        androidStore: 'https://play.google.com/store/apps/details?id=com.bink.wallet&hl=en_GB&gl=US',
       }
       case 'wasabi': return { // todo: consider addition to plan documents on api?
         support: 'https://www.wasabi.uk.com/contact-us/',

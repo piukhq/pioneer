@@ -8,6 +8,7 @@ import MultichannelMembershipCards from './MultichannelMembershipCards'
 jest.mock('components/Modals/MembershipCardDeleteModal', () => () => null)
 jest.mock('components/TermsAndConditionsCheck', () => () => null)
 jest.mock('components/AccountMenu', () => () => null)
+jest.mock('components/AppLinks', () => () => null)
 jest.mock('./components/MembershipCard', () => () => null)
 
 jest.mock('hooks/membershipCards', () => ({
