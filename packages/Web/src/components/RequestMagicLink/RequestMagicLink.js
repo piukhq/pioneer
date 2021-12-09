@@ -6,7 +6,7 @@ import React, { useEffect } from 'react'
 import Button from 'components/Button'
 import LoadingIndicator from 'components/LoadingIndicator'
 import TextInputGroup from 'components/Form/TextInputGroup'
-import AppStoreBadges from 'components/AppStoreBadges'
+import AppLinks from 'components/AppLinks'
 
 import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
@@ -110,7 +110,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
                   <div className={styles.root__paragraph}><strong>Download the Bink app to take full control of loyalty</strong></div>
                 </div>
               </div>
-            <AppStoreBadges />
+            <AppLinks />
             </>
           )}
           { Config.magicLinkRequestFormFooterNote && (

@@ -53,11 +53,11 @@
     @include body-font-style;
 
     max-width: 100%;
-    width: 400px;
-    margin-top: 20px;
+    width: 480px;
+    margin: 20px 0 10px;
     display: flex;
     flex-direction: column;
-    height: 80px;
+    height: 150px;
     justify-content: space-between;
   }
 
