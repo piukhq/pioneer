@@ -4,8 +4,8 @@
   font-size: 18px;
   line-height: 40px;
   padding: 12px;
-  font-weight: 400;
-  letter-spacing: 1px;
+  font-family: $theme-font-family;
+  font-weight: 700;
   border: none;
   // set a min-height for cases where there is only an svg (e.g spinner) that might be block an not have a line-height
   // min-height = line-height + 2 * padding
@@ -61,7 +61,7 @@
   }
 
   &--disabled {
-    opacity: 60%;
+    opacity: 50%;
     color: $text-color-inverse;
   }
 
