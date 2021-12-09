@@ -22,6 +22,16 @@ const AuthorisedState = ({ membershipCard, state }) => {
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
   const { dispatchModal, modalToRender } = useModals()
 
+  const transactionHistorySubTitleText = isDesktopViewportDimensions ? 'Transaction History' : 'Transactions'
+  const transactionHistorySubTitle = balance?.value === 0 ? transactionHistorySubTitleText : `${balance?.prefix} ${balance?.value} ${balance?.suffix}`
+
+  const shouldRenderTransactionHistory = () => {
+    if (!planTransactionsAvailable && balance?.value === 0) {
+      return null
+    }
+    return transactions?.length > 0 ? renderTransactionHistoryTile() : renderNoTransactionHistoryTile()
+  }
+
   const renderTransactionHistoryTile = () => (
     <>
       {/* todo: would there ever be an unhappy path ever where balance is missing? */}
@@ -37,8 +47,8 @@ const AuthorisedState = ({ membershipCard, state }) => {
             styles[`root__authorised-svg--${Config.theme}`],
           )}
         />
-        <div className={styles.root__subtitle}>{balance?.prefix} {balance?.value} {balance?.suffix}</div>
-        <div className={styles.root__explainer}>View history</div>
+        <div className={styles.root__subtitle}>{transactionHistorySubTitle}</div>
+        {planTransactionsAvailable && <div className={styles.root__explainer}>View history</div>}
       </div>
       { modalToRender === modalEnum.MEMBERSHIP_CARD_TRANSACTIONS && (
         <div data-testid='transaction-modal'>
@@ -49,10 +59,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
   )
 
   const renderNoTransactionHistoryTile = () => {
-    if (!planTransactionsAvailable && balance?.value === 0) {
-      return null
-    }
-    const description = isDesktopViewportDimensions ? 'No transactions to show' : 'Not available'
+    const description = isDesktopViewportDimensions ? 'No transactions to show' : 'No transactions'
 
     return (
       <>
@@ -64,7 +71,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
           )}
         >
           <StateAuthorisedGreySvg key={state} />
-          <div className={styles.root__subtitle}>{balance?.value} {balance?.suffix}</div>
+          <div className={styles.root__subtitle}>{transactionHistorySubTitle}</div>
           { planTransactionsAvailable && <div className={styles.root__explainer}>{description}</div> }
         </div>
         { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS && (
@@ -94,7 +101,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
             styles[`root__authorised-svg--${Config.theme}`],
           )}
         />
-        <div className={styles.root__subtitle}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
+        <div className={styles.root__subtitle}>{isDesktopViewportDimensions ? 'Reward History' : 'Rewards'}</div>
         <div className={styles.root__explainer}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
       </div>
       { modalToRender === modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS && (
@@ -115,7 +122,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
         )}
       >
         <StateAuthorisedGreySvg key={state} />
-        <div className={styles.root__subtitle}>{isDesktopViewportDimensions ? 'Reward history' : 'History'}</div>
+        <div className={styles.root__subtitle}>{isDesktopViewportDimensions ? 'Reward History' : 'Rewards'}</div>
         <div className={styles.root__explainer}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
       </div>
       { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_REWARDS && (
@@ -132,7 +139,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
 
   return (
     <>
-      {transactions?.length > 0 ? renderTransactionHistoryTile() : renderNoTransactionHistoryTile()}
+      {shouldRenderTransactionHistory()}
       { planHasVouchers && (
         <>
           { nonActiveVouchers?.length > 0 ? renderNonActiveVouchersTile() : renderNoNonActiveVouchersTile() }
