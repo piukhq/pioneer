@@ -34,7 +34,6 @@ const AuthorisedState = ({ membershipCard, state }) => {
 
   const renderTransactionHistoryTile = () => (
     <>
-      {/* todo: would there ever be an unhappy path ever where balance is missing? */}
       <div data-testid='transaction-history' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_TRANSACTIONS)}
         className={cx(
           styles['root__transaction-history'],
