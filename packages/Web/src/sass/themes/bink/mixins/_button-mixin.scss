@@ -1,3 +1,79 @@
+
 @mixin button-style {
-  // todo:  placeholder for future Bink specific design
+  border-radius: 29px;
+  font-size: 18px;
+  line-height: 40px;
+  padding: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border: none;
+  // set a min-height for cases where there is only an svg (e.g spinner) that might be block an not have a line-height
+  // min-height = line-height + 2 * padding
+  min-height: 58px;
+
+  &--primary {
+    @include base-hover-style;
+
+    background: $primary-color-gradient;
+    color: $text-color-inverse;
+    max-width: 100%;
+    width: 480px;
+    transition: 0.3s ease;
+
+    &:hover {
+      @include hover-style-large-element;
+
+      color: $text-color-inverse-hover;
+      transition: 0.3s ease;
+    }
+  }
+
+  &--secondary {
+    @include base-hover-style;
+
+    color: $text-color;
+    background-color: transparent;
+    max-width: 100%;
+    width: 480px;
+
+    &:hover {
+      @include hover-style-large-element;
+
+      color: $text-color-hover;
+    }
+  }
+
+  &--tertiary {
+    @include base-hover-style;
+
+    background-color: $tertiary-color;
+    color: $text-color-inverse;
+    max-width: 100%;
+    width: 480px;
+    transition: 0.3s ease;
+
+    &:hover {
+      @include hover-style-large-element;
+
+      color: $text-color-inverse-hover;
+      transition: 0.3s ease;
+    }
+  }
+
+  &--disabled {
+    opacity: 60%;
+    color: $text-color-inverse;
+  }
+
+  &--disabled:hover {
+    @include no-hover-style; //overrides hover when disabled
+
+    color: $text-color-inverse;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+  }
 }
