@@ -3,6 +3,13 @@
 .root {
   @include text-input-group;
 
+  display: flex;
+  flex-direction: column;
+
+  &__spreedly-container {
+    height: inherit;
+  }
+
   &__cvv {
     display: none;
   }

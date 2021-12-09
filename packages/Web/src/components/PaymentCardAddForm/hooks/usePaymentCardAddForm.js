@@ -4,6 +4,7 @@ import { isValidName, isValidExpiry } from 'utils/validation'
 
 export const usePaymentCardAddForm = (onClose) => { // TODO: move onClose functionality inside component as part of refactor. Causes card number styling issue doing so atm.
   const [fullName, setFullName] = useState('')
+  const [isValidFullName, setIsValidFullName] = useState(false)
   const [expiry, setExpiry] = useState({ MM: undefined, YY: undefined })
   const [fullNameError, setFullNameError] = useState(undefined)
   const [expiryError, setExpiryError] = useState(undefined)
@@ -73,10 +74,12 @@ export const usePaymentCardAddForm = (onClose) => { // TODO: move onClose functi
   const handleNameChange = useCallback((event) => {
     setFullName(event.target.value)
     setFullNameError(undefined)
+    setIsValidFullName(false)
   }, [])
 
   const handleNameBlur = useCallback(() => {
     const errorMessage = isValidName(fullName) ? undefined : 'Invalid name'
+    setIsValidFullName(isValidName(fullName))
     setFullNameError(errorMessage)
   }, [fullName])
 
@@ -118,6 +121,7 @@ export const usePaymentCardAddForm = (onClose) => { // TODO: move onClose functi
   return {
     fullName,
     setFullName,
+    isValidFullName,
     expiry,
     setExpiry,
     fullNameError,

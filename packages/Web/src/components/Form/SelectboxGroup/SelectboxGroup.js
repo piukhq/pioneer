@@ -45,18 +45,35 @@ const SelectboxGroup = ({
       className,
       error && styles['root--error'],
     )}>
-      <label
-        className={cx(
-          styles.root__label,
-          error && styles['root__label--error'],
-        )}
-        htmlFor={`bink-form-field-${name}`}
-      >{label}</label>
+      { Config.isMerchantChannel && (
+        <label
+          className={cx(
+            styles.root__label,
+            error && styles['root__label--error'],
+            disabled && styles['root__label--disabled'],
+          )}
+          htmlFor={`bink-form-field-${name}`}
+        >{label}</label>
+      ) }
+
       <div className={styles.root__container}>
         {Object.keys(values).map(key => {
-          const autocompleteValue = `${prefix}${getAutocompleteSuffix(key)}`
+          const suffix = getAutocompleteSuffix(key)
+          const capitalizedSuffix = suffix.charAt(0).toUpperCase() + suffix.slice(1)
+          const autocompleteValue = `${prefix}${suffix}`
           return (
-            <div className={styles['root__select-container']} key={key}>
+            <div className={cx(styles['root__select-container'], styles['root__input-container--border'])} key={key}>
+              { !Config.isMerchantChannel && (
+                <label
+                  className={cx(
+                    styles.root__label,
+                    error && styles['root__label--error'],
+                    disabled && styles['root__label--disabled'],
+                  )}
+                  htmlFor={`bink-form-field-${name}`}
+                >{label} {capitalizedSuffix}</label>
+              ) }
+
               {/* This will render on top of the select element and display our own styled placeholder and arrow icon */}
               <div className={cx(styles.root__input, styles['root__overlay-container'])}>
                 {selectedValues[key] === undefined && (
@@ -65,10 +82,13 @@ const SelectboxGroup = ({
                     error && styles['root__placeholder--error'],
                   )}>{key}</div>
                 )}
-                <DownIconSvg className={cx(
-                  styles['root__down-arrow'],
-                  error && styles['root__down-arrow--error'],
-                )} />
+
+                { !disabled && (
+                  <DownIconSvg className={cx(
+                    styles['root__down-arrow'],
+                    error && styles['root__down-arrow--error'],
+                  )} />
+                ) }
               </div>
               <select
                 className={cx(

@@ -14,6 +14,7 @@ const PaymentCardAddForm = ({ onClose }) => {
   const {
     fullName,
     fullNameError,
+    isValidFullName,
     expiry,
     expiryError,
     handleExpiryChange,
@@ -66,6 +67,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             onChange={handleNameChange}
             onBlur={handleNameBlur}
             error={fullNameError}
+            valid={isValidFullName}
           />
         </div>
 
