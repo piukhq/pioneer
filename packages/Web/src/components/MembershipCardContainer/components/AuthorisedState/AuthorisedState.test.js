@@ -35,17 +35,18 @@ describe('Test AuthorisedState', () => {
   const mockClickHandler = jest.fn()
   const mockBalanceValue = 'mock_balance_value'
   const mockBalanceSuffix = 'mock_balance_suffix'
+  const mockBalancePrefix = 'mock_balance_prefix'
 
   const mockPlanName = 'mock_plan_name'
 
   const mockMembershipCard = {
     id: 'mock_membership_card_id',
-    balances: [{ value: mockBalanceValue, suffix: mockBalanceSuffix }],
+    balances: [{ value: mockBalanceValue, suffix: mockBalanceSuffix, prefix: mockBalancePrefix }],
     status: { reason_codes: [] },
   }
   const mockZeroBalanceMembershipCard = {
     id: 'mock_membership_card_id',
-    balances: [{ value: 0, suffix: mockBalanceSuffix }],
+    balances: [{ value: 0 }],
     status: { reason_codes: [] },
   }
 
@@ -83,7 +84,7 @@ describe('Test AuthorisedState', () => {
       useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
       const { queryByTestId, getByText } = render(authorisedRewardsHistoryComponent)
       expect(queryByTestId('transaction-history')).toBeInTheDocument()
-      expect(getByText(mockBalanceValue + ' ' + mockBalanceSuffix)).toBeInTheDocument()
+      expect(getByText(mockBalancePrefix + ' ' + mockBalanceValue + ' ' + mockBalanceSuffix)).toBeInTheDocument()
       expect(getByText('View history')).toBeInTheDocument()
     })
 
@@ -162,8 +163,8 @@ describe('Test AuthorisedState', () => {
       }))
 
       const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
-      expect(getByText('Reward history')).toBeInTheDocument()
-      expect(queryByText('History')).not.toBeInTheDocument()
+      expect(getByText('Reward History')).toBeInTheDocument()
+      expect(queryByText('Rewards')).not.toBeInTheDocument()
       expect(getByText('See your past rewards')).toBeInTheDocument()
       expect(queryByText('Past rewards')).not.toBeInTheDocument()
     })
@@ -176,7 +177,7 @@ describe('Test AuthorisedState', () => {
       const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
 
       expect(queryByText('Reward history')).not.toBeInTheDocument()
-      expect(getByText('History')).toBeInTheDocument()
+      expect(getByText('Rewards')).toBeInTheDocument()
       expect(queryByText('See your past rewards')).not.toBeInTheDocument()
       expect(getByText('Past rewards')).toBeInTheDocument()
     })
@@ -211,7 +212,7 @@ describe('Test AuthorisedState', () => {
       }))
 
       const { getByText, queryByText } = render(authorisedRewardsHistoryComponent)
-      expect(getByText('Reward history')).toBeInTheDocument()
+      expect(getByText('Reward History')).toBeInTheDocument()
       expect(queryByText('History')).not.toBeInTheDocument()
       expect(getByText('No vouchers to show')).toBeInTheDocument()
       expect(queryByText('Not available')).not.toBeInTheDocument()
@@ -224,8 +225,8 @@ describe('Test AuthorisedState', () => {
 
       const { getByText, getAllByText, queryByText } = render(authorisedRewardsHistoryComponent)
 
-      expect(queryByText('Reward history')).not.toBeInTheDocument()
-      expect(getByText('History')).toBeInTheDocument()
+      expect(queryByText('Reward History')).not.toBeInTheDocument()
+      expect(getByText('Rewards')).toBeInTheDocument()
       expect(queryByText('No vouchers to show')).not.toBeInTheDocument()
       const notAvailableTextArray = getAllByText('Not available')
       expect(notAvailableTextArray.length).toBeGreaterThan(0)
