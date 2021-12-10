@@ -26,7 +26,6 @@
 
   &__transaction-history {
     cursor: pointer;
-    grid-area: transaction-history;
 
     @include state-box;
     @include base-hover-style;
@@ -42,7 +41,6 @@
 
   &__voucher-history {
     cursor: pointer;
-    grid-area: voucher-history;
 
     @include state-box;
     @include base-hover-style;

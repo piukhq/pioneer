@@ -50,15 +50,13 @@ const MembershipCardPage = () => {
   const { id } = useParams()
   useMembershipCardRefresher(id)
 
-  // Store Bink Web version upon initial load
-
   const membershipCard = useSelector(state => state.membershipCards.cards[id])
   const loading = useSelector(state => allSelectors.loadingSelector(state))
   const error = useSelector(state => allSelectors.errorSelector(state))
   const { loading: serviceLoading, error: serviceError } = useSelector(state => state.service)
 
   const { activeVouchers, redeemableVouchers } = useMembershipCardStateById(id)
-  const { planOffers } = useMembershipCardDetailsByCardId()
+  const { planOffers, planIsPLL } = useMembershipCardDetailsByCardId()
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -98,7 +96,7 @@ const MembershipCardPage = () => {
   }, [serviceLoading, serviceError, membershipCard?.status?.state])
 
   const shouldRenderVoucherSection = () => {
-    if (!activeVouchers || activeVouchers.length === 0) {
+    if (!activeVouchers || activeVouchers.length === 0 || !planIsPLL) {
       return null
     }
 
@@ -113,6 +111,16 @@ const MembershipCardPage = () => {
   const shouldRenderOffersSection = () => {
     if (planOffers && membershipCard?.payment_cards?.length !== 0) {
       return <Offers planOffers={planOffers} />
+    }
+    return null
+  }
+  const shouldRenderPaymentCardsSection = () => {
+    if (planIsPLL) {
+      return <PaymentCards
+        handleLinkingSuccess={handleLinkingSuccess}
+        handleLinkingError={handleLinkingError}
+        handleDeletePaymentCard={handleDeletePaymentCard}
+      />
     }
     return null
   }
@@ -158,15 +166,10 @@ const MembershipCardPage = () => {
             {shouldRenderBackButton()}
           </div>
 
-          <MembershipCardContainer membershipCard={membershipCard} />
+          <MembershipCardContainer membershipCard={membershipCard} planIsPLL={planIsPLL} />
           {shouldRenderVoucherSection()}
           {shouldRenderOffersSection()}
-
-          <PaymentCards
-            handleLinkingSuccess={handleLinkingSuccess}
-            handleLinkingError={handleLinkingError}
-            handleDeletePaymentCard={handleDeletePaymentCard}
-          />
+          {shouldRenderPaymentCardsSection()}
           {/* todo: temporary for dev purposes only. It will display only in dev mode though */}
           <DevDeleteMembershipCard cardId={membershipCard.id} />
         </>

@@ -7,7 +7,7 @@ import AuthorisedState from './components/AuthorisedState'
 import NoPaymentCardsState from './components/NoPaymentCardsState'
 import UnauthorisedState from './components/UnauthorisedState'
 
-const MembershipCardContainer = ({ membershipCard }) => {
+const MembershipCardContainer = ({ membershipCard, planIsPLL }) => {
   let state = membershipCard?.status?.state
   if (state === 'authorised') {
     const { payment_cards: paymentCards = [] } = membershipCard
@@ -33,7 +33,7 @@ const MembershipCardContainer = ({ membershipCard }) => {
       styles[`root--${state}`],
     )}>
       <MembershipCardHeroImage membershipCard={membershipCard} />
-      {renderTileContents()}
+      {planIsPLL && renderTileContents()}
     </section>
   )
 }

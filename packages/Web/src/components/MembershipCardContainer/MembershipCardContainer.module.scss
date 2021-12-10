@@ -12,15 +12,15 @@
     column-gap: 20px;
     grid-template-areas:
       "image image"
-      "transaction-history voucher-history";
+      ". .";
 
     @media (min-width: 730px) {
       grid-template-columns: 1fr 1fr 1fr;
       row-gap: 20px;
       column-gap: 20px;
       grid-template-areas:
-        "image image transaction-history"
-        "image image voucher-history";
+        "image image ."
+        "image image .";
     }
 
     @media (min-width: 910px) {
@@ -29,7 +29,7 @@
       row-gap: 20px;
       column-gap: 20px;
       grid-template-areas:
-        "image image transaction-history voucher-history"
+        "image image . ."
         "image image . .";
     }
   }
