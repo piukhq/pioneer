@@ -149,8 +149,8 @@ module.exports = {
     switch (process.env.THEME) {
       case 'bink':
         return {
-          default: 'width: 100%; font-size: 16px; line-height: 22px; box-sizing: border-box; color: #054127; margin: 0',
-          error: 'width: 100%; font-size: 16px; line-height: 22px; box-sizing: border-box; color: #a30f27 margin: 0',
+          default: 'width: 100%; font-size: 18px; line-height: 22px; box-sizing: border-box; color: rgb(153, 153, 153); margin: 0',
+          error: 'width: 100%; font-size: 18px; line-height: 22px; box-sizing: border-box; color: #ff0000; margin: 0',
         }
       case 'wasabi':
         return {
