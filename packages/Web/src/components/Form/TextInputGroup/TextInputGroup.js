@@ -26,7 +26,10 @@ const TextInputGroup = ({
       error && styles['root--error'],
       disabled && styles['root--disabled'],
     )}>
-      <div className={cx(styles['root__input-container'], styles['root__input-container--border'])}>
+      <div className={cx(
+        styles['root__input-container'],
+        styles['root__input-container--border'],
+      )}>
         <label
           className={cx(
             styles.root__label,

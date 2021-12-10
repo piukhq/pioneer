@@ -62,7 +62,10 @@ const SelectboxGroup = ({
           const capitalizedSuffix = suffix.charAt(0).toUpperCase() + suffix.slice(1)
           const autocompleteValue = `${prefix}${suffix}`
           return (
-            <div className={cx(styles['root__select-container'], styles['root__input-container--border'])} key={key}>
+            <div key={key} className={cx(
+              styles['root__select-container'],
+              styles['root__input-container--border'],
+            )}>
               { !Config.isMerchantChannel && (
                 <label
                   className={cx(
@@ -75,7 +78,10 @@ const SelectboxGroup = ({
               ) }
 
               {/* This will render on top of the select element and display our own styled placeholder and arrow icon */}
-              <div className={cx(styles.root__input, styles['root__overlay-container'])}>
+              <div className={cx(
+                styles.root__input,
+                styles['root__overlay-container'],
+              )}>
                 {selectedValues[key] === undefined && (
                   <div className={cx(
                     styles.root__placeholder,
