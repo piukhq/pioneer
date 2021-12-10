@@ -86,11 +86,12 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
             {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
               <div className={styles.root__paragraph} key={index}>{paragraph}</div>
             ))}
-            {!Config.isMerchantChannel && <div className={styles.root__paragraph}><strong>Note:</strong> We will send you a <a className={styles.root__link} href='https://help.bink.com/hc/en-gb/articles/4404303824786-Magic-Link'>Magic Link</a></div>}
+            {!Config.isMerchantChannel && <div className={styles.root__paragraph}><strong>Note:</strong> We will send you a <a className={styles.root__link} target="_blank" rel="noreferrer" href='https://help.bink.com/hc/en-gb/articles/4404303824786-Magic-Link'>Magic Link</a></div>}
           </div>
           <div className={styles['root__form-ui']}>
             <TextInputGroup
               className={styles['root__email-field']}
+              label='Email'
               placeholder='Enter email address'
               autocomplete='email'
               value={email}

@@ -18,7 +18,7 @@
 
   &__form {
     max-width: 100%;
-    width: 570px;
+    width: 650px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,6 +27,7 @@
   &__form-ui {
     max-width: 100%;
     width: 480px;
+    margin-top: 20px;
   }
 
   &__hero {
@@ -45,7 +46,7 @@
     @include body-font-style;
 
     max-width: 100%;
-    width: 570px;
+    width: 650px;
     margin: 10px;
   }
 
@@ -88,6 +89,7 @@
   &__email-field {
     width: 100%;
     min-height: 82px; // reserves whitespace for blank error message
+    text-align: left;
   }
 
   &__footerNote {
@@ -98,6 +100,6 @@
     @include note-font-style;
 
     max-width: 100%;
-    width: 700px;
+    width: 860px;
   }
 }
