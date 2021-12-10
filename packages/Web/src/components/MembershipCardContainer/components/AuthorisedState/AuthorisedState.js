@@ -22,17 +22,16 @@ const AuthorisedState = ({ membershipCard, state }) => {
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
   const { dispatchModal, modalToRender } = useModals()
 
-  const transactionHistorySubTitleText = isDesktopViewportDimensions ? 'Transaction History' : 'Transactions'
-  const transactionHistorySubTitle = balance?.value === 0 ? transactionHistorySubTitleText : `${balance?.prefix} ${balance?.value} ${balance?.suffix}`
-
   const shouldRenderTransactionHistory = () => {
     if (!planTransactionsAvailable && balance?.value === 0) {
       return null
     }
-    return transactions?.length > 0 ? renderTransactionHistoryTile() : renderNoTransactionHistoryTile()
+    const subTitleText = isDesktopViewportDimensions ? 'Transaction History' : 'Transactions'
+    const subTitle = balance?.value === 0 ? subTitleText : `${balance?.prefix} ${balance?.value} ${balance?.suffix}`
+    return transactions?.length > 0 ? renderTransactionHistoryTile(subTitle) : renderNoTransactionHistoryTile(subTitle)
   }
 
-  const renderTransactionHistoryTile = () => (
+  const renderTransactionHistoryTile = (subTitle) => (
     <>
       <div data-testid='transaction-history' onClick={() => dispatchModal(modalEnum.MEMBERSHIP_CARD_TRANSACTIONS)}
         className={cx(
@@ -46,7 +45,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
             styles[`root__authorised-svg--${Config.theme}`],
           )}
         />
-        <div className={styles.root__subtitle}>{transactionHistorySubTitle}</div>
+        <div className={styles.root__subtitle}>{subTitle}</div>
         {planTransactionsAvailable && <div className={styles.root__explainer}>View history</div>}
       </div>
       { modalToRender === modalEnum.MEMBERSHIP_CARD_TRANSACTIONS && (
@@ -57,7 +56,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
     </>
   )
 
-  const renderNoTransactionHistoryTile = () => {
+  const renderNoTransactionHistoryTile = (subTitle) => {
     const description = isDesktopViewportDimensions ? 'No transactions to show' : 'No transactions'
 
     return (
@@ -70,7 +69,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
           )}
         >
           <StateAuthorisedGreySvg key={state} />
-          <div className={styles.root__subtitle}>{transactionHistorySubTitle}</div>
+          <div className={styles.root__subtitle}>{subTitle}</div>
           { planTransactionsAvailable && <div className={styles.root__explainer}>{description}</div> }
         </div>
         { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS && (
