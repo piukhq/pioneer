@@ -16,7 +16,7 @@
   // this class should be expected to be defined only in our index.html file and not on the merchant's host site
   // whatever these styles are on wasabi.uk.com, that is how this will behave for consistency purposes
   .bink-app__body {
-    background-color: $background-page-colour;
+    background-color: $background-page-color;
     font-family: $theme-font-family;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
