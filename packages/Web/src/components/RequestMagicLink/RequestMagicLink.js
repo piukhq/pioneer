@@ -59,17 +59,39 @@ const RequestMagicLink = () => {
 
 export default RequestMagicLink
 
+const BinkFooter = () => (
+  <div className={styles['root__bink-footer']}>
+    <span>Bink makes loyalty simpler. By connecting your loyalty account to your credit/debit card you can earn rewards every time you shop. Find out more about how our site works and how we put you in control by viewing </span>
+    <a className={cx(
+      styles.root__note,
+      styles.root__link,
+    )} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.
+    </a>
+  </div>
+)
+
 const MagicLinkRequestSuccess = ({ email }) => (
-  <div className={styles.root}>
-    <h1 className={styles.root__headline}>Check your inbox</h1>
-    <div className={styles.root__description}>
-      <div className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></div>
-      <div className={styles.root__paragraph}>Click the link and you’ll be signed in.</div>
-      <div className={styles.root__note}>
-        <span className={styles['root__note--bold']}>Note: </span>
-        The device you open the link on will be the device you are signed in on.
+  <div className={cx(
+    styles.root,
+    !Config.isMerchantChannel && styles['root--full-height'],
+  )}>
+    <div className={styles['root__content-wrapper']}>
+      {!Config.isMerchantChannel && <div className={styles.root__hero} />}
+      <h1 className={styles.root__headline}>Check your inbox</h1>
+      <div className={cx(
+        styles.root__description,
+        !Config.isMerchantChannel && styles['root__extra-width'],
+        !Config.isMerchantChannel && styles['root__description--extra-margin'],
+      )}>
+        <div className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></div>
+        <div className={styles.root__paragraph}>Click the link and you’ll be signed in.</div>
+        <div className={styles.root__note}>
+          <span className={styles['root__note--bold']}>Note: </span>
+          The device you open the link on will be the device you are signed in on.
+        </div>
       </div>
     </div>
+    {!Config.isMerchantChannel && <BinkFooter/>}
   </div>
 )
 
@@ -77,21 +99,35 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
   const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
-    <div className={styles.root}>
+    <div className={cx(
+      styles.root,
+      !Config.isMerchantChannel && styles['root--full-height'],
+    )}>
       <div className={styles['root__content-wrapper']}>
-        { !Config.isMerchantChannel && <div className={styles.root__hero} />}
+        {!Config.isMerchantChannel && <div className={styles.root__hero} />}
         <h1 className={styles.root__headline}>{Config.planTitlePrefix} {Config.planTitle}{Config.planTitleSuffix}</h1>
-        <form onSubmit={handleSubmit} className={styles.root__form}>
-          <div className={styles.root__description}>
+        <form onSubmit={handleSubmit} className={cx(
+          styles.root__form,
+          !Config.isMerchantChannel && styles['root__form--top-margin'],
+          !Config.isMerchantChannel && styles['root__extra-width'],
+        )}>
+          <div className={cx(
+            styles.root__description,
+            !Config.isMerchantChannel && styles['root__extra-width'],
+            !Config.isMerchantChannel && styles['root__description--extra-margin'],
+          )}>
             {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
               <div className={styles.root__paragraph} key={index}>{paragraph}</div>
             ))}
             {!Config.isMerchantChannel && <div className={styles.root__paragraph}><strong>Note:</strong> We will send you a <a className={styles.root__link} target="_blank" rel="noreferrer" href='https://help.bink.com/hc/en-gb/articles/4404303824786-Magic-Link'>Magic Link</a></div>}
           </div>
-          <div className={styles['root__form-ui']}>
+          <div className={cx(
+            styles['root__form-ui'],
+            !Config.isMerchantChannel && styles['root__form-ui--top-margin'],
+          )}>
             <TextInputGroup
               className={styles['root__email-field']}
-              label='Email'
+              label={!Config.isMerchantChannel ? 'Email' : null}
               placeholder='Enter email address'
               autocomplete='email'
               value={email}
@@ -104,7 +140,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           { !Config.isMerchantChannel && (
             <>
               <div className={styles['root__secondary-description']}>
-                <div className={styles.root__description} >
+                <div className={styles.root__description}>
                   <div className={styles.root__paragraph}>This version of Bink Loyalty & Rewards Wallet is for a quick view of your account only </div>
                 </div>
                 <div className={styles.root__description}>
@@ -138,16 +174,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           )}
         </form>
         </div>
-        { !Config.isMerchantChannel && (
-          <div className={styles['root__bink-footer']}>
-            <span>Bink makes loyalty simpler. By connecting your loyalty account to your credit/debit card you can earn rewards every time you shop. Find out more about how our site works and how we put you in control by viewing </span>
-            <a className={cx(
-              styles.root__note,
-              styles.root__link,
-            )} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.
-            </a>
-          </div>
-        )}
+        {!Config.isMerchantChannel && <BinkFooter/>}
     </div>
   )
 }
@@ -156,25 +183,43 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
   const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
-    <div className={styles.root}>
-      <h1 className={styles.root__headline}>Something went wrong</h1>
-      <form onSubmit={handleSubmit} className={styles.root__form}>
-        <div className={styles.root__description}>
-          <div className={styles.root__paragraph}>There was a problem, please try again</div>
-        </div>
-        <div className={styles['root__form-ui']}>
-          <TextInputGroup
-            className={styles['root__email-field']}
-            placeholder='Enter email address'
-            autocomplete='email'
-            value={email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={isErrorDisplayed}
-          />
-          <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
-        </div>
-      </form>
+    <div className={cx(
+      styles.root,
+      !Config.isMerchantChannel && styles['root--full-height'],
+    )}>
+      <div className={styles['root__content-wrapper']}>
+        {!Config.isMerchantChannel && <div className={styles.root__hero} />}
+        <h1 className={styles.root__headline}>Something went wrong</h1>
+        <form onSubmit={handleSubmit} className={cx(
+          styles.root__form,
+          !Config.isMerchantChannel && styles['root__form--top-margin'],
+          !Config.isMerchantChannel && styles['root__extra-width'],
+        )}>
+          <div className={cx(
+            styles.root__description,
+            !Config.isMerchantChannel && styles['root__extra-width'],
+            !Config.isMerchantChannel && styles['root__description--extra-margin'],
+          )}>
+            <div className={styles.root__paragraph}>There was a problem, please try again</div>
+          </div>
+          <div className={cx(
+            styles['root__form-ui'],
+            !Config.isMerchantChannel && styles['root__form-ui--top-margin'],
+          )}>
+            <TextInputGroup
+              className={styles['root__email-field']}
+              placeholder='Enter email address'
+              autocomplete='email'
+              value={email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={isErrorDisplayed}
+            />
+            <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+          </div>
+        </form>
+      </div>
+      {!Config.isMerchantChannel && <BinkFooter/>}
     </div>
   )
 }
@@ -183,26 +228,44 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
   const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
-    <div className={styles.root}>
-      <h1 className={styles.root__headline}>Link expired</h1>
-      <form onSubmit={handleSubmit} className={styles.root__form}>
-        <div className={styles.root__description}>
-          <div className={styles.root__paragraph}>Links are only valid for 10 minutes and this one has expired.</div>
-          <div className={styles.root__paragraph}>Enter your email again and we will send you a new one.</div>
-        </div>
-        <div className={styles['root__form-ui']}>
-          <TextInputGroup
-            className={styles['root__email-field']}
-            placeholder='Enter email address'
-            autocomplete='email'
-            value={email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={isErrorDisplayed}
-          />
-          <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
-        </div>
-      </form>
+    <div className={cx(
+      styles.root,
+      !Config.isMerchantChannel && styles['root--full-height'],
+    )}>
+      <div className={styles['root__content-wrapper']}>
+        {!Config.isMerchantChannel && <div className={styles.root__hero} />}
+        <h1 className={styles.root__headline}>Link expired</h1>
+        <form onSubmit={handleSubmit} className={cx(
+          styles.root__form,
+          !Config.isMerchantChannel && styles['root__form--top-margin'],
+          !Config.isMerchantChannel && styles['root__extra-width'],
+        )}>
+          <div className={cx(
+            styles.root__description,
+            !Config.isMerchantChannel && styles['root__extra-width'],
+            !Config.isMerchantChannel && styles['root__description--extra-margin'],
+          )}>
+            <div className={styles.root__paragraph}>Links are only valid for 10 minutes and this one has expired.</div>
+            <div className={styles.root__paragraph}>Enter your email again and we will send you a new one.</div>
+          </div>
+          <div className={cx(
+            styles['root__form-ui'],
+            !Config.isMerchantChannel && styles['root__form-ui--top-margin'],
+          )}>
+            <TextInputGroup
+              className={styles['root__email-field']}
+              placeholder='Enter email address'
+              autocomplete='email'
+              value={email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={isErrorDisplayed}
+            />
+            <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
+          </div>
+        </form>
+      </div>
+      {!Config.isMerchantChannel && <BinkFooter/>}
     </div>
   )
 }
