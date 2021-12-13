@@ -6,7 +6,7 @@
   justify-content: space-between;
 
   &--full-height { // Allows wallet.bink.com to display footer at bottom of window.
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - 42px);
   }
 
   &__content-wrapper {
@@ -116,6 +116,7 @@
   &__bink-footer {
     @include note-font-style;
 
+    margin: 0 auto;
     max-width: 100%;
     width: 860px;
     text-align: center;
