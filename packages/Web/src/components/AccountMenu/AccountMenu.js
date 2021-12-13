@@ -58,20 +58,23 @@ const AccountMenuModal = () => {
           Bink is a service which links credit/debit cards to loyalty memberships allowing you to earn rewards automatically when you shop.
         </div>
 
-        { !Config.isMerchantChannel && isMobile && renderBinkAppLink() }
+        <div className={styles['root__link-container']}>
+          { !Config.isMerchantChannel && isMobile && renderBinkAppLink() }
 
-        { Config.isMerchantChannel && (
-          <>
-            {merchantFaq && <AccountMenuModalItem label={`${planTitle} FAQs`} link={merchantFaq} />}
-            {termsAndConditions && <AccountMenuModalItem label={`${planTitle} Terms & Conditions`} link={termsAndConditions} />}
-            <br/>
-            {binkFaq && <AccountMenuModalItem label="Bink FAQs" link={binkFaq} />}
-          </>
-        )}
-        <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
-        <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
-        {/* TODO: Should be merchant specific url? */}
-        <AccountMenuModalItem label="Bink Cookies Policy" link="https://policies.gb.bink.com/web/wasabi-cp.html" />
+          { Config.isMerchantChannel && (
+            <>
+              {merchantFaq && <AccountMenuModalItem label={`${planTitle} FAQs`} link={merchantFaq} />}
+              {termsAndConditions && <AccountMenuModalItem label={`${planTitle} Terms & Conditions`} link={termsAndConditions} />}
+              <br/>
+              {binkFaq && <AccountMenuModalItem label="Bink FAQs" link={binkFaq} />}
+            </>
+          )}
+          <AccountMenuModalItem label="Bink Terms & Conditions" link="https://bink.com/terms-and-conditions/" />
+          <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
+          {/* TODO: Should be merchant specific url? */}
+          <AccountMenuModalItem label="Bink Cookies Policy" link="https://policies.gb.bink.com/web/wasabi-cp.html" />
+        </div>
+
         <Button className={styles['root__modal-button']} onClick={logout}>Logout</Button>
       </div>
     </Modal>
