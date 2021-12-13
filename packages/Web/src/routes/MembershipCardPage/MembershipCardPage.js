@@ -56,7 +56,10 @@ const MembershipCardPage = () => {
   const { loading: serviceLoading, error: serviceError } = useSelector(state => state.service)
 
   const { activeVouchers, redeemableVouchers } = useMembershipCardStateById(id)
-  const { planOffers, planIsPLL } = useMembershipCardDetailsByCardId()
+  const { planOffers, planIsPLL } = useMembershipCardDetailsByCardId(id)
+
+  console.log(planIsPLL)
+  console.log(id)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -127,7 +130,7 @@ const MembershipCardPage = () => {
 
   const shouldRenderModalOverlay = () => {
     if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_ERROR) {
-      return <LinkCardsErrorModal paymentCardId={cardIdToBeDeleted} onClose={handleCloseModal} />
+      return <LinkCardsErrorModal membershipCardId={id} paymentCardId={cardIdToBeDeleted} onClose={handleCloseModal} />
     } else if (modalToRender === modalEnum.PAYMENT_CARD_LINKING_SUCCESS) {
       return <LinkCardsSuccessModal />
     } else if (modalToRender === modalEnum.PAYMENT_CARD_LIMIT) {

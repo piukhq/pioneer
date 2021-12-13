@@ -7,8 +7,8 @@ import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
 
 import styles from './NoPaymentCardsState.module.scss'
 
-const NoPaymentCardsState = ({ state }) => {
-  const { planName } = useMembershipCardDetailsByCardId()
+const NoPaymentCardsState = ({ membershipCardId, state }) => {
+  const { planName } = useMembershipCardDetailsByCardId(membershipCardId)
   const { dispatchModal } = useModals()
   const handleNoPaymentCardsClick = useCallback(() => dispatchModal(modalEnum.PAYMENT_CARD_ADD_FORM), [dispatchModal])
 

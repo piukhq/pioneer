@@ -14,9 +14,8 @@ import styles from './MerchantMembershipCards.module.scss'
 const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
-  const { planName } = useMembershipCardDetailsByCardId()
-
   const { tooManyCardsError, shouldDisplayTermsAndConditionsCheck, membershipCard, isMembershipCardPending } = useMerchantMembershipCards()
+  const { planName } = useMembershipCardDetailsByCardId(membershipCard.id)
 
   if (tooManyCardsError) {
     return (
