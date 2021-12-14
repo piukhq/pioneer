@@ -119,12 +119,8 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
         { !Config.isMerchantChannel && (
           <>
             <div className={styles['root__secondary-description']}>
-              <div className={styles.root__description}>
                 <div className={styles.root__paragraph}>This version of Bink Loyalty & Rewards Wallet is for a quick view of your account only </div>
-              </div>
-              <div className={styles.root__description}>
                 <div className={styles.root__paragraph}><strong>Download the Bink app to take full control of loyalty</strong></div>
-              </div>
             </div>
           <AppLinks />
           </>

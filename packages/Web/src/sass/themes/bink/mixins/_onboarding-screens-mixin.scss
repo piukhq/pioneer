@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin-top: 30px;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 70px);
 
   &__description {
     @include body-font-style;
@@ -45,8 +45,11 @@
     margin: 20px 0 10px;
     display: flex;
     flex-direction: column;
-    height: 120px;
-    justify-content: space-between;
+
+    div:first-of-type {
+      padding-bottom: 40px;
+    }
+
   }
 
   &__bink-footer {
@@ -55,6 +58,7 @@
     margin: 0 auto;
     max-width: 100%;
     width: 860px;
+    padding: 10px 0;
     text-align: center;
   }
 }
