@@ -41,7 +41,7 @@ const PaymentCards = ({ handleLinkingSuccess, handleLinkingError, handleDeletePa
   const [isPaymentCardLimitReached, setIsPaymentCardLimitReached] = React.useState(false)
 
   const { linkCard } = useLinkPaymentCard(membershipCard, handleLinkingSuccess, handleLinkingError)
-  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId(membershipCardId)
 
   const numberOfCardsInLinkedSection = newlyPendingPaymentCard ? linkedPaymentCards?.length + 1 : linkedPaymentCards?.length
 

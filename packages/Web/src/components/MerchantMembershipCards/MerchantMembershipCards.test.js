@@ -50,6 +50,7 @@ describe('Test MerchantMembershipCards', () => {
     it('should render too many cards error', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
         tooManyCardsError: true,
+        membershipCard: { id: 'mockId' },
       }))
 
       const { queryByTestId, getByText } = render(<MerchantMembershipCards />)
@@ -65,6 +66,7 @@ describe('Test MerchantMembershipCards', () => {
     it('should not render too many cards error', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
         tooManyCardsError: false,
+        membershipCard: { id: 'mockId' },
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)
@@ -77,6 +79,7 @@ describe('Test MerchantMembershipCards', () => {
     it('should render We Found You', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
         shouldDisplayTermsAndConditionsCheck: true,
+        membershipCard: { id: 'mockId' },
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)
@@ -86,6 +89,7 @@ describe('Test MerchantMembershipCards', () => {
     it('should not render We Found You', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
         shouldDisplayTermsAndConditionsCheck: false,
+        membershipCard: { id: 'mockId' },
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)
@@ -97,9 +101,7 @@ describe('Test MerchantMembershipCards', () => {
     it('should render Preparing Your Card', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
         isMembershipCardPending: true,
-        membershipCard: {
-          id: 'mock-id',
-        },
+        membershipCard: { id: 'mockId' },
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)
@@ -109,6 +111,7 @@ describe('Test MerchantMembershipCards', () => {
     it('should not render Preparing Your Card', () => {
       useMerchantMembershipCards.mockImplementation(() => ({
         isMembershipCardPending: false,
+        membershipCard: { id: 'mockId' },
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)
@@ -122,6 +125,7 @@ describe('Test MerchantMembershipCards', () => {
         tooManyCardsError: false,
         shouldDisplayTermsAndConditionsCheck: false,
         isMembershipCardPending: false,
+        membershipCard: { id: 'mockId' },
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)
@@ -133,6 +137,7 @@ describe('Test MerchantMembershipCards', () => {
         tooManyCardsError: true,
         shouldDisplayTermsAndConditionsCheck: true,
         isMembershipCardPending: true,
+        membershipCard: { id: 'mockId' },
       }))
 
       const { queryByTestId } = render(<MerchantMembershipCards />)

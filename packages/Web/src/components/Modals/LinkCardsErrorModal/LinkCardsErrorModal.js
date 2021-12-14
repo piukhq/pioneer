@@ -6,9 +6,9 @@ import Button from 'components/Button'
 
 import styles from './LinkedCardsErrorModal.module.scss'
 
-const LinkCardsErrorModal = ({ paymentCardId, onClose }) => {
+const LinkCardsErrorModal = ({ membershipCardId, paymentCardId, onClose }) => {
   const { contactSupport } = useContactSupport()
-  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId(membershipCardId)
 
   const {
     error,
