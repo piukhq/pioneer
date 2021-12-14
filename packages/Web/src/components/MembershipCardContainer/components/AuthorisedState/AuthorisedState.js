@@ -48,11 +48,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
         <div className={styles.root__subtitle}>{subTitle}</div>
         {planTransactionsAvailable && <div className={styles.root__explainer}>View history</div>}
       </div>
-      { modalToRender === modalEnum.MEMBERSHIP_CARD_TRANSACTIONS && (
-        <div data-testid='transaction-modal'>
-          <TransactionsModal membershipCardId={membershipCardId}/>
-        </div>
-      )}
+      { modalToRender === modalEnum.MEMBERSHIP_CARD_TRANSACTIONS && <TransactionsModal membershipCardId={membershipCardId}/> }
     </>
   )
 
@@ -73,13 +69,11 @@ const AuthorisedState = ({ membershipCard, state }) => {
           { planTransactionsAvailable && <div className={styles.root__explainer}>{description}</div> }
         </div>
         { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_TRANSACTIONS && (
-          <div data-testid='no-transaction-history-modal'>
-            <TransactionsRewardsEmptyStateModal
-              title='Transaction History'
-              description='No transactions available to display.'
-              balance={balance}
-            />
-          </div>
+          <TransactionsRewardsEmptyStateModal
+            title='Transaction History'
+            description='No transactions available to display.'
+            balance={balance}
+          />
         )}
       </>
     )
@@ -102,11 +96,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
         <div className={styles.root__subtitle}>{isDesktopViewportDimensions ? 'Reward History' : 'Rewards'}</div>
         <div className={styles.root__explainer}>{isDesktopViewportDimensions ? 'See your past rewards' : 'Past rewards'}</div>
       </div>
-      { modalToRender === modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS && (
-        <div data-testid='non-active-vouchers-modal'>
-          <NonActiveVouchersModal membershipCardId={membershipCardId}/>
-        </div>
-      )}
+      { modalToRender === modalEnum.MEMBERSHIP_CARD_NON_ACTIVE_VOUCHERS && <NonActiveVouchersModal membershipCardId={membershipCardId}/>}
     </>
   )
 
@@ -123,15 +113,12 @@ const AuthorisedState = ({ membershipCard, state }) => {
         <div className={styles.root__subtitle}>{isDesktopViewportDimensions ? 'Reward History' : 'Rewards'}</div>
         <div className={styles.root__explainer}>{isDesktopViewportDimensions ? 'No vouchers to show' : 'Not available'}</div>
       </div>
-      { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_REWARDS && (
-        <div data-testid='no-non-active-vouchers-modal'>
-          <TransactionsRewardsEmptyStateModal
-            title='Reward History'
-            description='No past rewards available to display.'
-            balance={balance}
-          />
-        </div>
-      )}
+      { modalToRender === modalEnum.MEMBERSHIP_CARD_NO_REWARDS && <TransactionsRewardsEmptyStateModal
+          title='Reward History'
+          description='No past rewards available to display.'
+          balance={balance}
+        />
+      }
    </>
   )
 

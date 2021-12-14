@@ -32,6 +32,7 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
 
   return (
     <>
+      { modalToRender === modalEnum.MEMBERSHIP_CARD_HERO && <MembershipCardHeroModal membershipCard={membershipCard} /> }
       <div className={styles['root__image-section']} style={conditionalStyles} onClick={handleMembershipCardHeroImageClick}>
         {shouldRenderHeroImage()}
         { membershipId && (
@@ -40,11 +41,6 @@ const MembershipCardHeroImage = ({ membershipCard }) => {
           </div>
         )}
       </div>
-      { modalToRender === modalEnum.MEMBERSHIP_CARD_HERO && (
-        <div data-testid='membership-card-hero-modal'>
-          <MembershipCardHeroModal membershipCard={membershipCard} />
-        </div>
-      ) }
     </>
   )
 }

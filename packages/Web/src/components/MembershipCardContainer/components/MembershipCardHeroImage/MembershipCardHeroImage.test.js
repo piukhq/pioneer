@@ -20,7 +20,7 @@ jest.mock('utils/enums', () => ({
   },
 }))
 jest.mock('components/HighVisibilityLabel', () => () => null)
-jest.mock('components/Modals/MembershipCardHeroModal', () => () => null)
+jest.mock('components/Modals/MembershipCardHeroModal', () => () => <div data-testid='membership-card-hero-modal' />)
 
 const useModalsDefaultValues = {
   dispatchModal: jest.fn(),
