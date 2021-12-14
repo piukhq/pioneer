@@ -58,9 +58,6 @@ const MembershipCardPage = () => {
   const { activeVouchers, redeemableVouchers } = useMembershipCardStateById(id)
   const { planOffers, planIsPLL } = useMembershipCardDetailsByCardId(id)
 
-  console.log(planIsPLL)
-  console.log(id)
-
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(allActions.fullRefresh())

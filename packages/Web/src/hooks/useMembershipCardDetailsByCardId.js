@@ -3,7 +3,6 @@ import { selectors as membershipCardsSelectors } from 'ducks/membershipCards'
 import { MEMBERSHIP_CARD_IMAGE_TYPES } from 'utils/enums'
 
 export const useMembershipCardDetailsByCardId = (id) => {
-  console.log(id)
   const planName = useSelector(
     state => membershipCardsSelectors.plan(state, id)?.account?.plan_name,
   )
