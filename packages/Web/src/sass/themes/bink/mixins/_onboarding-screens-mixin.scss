@@ -1,1 +1,60 @@
-@import "src/sass/themes/_default/mixins/onboarding-screens-mixin";
+@mixin onboarding-screens-styling {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 30px;
+  min-height: calc(100vh - 80px);
+
+  &__description {
+    @include body-font-style;
+
+    max-width: 650px;
+    padding-top: 10px;
+  }
+
+  &__form {
+    margin: 0 auto;
+    width: 650px;
+    max-width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__form-ui {
+    max-width: 100%;
+    width: 480px;
+    margin-top: 20px;
+  }
+
+  // Bink-specific classes
+  &__hero {
+    background: url("/images/logo-bink-hero.png");
+    background-size: cover;
+    width: 220px;
+    height: 220px;
+    margin: 30px;
+  }
+
+  &__secondary-description {
+    @include body-font-style;
+
+    max-width: 100%;
+    width: 480px;
+    margin: 20px 0 10px;
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    justify-content: space-between;
+  }
+
+  &__bink-footer {
+    @include note-font-style;
+
+    margin: 0 auto;
+    max-width: 100%;
+    width: 860px;
+    text-align: center;
+  }
+}

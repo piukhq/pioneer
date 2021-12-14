@@ -1,19 +1,30 @@
 @mixin onboarding-screens-styling {
-  text-align: center;
-  margin-top: 54px;
-
-  &__heading {
-    @include heading-font-style;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &__description {
     @include body-font-style;
 
-    max-width: 580px;
+    max-width: 570px;
     margin: 0 auto;
   }
 
-  &__paragraph {
-    @include paragraph-spacing-styling;
+  &__form {
+    margin: 0 auto;
+    width: 570px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__form-ui {
+    max-width: 100%;
+    width: 480px;
+  }
+
+  &__footerNote {
+    margin-top: 10px;
   }
 }

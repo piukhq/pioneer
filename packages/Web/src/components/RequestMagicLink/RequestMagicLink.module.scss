@@ -1,12 +1,18 @@
 @import "src/sass/mixins";
 
 .root {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  @include onboarding-screens-styling; // Contains classes that differ between themes, including root values
 
-  &--full-height { // Allows wallet.bink.com to display footer at bottom of window.
-    min-height: calc(100vh - 42px);
+  &__heading {
+    @include heading-font-style;
+  }
+
+  &__headline {
+    @include heading-font-style;
+  }
+
+  &__paragraph {
+    @include paragraph-spacing-styling;
   }
 
   &__content-wrapper {
@@ -16,71 +22,6 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-  }
-
-  &__form {
-    margin: 0 auto;
-    max-width: 100%;
-    width: 570px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    &--top-margin { // For wallet.bink.com design
-      margin-top: 10px;
-    }
-  }
-
-  &__form-ui {
-    max-width: 100%;
-    width: 480px;
-
-    &--top-margin { // For wallet.bink.com design
-      margin-top: 20px;
-    }
-  }
-
-  &__hero {
-    background: url("/images/logo-bink-hero.png");
-    background-size: cover;
-    width: 220px;
-    height: 220px;
-    margin: 30px;
-  }
-
-  &__headline {
-    @include heading-font-style;
-  }
-
-  &__description {
-    @include body-font-style;
-
-    max-width: 100%;
-    width: 570px;
-
-    &--extra-margin { // For wallet.bink.com design
-      margin: 10px;
-    }
-  }
-
-  &__extra-width { // wallet.bink.com has a wider width than whitelabel design
-    width: 650px;
-  }
-
-  &__secondary-description {
-    @include body-font-style;
-
-    max-width: 100%;
-    width: 480px;
-    margin: 20px 0 10px;
-    display: flex;
-    flex-direction: column;
-    height: 120px;
-    justify-content: space-between;
-  }
-
-  &__paragraph {
-    @include paragraph-spacing-styling;
   }
 
   &__note {
@@ -107,18 +48,5 @@
     width: 100%;
     min-height: 82px; // reserves whitespace for blank error message
     text-align: left;
-  }
-
-  &__footerNote {
-    margin-top: 10px;
-  }
-
-  &__bink-footer {
-    @include note-font-style;
-
-    margin: 0 auto;
-    max-width: 100%;
-    width: 860px;
-    text-align: center;
   }
 }
