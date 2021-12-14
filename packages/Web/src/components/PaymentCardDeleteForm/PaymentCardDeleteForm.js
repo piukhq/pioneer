@@ -22,7 +22,7 @@ const PaymentCardDeleteForm = ({ paymentCardId, onClose, membershipCardId }) => 
   } = usePaymentCardDeleteForm(paymentCardId, onClose, membershipCardId)
 
   const errorMessage = error ? 'There was an error' : null
-  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId()
+  const { planName, planNameSuffix } = useMembershipCardDetailsByCardId(membershipCardId)
 
   return (
     <Modal onClose={onClose}>

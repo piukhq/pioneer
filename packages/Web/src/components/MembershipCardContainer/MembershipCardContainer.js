@@ -22,7 +22,7 @@ const MembershipCardContainer = ({ membershipCard, planIsPLL }) => {
   const renderTileContents = () => {
     switch (state) {
       case 'authorised': return <AuthorisedState membershipCard={membershipCard} state={state} />
-      case 'no-payment-cards': return <NoPaymentCardsState state={state} />
+      case 'no-payment-cards': return <NoPaymentCardsState membershipCardId={membershipCard.id} state={state} />
       default: return <UnauthorisedState membershipCard={membershipCard} state={state} />
     }
   }

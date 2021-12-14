@@ -18,7 +18,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
   const membershipCardId = membershipCard?.id
   const balance = membershipCard?.balances?.[0]
   const { transactions, nonActiveVouchers } = useMembershipCardStateById(membershipCardId)
-  const { planHasVouchers, planTransactionsAvailable } = useMembershipCardDetailsByCardId()
+  const { planHasVouchers, planTransactionsAvailable } = useMembershipCardDetailsByCardId(membershipCardId)
   const { isDesktopViewportDimensions } = useCalculateWindowDimensions()
   const { dispatchModal, modalToRender } = useModals()
 
