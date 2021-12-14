@@ -11,7 +11,7 @@
   .bink-app {
     max-width: 970px;
     margin: 0 auto;
-    padding: 10px 15px 64px;
+    padding: 10px 15px 0;
   }
   // this class should be expected to be defined only in our index.html file and not on the merchant's host site
   // whatever these styles are on wasabi.uk.com, that is how this will behave for consistency purposes
