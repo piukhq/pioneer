@@ -7,9 +7,9 @@ import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 
 import AuthorisedState from './AuthorisedState'
 
-jest.mock('components/Modals/NonActiveVouchersModal', () => () => null)
-jest.mock('components/Modals/TransactionsModal', () => () => null)
-jest.mock('components/Modals/TransactionsRewardsEmptyStateModal', () => () => null)
+jest.mock('components/Modals/NonActiveVouchersModal', () => () => <div data-testid='non-active-vouchers-modal' />)
+jest.mock('components/Modals/TransactionsModal', () => () => <div data-testid='transaction-modal' />)
+jest.mock('components/Modals/TransactionsRewardsEmptyStateModal', () => () => <div data-testid='transaction-rewards-empty-state' />)
 
 jest.mock('hooks/membershipCards', () => ({
   useMembershipCardStateById: jest.fn(),
@@ -126,10 +126,10 @@ describe('Test AuthorisedState', () => {
       expect(notAvailableTextArray.length).toBeGreaterThan(0)
     })
 
-    it('should render the no transaction history modal', () => {
+    it('should render the no transaction history (transaction rewards empty state) modal', () => {
       useModals.mockImplementation(() => ({ modalToRender: 'MEMBERSHIP_CARD_NO_TRANSACTIONS' }))
       const { queryByTestId } = render(authorisedRewardsHistoryComponent)
-      expect(queryByTestId('no-transaction-history-modal')).toBeInTheDocument()
+      expect(queryByTestId('transaction-rewards-empty-state')).toBeInTheDocument()
     })
 
     it('should not render Transaction history when no transactions available and zero balance', () => {
@@ -242,14 +242,14 @@ describe('Test AuthorisedState', () => {
       expect(queryByTestId('non-active-vouchers')).not.toBeInTheDocument()
     })
 
-    it('should render the no non active vouchers modal', () => {
+    it('should render the no non active vouchers (transaction rewards empty state) modal', () => {
       useMembershipCardStateById.mockImplementation(() => ({
         transactions: [{}],
         nonActiveVouchers: [],
       }))
       useModals.mockImplementation(() => ({ modalToRender: 'MEMBERSHIP_CARD_NO_REWARDS' }))
       const { queryByTestId } = render(authorisedRewardsHistoryComponent)
-      expect(queryByTestId('no-non-active-vouchers-modal')).toBeInTheDocument()
+      expect(queryByTestId('transaction-rewards-empty-state')).toBeInTheDocument()
     })
   })
 })
