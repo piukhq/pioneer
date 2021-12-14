@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import Button from 'components/Button'
 import LoadingIndicator from 'components/LoadingIndicator'
 import TextInputGroup from 'components/Form/TextInputGroup'
+import AppLinks from 'components/AppLinks'
 
 import useRequestMagicLink from './hooks/useRequestMagicLink'
 import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
@@ -37,29 +38,46 @@ const RequestMagicLink = () => {
   }, [requestLoading, requestSuccess, requestError, authenticationError, isExpiredToken])
 
   return (
-    <>
-      { requestLoading && <LoadingIndicator /> }
-      { requestSuccess ? (
-        <MagicLinkRequestSuccess email={email} />
-      ) : (
-        (requestError || authenticationError) ? (
-          isExpiredToken ? (
-            <MagicLinkAuthenticationExpired handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
+    <div className={cx(
+      styles.root,
+    )}>
+      <div className={styles['root__content-wrapper']}>
+         {!Config.isMerchantChannel && <div className={styles.root__hero} />}
+          { requestLoading && <LoadingIndicator /> }
+          { requestSuccess ? (
+            <MagicLinkRequestSuccess email={email} />
           ) : (
-            <MagicLinkRequestOrAuthenticationError handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
-          )
-        ) : (
-          <MagicLinkRequestForm handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
-        )
-      ) }
-    </>
+            (requestError || authenticationError) ? (
+              isExpiredToken ? (
+                <MagicLinkAuthenticationExpired handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
+              ) : (
+                <MagicLinkRequestOrAuthenticationError handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
+              )
+            ) : (
+              <MagicLinkRequestForm handleSubmit={ handleSubmit } email={ email } setEmail={ setEmail } />
+            )
+          ) }
+      </div>
+      {!Config.isMerchantChannel && <BinkFooter/>}
+    </div>
   )
 }
 
 export default RequestMagicLink
 
+const BinkFooter = () => (
+  <div className={styles['root__bink-footer']}>
+    <span>Bink makes loyalty simpler. By connecting your loyalty account to your credit/debit card you can earn rewards every time you shop. Find out more about how our site works and how we put you in control by viewing </span>
+    <a className={cx(
+      styles.root__note,
+      styles.root__link,
+    )} href='https://policies.gb.bink.com/web/wasabi-cp.html' target="_blank" rel="noreferrer">Bink's Cookies Policy.
+    </a>
+  </div>
+)
+
 const MagicLinkRequestSuccess = ({ email }) => (
-  <div className={styles.root}>
+  <>
     <h1 className={styles.root__headline}>Check your inbox</h1>
     <div className={styles.root__description}>
       <div className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></div>
@@ -69,24 +87,26 @@ const MagicLinkRequestSuccess = ({ email }) => (
         The device you open the link on will be the device you are signed in on.
       </div>
     </div>
-  </div>
+  </>
 )
 
 const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
   const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
-    <div className={styles.root}>
+    <>
       <h1 className={styles.root__headline}>{Config.planTitlePrefix} {Config.planTitle}{Config.planTitleSuffix}</h1>
       <form onSubmit={handleSubmit} className={styles.root__form}>
         <div className={styles.root__description}>
           {Config.magicLinkRequestFormDescription.map((paragraph, index) => (
             <div className={styles.root__paragraph} key={index}>{paragraph}</div>
           ))}
+          {!Config.isMerchantChannel && <div className={styles.root__paragraph}><strong>Note:</strong> We will send you a <a className={styles.root__link} target="_blank" rel="noreferrer" href='https://help.bink.com/hc/en-gb/articles/4404303824786-Magic-Link'>Magic Link</a></div>}
         </div>
         <div className={styles['root__form-ui']}>
           <TextInputGroup
             className={styles['root__email-field']}
+            label={!Config.isMerchantChannel ? 'Email' : null}
             placeholder='Enter email address'
             autocomplete='email'
             value={email}
@@ -96,6 +116,15 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           />
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
+        { !Config.isMerchantChannel && (
+          <>
+            <div className={styles['root__secondary-description']}>
+                <div className={styles.root__paragraph}>This version of Bink Loyalty & Rewards Wallet is for a quick view of your account only </div>
+                <div className={styles.root__paragraph}><strong>Download the Bink app to take full control of loyalty</strong></div>
+            </div>
+          <AppLinks />
+          </>
+        )}
         { Config.magicLinkRequestFormFooterNote && (
           <>
             <div className={styles.root__footerNote}>
@@ -119,7 +148,7 @@ const MagicLinkRequestForm = ({ handleSubmit, email, setEmail }) => {
           </>
         )}
       </form>
-    </div>
+    </>
   )
 }
 
@@ -127,9 +156,11 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
   const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
-    <div className={styles.root}>
+    <>
       <h1 className={styles.root__headline}>Something went wrong</h1>
-      <form onSubmit={handleSubmit} className={styles.root__form}>
+      <form onSubmit={handleSubmit} className={cx(
+        styles.root__form,
+      )}>
         <div className={styles.root__description}>
           <div className={styles.root__paragraph}>There was a problem, please try again</div>
         </div>
@@ -146,7 +177,7 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
       </form>
-    </div>
+    </>
   )
 }
 
@@ -154,7 +185,7 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
   const { isErrorDisplayed, handleChange, handleBlur, isValidEmail } = useEmailErrorDisplay(email, setEmail)
 
   return (
-    <div className={styles.root}>
+    <>
       <h1 className={styles.root__headline}>Link expired</h1>
       <form onSubmit={handleSubmit} className={styles.root__form}>
         <div className={styles.root__description}>
@@ -174,6 +205,6 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
           <Button disabled={!isValidEmail(email)} className={styles.root__button}>Continue</Button>
         </div>
       </form>
-    </div>
+    </>
   )
 }

@@ -1,38 +1,27 @@
 @import "src/sass/mixins";
 
 .root {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  @include onboarding-screens-styling; // Contains classes that differ between themes, including root values
 
-  &__form {
-    max-width: 100%;
-    width: 570px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__form-ui {
-    max-width: 100%;
-    width: 480px;
+  &__heading {
+    @include heading-font-style;
   }
 
   &__headline {
     @include heading-font-style;
   }
 
-  &__description {
-    @include body-font-style;
-
-    max-width: 100%;
-    width: 570px;
-  }
-
   &__paragraph {
     @include paragraph-spacing-styling;
+  }
+
+  &__content-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
   }
 
   &__note {
@@ -58,14 +47,6 @@
   &__email-field {
     width: 100%;
     min-height: 82px; // reserves whitespace for blank error message
+    text-align: left;
   }
-
-  &__footerNote {
-    margin-top: 10px;
-  }
-  // todo: Check with Jack remove if icons no longer needed
-  // &__icon {
-  //   display: block;
-  //   margin: 0 auto 20px;
-  // }
 }
