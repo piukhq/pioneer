@@ -15,7 +15,7 @@ const MerchantMembershipCards = () => {
   const { contactSupport } = useContactSupport()
   const { logout } = useLogout()
   const { tooManyCardsError, shouldDisplayTermsAndConditionsCheck, membershipCard, isMembershipCardPending } = useMerchantMembershipCards()
-  const { planName } = useMembershipCardDetailsByCardId(membershipCard.id)
+  const { planName } = useMembershipCardDetailsByCardId(membershipCard?.id)
 
   if (tooManyCardsError) {
     return (
