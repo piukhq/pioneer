@@ -1,0 +1,23 @@
+@import "src/sass/mixins";
+
+.root {
+  @include base-hover-style;
+
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  margin: 0 auto;
+  cursor: pointer;
+  overflow: hidden;
+  will-change: transform; // Hover & Border-radius fix for Safari browsers
+  box-shadow: 3px 5px 33px $transparent-90-percent;
+
+  &:hover {
+    @include hover-style;
+  }
+
+  &__image {
+    height: inherit;
+    width: inherit;
+  }
+}
