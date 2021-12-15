@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import Button from 'components/Button'
 import { useTermsAndConditionsCheck } from './hooks/useTermsAndConditionsCheck'
 import { useLogout } from 'hooks/useLogout'
@@ -15,7 +16,10 @@ const TermsAndConditionsCheck = ({ heading, paragraphOne, paragraphTwoPrefix }) 
 
   const errorMessage = postError ? 'Something went wrong. Please try again.' : null
   return (
-    <div className={styles.root}>
+    <div className={cx(
+      styles.root,
+      styles['root--terms-and-conditions'],
+    )}>
       <h1 className={styles.root__heading}>{heading}</h1>
       <div className={styles.root__description}>
         {paragraphOne && <div className={styles.root__paragraph}>{paragraphOne}</div>}
