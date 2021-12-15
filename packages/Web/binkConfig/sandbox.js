@@ -3,7 +3,7 @@ module.exports = {
   env: 'sandbox',
   clientId: (() => {
     switch (process.env.THEME) {
-      case 'bink': return null
+      case 'bink': return 'MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd'
       case 'wasabi': return 'syhWBlWW8Bzn88ISbzKWzMqllHSGrt5oNPMAvAMfmiiCWk3JdD'
       case 'fatface': return null
     }

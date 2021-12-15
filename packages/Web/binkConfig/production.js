@@ -11,7 +11,7 @@ module.exports = {
   })(),
   clientId: (() => {
     switch (process.env.THEME) {
-      case 'bink': return null
+      case 'bink': return 'MKd3FfDGBi1CIUQwtahmPap64lneCa2R6GvVWKg6dNg4w9Jnpd'
       case 'wasabi': return '0Jv6NOJEqcYV961QQ3fuEWhTykDlfoZlHQfu0VfFhiqKv4BYND'
       case 'fatface': return null
     }
