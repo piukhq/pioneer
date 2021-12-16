@@ -2,6 +2,7 @@ import React from 'react'
 import * as reactRedux from 'react-redux'
 import { render } from '@testing-library/react'
 import { useMembershipCardsState } from 'hooks/membershipCards'
+import { MemoryRouter } from 'react-router-dom';
 
 import MultichannelMembershipCards from './MultichannelMembershipCards'
 
@@ -18,6 +19,12 @@ jest.mock('hooks/membershipCards', () => ({
 jest.mock('hooks/useModals', () => ({
   useModals: jest.fn(),
 }))
+
+const multiChannelMembershipCardsComponent = (
+  <MemoryRouter>
+    <MultichannelMembershipCards />
+  </MemoryRouter>
+)
 
 describe('Test MultichannelMembershipCards', () => {
   const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
@@ -38,7 +45,7 @@ describe('Test MultichannelMembershipCards', () => {
       membershipCards: [{}],
     }))
 
-    const { getByText, queryByTestId } = render(<MultichannelMembershipCards />)
+    const { getByText, queryByTestId } = render(multiChannelMembershipCardsComponent)
     expect(queryByTestId('root-container')).toBeInTheDocument()
     expect(queryByTestId('account-menu-container')).toBeInTheDocument()
     expect(getByText('Wallet')).toBeInTheDocument()
@@ -50,10 +57,19 @@ describe('Test MultichannelMembershipCards', () => {
       membershipCards: [],
     }))
 
-    const { getByText, queryByTestId } = render(<MultichannelMembershipCards />)
+    const { getByText, queryByTestId } = render(multiChannelMembershipCardsComponent)
     expect(queryByTestId('empty-state-container')).toBeInTheDocument()
     expect(queryByTestId('empty-state-icon')).toBeInTheDocument()
     expect(getByText('Your wallet is empty')).toBeInTheDocument()
-    expect(getByText('Add loyalty cards in the Bink mobile app to start earning rewards')).toBeInTheDocument()
+    expect(getByText('Download the Bink mobile app to get access to even more rewards')).toBeInTheDocument()
+  })
+
+  it('should render empty state add loyalty card button', () => {
+    useMembershipCardsState.mockImplementation(() => ({
+      membershipCards: [],
+    }))
+
+    const { getByRole } = render(multiChannelMembershipCardsComponent)
+    expect(getByRole('button')).toHaveTextContent('Add an existing loyalty card')
   })
 })
