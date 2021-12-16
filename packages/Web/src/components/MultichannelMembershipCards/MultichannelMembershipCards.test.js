@@ -2,7 +2,7 @@ import React from 'react'
 import * as reactRedux from 'react-redux'
 import { render } from '@testing-library/react'
 import { useMembershipCardsState } from 'hooks/membershipCards'
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom'
 
 import MultichannelMembershipCards from './MultichannelMembershipCards'
 
