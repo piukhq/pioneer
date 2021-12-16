@@ -61,7 +61,7 @@ const MultichannelMembershipCards = () => {
         <div className={styles['root__empty-state-text-container']}>
           <div className={styles['root__empty-state-title']}>Your wallet is empty</div>
             <Link to='/membership-plans'>
-              <Button data-testid='empty-state-add-button' className={styles.root__button}>Add an existing loyalty card</Button>
+              <Button data-testid='empty-state-add-button'>Add an existing loyalty card</Button>
             </Link>
           <div className={styles['root__empty-state-description']}>
             <div className={styles['root__empty-state-paragraph']}>Or</div>
