@@ -27,7 +27,7 @@ const AuthorisedState = ({ membershipCard, state }) => {
       return null
     }
     const subTitleText = isDesktopViewportDimensions ? 'Transaction History' : 'Transactions'
-    const subTitle = balance?.value === 0 ? subTitleText : `${balance?.prefix} ${balance?.value} ${balance?.suffix}`
+    const subTitle = balance?.value === 0 ? subTitleText : `${balance?.prefix ?? ''}${balance?.value} ${balance?.suffix ?? ''}`
     return transactions?.length > 0 ? renderTransactionHistoryTile(subTitle) : renderNoTransactionHistoryTile(subTitle)
   }
 

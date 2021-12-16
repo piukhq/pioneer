@@ -84,7 +84,7 @@ describe('Test AuthorisedState', () => {
       useModals.mockImplementation(() => ({ ...useModalsDefaultValues }))
       const { queryByTestId, getByText } = render(authorisedRewardsHistoryComponent)
       expect(queryByTestId('transaction-history')).toBeInTheDocument()
-      expect(getByText(mockBalancePrefix + ' ' + mockBalanceValue + ' ' + mockBalanceSuffix)).toBeInTheDocument()
+      expect(getByText(mockBalancePrefix + mockBalanceValue + ' ' + mockBalanceSuffix)).toBeInTheDocument()
       expect(getByText('View history')).toBeInTheDocument()
     })
 
