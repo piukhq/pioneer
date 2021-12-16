@@ -55,7 +55,7 @@ export const selectors = {
     plansListSelector,
     plansList => plansList.filter(plan => plan.feature_set?.card_type === 0)
       .sort((a, b) => {
-        return a.account?.company_name.localeCompare(b.accoundt.company_name)
+        return a.account?.company_name?.localeCompare(b.account?.company_name)
       }),
   ),
 }
