@@ -11,7 +11,7 @@ const Brands = ({ plans }) => {
     <div className={styles.root}>
        <div className={styles.root__header}>
             <AccountMenu />
-            <LeftChevronSvg className={styles['root__left-arrow']} onClick={() => history.replace('/membership-cards')} />
+            <LeftChevronSvg className={styles['root__left-arrow']} onClick={() => history.push('/membership-cards')} />
       </div>
 
       <h1 className={styles.root__heading}>Add Loyalty Card</h1>

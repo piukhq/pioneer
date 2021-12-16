@@ -14,11 +14,7 @@ const MembershipPlansPage = () => {
     dispatch(membershipPlansActions.getMembershipPlans())
   }, [dispatch])
 
-  const plans = useSelector(state => membershipPlansSelectors.plansList(state))
-    .filter(plan => plan.feature_set?.card_type === 0)
-    .sort((a, b) => {
-      return a.account.company_name.localeCompare(b.account.company_name)
-    })
+  const plans = useSelector(state => membershipPlansSelectors.sortedNonPLLPlansList(state))
 
   return (
     <Brands plans={plans} />

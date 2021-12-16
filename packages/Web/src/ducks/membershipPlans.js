@@ -48,6 +48,14 @@ export const selectors = {
     membershipPlansSelector,
     plansObject => Object.keys(plansObject).map(planId => plansObject[planId]),
   ),
+  sortedNonPLLPlansList: createSelector(
+    membershipPlansSelector,
+    plansObject => Object.keys(plansObject).map(planId => plansObject[planId])
+      .filter(plan => plan.feature_set?.card_type === 0)
+      .sort((a, b) => {
+        return a.account.company_name.localeCompare(b.account.company_name)
+      }),
+  ),
 }
 
 export const actions = {
