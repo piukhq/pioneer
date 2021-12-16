@@ -54,6 +54,15 @@ describe('Test MultichannelMembershipCards', () => {
     expect(queryByTestId('empty-state-container')).toBeInTheDocument()
     expect(queryByTestId('empty-state-icon')).toBeInTheDocument()
     expect(getByText('Your wallet is empty')).toBeInTheDocument()
-    expect(getByText('Add loyalty cards in the Bink mobile app to start earning rewards')).toBeInTheDocument()
+    expect(getByText('Download the Bink mobile app to get access to even more rewards')).toBeInTheDocument()
+  })
+
+  it('should render empty state add loyalty card button', () => {
+    useMembershipCardsState.mockImplementation(() => ({
+      membershipCards: [],
+    }))
+
+    const { getByRole } = render(<MultichannelMembershipCards />)
+    expect(getByRole('button')).toHaveTextContent('Add an existing loyalty card')
   })
 })
