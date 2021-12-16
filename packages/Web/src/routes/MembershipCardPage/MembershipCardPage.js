@@ -148,7 +148,7 @@ const MembershipCardPage = () => {
 
   const shouldRenderBackButton = () => {
     if (!Config.isMerchantChannel) {
-      return <LeftChevronSvg className={styles['root__left-arrow']} onClick={() => history.replace('/membership-cards')} />
+      return <LeftChevronSvg className={styles['root__left-arrow']} onClick={() => history.push('/membership-cards')} />
     }
     return null
   }

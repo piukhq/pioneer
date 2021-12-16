@@ -1,14 +1,17 @@
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useUsersDispatch } from 'hooks/users'
 
 const useLoginForm = () => {
+  const history = useHistory()
   const [email, setEmail] = useState(Config.devOnlyToolsEnabled ? Config.devDefaultUser : '')
   const [password, setPassword] = useState(Config.devOnlyToolsEnabled ? 'BinkWeb01' : '')
 
   const { login } = useUsersDispatch()
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault()
-    login(email, password)
+    await login(email, password)
+    history.push('/')
   }
   return {
     email,

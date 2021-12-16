@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import LoginForm from 'components/LoginForm'
 import LoadingIndicator from 'components/LoadingIndicator'
@@ -10,14 +9,7 @@ import styles from './LoginPage.module.scss'
 import useDebugLogin from './hooks/useDebugLogin'
 
 const LoginPage = () => {
-  const history = useHistory()
-  const apiKey = useSelector(state => state.users.authentication.api_key)
   const loading = useSelector(state => state.users.authentication.loading)
-  useEffect(() => {
-    if (apiKey) {
-      history.replace('/')
-    }
-  }, [apiKey, history])
 
   const {
     debugLogin,
