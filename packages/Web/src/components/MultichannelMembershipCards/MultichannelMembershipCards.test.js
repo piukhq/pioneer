@@ -2,7 +2,6 @@ import React from 'react'
 import * as reactRedux from 'react-redux'
 import { render } from '@testing-library/react'
 import { useMembershipCardsState } from 'hooks/membershipCards'
-import { MemoryRouter } from 'react-router-dom'
 
 import MultichannelMembershipCards from './MultichannelMembershipCards'
 
@@ -19,12 +18,6 @@ jest.mock('hooks/membershipCards', () => ({
 jest.mock('hooks/useModals', () => ({
   useModals: jest.fn(),
 }))
-
-const multiChannelMembershipCardsComponent = (
-  <MemoryRouter>
-    <MultichannelMembershipCards />
-  </MemoryRouter>
-)
 
 describe('Test MultichannelMembershipCards', () => {
   const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
@@ -45,7 +38,7 @@ describe('Test MultichannelMembershipCards', () => {
       membershipCards: [{}],
     }))
 
-    const { getByText, queryByTestId } = render(multiChannelMembershipCardsComponent)
+    const { getByText, queryByTestId } = render(<MultichannelMembershipCards />)
     expect(queryByTestId('root-container')).toBeInTheDocument()
     expect(queryByTestId('account-menu-container')).toBeInTheDocument()
     expect(getByText('Wallet')).toBeInTheDocument()
@@ -57,7 +50,7 @@ describe('Test MultichannelMembershipCards', () => {
       membershipCards: [],
     }))
 
-    const { getByText, queryByTestId } = render(multiChannelMembershipCardsComponent)
+    const { getByText, queryByTestId } = render(<MultichannelMembershipCards />)
     expect(queryByTestId('empty-state-container')).toBeInTheDocument()
     expect(queryByTestId('empty-state-icon')).toBeInTheDocument()
     expect(getByText('Your wallet is empty')).toBeInTheDocument()
@@ -69,7 +62,7 @@ describe('Test MultichannelMembershipCards', () => {
       membershipCards: [],
     }))
 
-    const { getByRole } = render(multiChannelMembershipCardsComponent)
+    const { getByRole } = render(<MultichannelMembershipCards />)
     expect(getByRole('button')).toHaveTextContent('Add an existing loyalty card')
   })
 })

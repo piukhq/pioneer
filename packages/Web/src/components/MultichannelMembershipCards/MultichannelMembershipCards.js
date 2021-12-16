@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import cx from 'classnames'
 import Button from 'components/Button'
@@ -60,9 +59,7 @@ const MultichannelMembershipCards = () => {
 
         <div className={styles['root__empty-state-text-container']}>
           <div className={styles['root__empty-state-title']}>Your wallet is empty</div>
-            <Link to='/membership-plans'>
-              <Button data-testid='empty-state-add-button'>Add an existing loyalty card</Button>
-            </Link>
+          <Button data-testid='empty-state-add-button'>Add an existing loyalty card</Button>
           <div className={styles['root__empty-state-description']}>
             <div className={styles['root__empty-state-paragraph']}>Or</div>
             <div className={styles['root__empty-state-paragraph']}>Download the Bink mobile app to get access to even more rewards</div>
