@@ -14,7 +14,7 @@ const MembershipCard = ({ card }) => {
   const plans = useSelector(state => membershipPlansSelectors.plansList(state))
 
   const handleCardClick = () => {
-    history.replace(`/membership-card/${card.id}`)
+    history.push(`/membership-card/${card.id}`)
   }
 
   const getPlanInfo = (planId) => {
