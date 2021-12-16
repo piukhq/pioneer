@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
+import Button from 'components/Button'
 import AccountMenu from 'components/AccountMenu'
 import AppLinks from 'components/AppLinks'
 import LoadingIndicator from 'components/LoadingIndicator'
@@ -12,6 +14,7 @@ import { ReactComponent as EmptyWalletSvg } from 'images/empty-wallet.svg'
 import styles from './MultichannelMembershipCards.module.scss'
 
 const MultichannelMembershipCards = () => {
+  const history = useHistory()
   const { membershipCards, loading } = useMembershipCardsState()
   const { error: serviceError, post: postService } = useSelector(state => state.service)
   const [shouldRenderTermsAndConditionsCheck, setShouldRenderTermsAndConditionsCheck] = useState(false)
@@ -58,7 +61,11 @@ const MultichannelMembershipCards = () => {
 
         <div className={styles['root__empty-state-text-container']}>
           <div className={styles['root__empty-state-title']}>Your wallet is empty</div>
-          <div className={styles['root__empty-state-description']}>Add loyalty cards in the Bink mobile app to start earning rewards</div>
+          <Button data-testid='empty-state-add-button' onClick={() => history.push('/membership-plans')}>Add an existing loyalty card</Button>
+          <div className={styles['root__empty-state-description']}>
+            <div className={styles['root__empty-state-paragraph']}>Or</div>
+            <div className={styles['root__empty-state-paragraph']}>Download the Bink mobile app to get access to even more rewards</div>
+          </div>
         </div>
 
         <div className={styles['root__app-info-container']}>
