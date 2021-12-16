@@ -1,27 +1,23 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 import {
   actions as membershipPlansActions,
   selectors as membershipPlansSelectors,
 } from 'ducks/membershipPlans'
+import Brands from 'components/Brands'
 
 const MembershipPlansPage = () => {
-  const plans = useSelector(state => membershipPlansSelectors.plansList(state))
-  console.log(plans)
-
+  useCheckSessionEnded()
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(membershipPlansActions.getMembershipPlans())
   }, [dispatch])
 
+  const plans = useSelector(state => membershipPlansSelectors.sortedNonPLLPlansList(state))
+
   return (
-    <div>
-      {plans.map((plan, index) => (
-        <div key={plan.id} style={{ minHeight: 15 }}>
-          {index + 1}. {plan.account.plan_name} ({plan.id})
-        </div>
-      ))}
-    </div>
+    <Brands plans={plans} />
   )
 }
 
