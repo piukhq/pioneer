@@ -43,17 +43,19 @@ const reducer = (state = initialState, action) => {
 export default reducer
 
 const membershipPlansSelector = state => state.membershipPlans.plans
+
+const plansListSelector = createSelector(
+  membershipPlansSelector,
+  plansObject => Object.keys(plansObject).map(planId => plansObject[planId]),
+)
+
 export const selectors = {
-  plansList: createSelector(
-    membershipPlansSelector,
-    plansObject => Object.keys(plansObject).map(planId => plansObject[planId]),
-  ),
+  plansList: plansListSelector,
   sortedNonPLLPlansList: createSelector(
-    membershipPlansSelector,
-    plansObject => Object.keys(plansObject).map(planId => plansObject[planId])
-      .filter(plan => plan.feature_set?.card_type === 0)
+    plansListSelector,
+    plansList => plansList.filter(plan => plan.feature_set?.card_type === 0)
       .sort((a, b) => {
-        return a.account.company_name.localeCompare(b.account.company_name)
+        return a.account?.company_name.localeCompare(b.accoundt.company_name)
       }),
   ),
 }
