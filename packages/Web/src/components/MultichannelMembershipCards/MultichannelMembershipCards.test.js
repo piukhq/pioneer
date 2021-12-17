@@ -34,6 +34,10 @@ describe('Test MultichannelMembershipCards', () => {
   })
 
   it('should render the relevant containers and title text', () => {
+    global.Config = {
+      displayAddDeleteMembershipCardFeatures: true,
+    }
+
     useMembershipCardsState.mockImplementation(() => ({
       membershipCards: [{}],
     }))
@@ -44,6 +48,19 @@ describe('Test MultichannelMembershipCards', () => {
     expect(getByText('Wallet')).toBeInTheDocument()
     expect(queryByTestId('cards-container')).toBeInTheDocument()
     expect(queryByTestId('additional-membership-add')).toBeInTheDocument()
+  })
+
+  it('should not render the add membership card button', () => {
+    global.Config = {
+      displayAddDeleteMembershipCardFeatures: false,
+    }
+
+    useMembershipCardsState.mockImplementation(() => ({
+      membershipCards: [{}],
+    }))
+
+    const { queryByTestId } = render(<MultichannelMembershipCards />)
+    expect(queryByTestId('additional-membership-add')).not.toBeInTheDocument()
   })
 
   it('should render empty state container', () => {
@@ -59,11 +76,28 @@ describe('Test MultichannelMembershipCards', () => {
   })
 
   it('should render empty state add loyalty card button', () => {
+    global.Config = {
+      displayAddDeleteMembershipCardFeatures: true,
+    }
+
     useMembershipCardsState.mockImplementation(() => ({
       membershipCards: [],
     }))
 
     const { getByRole } = render(<MultichannelMembershipCards />)
     expect(getByRole('button')).toHaveTextContent('Add an existing loyalty card')
+  })
+
+  it('should not render empty state add loyalty card button', () => {
+    global.Config = {
+      displayAddDeleteMembershipCardFeatures: false,
+    }
+
+    useMembershipCardsState.mockImplementation(() => ({
+      membershipCards: [],
+    }))
+
+    const { queryByText } = render(<MultichannelMembershipCards />)
+    expect(queryByText('Add an existing loyalty card')).not.toBeInTheDocument()
   })
 })
