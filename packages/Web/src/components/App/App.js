@@ -23,11 +23,15 @@ import Footer from 'components/Footer'
 
 import { useIdleTimer } from 'react-idle-timer'
 import { idleTimerSettings, useActivityCheck, useInitialVersionCheck } from 'hooks/useActivityMonitoring'
+import { useSnowfallAppropriateness } from 'hooks/useSnowfallAnimation'
+
+import Snowfall from 'react-snowfall'
 
 import styles from './App.module.scss'
 
 function App () {
   const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
+  const { shouldDisplaySnowfall } = useSnowfallAppropriateness()
 
   // Inactivity Monitoring
   useInitialVersionCheck()
@@ -41,6 +45,8 @@ function App () {
 
   return (
     <div className={cx('bink-app', styles.root)}>
+      { shouldDisplaySnowfall && <Snowfall />}
+
       <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/">
