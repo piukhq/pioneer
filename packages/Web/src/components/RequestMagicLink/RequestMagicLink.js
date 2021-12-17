@@ -167,6 +167,7 @@ const MagicLinkRequestOrAuthenticationError = ({ handleSubmit, email, setEmail }
         <div className={styles['root__form-ui']}>
           <TextInputGroup
             className={styles['root__email-field']}
+            label={!Config.isMerchantChannel ? 'Email' : null}
             placeholder='Enter email address'
             autocomplete='email'
             value={email}
@@ -195,6 +196,7 @@ const MagicLinkAuthenticationExpired = ({ handleSubmit, email, setEmail }) => {
         <div className={styles['root__form-ui']}>
           <TextInputGroup
             className={styles['root__email-field']}
+            label={!Config.isMerchantChannel ? 'Email' : null}
             placeholder='Enter email address'
             autocomplete='email'
             value={email}
