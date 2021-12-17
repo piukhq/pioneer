@@ -16,4 +16,5 @@ module.exports = {
     }
   })(),
   idleTimeoutMinutes: 5,
+  displayAddDeleteMembershipCardFeatures: true,
 }

@@ -61,11 +61,15 @@ const MultichannelMembershipCards = () => {
 
         <div className={styles['root__empty-state-text-container']}>
           <div className={styles['root__empty-state-title']}>Your wallet is empty</div>
-          <Button data-testid='empty-state-add-button' onClick={() => history.push('/membership-plans')}>Add an existing loyalty card</Button>
-          <div className={styles['root__empty-state-description']}>
-            <div className={styles['root__empty-state-paragraph']}>Or</div>
-            <div className={styles['root__empty-state-paragraph']}>Download the Bink mobile app to get access to even more rewards</div>
-          </div>
+
+          { Config.displayAddDeleteMembershipCardFeatures && (
+            <>
+              <Button data-testid='empty-state-add-button' onClick={() => history.push('/membership-plans')}>Add an existing loyalty card</Button>
+              <div className={styles['root__empty-state-paragraph']}>Or</div>
+            </>
+          )}
+
+          <div className={styles['root__empty-state-paragraph']}>Download the Bink mobile app to get access to even more rewards</div>
         </div>
 
         <div className={styles['root__app-info-container']}>

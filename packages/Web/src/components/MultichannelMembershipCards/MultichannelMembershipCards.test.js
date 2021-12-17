@@ -58,11 +58,28 @@ describe('Test MultichannelMembershipCards', () => {
   })
 
   it('should render empty state add loyalty card button', () => {
+    global.Config = {
+      displayAddDeleteMembershipCardFeatures: true,
+    }
+
     useMembershipCardsState.mockImplementation(() => ({
       membershipCards: [],
     }))
 
     const { getByRole } = render(<MultichannelMembershipCards />)
     expect(getByRole('button')).toHaveTextContent('Add an existing loyalty card')
+  })
+
+  it('should not render empty state add loyalty card button', () => {
+    global.Config = {
+      displayAddDeleteMembershipCardFeatures: false,
+    }
+
+    useMembershipCardsState.mockImplementation(() => ({
+      membershipCards: [],
+    }))
+
+    const { queryByText } = render(<MultichannelMembershipCards />)
+    expect(queryByText('Add an existing loyalty card')).not.toBeInTheDocument()
   })
 })
