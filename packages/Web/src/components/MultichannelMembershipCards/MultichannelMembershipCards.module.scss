@@ -7,6 +7,19 @@
     text-align: center;
   }
 
+  &__additional-membership-add {
+    @include base-hover-style;
+
+    margin: 0 auto;
+    width: 400px;
+    height: 220px;
+    cursor: pointer;
+
+    &:hover {
+      @include hover-style;
+    }
+  }
+
   &__empty-state-container {
     margin-top: 60px;
     display: flex;

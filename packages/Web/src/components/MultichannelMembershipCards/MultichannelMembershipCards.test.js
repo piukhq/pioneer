@@ -43,6 +43,7 @@ describe('Test MultichannelMembershipCards', () => {
     expect(queryByTestId('account-menu-container')).toBeInTheDocument()
     expect(getByText('Wallet')).toBeInTheDocument()
     expect(queryByTestId('cards-container')).toBeInTheDocument()
+    expect(queryByTestId('additional-membership-add')).toBeInTheDocument()
   })
 
   it('should render empty state container', () => {

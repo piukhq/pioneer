@@ -10,6 +10,7 @@ import TermsAndConditionsCheck from 'components/TermsAndConditionsCheck'
 import MembershipCard from './components/MembershipCard'
 import { useMembershipCardsState } from 'hooks/membershipCards'
 import { ReactComponent as EmptyWalletSvg } from 'images/empty-wallet.svg'
+import { ReactComponent as MembershipAddSvg } from 'images/membership-add.svg'
 
 import styles from './MultichannelMembershipCards.module.scss'
 
@@ -50,6 +51,7 @@ const MultichannelMembershipCards = () => {
     return (
       <div className={styles['root__cards-container']} data-testid='cards-container'>
         { membershipCards.map((card, index) => <MembershipCard card={card} key={index} />) }
+        <MembershipAddSvg className={styles['root__additional-membership-add']} data-testid='additional-membership-add' onClick={() => history.push('/membership-plans')} />
       </div>
     )
   }
