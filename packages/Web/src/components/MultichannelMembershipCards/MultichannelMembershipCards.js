@@ -51,7 +51,7 @@ const MultichannelMembershipCards = () => {
     return (
       <div className={styles['root__cards-container']} data-testid='cards-container'>
         { membershipCards.map((card, index) => <MembershipCard card={card} key={index} />) }
-        <MembershipAddSvg />
+        <MembershipAddSvg className={styles['root__additional-membership-add']} data-testid='additional-membership-add' onClick={() => history.push('/membership-plans')} />
       </div>
     )
   }
