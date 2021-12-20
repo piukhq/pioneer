@@ -73,6 +73,8 @@ const AccountMenuModal = () => {
           <AccountMenuModalItem label="Bink Privacy Policy" link="https://bink.com/privacy-policy/" />
           {/* TODO: Should be merchant specific url? */}
           <AccountMenuModalItem label="Bink Cookies Policy" link="https://policies.gb.bink.com/web/wasabi-cp.html" />
+
+          { !Config.isMerchantChannel && <AccountMenuModalItem label="Bink Support" link="https://help.bink.com" /> }
         </div>
 
         <Button className={styles['root__modal-button']} onClick={logout}>Logout</Button>
