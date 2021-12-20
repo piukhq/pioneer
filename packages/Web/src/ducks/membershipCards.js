@@ -212,6 +212,10 @@ export const selectors = {
     membershipCardsSelector,
     cardsObject => Object.keys(cardsObject || {}).map(cardId => cardsObject[cardId]),
   ),
+  cardsListSortedIdDescending: createSelector(
+    membershipCardsListSelector,
+    (membershipCardsArray) => membershipCardsArray.sort((a, b) => b.id - a.id),
+  ),
   reasonCode: createSelector(
     membershipCardsListSelector,
     (membershipCardsArray) => membershipCardsArray?.[0]?.status?.reason_codes?.[0],
