@@ -6,6 +6,7 @@ import {
 
 export const useMembershipCardsState = () => {
   const membershipCards = useSelector(state => membershipCardsSelectors.cardsList(state))
+  const membershipCardsSortedIdDescending = membershipCards.sort((a, b) => b.id - a.id)
 
   const loading = useSelector(state => state.membershipCards.loading)
   const error = useSelector(state => state.membershipCards.error)
@@ -14,6 +15,7 @@ export const useMembershipCardsState = () => {
     error,
     loading,
     membershipCards,
+    membershipCardsSortedIdDescending,
     // todo: should replace with: `add: useSelector(state => state.membershipCards.add)`
     add: {
       card: useSelector(state => state.membershipCards.add.card),
