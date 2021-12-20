@@ -6,7 +6,7 @@ import {
 
 export const useMembershipCardsState = () => {
   const membershipCards = useSelector(state => membershipCardsSelectors.cardsList(state))
-  const membershipCardsSortedIdDescending = membershipCards.sort((a, b) => b.id - a.id)
+  const membershipCardsSortedIdDescending = useSelector(state => membershipCardsSelectors.cardsListSortedIdDescending(state))
 
   const loading = useSelector(state => state.membershipCards.loading)
   const error = useSelector(state => state.membershipCards.error)
