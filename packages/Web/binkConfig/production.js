@@ -16,6 +16,13 @@ module.exports = {
       case 'fatface': return null
     }
   })(),
+  magicLinkSlug: (() => {
+    switch (process.env.THEME) {
+      case 'bink': return 'matalan-reward-card'
+      case 'wasabi': return 'wasabi-club'
+      case 'fatface': return 'fatface'
+    }
+  })(),
   devOnlyToolsEnabled: false,
   spreedlyEnvironmentKey: '1Lf7DiKgkcx5Anw7QxWdDxaKtTa',
   disabledPersistentSessions: true, // TODO: Temporary measure for web-464
