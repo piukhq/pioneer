@@ -54,7 +54,7 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
 
         <div className={styles.root__text}>{`${prefixText} in-store just like you would a physical loyalty card.`}</div>
 
-        <HighVisibilityLabel value={cardId} title='Membership number' />
+        { cardId && <HighVisibilityLabel value={cardId} title='Membership number' /> }
 
         { shouldRenderBarcodeNumber && <HighVisibilityLabel value={barcodeNumber} title='Barcode' applyTopMargin />}
       </div>
