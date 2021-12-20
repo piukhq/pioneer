@@ -5,7 +5,6 @@ import cx from 'classnames'
 import Button from 'components/Button'
 import AccountMenu from 'components/AccountMenu'
 import AppLinks from 'components/AppLinks'
-import LoadingIndicator from 'components/LoadingIndicator'
 import TermsAndConditionsCheck from 'components/TermsAndConditionsCheck'
 import MembershipCard from './components/MembershipCard'
 import { useMembershipCardsState } from 'hooks/membershipCards'
@@ -16,7 +15,7 @@ import styles from './MultichannelMembershipCards.module.scss'
 
 const MultichannelMembershipCards = () => {
   const history = useHistory()
-  const { membershipCardsSortedIdDescending, loading } = useMembershipCardsState()
+  const { membershipCardsSortedIdDescending } = useMembershipCardsState()
   const { error: serviceError, post: postService } = useSelector(state => state.service)
   const [shouldRenderTermsAndConditionsCheck, setShouldRenderTermsAndConditionsCheck] = useState(false)
 
@@ -96,10 +95,6 @@ const MultichannelMembershipCards = () => {
         </div>
       </div>
     )
-  }
-
-  if (loading) {
-    return <LoadingIndicator />
   }
 
   return (
