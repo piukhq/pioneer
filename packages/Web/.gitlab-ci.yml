@@ -38,7 +38,7 @@ build-dev: &build
     - THEME=fatface npm run build
     - cp version.json build/
     - cp healthz build/
-    - tar -C build -zcvf ../../build-fatface-development.tar.gz .
+    - tar -C build -zcvf ../../build-fatface-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
   artifacts:
     paths:
