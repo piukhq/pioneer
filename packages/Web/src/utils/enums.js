@@ -31,13 +31,13 @@ const MODAL_ACTION_TYPES = {
 
 const BARCODE_TYPES = {
   CODE128: 'code128',
+  QR_CODE: 'qrcode',
   AZTEC_CODE: 'azteccode',
   PDF417: 'pdf417',
   EAN13: 'ean13',
   DATAMATRIX: 'datamatrix',
   ITF14: 'itf14',
   CODE39: 'code39',
-  QR_CODE: 'qrcode',
 }
 
 const MEMBERSHIP_CARD_REASON_CODES = {
