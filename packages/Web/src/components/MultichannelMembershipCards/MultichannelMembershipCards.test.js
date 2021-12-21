@@ -39,7 +39,7 @@ describe('Test MultichannelMembershipCards', () => {
     }
 
     useMembershipCardsState.mockImplementation(() => ({
-      membershipCards: [{}],
+      membershipCardsSortedIdDescending: [{}],
     }))
 
     const { getByText, queryByTestId } = render(<MultichannelMembershipCards />)
@@ -56,7 +56,7 @@ describe('Test MultichannelMembershipCards', () => {
     }
 
     useMembershipCardsState.mockImplementation(() => ({
-      membershipCards: [{}],
+      membershipCardsSortedIdDescending: [{}],
     }))
 
     const { queryByTestId } = render(<MultichannelMembershipCards />)
@@ -65,7 +65,7 @@ describe('Test MultichannelMembershipCards', () => {
 
   it('should render empty state container', () => {
     useMembershipCardsState.mockImplementation(() => ({
-      membershipCards: [],
+      membershipCardsSortedIdDescending: [],
     }))
 
     const { getByText, queryByTestId } = render(<MultichannelMembershipCards />)
@@ -81,7 +81,7 @@ describe('Test MultichannelMembershipCards', () => {
     }
 
     useMembershipCardsState.mockImplementation(() => ({
-      membershipCards: [],
+      membershipCardsSortedIdDescending: [],
     }))
 
     const { getByRole } = render(<MultichannelMembershipCards />)
@@ -94,7 +94,7 @@ describe('Test MultichannelMembershipCards', () => {
     }
 
     useMembershipCardsState.mockImplementation(() => ({
-      membershipCards: [],
+      membershipCardsSortedIdDescending: [],
     }))
 
     const { queryByText } = render(<MultichannelMembershipCards />)

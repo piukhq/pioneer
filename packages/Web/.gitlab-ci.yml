@@ -1,4 +1,5 @@
 stages:
+  - tests
   - build
   - dev
   - staging
@@ -6,33 +7,37 @@ stages:
   - prod
   - prod-deploy
 
-build: &build
+build-dev: &build
   stage: build
   image: node:14
   before_script:
     - export NODE_CONFIG_ENV=development
-    - export URL_PREFIX=/develop
     - cd packages/Web
   script:
     - 'echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\"}" > version.json'
+    - 'echo "{\"status\": \"ok\"}" > healthz'
     - yarn install --frozen-lockfile
     - yarn run lint-js
     - yarn run lint-css
+
     # build bink theme
-    - PUBLIC_URL=$URL_PREFIX/bink THEME=bink npm run build
+    - THEME=bink npm run build
     - cp version.json build/
+    - cp healthz build/
     - tar -C build -zcvf ../../build-bink-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
 
     # build wasabi theme
-    - PUBLIC_URL=$URL_PREFIX/wasabi THEME=wasabi npm run build
+    - THEME=wasabi npm run build
     - cp version.json build/
+    - cp healthz build/
     - tar -C build -zcvf ../../build-wasabi-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
 
     # build fatface theme
-    - PUBLIC_URL=$URL_PREFIX/fatface THEME=fatface npm run build
+    - THEME=fatface npm run build
     - cp version.json build/
+    - cp healthz build/
     - tar -C build -zcvf ../../build-fatface-$NODE_CONFIG_ENV.tar.gz .
     - rm -rf build
   artifacts:
@@ -42,81 +47,39 @@ build: &build
   only:  # "only" defaults to not include MRs
     - develop
 
-deploy-dev:
+deploy-dev: &deploy
   stage: dev
-  image: binkcore.azurecr.io/copy2blobstorage:latest
+  image: ghcr.io/binkhq/copy2blobstorage:latest
   script:
     # deploy bink theme
+    - export CONNECTION_STRING=$DEV_BINK
     - mkdir bink
     - tar -C bink -xf build-bink-development.tar.gz
-    - copy --sync bink /develop/bink/
+    - copy --sync bink /
 
     # deploy wasabi theme
+    - export CONNECTION_STRING=$DEV_WASABI
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi-development.tar.gz
-    - copy --sync wasabi /develop/wasabi/
+    - copy --sync wasabi /
 
     # deploy fatface theme
+    - export CONNECTION_STRING=$DEV_FATFACE
     - mkdir fatface
     - tar -C fatface -xf build-fatface-development.tar.gz
-    - copy --sync fatface /develop/fatface/
+    - copy --sync fatface /
   only:
     - develop
 
-# Could get fancy here and just use the "build" stage but this is slightly cleaner
-build-mr:
-  <<: *build
+test-mr:
+  stage: tests
+  image: node:14
   before_script:
-    - export NODE_CONFIG_ENV=development
-    - export URL_PREFIX=/mr-$CI_MERGE_REQUEST_IID
     - cd packages/Web
-  artifacts:
-    paths:
-      - build*.tar.gz
-    expire_in: 1 hour
-  only:
-    - merge_requests
-
-deploy-mr:
-  stage: dev
-  image: binkcore.azurecr.io/copy2blobstorage:latest
   script:
-    # deploy bink theme
-    - mkdir bink
-    - tar -C bink -xf build-bink-development.tar.gz
-    - copy --sync bink /mr-$CI_MERGE_REQUEST_IID/bink/
-    # Run Lighthouse over deployment
-    - mkdir lh
-    - lighthouse https://web.dev.gb.bink.com/mr-$CI_MERGE_REQUEST_IID/bink/
-      --chrome-flags="--headless --no-sandbox --disable-gpu"
-      --output=html
-      --output-path=lh/index.html
-      --no-enable-error-reporting
-    # Copy Lighthouse report from lh/ to blobstorage
-    - copy lh /mr-$CI_MERGE_REQUEST_IID/bink/lh/
-    - rm -rf lh
-
-    # deploy wasabi theme
-    - mkdir wasabi
-    - tar -C wasabi -xf build-wasabi-development.tar.gz
-    - copy --sync wasabi /mr-$CI_MERGE_REQUEST_IID/wasabi/
-    # Run Lighthouse over deployment
-    - mkdir lh
-    - lighthouse https://web.dev.gb.bink.com/mr-$CI_MERGE_REQUEST_IID/wasabi/
-      --chrome-flags="--headless --no-sandbox --disable-gpu"
-      --output=html
-      --output-path=lh/index.html
-      --no-enable-error-reporting
-    # Copy Lighthouse report from lh/ to blobstorage
-    - copy lh /mr-$CI_MERGE_REQUEST_IID/wasabi/lh/
-    - rm -rf lh
-
-    # deploy fatface theme
-    - mkdir fatface
-    - tar -C fatface -xf build-fatface-development.tar.gz
-    - copy --sync fatface /mr-$CI_MERGE_REQUEST_IID/fatface/
-
-    - python .ci-scripts/comment-deployment-url.py
+    - yarn install --frozen-lockfile
+    - yarn run lint-js
+    - yarn run lint-css
   only:
     - merge_requests
 
@@ -126,14 +89,7 @@ build-staging:
   allow_failure: false
   before_script:
     - export NODE_CONFIG_ENV=staging
-    - export URL_PREFIX=/staging
     - cd packages/Web
-  after_script:
-    # build wasabi theme for sandbox
-    - NODE_CONFIG_ENV=sandbox PUBLIC_URL=/wasabi THEME=wasabi npm run build
-    - cp version.json build/
-    - tar -C build -zcvf ../../build-wasabi-sandbox.tar.gz .
-    - rm -rf build
   artifacts:
     paths:
       - build*.tar.gz
@@ -143,48 +99,39 @@ build-staging:
 
 deploy-staging-bink:
   stage: staging-deploy
-  image: binkcore.azurecr.io/copy2blobstorage:latest
+  image: ghcr.io/binkhq/copy2blobstorage:latest
   script:
     # deploy bink theme
+    - export CONNECTION_STRING=$STAGING_BINK
     - mkdir bink
     - tar -C bink -xf build-bink-staging.tar.gz
-    - copy --staging --sync bink /staging/bink/
+    - copy --sync bink /
   when: manual
   only:
     - tags
 
 deploy-staging-wasabi:
   stage: staging-deploy
-  image: binkcore.azurecr.io/copy2blobstorage:latest
+  image: ghcr.io/binkhq/copy2blobstorage:latest
   script:
     # deploy wasabi theme
+    - export CONNECTION_STRING=$STAGING_WASABI
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi-staging.tar.gz
-    - copy --staging --sync wasabi /staging/wasabi/
-  when: manual
-  only:
-    - tags
-
-deploy-sandbox-wasabi:
-  stage: staging-deploy
-  image: binkcore.azurecr.io/copy2blobstorage:latest
-  script:
-    # deploy wasabi theme for sandbox
-    - mkdir sandbox
-    - tar -C sandbox -xf build-wasabi-sandbox.tar.gz
-    - copy --sandbox --sync sandbox /wasabi/
+    - copy --sync wasabi /
   when: manual
   only:
     - tags
 
 deploy-staging-fatface:
   stage: staging-deploy
-  image: binkcore.azurecr.io/copy2blobstorage:latest
+  image: ghcr.io/binkhq/copy2blobstorage:latest
   script:
     # deploy fatface theme
+    - export CONNECTION_STRING=$STAGING_FATFACE
     - mkdir fatface
     - tar -C fatface -xf build-fatface-staging.tar.gz
-    - copy --staging --sync fatface /staging/fatface/
+    - copy --sync fatface /
   when: manual
   only:
     - tags
@@ -195,7 +142,6 @@ build-prod:
   allow_failure: false
   before_script:
     - export NODE_CONFIG_ENV=production
-    - export URL_PREFIX=
     - cd packages/Web
   artifacts:
     paths:
@@ -207,42 +153,39 @@ build-prod:
 
 deploy-prod-bink:
   stage: prod-deploy
-  image: binkcore.azurecr.io/copy2blobstorage:latest
+  image: ghcr.io/binkhq/copy2blobstorage:latest
   script:
     # deploy bink theme
+    - export CONNECTION_STRING=$PROD_BINK
     - mkdir bink
     - tar -C bink -xf build-bink-production.tar.gz
-    - rm -rf bink/themes
-    - rm `ls bink/*.* | grep -v "^bink\/version\.json$"`
-    - copy --prod --sync bink /bink/
+    - copy --sync bink /
   when: manual
   only:
     - tags
 
 deploy-prod-wasabi:
   stage: prod-deploy
-  image: binkcore.azurecr.io/copy2blobstorage:latest
+  image: ghcr.io/binkhq/copy2blobstorage:latest
   script:
     # deploy wasabi theme
+    - export CONNECTION_STRING=$PROD_WASABI
     - mkdir wasabi
     - tar -C wasabi -xf build-wasabi-production.tar.gz
-    - rm -rf wasabi/themes
-    - rm `ls wasabi/*.* | grep -v "^wasabi\/version\.json$"`
-    - copy --prod --sync wasabi /wasabi/
+    - copy --sync wasabi /
   when: manual
   only:
     - tags
 
 deploy-prod-fatface:
   stage: prod-deploy
-  image: binkcore.azurecr.io/copy2blobstorage:latest
+  image: ghcr.io/binkhq/copy2blobstorage:latest
   script:
     # deploy fatface theme
+    - export CONNECTION_STRING=$PROD_FATFACE
     - mkdir fatface
     - tar -C fatface -xf build-fatface-production.tar.gz
-    - rm -rf fatface/themes
-    - rm `ls fatface/*.* | grep -v "^fatface\/version\.json$"`
-    - copy --prod --sync fatface /fatface/
+    - copy --sync fatface /
   when: manual
   only:
     - tags

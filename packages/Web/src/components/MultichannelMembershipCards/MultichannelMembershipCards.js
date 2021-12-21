@@ -5,7 +5,6 @@ import cx from 'classnames'
 import Button from 'components/Button'
 import AccountMenu from 'components/AccountMenu'
 import AppLinks from 'components/AppLinks'
-import LoadingIndicator from 'components/LoadingIndicator'
 import TermsAndConditionsCheck from 'components/TermsAndConditionsCheck'
 import MembershipCard from './components/MembershipCard'
 import { useMembershipCardsState } from 'hooks/membershipCards'
@@ -16,7 +15,7 @@ import styles from './MultichannelMembershipCards.module.scss'
 
 const MultichannelMembershipCards = () => {
   const history = useHistory()
-  const { membershipCards, loading } = useMembershipCardsState()
+  const { membershipCardsSortedIdDescending } = useMembershipCardsState()
   const { error: serviceError, post: postService } = useSelector(state => state.service)
   const [shouldRenderTermsAndConditionsCheck, setShouldRenderTermsAndConditionsCheck] = useState(false)
 
@@ -30,7 +29,7 @@ const MultichannelMembershipCards = () => {
   }, [setShouldRenderTermsAndConditionsCheck, serviceError, postService])
 
   const getTermsAndConditionsProps = () => {
-    if (membershipCards.length === 0) {
+    if (membershipCardsSortedIdDescending.length === 0) {
       return {
         heading: 'Welcome to Bink',
         paragraphTwoPrefix: 'To use Bink services,',
@@ -50,7 +49,7 @@ const MultichannelMembershipCards = () => {
   const renderMembershipCardsContent = () => {
     return (
       <div className={styles['root__cards-container']} data-testid='cards-container'>
-        { membershipCards.map((card, index) => <MembershipCard card={card} key={index} />) }
+        { membershipCardsSortedIdDescending.map((card, index) => <MembershipCard card={card} key={index} />) }
         { Config.displayAddDeleteMembershipCardFeatures && (
           <MembershipAddSvg className={styles['root__additional-membership-add']} data-testid='additional-membership-add' onClick={() => history.push('/membership-plans')} />
         ) }
@@ -98,10 +97,6 @@ const MultichannelMembershipCards = () => {
     )
   }
 
-  if (loading) {
-    return <LoadingIndicator />
-  }
-
   return (
     <div className={styles.root} data-testid='root-container' id='multichannel-membership-cards-container'>
       <div data-testid='account-menu-container'>
@@ -110,7 +105,7 @@ const MultichannelMembershipCards = () => {
 
       <h1 className={styles.root__heading}>Wallet</h1>
 
-      { membershipCards.length > 0 ? renderMembershipCardsContent() : renderEmptyState() }
+      { membershipCardsSortedIdDescending.length > 0 ? renderMembershipCardsContent() : renderEmptyState() }
     </div>
   )
 }
