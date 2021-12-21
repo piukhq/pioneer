@@ -31,10 +31,14 @@ const PaymentCardAddForm = ({ onClose }) => {
     submitForm,
   } = usePaymentCardAddForm(onClose)
 
+  const getDescriptionText = () => {
+    return Config.isMerchantChannel ? 'Enter details below to add your credit/debit card.' : 'Enter your details below to add your payment card into Bink.'
+  }
+
   return (
     <Modal isLoading={isLoading}>
       <Modal.Header>Add credit/debit card</Modal.Header>
-      <div className={styles.root__paragraph}>Enter details below to add your credit/debit card.</div>
+      <div className={styles.root__paragraph}>{getDescriptionText()}</div>
 
       <form className={styles.root}>
         <div className={styles.root__groups}>
@@ -89,7 +93,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             Add credit/debit card
           </Button>
         </div>
-        <a data-testid='bink-privacy-and-security' className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer' >Bink Privacy and Security</a>
+        <a data-testid='bink-privacy-and-security' className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer' >Bink Security and Privacy</a>
       </form>
     </Modal>
   )

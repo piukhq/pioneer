@@ -78,7 +78,7 @@ const BinkFooter = () => (
 
 const MagicLinkRequestSuccess = ({ email }) => (
   <>
-    <h1 className={styles.root__headline}>Check your inbox</h1>
+    <h1 className={styles.root__headline}>Check your inbox!</h1>
     <div className={styles.root__description}>
       <div className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></div>
       <div className={styles.root__paragraph}>Click the link and you’ll be signed in.</div>
