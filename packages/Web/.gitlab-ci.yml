@@ -28,7 +28,7 @@ build-dev: &build
     - rm -rf build
 
     # build wasabi theme
-    - HEME=wasabi npm run build
+    - THEME=wasabi npm run build
     - cp version.json build/
     - cp healthz build/
     - tar -C build -zcvf ../../build-wasabi-$NODE_CONFIG_ENV.tar.gz .
