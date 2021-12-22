@@ -24,6 +24,7 @@ import Footer from 'components/Footer'
 import { useIdleTimer } from 'react-idle-timer'
 import { idleTimerSettings, useActivityCheck, useInitialVersionCheck } from 'hooks/useActivityMonitoring'
 import { useSnowfallAppropriateness } from 'hooks/useSnowfallAnimation'
+import { NavigationSideEffects } from 'hooks/useNavigationSideEffects'
 
 import Snowfall from 'react-snowfall'
 
@@ -48,6 +49,7 @@ function App () {
       { shouldDisplaySnowfall && <Snowfall />}
 
       <Router basename={process.env.PUBLIC_URL}>
+        <NavigationSideEffects />
         <Switch>
           <Route exact path="/">
             <HomePage />
