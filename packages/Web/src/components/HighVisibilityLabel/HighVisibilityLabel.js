@@ -43,7 +43,6 @@ const HighVisibilityLabel = ({ value, title }) => {
   }, [])
 
   return (
-    // <div className={styles.root} style={{ marginTop: applyTopMargin ? 30 : 0 }}>
     <div className={styles.root}>
       <div className={styles.root__title}>{title}</div>
       <div className={styles.root__container}>
