@@ -1,7 +1,10 @@
 @mixin onboarding-screens-styling {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  text-align: center;
+  margin-top: 54px;
+
+  &__heading {
+    @include heading-font-style;
+  }
 
   &__description {
     @include body-font-style;
