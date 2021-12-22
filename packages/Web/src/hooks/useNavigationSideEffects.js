@@ -16,5 +16,5 @@ export const NavigationSideEffects = () => {
     window.scrollTo(0, 0)
   }, [pathname, dispatch])
 
-  return (null)
+  return null
 }
