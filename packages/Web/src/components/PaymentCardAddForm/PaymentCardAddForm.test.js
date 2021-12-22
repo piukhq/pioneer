@@ -87,7 +87,7 @@ describe('Test PaymentCardAddForm', () => {
       it('should display the correct instructions', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
-        expect(screen.getByText('Enter your details below to add your payment card into Bink.')).toBeInTheDocument()
+        expect(screen.getByText('Enter your details below to add your credit/debit card into Bink.')).toBeInTheDocument()
 
         global.Config = {
           isMerchantChannel: true,

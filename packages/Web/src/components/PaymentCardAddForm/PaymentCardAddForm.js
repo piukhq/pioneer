@@ -32,7 +32,7 @@ const PaymentCardAddForm = ({ onClose }) => {
   } = usePaymentCardAddForm(onClose)
 
   const getDescriptionText = () => {
-    return Config.isMerchantChannel ? 'Enter details below to add your credit/debit card.' : 'Enter your details below to add your payment card into Bink.'
+    return Config.isMerchantChannel ? 'Enter details below to add your credit/debit card.' : 'Enter your details below to add your credit/debit card into Bink.'
   }
 
   return (
