@@ -42,7 +42,7 @@ const getDateOfBirthDates = () => {
 const getIsChristmasDate = () => {
   const todaysDate = new Date().getDate()
   const todaysMonth = new Date().getMonth() + 1
-  return todaysMonth === 12 && (todaysDate >= 23 && todaysDate <= 31)
+  return todaysMonth === 12 && (todaysDate >= 22 && todaysDate <= 31)
 }
 
 export { getExpiryDates, shortDateFromTimestamp, getDateOfBirthDates, getIsChristmasDate }
