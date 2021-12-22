@@ -42,6 +42,27 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
 
   const prefixText = shouldRenderBarcode ? 'Show this barcode' : 'Share this number'
 
+  const shouldRenderHighVisibilityLabels = () => {
+    if (cardId || shouldRenderBarcodeNumber) {
+      return (
+        <div className={styles['root__high-visibility-label-container']}>
+          { cardId && (
+            <div className={styles['root__high-visibility-label']}>
+              <HighVisibilityLabel value={cardId} title='Membership number:' />
+            </div>
+          ) }
+
+          { shouldRenderBarcodeNumber && (
+            <div className={styles['root__high-visibility-label']}>
+              <HighVisibilityLabel value={barcodeNumber} title='Barcode:' />
+            </div>
+          ) }
+        </div>
+      )
+    }
+    return null
+  }
+
   return (
     <Modal className={styles.root}>
       <div className={styles.root__container}>
@@ -64,9 +85,7 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
 
         <div className={styles.root__text}>{`${prefixText} in-store just like you would a physical loyalty card.`}</div>
 
-        { cardId && <HighVisibilityLabel value={cardId} title='Membership number:' /> }
-
-        { shouldRenderBarcodeNumber && <HighVisibilityLabel value={barcodeNumber} title='Barcode:' applyTopMargin />}
+        {shouldRenderHighVisibilityLabels()}
       </div>
     </Modal>
   )
