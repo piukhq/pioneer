@@ -87,6 +87,12 @@ describe('Test PaymentCardAddForm', () => {
       it('should display the correct instructions', () => {
         usePaymentCardAddForm.mockImplementation(() => ({ ...defaultHookValues }))
         render(PaymentCardAddFormComponent)
+        expect(screen.getByText('Enter your details below to add your credit/debit card into Bink.')).toBeInTheDocument()
+
+        global.Config = {
+          isMerchantChannel: true,
+        }
+        render(PaymentCardAddFormComponent)
         expect(screen.getByText('Enter details below to add your credit/debit card.')).toBeInTheDocument()
       })
       it('should display the privacy and security link with correct behaviour', () => {
@@ -94,7 +100,7 @@ describe('Test PaymentCardAddForm', () => {
         render(PaymentCardAddFormComponent)
         const privacyLink = screen.queryByTestId('bink-privacy-and-security')
         expect(privacyLink).toBeInTheDocument()
-        expect(privacyLink).toHaveTextContent('Bink Privacy and Security')
+        expect(privacyLink).toHaveTextContent('Bink Security and Privacy')
         expect(privacyLink).toHaveAttribute('href', 'https://bink.com/privacy-policy/')
         expect(privacyLink).toHaveAttribute('target', '_blank')
       })
