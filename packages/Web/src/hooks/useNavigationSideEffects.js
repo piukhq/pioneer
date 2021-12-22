@@ -5,7 +5,7 @@ import { actions as modalActions } from 'ducks/modals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
 
 // This must be a component rather than a hook in order to give context to 'location',
-// but as it it essentialy a hook, it is defined in the /hooks folder
+// but as it is essentialy a hook, it is defined in the /hooks folder
 export const NavigationSideEffects = () => {
   const { pathname } = useLocation()
   const dispatch = useDispatch()
