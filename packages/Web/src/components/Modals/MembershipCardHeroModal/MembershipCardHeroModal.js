@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import bwipjs from 'bwip-js'
 import Modal from 'components/Modal'
 import HighVisibilityLabel from 'components/HighVisibilityLabel'
+import { useMembershipPlansState } from 'hooks/membershipPlans'
+
 import { MEMBERSHIP_CARD_IMAGE_TYPES, BARCODE_TYPES } from 'utils/enums'
 
 import styles from './MembershipCardHeroModal.module.scss'
@@ -9,6 +11,12 @@ import styles from './MembershipCardHeroModal.module.scss'
 const MembershipCardHeroModal = ({ membershipCard }) => {
   const imageUrl = membershipCard?.images?.filter(image => image.type === MEMBERSHIP_CARD_IMAGE_TYPES.ICON)?.[0]?.url
   const { membership_id: cardId, barcode_type: barcodeType, barcode: barcodeNumber } = membershipCard?.card
+
+  const {
+    membershipPlanById: plan,
+  } = useMembershipPlansState(membershipCard.membership_plan)
+
+  const { company_name: companyName } = plan?.account
 
   const shouldRenderBarcode = barcodeType !== undefined && barcodeNumber !== undefined
   const shouldRenderBarcodeNumber = barcodeNumber && barcodeNumber !== cardId
@@ -37,6 +45,8 @@ const MembershipCardHeroModal = ({ membershipCard }) => {
   return (
     <Modal className={styles.root}>
       <div className={styles.root__container}>
+        <div className={styles['root__company-name']}>{companyName}</div>
+
         { !shouldRenderBarcode && (
           <div className={styles['root__image-container']}>
             <img src={imageUrl} className={styles.root__image} alt='' />
