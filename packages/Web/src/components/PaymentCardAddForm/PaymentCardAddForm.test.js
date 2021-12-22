@@ -100,7 +100,7 @@ describe('Test PaymentCardAddForm', () => {
         render(PaymentCardAddFormComponent)
         const privacyLink = screen.queryByTestId('bink-privacy-and-security')
         expect(privacyLink).toBeInTheDocument()
-        expect(privacyLink).toHaveTextContent('Bink Security and Privacy')
+        expect(privacyLink).toHaveTextContent('Security and privacy')
         expect(privacyLink).toHaveAttribute('href', 'https://bink.com/privacy-policy/')
         expect(privacyLink).toHaveAttribute('target', '_blank')
       })
