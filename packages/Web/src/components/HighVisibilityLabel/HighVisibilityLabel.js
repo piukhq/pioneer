@@ -4,7 +4,7 @@ import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 
 import styles from './HighVisibilityLabel.module.scss'
 
-const HighVisibilityLabel = ({ value, title, applyTopMargin }) => {
+const HighVisibilityLabel = ({ value, title }) => {
   const valueArr = Array.from(value)
   const refs = Array(valueArr.length).fill().map(() => createRef())
   const { windowDimensions } = useCalculateWindowDimensions()
@@ -43,7 +43,8 @@ const HighVisibilityLabel = ({ value, title, applyTopMargin }) => {
   }, [])
 
   return (
-    <div className={styles.root} style={{ marginTop: applyTopMargin ? 30 : 0 }}>
+    // <div className={styles.root} style={{ marginTop: applyTopMargin ? 30 : 0 }}>
+    <div className={styles.root}>
       <div className={styles.root__title}>{title}</div>
       <div className={styles.root__container}>
         {valueArr.map((value, index) => (
