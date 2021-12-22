@@ -93,7 +93,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             Add credit/debit card
           </Button>
         </div>
-        <a data-testid='bink-privacy-and-security' className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer' >Bink Security and Privacy</a>
+        <a data-testid='bink-privacy-and-security' className={styles.root__url} href='https://bink.com/privacy-policy/' target='_blank' rel='noreferrer'>Security and privacy</a>
       </form>
     </Modal>
   )
