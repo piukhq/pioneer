@@ -1,14 +1,14 @@
 @mixin onboarding-screens-styling {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
   margin-top: 30px;
   min-height: calc(100vh - 70px);
 
-  &--terms-and-conditions {
-    justify-content: center;
-    text-align: center;
-    align-items: center;
+  &--request-form {
+    justify-content: space-between;
   }
 
   &__description {

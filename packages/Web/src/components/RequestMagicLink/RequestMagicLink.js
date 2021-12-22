@@ -40,6 +40,7 @@ const RequestMagicLink = () => {
   return (
     <div className={cx(
       styles.root,
+      styles['root--request-form'],
     )}>
       <div className={styles['root__content-wrapper']}>
          {!Config.isMerchantChannel && <div className={styles.root__hero} />}
