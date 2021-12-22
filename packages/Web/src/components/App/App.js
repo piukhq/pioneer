@@ -46,7 +46,11 @@ function App () {
 
   return (
     <div className={cx('bink-app', styles.root)}>
-      { shouldDisplaySnowfall && <Snowfall />}
+      { shouldDisplaySnowfall && (
+        <div className={styles['root__snow-fall']}>
+          <Snowfall />
+        </div>
+      ) }
 
       <Router basename={process.env.PUBLIC_URL}>
         <NavigationSideEffects />
