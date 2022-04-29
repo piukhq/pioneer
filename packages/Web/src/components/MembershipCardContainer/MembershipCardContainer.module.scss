@@ -6,8 +6,7 @@
   display: grid;
 
   &--authorised {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template: auto / 1fr 1fr;
     row-gap: 15px;
     column-gap: 20px;
     grid-template-areas:
@@ -24,8 +23,7 @@
     }
 
     @media (min-width: 910px) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 2fr 1fr;
+      grid-template: 2fr 1fr / 1fr 1fr 1fr 1fr;
       row-gap: 20px;
       column-gap: 20px;
       grid-template-areas:
@@ -36,16 +34,14 @@
 
   &--no-payment-cards,
   &--unauthorised {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template: auto / 1fr 1fr;
     row-gap: 15px;
     grid-template-areas:
       "image image"
       "details-tile details-tile";
 
     @media (min-width: 730px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto 1fr;
+      grid-template: auto 1fr / 1fr 1fr;
       column-gap: 20px;
       grid-template-areas:
         "image details-tile"

@@ -1,4 +1,4 @@
-// Theme palette
+/* Theme palette */
 $primary-color: #054127;
 $primary-color-highlight: #33654f;
 $primary-color-alternative1: #cdd9d4;
@@ -9,13 +9,13 @@ $secondary-color-highlight: transparent;
 
 $tertiary-transparent-50-percent: rgba(#a30f3c, 0.5);
 
-// Theme General Intents
+/* Theme General Intents */
 $background-color: $white;
 $background-color-light-transparency: $white-20-percent-transparency;
 $page-background-color: $background-color;
 $page-background-color-light-transparency: $background-color-light-transparency;
 
-// Theme Layout Intents
+/* Theme Layout Intents */
 $text-color: $primary-color;
 $text-color-inverse: $background-color;
 $body-font-color: $text-color;
@@ -25,7 +25,7 @@ $link-color: $text-color;
 $modal-title-font-color: $text-color;
 $modal-body-font-color: $text-color;
 
-// Theme Form Intents
+/* Theme Form Intents */
 $text-input-title-color--default: $primary-color;
 $text-input-title-color--error: $tertiary-color;
 $text-input-title-color--disabled: $primary-color-alternative1;
@@ -46,7 +46,7 @@ $text-input-placeholder-color--error: $tertiary-transparent-50-percent;
 
 $text-input-error-color: $tertiary-color;
 
-// Checkbox Intents
+/* Checkbox Intents */
 $checkbox-background-color: $primary-color-alternative2;
 $checkbox-border-color: $primary-color-alternative1;
 $checkmark-color: $primary-color;

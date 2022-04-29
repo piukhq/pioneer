@@ -19,7 +19,7 @@
     }
   }
 
-  @supports (-webkit-appearance: none) or (-moz-appearance: none) { // i.e. not Internet Explorer
+  @supports (-webkit-appearance: none) or (-moz-appearance: none) { /* i.e. not Internet Explorer */
     &__box {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -28,7 +28,7 @@
       background-color: $checkbox-background-color;
     }
 
-    &__box:checked::before { //left, 'downwards' line
+    &__box:checked::before { /* left, 'downwards' line */
       position: absolute;
       background-color: $checkmark-color;
       content: "";
@@ -39,7 +39,7 @@
       transform-origin: left bottom;
     }
 
-    &__box:checked::after { //right, 'upwards' line
+    &__box:checked::after { /* right, 'upwards' line */
       position: absolute;
       background-color: $checkmark-color;
       content: "";

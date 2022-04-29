@@ -1,6 +1,6 @@
-/* stylelint-disable */
-// No font definition should be defined here for white-labels.
-// Ultimately font definitions will be (should be) inherited from the host website.
-// In our environments where the white-label is not embedded the font definitions are imported from a separate css
-// file that will be imported only by our index.html in our own environments. That css will not be included in the
-// HTML snippet provided to merchants to include in their website
+/* stylelint-disable
+No font definition should be defined here for white-labels.
+Ultimately font definitions will be (should be) inherited from the host website.
+In our environments where the white-label is not embedded the font definitions are imported from a separate css
+file that will be imported only by our index.html in our own environments. That css will not be included in the
+HTML snippet provided to merchants to include in their website */

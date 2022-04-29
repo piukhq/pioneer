@@ -7,24 +7,24 @@
   font-family: Wasabi;
   font-style: normal;
   font-weight: 400;
-  src: url(fonts/Wasabi-Regular.7ad1eaf.eot);
-  src: url(fonts/Wasabi-Regular.7ad1eaf.eot?#iefix) format("embedded-opentype"), url(fonts/Wasabi-Regular.e54f9c2.woff2) format("woff2"), url(fonts/Wasabi-Regular.005bc3b.woff) format("woff"), url(fonts/Wasabi-Regular.627f07c.ttf) format("truetype");
+  src: url("fonts/Wasabi-Regular.7ad1eaf.eot");
+  src: url("fonts/Wasabi-Regular.7ad1eaf.eot?#iefix") format("embedded-opentype"), url("fonts/Wasabi-Regular.e54f9c2.woff2") format("woff2"), url("fonts/Wasabi-Regular.005bc3b.woff") format("woff"), url("fonts/Wasabi-Regular.627f07c.ttf") format("truetype");
 }
 
 @font-face {
   font-family: Wasabi;
   font-style: normal;
   font-weight: 700;
-  src: url(fonts/Wasabi-Bold.fd2257f.eot);
-  src: url(fonts/Wasabi-Bold.fd2257f.eot?#iefix) format("embedded-opentype"), url(fonts/Wasabi-Bold.59acde1.woff2) format("woff2"), url(fonts/Wasabi-Bold.d75551a.woff) format("woff"), url(fonts/Wasabi-Bold.1f8d9e2.ttf) format("truetype");
+  src: url("fonts/Wasabi-Bold.fd2257f.eot");
+  src: url("fonts/Wasabi-Bold.fd2257f.eot?#iefix") format("embedded-opentype"), url("fonts/Wasabi-Bold.59acde1.woff2") format("woff2"), url("fonts/Wasabi-Bold.d75551a.woff") format("woff"), url("fonts/Wasabi-Bold.1f8d9e2.ttf") format("truetype");
 }
 
 @font-face {
   font-family: Wasabi;
   font-style: normal;
   font-weight: 300;
-  src: url(fonts/Wasabi-Light.ce6af32.eot);
-  src: url(fonts/Wasabi-Light.ce6af32.eot?#iefix) format("embedded-opentype"), url(fonts/Wasabi-Light.5d9e74a.woff2) format("woff2"), url(fonts/Wasabi-Light.6f42425.woff) format("woff"), url(fonts/Wasabi-Light.f049e9d.ttf) format("truetype");
+  src: url("fonts/Wasabi-Light.ce6af32.eot");
+  src: url("fonts/Wasabi-Light.ce6af32.eot?#iefix") format("embedded-opentype"), url("fonts/Wasabi-Light.5d9e74a.woff2") format("woff2"), url("fonts/Wasabi-Light.6f42425.woff") format("woff"), url("fonts/Wasabi-Light.f049e9d.ttf") format("truetype");
 }
 
 /* note that this overrides the @font-face Wasabi, normal, 400 from above. This is how it is on wasabi.uk.com
@@ -33,8 +33,8 @@
   font-family: Wasabi;
   font-style: normal;
   font-weight: 400;
-  src: url(fonts/WasabiCondensed-Light.c12063d.eot);
-  src: url(fonts/WasabiCondensed-Light.c12063d.eot?#iefix) format("embedded-opentype"), url(fonts/WasabiCondensed-Light.b64df61.woff2) format("woff2"), url(fonts/WasabiCondensed-Light.33e7593.woff) format("woff"), url(fonts/WasabiCondensed-Light.88f085b.ttf) format("truetype");
+  src: url("fonts/WasabiCondensed-Light.c12063d.eot");
+  src: url("fonts/WasabiCondensed-Light.c12063d.eot?#iefix") format("embedded-opentype"), url("fonts/WasabiCondensed-Light.b64df61.woff2") format("woff2"), url("fonts/WasabiCondensed-Light.33e7593.woff") format("woff"), url("fonts/WasabiCondensed-Light.88f085b.ttf") format("truetype");
 }
 
 *,

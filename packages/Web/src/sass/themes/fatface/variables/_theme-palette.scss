@@ -1,4 +1,4 @@
-// Theme palette
+/* Theme palette */
 $primary-color: #57595b;
 $primary-color-highlight: #707375;
 $primary-color-alternative1: #646668;
@@ -13,13 +13,13 @@ $secondary-color-highlight: #252627;
 $disabled-button-color: #f0f0f0;
 $disabled-button-text-color: #bebfc1;
 
-// Theme General Intents
+/* Theme General Intents */
 $background-color: $white;
 $background-color-light-transparency: $white-20-percent-transparency;
 $page-background-color: $background-color;
 $page-background-color-light-transparency: $background-color-light-transparency;
 
-// Theme Layout Intents
+/* Theme Layout Intents */
 $text-color: $primary-color;
 $text-color-inverse: $background-color;
 $body-font-color: $text-color;
@@ -29,7 +29,7 @@ $link-color: $text-color;
 $modal-title-font-color: $text-color;
 $modal-body-font-color: $text-color;
 
-// Theme Form Intents
+/* Theme Form Intents */
 $text-input-title-color--default: $primary-color;
 $text-input-title-color--error: $primary-color;
 $text-input-title-color--disabled: $primary-color;
@@ -52,7 +52,7 @@ $text-input-placeholder-color--error: $primary-color-alternative3;
 
 $text-input-error-color: $error-red;
 
-// Checkbox Intents
+/* Checkbox Intents */
 $checkbox-background-color: $white;
 $checkbox-border-color: $primary-color-alternative5;
 $checkmark-color: $black;
