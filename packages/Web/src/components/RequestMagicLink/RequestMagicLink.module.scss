@@ -1,7 +1,7 @@
 @import "src/sass/mixins";
 
 .root {
-  @include onboarding-screens-styling; // Contains classes that differ between themes, including root values
+  @include onboarding-screens-styling; /* Contains classes that differ between themes, including root values */
 
   &__heading {
     @include heading-font-style;
@@ -46,7 +46,7 @@
 
   &__email-field {
     width: 100%;
-    min-height: 82px; // reserves whitespace for blank error message
+    min-height: 82px; /* reserves whitespace for blank error message */
     text-align: left;
   }
 }

@@ -1,4 +1,3 @@
-
 @mixin button-style {
   border-radius: 29px;
   font-size: 18px;
@@ -7,8 +6,8 @@
   font-family: $theme-font-family;
   font-weight: 700;
   border: none;
-  // set a min-height for cases where there is only an svg (e.g spinner) that might be block an not have a line-height
-  // min-height = line-height + 2 * padding
+  /* set a min-height for cases where there is only an svg (e.g spinner) that might be block an not have a line-height
+   min-height = line-height + 2 * padding */
   min-height: 58px;
 
   &--primary {
@@ -61,12 +60,12 @@
   }
 
   &--disabled {
-    opacity: 50%;
+    opacity: 0.5;
     color: $text-color-inverse;
   }
 
   &--disabled:hover {
-    @include no-hover-style; //overrides hover when disabled
+    @include no-hover-style; /* overrides hover when disabled */
 
     color: $text-color-inverse;
   }

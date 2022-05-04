@@ -51,7 +51,7 @@
 
     pointer-events: none;
     position: absolute;
-    // prevent the fade element to render over the rounded corners at the top of the modal
+    /* prevent the fade element to render over the rounded corners at the top of the modal */
     left: 14px;
     right: 14px;
     top: 0;
@@ -65,7 +65,7 @@
 
     pointer-events: none;
     position: absolute;
-    // prevent the fade element to render over the rounded corners at the bottom of the modal
+    /* prevent the fade element to render over the rounded corners at the bottom of the modal */
     left: 14px;
     right: 14px;
     bottom: 0;

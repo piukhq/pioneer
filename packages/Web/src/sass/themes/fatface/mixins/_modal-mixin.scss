@@ -38,8 +38,8 @@
   }
 
   &__scrollable {
-    // this padding should have been on the &__body element, but due to a firefox bug it is defined here
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=748518 - (padding-bottom/right(block-end/inline-end) is ignored with overflow:auto/scroll because it extends in from the border-box rather than out from the scrollable area)
+    /* this padding should have been on the &__body element, but due to a firefox bug it is defined here
+     https://bugzilla.mozilla.org/show_bug.cgi?id=748518 - (padding-bottom/right(block-end/inline-end) is ignored with overflow:auto/scroll because it extends in from the border-box rather than out from the scrollable area) */
     padding: 21px;
 
     @media (max-width: 500px) {
@@ -71,7 +71,7 @@
 
     pointer-events: none;
     position: absolute;
-    // prevent the fade element to render over the rounded corners at the top of the modal
+    /* prevent the fade element to render over the rounded corners at the top of the modal */
     left: $modal-border-radius;
     right: $modal-border-radius;
     top: 0;
@@ -89,7 +89,7 @@
 
     pointer-events: none;
     position: absolute;
-    // prevent the fade element to render over the rounded corners at the bottom of the modal
+    /* prevent the fade element to render over the rounded corners at the bottom of the modal */
     left: $modal-border-radius;
     right: $modal-border-radius;
     bottom: 0;

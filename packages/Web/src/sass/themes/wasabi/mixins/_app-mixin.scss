@@ -1,15 +1,14 @@
 @import "src/sass/variables";
 
 @mixin app-style {
-  // wasabi.uk.com uses font-weight 300 for default text
-  // font-weight 400 has defined the Wasabi Condensed font and is used mainly on buttons and input fields
+  /* wasabi.uk.com uses font-weight 300 for default text font-weight 400 has defined the Wasabi Condensed font and is used mainly on buttons and input fields */
   font-weight: $default-font-weight;
 
-  // on wasabi.uk.com line-height is set to 24px and 28px for the body element based on media width
+  /* on wasabi.uk.com line-height is set to 24px and 28px for the body element based on media width */
   line-height: normal;
 
-  // wasabi.uk.com has an overlapping issue between the top nav bar and the content
-  // this is supposed to account for that
+  /* wasabi.uk.com has an overlapping issue between the top nav bar and the content */
+  /* this is supposed to account for that */
   @media (min-width: 1025px) {
     margin-top: 22px;
   }
