@@ -11,7 +11,7 @@ on:
 jobs:
   tests:
     name: tests
-    env:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
       - run: yarn install --frozen-lockfile
