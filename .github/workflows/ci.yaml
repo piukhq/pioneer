@@ -17,9 +17,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: yarn install --frozen-lockfile
-      - run: yarn run lint-js
-      - run: yarn run lint-css
+      - name: Tests
+        working-directory: ./packages/Web
+        run: yarn install --frozen-lockfile
+      - name: Tests
+        working-directory: ./packages/Web
+        run: yarn run lint-js
+      - name: Tests
+        working-directory: ./packages/Web
+        run: yarn run lint-css
       
   # create_dev_release_bink:
   # create_dev_release_wasabi:
