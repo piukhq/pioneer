@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches: [ develop, master, CI_creation ]
+  pull_request:
+    branches: [ develop, master ]
+  release:
+    types: [ published ]
+
+jobs:
+  tests:
+    name: tests
+    env:
+    steps:
+      - uses: actions/setup-node@v3
+      - run: yarn install --frozen-lockfile
+      - run: yarn run lint-js
+      - run: yarn run lint-css
+      
+  # create_dev_release_bink:
+  # create_dev_release_wasabi:
+  # create_staging_release_bink:
+  # create_staging_release_wasabi:
