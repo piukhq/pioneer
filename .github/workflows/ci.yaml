@@ -15,7 +15,7 @@ jobs:
     env:
       NODE_CONFIG_ENV: development
     steps:
-      - uses: actions/setup-node@v3
+      - uses: ./
       - run: yarn install --frozen-lockfile
       - run: yarn run lint-js
       - run: yarn run lint-css
