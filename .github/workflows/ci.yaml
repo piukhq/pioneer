@@ -51,7 +51,7 @@ jobs:
             "THEME=bink"
             "NODE_CONFIG_ENV=development"
             "CI_RELEASE_TAG=${{ steps.vars.outputs.date }}"
-            "CI_RELEASE_SHA=$GITHUB_SHA
+            "CI_RELEASE_SHA=$GITHUB_SHA"
 
   create_dev_release_wasabi:
     if: github.ref == 'refs/heads/CI_creation' && github.event_name == 'push'
@@ -74,10 +74,10 @@ jobs:
             binkcore.azurecr.io/web:wasabi-${{ steps.vars.outputs.date }}
             binkcore.azurecr.io/web:wasabi-latest
           build-args: |
-            THEME=wasabi
-            NODE_CONFIG_ENV=development
-            CI_RELEASE_TAG=${{ steps.vars.outputs.date }}
-            CI_RELEASE_SHA=$GITHUB_SHA
+            "THEME=wasabi"
+            "NODE_CONFIG_ENV=development"
+            "CI_RELEASE_TAG=${{ steps.vars.outputs.date }}"
+            "CI_RELEASE_SHA=$GITHUB_SHA"
 
   # create_staging_release_bink:
   # create_staging_release_wasabi:
