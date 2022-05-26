@@ -34,7 +34,8 @@ jobs:
     needs: [ tests ]
     steps:
       - uses: actions/checkout@v3
-      - run: echo "::set-output name=date::bink-$(date +'%FT%H%M%SZ')"
+      - id: vars
+        run: echo "::set-output name=date::$(date +'%FT%H%M%SZ')"
       - uses: docker/login-action@v1
         with:
           registry: binkcore.azurecr.io
@@ -44,13 +45,13 @@ jobs:
         with:
           push: true
           tags: |
-            binkcore.azurecr.io/web:${{ steps.date.outputs.date }}
-            binkcore.azurecr.io/web:latest
+            binkcore.azurecr.io/web:bink-${{ steps.vars.outputs.date }}
+            binkcore.azurecr.io/web:bink-latest
           build-args: |
-            THEME=bink
-            NODE_CONFIG_ENV=development
-            CI_RELEASE_TAG=${{ steps.date.outputs.date }}
-            CI_RELEASE_SHA=${{  }}
+            "THEME=bink"
+            "NODE_CONFIG_ENV=development"
+            "CI_RELEASE_TAG=${{ steps.vars.outputs.date }}"
+            "CI_RELEASE_SHA=${{ $GITHUB_SHA }}"
 
   create_dev_release_wasabi:
     if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
@@ -59,7 +60,8 @@ jobs:
     needs: [ tests ]
     steps:
       - uses: actions/checkout@v3
-      - run: echo "::set-output name=date::wasabi-$(date +'%FT%H%M%SZ')"
+      - id: vars
+        run: echo "::set-output name=date::$(date +'%FT%H%M%SZ')"
       - uses: docker/login-action@v1
         with:
           registry: binkcore.azurecr.io
@@ -69,13 +71,13 @@ jobs:
         with:
           push: true
           tags: |
-            binkcore.azurecr.io/web:${{ steps.date.outputs.date }}
-            binkcore.azurecr.io/web:latest
+            binkcore.azurecr.io/web:wasabi-${{ steps.vars.outputs.date }}
+            binkcore.azurecr.io/web:wasabi-latest
           build-args: |
             THEME=wasabi
             NODE_CONFIG_ENV=development
-            CI_RELEASE_TAG=${{ steps.date.outputs.date }}
-            CI_RELEASE_SHA=${{  }}
+            CI_RELEASE_TAG=${{ steps.vars.outputs.date }}
+            CI_RELEASE_SHA=${{ $GITHUB_SHA }}
 
   # create_staging_release_bink:
   # create_staging_release_wasabi:
