@@ -51,7 +51,7 @@ jobs:
             "THEME=bink"
             "NODE_CONFIG_ENV=development"
             "CI_RELEASE_TAG=${{ steps.vars.outputs.date }}"
-            "CI_RELEASE_SHA=${{ $GITHUB_SHA }}"
+            "CI_RELEASE_SHA=$GITHUB_SHA
 
   create_dev_release_wasabi:
     if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
@@ -77,7 +77,7 @@ jobs:
             THEME=wasabi
             NODE_CONFIG_ENV=development
             CI_RELEASE_TAG=${{ steps.vars.outputs.date }}
-            CI_RELEASE_SHA=${{ $GITHUB_SHA }}
+            CI_RELEASE_SHA=$GITHUB_SHA
 
   # create_staging_release_bink:
   # create_staging_release_wasabi:
