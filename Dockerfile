@@ -13,7 +13,7 @@ ARG CI_COMMIT_TAG
 ARG CI_COMMIT_SHA
 ARG THEME
 ARG NODE_CONFIG_ENV
-RUN echo "{\"tag\": \"$CI_COMMIT_TAG\", \"sha\": \"$CI_COMMIT_SHA\", \"theme\": \"$THEME\"}" > version.json
+RUN echo "{\"tag\": \"$CI_COMMIT_TAG\", \"theme\": \"$THEME\"}" > version.json
 RUN echo "{\"status\": \"ok\"}" > healthz
 COPY --from=deps /app/packages/Web/build .
 CMD ["nginx", "-g", "daemon off;"]
