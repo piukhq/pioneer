@@ -2,7 +2,7 @@ name: ci
 
 on:
   push:
-    branches: [ develop, master, CI_creation ]
+    branches: [ develop, master, ]
   pull_request:
     branches: [ develop, master ]
   release:
@@ -28,7 +28,7 @@ jobs:
         run: yarn run lint-css
       
   create_dev_release_bink:
-    if: github.ref == 'refs/heads/CI_creation' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
     name: bink-build-dev
     runs-on: ubuntu-latest
     needs: [ tests ]
@@ -53,7 +53,7 @@ jobs:
             "CI_RELEASE_TAG=${{ steps.vars.outputs.date }}"
 
   create_dev_release_wasabi:
-    if: github.ref == 'refs/heads/CI_creation' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
     name: wasabi-build-dev
     runs-on: ubuntu-latest
     needs: [ tests ]
