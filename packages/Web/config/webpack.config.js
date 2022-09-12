@@ -13,7 +13,6 @@ const safePostCssParser = require('postcss-safe-parser')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
-const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ESLintPlugin = require('eslint-webpack-plugin')
@@ -22,7 +21,6 @@ const modules = require('./modules')
 const getClientEnvironment = require('./env')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin')
-const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
 
@@ -324,6 +322,7 @@ module.exports = function (webpackEnv) {
       extensions: paths.moduleFileExtensions
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
+      preferRelative: true,
       alias: {
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -336,15 +335,15 @@ module.exports = function (webpackEnv) {
         ...(modules.webpackAliases || {}),
 
         // project aliases
-        api: path.join(__dirname, '../src/api'),
-        components: path.join(__dirname, '../src/components'),
-        ducks: path.join(__dirname, '../src/ducks'),
-        fonts: path.join(__dirname, '../src/fonts'),
-        hooks: path.join(__dirname, '../src/hooks'),
-        routes: path.join(__dirname, '../src/routes'),
-        images: path.join(__dirname, '../src/images'),
-        utils: path.join(__dirname, '../src/utils'),
-        middleware: path.join(__dirname, '../src/middleware'),
+        api: path.resolve(__dirname, '../src/api'),
+        components: path.resolve(__dirname, '../src/components'),
+        ducks: path.resolve(__dirname, '../src/ducks'),
+        fonts: path.resolve(__dirname, '../src/fonts'),
+        hooks: path.resolve(__dirname, '../src/hooks'),
+        routes: path.resolve(__dirname, '../src/routes'),
+        images: path.resolve(__dirname, '../src/images'),
+        utils: path.resolve(__dirname, '../src/utils'),
+        middleware: path.resolve(__dirname, '../src/middleware'),
         sassThemeFolder: path.resolve(__dirname, '../src/sass/themes/', process.env.THEME),
       },
       fallback: {
@@ -648,8 +647,6 @@ module.exports = function (webpackEnv) {
       // to restart the development server for webpack to discover it. This plugin
       // makes the discovery automatic so you don't have to restart.
       // See https://github.com/facebook/create-react-app/issues/186
-      isEnvDevelopment &&
-        new WatchMissingNodeModulesPlugin(paths.appNodeModules),
       isEnvProduction &&
         new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output
@@ -729,7 +726,7 @@ module.exports = function (webpackEnv) {
           ],
           silent: true,
           // The formatter is invoked directly in WebpackDevServerUtils during development
-          formatter: isEnvProduction ? typescriptFormatter : undefined,
+          formatter: undefined,
         }),
       new ESLintPlugin({
         // Plugin options
