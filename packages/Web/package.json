@@ -23,7 +23,7 @@
     "bfj": "^7.0.2",
     "bwip-js": "^3.0.4",
     "camelcase": "^6.1.0",
-    "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "classnames": "^2.2.6",
     "common": "1.0.0",
     "config": "^3.3.3",
