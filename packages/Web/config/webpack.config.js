@@ -120,7 +120,7 @@ module.exports = function (webpackEnv) {
           // https://github.com/facebook/create-react-app/issues/2677
           postcssOptions: {
             ident: 'postcss',
-            plugins: () => [
+            plugins: [
               require('postcss-flexbugs-fixes'),
               require('postcss-preset-env')({
                 autoprefixer: {
