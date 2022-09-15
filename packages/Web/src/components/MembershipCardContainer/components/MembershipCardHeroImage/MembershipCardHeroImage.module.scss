@@ -6,7 +6,7 @@
 
   &__image-section {
     position: relative;
-    padding-bottom: calc(1/$ratio) * 100%;
+    padding-bottom: calc(1 / $ratio) * 100%;
     grid-area: image;
     border-radius: 20px;
     overflow: hidden;
