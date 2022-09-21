@@ -76,7 +76,6 @@
     "react-idle-timer": "^4.6.4",
     "react-redux": "^7.2.2",
     "react-refresh": "^0.14.0",
-    "react-refresh-webpack-plugin": "^0.1.0",
     "react-router-dom": "^5.2.0",
     "react-snowfall": "^1.1.1",
     "react-use": "^17.2.3",
