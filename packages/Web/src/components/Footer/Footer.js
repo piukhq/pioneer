@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ReactComponent as BinkLogoSvg } from 'images/logo-bink-footer.svg'
+import BinkLogoSvg from 'images/logo-bink-footer.svg'
 import styles from './Footer.module.scss'
 
 const Footer = () => {

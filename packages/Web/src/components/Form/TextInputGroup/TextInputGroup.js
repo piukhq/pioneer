@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { ReactComponent as CheckCircle } from 'images/check-circle.svg'
+import CheckCircleSvg from 'images/check-circle.svg'
 
 import styles from './TextInputGroup.module.scss'
 
@@ -59,7 +59,7 @@ const TextInputGroup = ({
         />
 
         {/* TODO: Possible temporary check to render check icon only for Bink theme */}
-        { valid && !Config.isMerchantChannel && (<CheckCircle className={styles['root__validation-tick']} />) }
+        { valid && !Config.isMerchantChannel && (<CheckCircleSvg className={styles['root__validation-tick']} />) }
       </div>
 
       { error && (

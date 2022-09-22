@@ -1,9 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
 import { usePaymentCardById } from 'hooks/paymentCards'
-import { ReactComponent as BinIconSvg } from 'images/bin-icon.svg'
-import { ReactComponent as WarningSvg } from 'images/sign-warning.svg'
-import { ReactComponent as ErrorSvg } from 'images/sign-error.svg'
+import BinIconSvg from 'images/bin-icon.svg'
+import WarningSvg from 'images/sign-warning.svg'
+import ErrorSvg from 'images/sign-error.svg'
 import styles from './PaymentCard.module.scss'
 
 const PaymentCard = ({ id, className, onClick, onDelete, expired, activating, hoverEnabled }) => {

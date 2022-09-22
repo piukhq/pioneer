@@ -393,6 +393,11 @@ module.exports = function (webpackEnv) {
               test: /\.(png|jpg|jpeg|gif)$/i,
               type: 'asset/resource',
             },
+            {
+              test: /\.svg$/i,
+              issuer: /\.[jt]sx?$/,
+              use: [{ loader: '@svgr/webpack', options: { replaceAttrValues: { '#000': '{props.color}' } } }],
+            },
             // Process application JS with Babel.
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {

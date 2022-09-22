@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as LoaderSvg } from 'images/loader.svg'
+import LoaderSvg from 'images/loader.svg'
 import styles from './PageTransitionLoadingIndicator.module.scss'
 
 const PageTransitionLoadingIndicator = () => (

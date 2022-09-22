@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { ReactComponent as DownIconSvg } from 'images/down-chevron.svg'
+import DownIconSvg from 'images/down-chevron.svg'
 
 import styles from './SelectGroup.module.scss'
 
