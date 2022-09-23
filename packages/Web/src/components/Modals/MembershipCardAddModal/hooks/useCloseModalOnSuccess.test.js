@@ -39,9 +39,9 @@ describe('useCloseModalOnSuccess', () => {
       }))
 
       renderHook(() => useCloseModalOnSuccess(mockOnClose))
-      expect(mockHistoryReplace).toBeCalledWith(`/membership-card/${mockCard.id}`)
-      expect(mockAddMembershipCardResetSuccessStatus).toBeCalled()
-      expect(mockOnClose).toBeCalled()
+      expect(mockHistoryReplace).toHaveBeenCalledWith(`/membership-card/${mockCard.id}`)
+      expect(mockAddMembershipCardResetSuccessStatus).toHaveBeenCalled()
+      expect(mockOnClose).toHaveBeenCalled()
     })
   })
 
@@ -54,7 +54,7 @@ describe('useCloseModalOnSuccess', () => {
       }))
 
       renderHook(() => useCloseModalOnSuccess(mockOnClose))
-      expect(mockHistoryReplace).not.toBeCalled()
+      expect(mockHistoryReplace).not.toHaveBeenCalled()
     })
   })
 })

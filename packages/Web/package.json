@@ -145,11 +145,18 @@
     }
   },
   "eslintConfig": {
+    "env": {
+      "es6": true,
+      "jest": true
+  },
     "extends": [
       "standard",
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "eslint:recommended",
+      "plugin:jest/recommended"
     ],
+    "plugins": ["jest"],
     "rules": {
       "comma-dangle": [
         "error",
@@ -159,7 +166,9 @@
         "error",
         "never"
       ],
-      "camelcase": "off"
+      "camelcase": "off",
+      "jest/valid-describe": "off",
+      "jest/no-jest-import": "off"
     },
     "globals": {
       "Config": true

@@ -60,7 +60,7 @@ describe('Test useMerchantMembershipCards', () => {
     }))
 
     renderHook(() => useMerchantMembershipCards())
-    expect(mockHistoryReplace).toBeCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
+    expect(mockHistoryReplace).toHaveBeenCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
   })
 
   it('should set state if service error has occured', () => {
@@ -80,7 +80,7 @@ describe('Test useMerchantMembershipCards', () => {
       .mockReturnValueOnce({ success: true })
 
     renderHook(() => useMerchantMembershipCards())
-    expect(mockSetState).toBeCalled()
+    expect(mockSetState).toHaveBeenCalled()
   })
 
   describe('Test re-add and re-enrol', () => {
@@ -96,7 +96,7 @@ describe('Test useMerchantMembershipCards', () => {
         .mockReturnValueOnce({ success: true })
 
       renderHook(() => useMerchantMembershipCards())
-      expect(mockHistoryReplace).toBeCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
+      expect(mockHistoryReplace).toHaveBeenCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
     })
 
     it('should call correct route if re-add is required', () => {
@@ -111,7 +111,7 @@ describe('Test useMerchantMembershipCards', () => {
         .mockReturnValueOnce({ success: true })
 
       renderHook(() => useMerchantMembershipCards())
-      expect(mockHistoryReplace).toBeCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
+      expect(mockHistoryReplace).toHaveBeenCalledWith(`/membership-card/add/${Config.membershipPlanId}`)
     })
   })
 
@@ -143,7 +143,7 @@ describe('Test useMerchantMembershipCards', () => {
       }))
 
       renderHook(() => useMerchantMembershipCards())
-      expect(mockHistoryReplace).toBeCalledWith(`/membership-card/${mockMembershipCardId}`)
+      expect(mockHistoryReplace).toHaveBeenCalledWith(`/membership-card/${mockMembershipCardId}`)
     })
 
     it('should not call correct route if membership card is pending', () => {
@@ -157,7 +157,7 @@ describe('Test useMerchantMembershipCards', () => {
       }))
 
       renderHook(() => useMerchantMembershipCards())
-      expect(mockHistoryReplace).not.toBeCalledWith(`/membership-card/${mockMembershipCardId}`)
+      expect(mockHistoryReplace).not.toHaveBeenCalledWith(`/membership-card/${mockMembershipCardId}`)
     })
   })
 })
