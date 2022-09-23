@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import AccountMenu from 'components/AccountMenu'
 import Brand from './components/Brand'
-import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
+import LeftChevronSvg from 'images/chevron-left.svg'
 import styles from './Brands.module.scss'
 
 const Brands = ({ plans }) => {

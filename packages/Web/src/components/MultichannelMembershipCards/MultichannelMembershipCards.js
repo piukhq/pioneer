@@ -8,8 +8,8 @@ import AppLinks from 'components/AppLinks'
 import TermsAndConditionsCheck from 'components/TermsAndConditionsCheck'
 import MembershipCard from './components/MembershipCard'
 import { useMembershipCardsState } from 'hooks/membershipCards'
-import { ReactComponent as EmptyWalletSvg } from 'images/empty-wallet.svg'
-import { ReactComponent as MembershipAddSvg } from 'images/membership-add.svg'
+import EmptyWalletSvg from 'images/empty-wallet.svg'
+import MembershipAddSvg from 'images/membership-add.svg'
 
 import styles from './MultichannelMembershipCards.module.scss'
 

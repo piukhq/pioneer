@@ -394,6 +394,11 @@ module.exports = function (webpackEnv) {
               type: 'asset/resource',
             },
             {
+              test: /\.svg$/i,
+              issuer: /\.[jt]sx?$/,
+              use: [{ loader: '@svgr/webpack' }],
+            },
+            {
               test: /\.(woff|woff2|eot|ttf|otf)$/i,
               type: 'asset/resource',
             },

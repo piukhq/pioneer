@@ -7,8 +7,8 @@ import { useMembershipCardStateById } from 'hooks/membershipCards'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useModals } from 'hooks/useModals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
-import { ReactComponent as StateAuthorisedSvg } from 'images/state-authorised.svg'
-import { ReactComponent as StateAuthorisedGreySvg } from 'images/state-authorised-grey.svg'
+import StateAuthorisedSvg from 'images/state-authorised.svg'
+import StateAuthorisedGreySvg from 'images/state-authorised-grey.svg'
 
 import { useCalculateWindowDimensions } from 'utils/windowDimensions'
 

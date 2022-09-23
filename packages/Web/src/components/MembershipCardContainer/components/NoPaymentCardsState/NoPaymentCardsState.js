@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { useMembershipCardDetailsByCardId } from 'hooks/useMembershipCardDetailsByCardId'
 import { useModals } from 'hooks/useModals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
-import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
+import StateFailedSvg from 'images/state-failed.svg'
 
 import styles from './NoPaymentCardsState.module.scss'
 

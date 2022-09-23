@@ -4,7 +4,7 @@ import useModalSetup from './hooks/useModalSetup'
 import useScrollFader from './hooks/useScrollFader'
 import { useModals } from 'hooks/useModals'
 import { MODAL_ACTION_TYPES as modalEnum } from 'utils/enums'
-import { ReactComponent as ModalCloseSvg } from 'images/modal-close.svg'
+import ModalCloseSvg from 'images/modal-close.svg'
 import styles from './Modal.module.scss'
 
 const Modal = ({ children, className, isLoading, onClose, noCloseModal }) => {

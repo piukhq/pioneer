@@ -1,7 +1,7 @@
 import React from 'react'
 import { MEMBERSHIP_CARD_REASON_CODES } from 'utils/enums'
-import { ReactComponent as StateFailedSvg } from 'images/state-failed.svg'
-import { ReactComponent as StatePendingSvg } from 'images/state-pending.svg'
+import StateFailedSvg from 'images/state-failed.svg'
+import StatePendingSvg from 'images/state-pending.svg'
 
 import styles from './UnauthorisedState.module.scss'
 

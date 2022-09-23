@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { ReactComponent as LoadingSpinnerSvg } from 'images/loading-spinner.svg'
+import LoadingSpinnerSvg from 'images/loading-spinner.svg'
 import styles from './Button.module.scss'
 
 const Button = ({ primary, secondary, tertiary, className, disabled, error, loading, children, ...props }) => {

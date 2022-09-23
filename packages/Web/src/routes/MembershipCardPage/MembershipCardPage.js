@@ -29,7 +29,7 @@ import MembershipCardContainer from 'components/MembershipCardContainer'
 import useMembershipCardRefresher from 'hooks/useMembershipCardRefresher'
 import { useCheckSessionEnded } from 'hooks/useCheckSessionEnded'
 
-import { ReactComponent as LeftChevronSvg } from 'images/chevron-left.svg'
+import LeftChevronSvg from 'images/chevron-left.svg'
 
 import styles from './MembershipCardPage.module.scss'
 

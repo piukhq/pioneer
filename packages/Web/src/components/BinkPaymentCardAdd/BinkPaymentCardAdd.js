@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as PaymentAddSvg } from 'images/payment-add.svg'
+import PaymentAddSvg from 'images/payment-add.svg'
 import styles from './BinkPaymentCardAdd.module.scss'
 
 const BinkPaymentCardAdd = ({ onClick }) => (

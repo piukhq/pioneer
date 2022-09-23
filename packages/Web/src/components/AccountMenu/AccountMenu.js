@@ -4,8 +4,8 @@ import { isMobile, osName } from 'react-device-detect'
 
 import Modal from 'components/Modal'
 import Button from 'components/Button'
-import { ReactComponent as RightChevronSvg } from 'images/right-chevron.svg'
-import { ReactComponent as MenuCogSvg } from 'images/menu-cog.svg'
+import RightChevronSvg from 'images/right-chevron.svg'
+import MenuCogSvg from 'images/menu-cog.svg'
 
 import { useLogout } from 'hooks/useLogout'
 import { useModals } from 'hooks/useModals'

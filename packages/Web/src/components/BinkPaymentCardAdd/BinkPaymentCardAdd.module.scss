@@ -22,7 +22,8 @@
     background: $page-background-color;
   }
 
+  /* TODO: Temporary fix for SVGO upgrade bug not recognising $add-payment-card-color */
   &__payment-add-svg {
-    fill: $add-payment-card-color;
+    fill: linear-gradient(to right, #274a52, #528d8d);
   }
 }
