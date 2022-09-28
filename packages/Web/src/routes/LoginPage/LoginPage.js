@@ -16,6 +16,10 @@ const LoginPage = () => {
     hideDebugLogin,
   } = useDebugLogin()
 
+  console.log(Config.devOnlyToolsEnabled, 'dev only tools enabled.')
+  console.log(Config.env, 'environment')
+  console.log(debugLogin, 'debug login')
+
   return (
     <div>
       <RequestMagicLink />
