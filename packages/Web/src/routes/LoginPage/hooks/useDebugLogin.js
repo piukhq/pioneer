@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom'
+import Config from 'config'
 
 const useDebugLogin = () => {
   const history = useHistory()
@@ -13,6 +14,8 @@ const useDebugLogin = () => {
     localStorage.removeItem('debugLogin')
     history.replace('/')
   }
+
+  console.log(Config.devOnlyToolsEnabled, 'dev only tools enabled.')
 
   return {
     debugLogin,
