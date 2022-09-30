@@ -5,7 +5,7 @@ COPY . /app
 RUN apt-get update
 RUN apt-get install -y ca-certificates
 RUN cd /app/packages/Web/ && yarn install --frozen-lockfile
-RUN cd /app/packages/Web/ && THEME=$THEME npm run build
+RUN cd /app/packages/Web/ && THEME=$THEME node scripts/build.js 
 
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
