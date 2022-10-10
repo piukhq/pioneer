@@ -53,6 +53,8 @@ This will have multiple effects
 When running `npm start` the `development` env will be assumed.\
 When running `npm run build` the `production` env will be assumed.
 
+To specify a specific environment or theme when building, run `NODE_CONFIG_ENV={environment} THEME={theme} npm run build`.
+
 To run a build for `uat` env there is a script in `package.json`
 ```json
 "scripts": {
