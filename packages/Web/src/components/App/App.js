@@ -22,7 +22,7 @@ import TypographyPage from 'routes/TypographyPage'
 import Footer from 'components/Footer'
 
 import { useIdleTimer } from 'react-idle-timer'
-import { idleTimerSettings, useActivityCheck, useInitialVersionCheck } from 'hooks/useActivityMonitoring'
+import { idleTimerSettings, useActivityCheck } from 'hooks/useActivityMonitoring'
 import { useSnowfallAppropriateness } from 'hooks/useSnowfallAnimation'
 import { NavigationSideEffects } from 'hooks/useNavigationSideEffects'
 
@@ -33,9 +33,6 @@ import styles from './App.module.scss'
 function App () {
   const Router = window.binkConfigNoMemoryRouting ? BrowserRouter : MemoryRouter
   const { shouldDisplaySnowfall } = useSnowfallAppropriateness()
-
-  // Inactivity Monitoring
-  useInitialVersionCheck()
 
   const { setIdle, setActive } = useActivityCheck()
   useIdleTimer({
