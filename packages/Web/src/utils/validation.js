@@ -5,7 +5,7 @@ const isValidEmail = (email) => {
 }
 
 const isValidName = (fullName) => {
-  const re = /\S/
+  const re = /^[a-zA-Z\s-`~']+$/ // allow letters, tildes, apostrophes, and hyphens
   return fullName.match(re)
 }
 

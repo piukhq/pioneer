@@ -17,6 +17,7 @@ const TextInputGroup = ({
   autocomplete,
   type = 'text',
   valid,
+  maxLength,
   ...rest
 }) => {
   return (
@@ -55,6 +56,7 @@ const TextInputGroup = ({
           onBlur={onBlur}
           disabled={disabled}
           autoComplete={autocomplete}
+          maxLength={maxLength}
           {...rest}
         />
 

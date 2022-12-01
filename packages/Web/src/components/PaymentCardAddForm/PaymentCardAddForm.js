@@ -72,6 +72,7 @@ const PaymentCardAddForm = ({ onClose }) => {
             onBlur={handleNameBlur}
             error={fullNameError}
             valid={isValidFullName}
+            maxLength={24} // Max length of card name is 24 characters
           />
         </div>
 
