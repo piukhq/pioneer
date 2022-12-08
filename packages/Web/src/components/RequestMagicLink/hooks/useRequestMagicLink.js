@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions as usersActions } from 'ducks/users'
 
-const useRequestMagicLink = () => {
+export const useRequestMagicLink = () => {
   const [email, setEmail] = useState('')
   const { error, loading, success } = useSelector(state => state.users.magicLinkRequest)
   const dispatch = useDispatch()
@@ -20,5 +20,3 @@ const useRequestMagicLink = () => {
     handleSubmit,
   }
 }
-
-export default useRequestMagicLink
