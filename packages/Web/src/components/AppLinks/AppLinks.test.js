@@ -53,7 +53,7 @@ describe('Test AppLinks', () => {
       expect(appLinks[0]).toHaveAttribute('href', 'mockIosStoreUrl')
     })
 
-    it('should only render the Android app link on an iOS device', () => {
+    it('should only render the Android app link on an Android device', () => {
       device.osName = 'Android'
       render(<AppLinks />)
       const appLinks = screen.getAllByRole('link')
