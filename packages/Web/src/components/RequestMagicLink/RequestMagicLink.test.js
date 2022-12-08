@@ -54,7 +54,7 @@ describe('Test RequestMagicLink', () => {
     planTitleSuffix: 'mockPlanTitleSuffix',
     isMerchantChannel: false,
     magicLinkRequestFormFooterNote: 'mockFooterNote',
-    urls: { termsAndConditions: 'mockTermsAndConditionsUrl' }
+    urls: { termsAndConditions: 'mockTermsAndConditionsUrl' },
   }
 
   beforeAll(() => {
