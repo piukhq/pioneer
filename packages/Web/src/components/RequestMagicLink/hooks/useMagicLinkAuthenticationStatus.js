@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 
-const useMagicLinkAuthenticationStatus = () => {
+export const useMagicLinkAuthenticationStatus = () => {
   const { error } = useSelector(state => state.users.magicLinkAuthentication)
   const isExpiredToken = error?.response?.status === 401
 
@@ -9,5 +9,3 @@ const useMagicLinkAuthenticationStatus = () => {
     isExpiredToken,
   }
 }
-
-export default useMagicLinkAuthenticationStatus

@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react'
-// todo: Check with Jack to Remove SVGs if no longer needed for MultiMerchant/future designs
-// import { ReactComponent as MagicLinkDefaultSvg } from 'images/magic-link-default.svg'
-// import { ReactComponent as MagicLinkErrorSvg } from 'images/magic-link-error.svg'
-// import { ReactComponent as MagicLinkWarningSvg } from 'images/magic-link-warning.svg'
 import Button from 'components/Button'
 import LoadingIndicator from 'components/LoadingIndicator'
 import TextInputGroup from 'components/Form/TextInputGroup'
 import AppLinks from 'components/AppLinks'
 
-import useRequestMagicLink from './hooks/useRequestMagicLink'
-import useMagicLinkAuthenticationStatus from './hooks/useMagicLinkAuthenticationStatus'
+import { useRequestMagicLink } from './hooks/useRequestMagicLink'
+import { useMagicLinkAuthenticationStatus } from './hooks/useMagicLinkAuthenticationStatus'
 import useEmailErrorDisplay from './hooks/useEmailErrorDisplay'
 
 import cx from 'classnames'
@@ -81,7 +77,7 @@ const MagicLinkRequestSuccess = ({ email }) => (
   <>
     <h1 className={styles.root__headline}>Check your inbox!</h1>
     <div className={styles.root__description}>
-      <div className={styles.root__paragraph}>We have just emailed a link to <span className={styles.root__email}>{email}.</span></div>
+      <div className={styles.root__paragraph} data-testid='email-confirmation'>We have just emailed a link to <span className={styles.root__email}>{email}.</span></div>
       <div className={styles.root__paragraph}>Click the link and you’ll be signed in.</div>
       <div className={styles.root__note}>
         <span className={styles['root__note--bold']}>Note: </span>
