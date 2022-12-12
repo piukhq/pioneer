@@ -92,6 +92,7 @@
     "style-loader": "^3.3.1",
     "stylelint": "^14.8.0",
     "stylelint-config-standard": "^25.0.0",
+    "stylelint-config-standard-scss": "^6.1.0",
     "stylelint-webpack-plugin": "^3.3.0",
     "terser-webpack-plugin": "4.2.3",
     "ts-pnp": "1.2.0",
@@ -115,8 +116,11 @@
     "lint-css": "npx stylelint \"**/*.scss\""
   },
   "stylelint": {
-    "extends": "stylelint-config-standard",
+    "extends": "stylelint-config-standard-scss",
     "rules": {
+      "scss/dollar-variable-empty-line-before": null,
+      "scss/dollar-variable-pattern": null,
+      "scss/at-import-no-partial-leading-underscore": null,
       "color-function-notation": null,
       "selector-class-pattern": null,
       "comment-empty-line-before": null,
@@ -262,7 +266,6 @@
     "@babel/core": "^7.19.1",
     "@testing-library/react-hooks": "^8.0.1",
     "html-loader": "^4.1.0",
-    "jest-environment-jsdom": "^29.0.3",
-    "stylelint-config-standard-scss": "^3.0.0"
+    "jest-environment-jsdom": "^29.0.3"
   }
 }

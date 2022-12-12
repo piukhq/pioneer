@@ -1,7 +1,6 @@
 @import "src/sass/variables";
 @import "src/sass/mixins";
 @import "~sassThemeFolder/fonts/font-definitions";
-
 @include base-styling;
 
 /* dev only, used to highlight components on a page that should be visible only by devs */
